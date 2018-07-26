@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "78861729718",
+    "firebase_url": "https://workout-apps.firebaseio.com",
+    "project_id": "workout-apps",
+    "storage_bucket": "workout-apps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78861729718:android:601282eb9b83a0c4",
+        "android_client_info": {
+          "package_name": "com.bwf.hiit.workout.abs.challenge.home.fitness"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "78861729718-abb6ktohe2ce66q1c0np6u43udju73u3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArxGpjG5sAlqUlU0QxjFTSS2c-xn2zGlA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

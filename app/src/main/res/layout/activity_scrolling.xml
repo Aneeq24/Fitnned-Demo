@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    android:background="#dedede"
+    tools:context=".view.ScrollingActivity">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.NoActionBar.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/days_screen_top_image"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar"
+
+            >
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#dedede">
+
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/days_screen_top_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.53"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/days_screen_days_finished_bar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+
+                <com.dinuscxj.progressbar.CircleProgressBar
+                    android:id="@+id/line_progress"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:progress_stroke_width="4dp"
+                    app:line_width="4dp"
+                    app:line_count="30"
+                    app:progress_text_color="@color/colorPrimary"
+                    app:progress_text_size="20dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/imageView9"
+                    app:style="solid_line" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:alpha="0.5"
+                    android:text="DAYS LEFT"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="18sp"
+                    app:fontFamily="@font/roboto_bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/line_progress"
+                    app:layout_constraintTop_toTopOf="@+id/imageView9" />
+
+                <com.dinuscxj.progressbar.CircleProgressBar
+                    android:id="@+id/line_progress_finished"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:progress_stroke_width="4dp"
+                    app:line_width="4dp"
+                    app:line_count="30"
+                    app:progress_text_color="@color/colorPrimary"
+                    app:progress_text_size="20dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginStart="24dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+                    app:layout_constraintStart_toEndOf="@+id/textView2"
+                    app:layout_constraintTop_toTopOf="@+id/imageView9"
+                    app:style="solid_line" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:alpha="0.5"
+                    android:textSize="18sp"
+                    android:text="FINISHED"
+                    android:textColor="@color/colorAccent"
+                    app:fontFamily="@font/roboto_bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+                    app:layout_constraintStart_toEndOf="@+id/line_progress_finished"
+                    app:layout_constraintTop_toTopOf="@+id/imageView9" />
+
+            </android.support.constraint.ConstraintLayout>
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_scrolling" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="48dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="0dp"
+            android:paddingTop="0dp"
+            android:text="DAY SELECT"
+
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp"
+            app:fontFamily="@font/roboto_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--<com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+            <!--android:id="@+id/banner_day"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--ads:adSize="BANNER"-->
+            <!--ads:adUnitId="@string/banner_ad_unit"-->
+            <!--ads:layout_constraintBottom_toBottomOf="parent"-->
+            <!--ads:layout_constraintEnd_toEndOf="parent"-->
+            <!--ads:layout_constraintStart_toStartOf="parent" />-->
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+</android.support.design.widget.CoordinatorLayout>

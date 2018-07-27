@@ -10,45 +10,43 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".view.MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.SplashScreeActivity"
-            android:screenOrientation="portrait"
-            >
-
+        <activity
+            android:name=".view.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.SplashScreeActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
         <activity
             android:name=".view.DayProgressList"
-            android:theme="@style/AppTheme.NoActionBar"
-
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.PlayingExercise"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.DailyExerciseInfo"
-            android:label=""
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.PlayingExercise"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.DailyExerciseInfo"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.HomeActivity"
-
             android:label="@string/plan_select"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
-            />
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ScrollingActivity"
-            android:screenOrientation="portrait"
             android:label=""
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.ReminderSetActivity" />
+        <activity android:name=".view.SelectGender" />
+        <activity android:name=".view.AgeWeightHeightActivity"></activity>
     </application>
 
 </manifest>

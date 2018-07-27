@@ -216,6 +216,11 @@
     <string name="MainCategory" />
     <string name="plan">Plan</string>
     <string name="day_selected">Day</string>
+    <string name="title_activity_select_gender">SelectGender</string>
+    <string name="select_gender">Select Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="next">Next</string>
 
 
 </resources>

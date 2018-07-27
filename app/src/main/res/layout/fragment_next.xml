@@ -24,24 +24,23 @@
 
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/nextBgButtonPanel"
-            android:layout_width="343dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/pause_screen_image_bg"
-            app:layout_constraintEnd_toEndOf="parent"
+    <ImageView
+        android:id="@+id/nextBgButtonPanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
 
-            app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/pause_screen_image_bg"
 
-            app:layout_constraintBottom_toTopOf="@id/nextScreenBg"
-
-            />
+        app:layout_constraintBottom_toTopOf="@+id/nextScreenSkipHeading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <ImageView
         android:id="@+id/nextScreenBg"
         android:layout_width="wrap_content"
-        android:layout_height="62dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:src="@drawable/pause_screen_next_bar_bg"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,13 +49,14 @@
 
     <TextView
         android:id="@+id/nextScreenSkipHeading"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
         android:text="NEXT"
-        app:layout_constraintStart_toStartOf="@+id/nextScreenBg"
-        app:layout_constraintTop_toBottomOf="@+id/nextBgButtonPanel" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+        android:textColor="@color/colorDarkGray"
+        app:layout_constraintBottom_toTopOf="@+id/nextScreenBg"
+        tools:layout_editor_absoluteX="52dp" />
 
         <ImageView
             android:id="@+id/nextScreenSkipIcon"
@@ -75,12 +75,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="8dp"
         android:text="HEADLINE EXAMPLE"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/nextScreenBg"
-        app:layout_constraintTop_toBottomOf="@+id/nextScreenSkipHeading" />
+        app:layout_constraintTop_toTopOf="@+id/nextScreenBg" />
 
     <ImageView
         android:id="@+id/nextExercisePlay"
@@ -117,7 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="8dp"
         android:text="CAPTION EXAMPLE"
 
         app:layout_constraintStart_toStartOf="@+id/nextScreenBg"

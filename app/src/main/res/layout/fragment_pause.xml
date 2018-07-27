@@ -27,22 +27,13 @@
         android:id="@+id/pauseBgButtonPanel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:src="@drawable/pause_screen_image_bg"
         app:layout_constraintBottom_toTopOf="@+id/pauseNextHeading"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="CAPTION EXAMPLE"
-        app:layout_constraintStart_toStartOf="@+id/nextScreenBg"
-        app:layout_constraintTop_toBottomOf="@+id/pauseHeadline" />
+
 
     <ImageView
         android:id="@+id/nextScreenBg"
@@ -62,7 +53,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginStart="24dp"
         android:text="NEXT"
-        android:textSize="18sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toTopOf="@+id/nextScreenBg"
         app:layout_constraintStart_toStartOf="@+id/nextScreenBg" />
 
@@ -82,8 +73,8 @@
         android:id="@+id/pauseHeadline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="HEADLINE EXAMPLE"
         android:textColor="@color/colorPrimary"
@@ -135,5 +126,15 @@
         app:layout_constraintBottom_toBottomOf="@+id/pauseBgButtonPanel"
         app:layout_constraintEnd_toEndOf="@+id/pauseBgButtonPanel"
         app:layout_constraintTop_toTopOf="@+id/pauseBgButtonPanel" />
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="CAPTION EXAMPLE"
+        app:layout_constraintStart_toStartOf="@+id/nextScreenBg"
+        app:layout_constraintTop_toBottomOf="@+id/pauseHeadline" />
 
 </android.support.constraint.ConstraintLayout>

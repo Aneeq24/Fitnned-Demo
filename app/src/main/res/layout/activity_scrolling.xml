@@ -53,14 +53,16 @@
                     app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
                 <com.dinuscxj.progressbar.CircleProgressBar
-                    android:id="@+id/line_progress"
+                    android:id="@+id/line_progress_left"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     app:progress_stroke_width="4dp"
                     app:line_width="4dp"
                     app:line_count="30"
                     app:progress_text_color="@color/colorPrimary"
-                    app:progress_text_size="20dp"
+                    app:progress_start_color="@color/colorPrimary"
+                    app:progress_end_color="@color/colorPrimary"
+                    app:progress_text_size="12dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginStart="16dp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView9"
@@ -81,7 +83,7 @@
                     android:textSize="18sp"
                     app:fontFamily="@font/roboto_bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/line_progress"
+                    app:layout_constraintStart_toEndOf="@+id/line_progress_left"
                     app:layout_constraintTop_toTopOf="@+id/imageView9" />
 
                 <com.dinuscxj.progressbar.CircleProgressBar
@@ -89,10 +91,12 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     app:progress_stroke_width="4dp"
+                    app:progress_start_color="@color/colorPrimary"
+                    app:progress_end_color="@color/colorPrimary"
                     app:line_width="4dp"
                     app:line_count="30"
                     app:progress_text_color="@color/colorPrimary"
-                    app:progress_text_size="20dp"
+                    app:progress_text_size="12dp"
                     android:layout_marginLeft="24dp"
                     android:layout_marginStart="24dp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView9"

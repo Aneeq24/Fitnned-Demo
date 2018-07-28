@@ -44,7 +44,7 @@
         <!--app:layout_constraintVertical_bias="0.0" />-->
 
     <com.dinuscxj.progressbar.CircleProgressBar
-        android:id="@+id/line_progress"
+        android:id="@+id/line_progress_left"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginEnd="16dp"
@@ -54,8 +54,9 @@
         app:line_width="4dp"
         app:line_count="30"
         app:progress_start_color="@color/colorPrimary"
+        app:progress_end_color="@color/colorPrimary"
         app:progress_text_color="@color/colorPrimary"
-        app:progress_text_size="20dp"
+        app:progress_text_size="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/bgForDailyPerformance"
         app:layout_constraintEnd_toEndOf="@+id/bgForDailyPerformance"
         app:layout_constraintTop_toTopOf="@+id/bgForDailyPerformance" />

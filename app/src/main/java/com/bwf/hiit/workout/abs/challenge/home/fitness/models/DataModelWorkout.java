@@ -26,6 +26,7 @@ public class DataModelWorkout
 
     //region [Daily ExerciseList]
         public ArrayList<String> dailyExercise_ExerciseName = new ArrayList<String>();
+        public ArrayList<String> dailyExercise_VideoView = new ArrayList<String>();
         public  ArrayList<Integer> dailyExercise_ImageIndex = new ArrayList<Integer>();
     //endregion
 

@@ -1,24 +1,28 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.PagerAdapter;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.MainMenuAdapter;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.Workout;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -32,52 +36,25 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
 
         String [] plans = getResources().getStringArray(R.array.plans);
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        final ViewPager viewPager = findViewById(R.id.viewPager);
-        final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager() , tabLayout.getTabCount());
-
-        //TODO
-        AdsManager.getInstance().showFacebookInterstitialAd();
-
-        viewPager.setAdapter(pagerAdapter);
+//        TabLayout tabLayout = findViewById(R.id.tabLayout);
+//        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+//
+//        final ViewPager viewPager = findViewById(R.id.viewPager);
+//        final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager() , tabLayout.getTabCount());
+//
+//        //TODO
+//        AdsManager.getInstance().showFacebookInterstitialAd();
+//
+//        viewPager.setAdapter(pagerAdapter);
 
         AnalyticsManager.getInstance().sendAnalytics("Activity Started", "Home Activity");
 
-        int  k = viewPager.getCurrentItem();
+//        int  k = viewPager.getCurrentItem();
 
 
 
         TTSManager.getInstance(getApplication()).play("Welcome");
-
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-        viewPager.setCurrentItem(selectedIndex);
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab)
-            {
-                Log.d("Main Activity : " , "Taped " + tab.getPosition());
-                viewPager.setCurrentItem(tab.getPosition());
-                //pagerAdapter.getItem(tab.getPosition());
-                int  k = viewPager.getCurrentItem();
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab)
-            {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab)
-            {
-
-            }
-        });
+//
 
         try
         {
@@ -105,16 +82,59 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
+
+
     void initApp()
     {
-//        RecyclerView recycleViewActivity = findViewById(R.id.menuData);
-//        recycleViewActivity.setLayoutManager(new LinearLayoutManager(this));
-//        populateData();
-//        MenuDataClass dataClass = new MenuDataClass();
-//        recycleViewActivity.setAdapter(new MainMenuAdapter(dataClass.tilte , dataClass.image,dataClass.description));
-//
+        RecyclerView recycleViewActivity =  findViewById(R.id.menuData);
+        recycleViewActivity.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        MenuDataClass dataClass = new MenuDataClass();
 
+        recycleViewActivity.setAdapter(new MainMenuAdapter(dataClass.tilte , dataClass.image,dataClass.description));
     }
+
+    Workout.MenuDataClass obj1;
+    Workout.MenuDataClass obj2;
+    Workout.MenuDataClass obj3;
+    Workout.MenuDataClass[] array;
+
+    List<Workout.MenuDataClass> list = new ArrayList<Workout.MenuDataClass>();
+
+    public  class  MenuDataClass
+    {
+        //1994 populate main screen
+
+        //ToDo need to get images from the data base
+        String[] tilte = {"BEGINEER" , "INTERMEDIATE" , "ADVANCED"};
+
+        String[] description = {
+                "",
+                "",
+                ""
+        };
+
+        Bitmap[] image = {  BitmapFactory.decodeResource(getResources(),R.drawable.main_screen_beginner_image),
+                BitmapFactory.decodeResource(getResources(),R.drawable.main_screen_intermediate_image),
+                BitmapFactory.decodeResource(getResources(),R.drawable.main_screen_advanced_image)
+        };
+
+        MenuDataClass()
+        {
+
+        }
+    }
+
+
+//    void initApp()
+//    {
+////        RecyclerView recycleViewActivity = findViewById(R.id.menuData);
+////        recycleViewActivity.setLayoutManager(new LinearLayoutManager(this));
+////        populateData();
+////        MenuDataClass dataClass = new MenuDataClass();
+////        recycleViewActivity.setAdapter(new MainMenuAdapter(dataClass.tilte , dataClass.image,dataClass.description));
+////
+//
+//    }
 
     @Override
     public void onBackPressed() {
@@ -158,11 +178,7 @@ public class HomeActivity extends AppCompatActivity
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
+        }  else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 

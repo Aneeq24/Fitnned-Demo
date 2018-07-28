@@ -187,7 +187,6 @@ public class ExerciseFragment extends Fragment {
         {
             public void onTick(long millisUntilFinished) {
 
-                remaingTime = (int)(millisUntilFinished/1000);
               //  timer.setText("" + millisUntilFinished / 1000 + "\"");
 
             }

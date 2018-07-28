@@ -1,6 +1,8 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,16 +11,23 @@ import android.support.v7.widget.Toolbar;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayRecycleAdapter;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.LogHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.DataModelWorkout;
+import com.dinuscxj.progressbar.CircleProgressBar;
 
 public class ScrollingActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
 
+
     public DataModelWorkout dataModelsWorkout;
+
+    CircleProgressBar circleProgressBarLeft;
+    CircleProgressBar  circleProgressBarCompleted;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -38,6 +47,10 @@ public class ScrollingActivity extends AppCompatActivity {
         com.google.android.gms.ads.AdView adView = findViewById(R.id.banner_day);
 
         AdsManager.getInstance().showBanner(adView);
+
+        circleProgressBarLeft = findViewById(R.id.line_progress_left);
+        circleProgressBarCompleted = findViewById(R.id.line_progress_finished);
+        circleProgressBarLeft.setProgressFormatter((progress, max) -> progress + "");
 
         AnalyticsManager.getInstance().sendAnalytics("Activity Started", "Day activity");
 
@@ -83,6 +96,8 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
 
+    int val = 0;
+        @SuppressLint("StaticFieldLeak")
         void  populateData() {
 
 
@@ -93,19 +108,7 @@ public class ScrollingActivity extends AppCompatActivity {
             {
                 case  0:
                     dataModelsWorkout.dayName =  getResources().getStringArray(R.array.days_list);  //new String[]
-//                            {
-//                                    "Day 1", "Day 2", "Day 3",
-//                                    "Day 4","Day 5", "Day 6" ,
-//                                    "Day 7" ,"Day 8" , "Day 9",
-//                                    "Day 10" ,"Day 11" , "Day 12",
-//                                    "Day 13" ,"Day 14" , "Day 15",
-//                                    "Day 16" ,"Day 17" , "Day 18",
-//                                    "Day 19" ,"Day 20" , "Day 21",
-//                                    "Day 22" ,"Day 23" , "Day 24",
-//                                    "Day 25" ,"Day 26" , "Day 27",
-//                                    "Day 28" ,"Day 29" , "Day 30",
-//
-//                            };
+
                          for ( int i = 0; i<30 ; i++  )
                          {
                              dataModelsWorkout.progress.add(i , (float)0);
@@ -114,18 +117,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     break;
                 case  1:
                     dataModelsWorkout.dayName = getResources().getStringArray(R.array.days_list);//new String[]
-//                            {
-//                                    "Day 1", "Day 2", "Day 3",
-//                                    "Day 4","Day 5", "Day 6" ,
-//                                    "Day 7" ,"Day 8" , "Day 9",
-//                                    "Day 10" ,"Day 11" , "Day 12",
-//                                    "Day 13" ,"Day 14" , "Day 15",
-//                                    "Day 16" ,"Day 17" , "Day 18",
-//                                    "Day 19" ,"Day 20" , "Day 21",
-//                                    "Day 22" ,"Day 23" , "Day 24",
-//                                    "Day 25" ,"Day 26" , "Day 27",
-//                                    "Day 28" ,"Day 29" , "Day 30",
-//                            };
+
 
                     for ( int i = 0; i<30 ; i++  )
                     {
@@ -136,20 +128,6 @@ public class ScrollingActivity extends AppCompatActivity {
                 case  2:
                     dataModelsWorkout.dayName =getResources().getStringArray(R.array.days_list);
 
-//                            new String[]
-//                            {
-//                                    "Day 1", "Day 2", "Day 3",
-//                                    "Day 4","Day 5", "Day 6" ,
-//                                    "Day 7" ,"Day 8" , "Day 9",
-//                                    "Day 10" ,"Day 11" , "Day 12",
-//                                    "Day 13" ,"Day 14" , "Day 15",
-//                                    "Day 16" ,"Day 17" , "Day 18",
-//                                    "Day 19" ,"Day 20" , "Day 21",
-//                                    "Day 22" ,"Day 23" , "Day 24",
-//                                    "Day 25" ,"Day 26" , "Day 27",
-//                                    "Day 28" ,"Day 29" , "Day 30",
-//
-//                            };
 
                     for ( int i = 0; i<30 ; i++  )
                     {
@@ -161,6 +139,55 @@ public class ScrollingActivity extends AppCompatActivity {
                 default:
 
             }
+
+
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground(Void... voids) {
+                    AppDataBase dataBase = AppDataBase.getInstance();
+
+                    for(int i =0 ; i< 30 ; i++)
+                    {
+                        int totalComplete = dataBase.exerciseDayDao().getExerciseDays(plan,
+                                i+1).get(0).getExerciseComplete();
+                        int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan,
+                                i+1).get(0).getTotalExercise();
+
+
+                        float v = (float) totalComplete/(float) totalExercises;
+
+                        LogHelper.logD("1994:",""+ v);
+                       if(v>=1)
+                       {
+                            val++;
+                             LogHelper.logD("1994:",""+ val);
+                       }
+
+                    }
+
+                    int dayLeft = 30 - val;
+
+                    circleProgressBarLeft.setMax(30);
+                    circleProgressBarLeft.setProgress(dayLeft);
+                    LogHelper.logD("1993" , "Day left" + (dayLeft));
+                    circleProgressBarCompleted.setMax(30);
+                    circleProgressBarCompleted.setProgress(val);
+
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute (Void aVoid){
+                    super.onPostExecute(aVoid);
+
+                }
+
+                @Override
+                protected void onProgressUpdate (Void...values){
+                    super.onProgressUpdate(values);
+                }
+
+            }.execute();
         }
 
         void initView()
@@ -173,17 +200,33 @@ public class ScrollingActivity extends AppCompatActivity {
         @Override
         public void onBackPressed()
         {
-            // resetData();
             super.onBackPressed();
 
         }
 
-        void  resetData()
-        {
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+//        circleProgressBarLeft = findViewById(R.id.line_progress_left);
+//        circleProgressBarCompleted = findViewById(R.id.line_progress_finished);
+//        circleProgressBarLeft.setProgressFormatter((progress, max) -> progress + "");
+//        dataModelsWorkout = new DataModelWorkout();
+//        populateData();
+//        initView();
+
+    }
+
+    void  resetData()
+   {
             dataModelsWorkout.dayName = null;
             dataModelsWorkout.iconForExcersice = null;
             dataModelsWorkout.progress = null;
-        }
+   }
+
+
+
 
 
 }

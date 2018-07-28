@@ -35,8 +35,8 @@ public class DailyExerciseInfo extends AppCompatActivity {
     ImageView startButton;
     Toolbar toolbar;
 
-    int plan = 0;
-    int day = 0;
+   public int plan = 0;
+    public int day = 0;
 
     SharedPreferences sharedPreferences;
 
@@ -96,7 +96,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
     {
         RecyclerView recyleView = findViewById(R.id.dailyExercise_RecyclerView);
         recyleView.setLayoutManager(new LinearLayoutManager(this));
-        recyleView.setAdapter(new  DailyExerciseAdapter(dataModelWorkout));
+        recyleView.setAdapter(new  DailyExerciseAdapter(dataModelWorkout , this));
 
         validatingDb();
 
@@ -110,7 +110,6 @@ public class DailyExerciseInfo extends AppCompatActivity {
         int roundsCleared = exerciseDays.get(0).getRoundCompleted();
         int totalexercisePlayed =exerciseDays.get(0).getRoundCompleted();
         int currentExercise = 0;
-
 
         for (ExerciseDay day: exerciseDays)
         {
@@ -134,18 +133,16 @@ public class DailyExerciseInfo extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     void  downLoaddbData()
     {
-
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 AppDataBase dataBase = AppDataBase.getInstance();
+                dataModelWorkout = new DataModelWorkout();
                 exerciseDays = dataBase.exerciseDayDao().getExerciseDays(plan, day);
                 for (ExerciseDay day : exerciseDays)
                 {
                     Exercise exercise = dataBase.exerciseDao().findById(day.getId());
                     dataModelWorkout.dailyExercise_ExerciseName.add(exercise.getDisplay_name());
-                    dataModelWorkout.dailyExercise_ImageIndex.add(R.drawable.pause_screen_next_bar_image);
-
 
                 }
                 return null;
@@ -206,31 +203,6 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
         downLoaddbData();
 
-//        dataModelWorkout.dailyExercise_ExerciseName = new  String[]{
-//                "Exercise 1",
-//                "Exercise 2",
-//                "Exercise 3",
-//                "Exercise 4",
-//                "Exercise 5",
-//                "Exercise 6",
-//                "Exercise 7",
-//                "Exercise 8",
-//                "Exercise 9",
-//        };
-//
-//        dataModelWorkout.dailyExercise_ImageIndex = new  int[]
-//                {
-//                    R.drawable.pause_screen_next_bar_image,
-//                    R.drawable.pause_screen_next_bar_image,
-//                    R.drawable.pause_screen_next_bar_image,
-//                    R.drawable.pause_screen_next_bar_image,
-//                    R.drawable.pause_screen_next_bar_image,
-//                    R.drawable.pause_screen_next_bar_image,
-//                    R.drawable.pause_screen_next_bar_image,
-//                    R.drawable.pause_screen_next_bar_image,
-//                    R.drawable.pause_screen_next_bar_image,
-//
-//                };
     }
 
 

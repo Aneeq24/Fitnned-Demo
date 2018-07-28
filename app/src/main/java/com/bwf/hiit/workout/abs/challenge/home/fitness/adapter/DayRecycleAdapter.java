@@ -27,10 +27,12 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
     SharedPreferences sharedPreferences;
     AppDataBase dataBase;
 
+    boolean getValuefromDb;
+
     View rootView;
 
     public  int currentPlan = 0;
-   // public  int currentDay = 0;
+
 
 
     public  class  GetDataFromDb extends AsyncTask<Void , Void , Void>
@@ -40,8 +42,6 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
         protected Void doInBackground(Void... voids)
         {
             dataBase = AppDataBase.getInstance();
-
-
 
             for(int i =0 ; i< 30 ; i++)
             {
@@ -156,7 +156,7 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
             super(itemView);
           //  pic = itemView.findViewById(R.id.dayIconId);
             dayName = itemView.findViewById(R.id.dayNameId);
-            circleProgressBar = itemView.findViewById(R.id.line_progress);
+            circleProgressBar = itemView.findViewById(R.id.line_progress_left);
            // circleProgressBar.setBackground(rootView.getResources().getDrawable( R.drawable.play_screen_timer_loading_bg));
 
          //   circleProgressBar.

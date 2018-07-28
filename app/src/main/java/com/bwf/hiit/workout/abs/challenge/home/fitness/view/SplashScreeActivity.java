@@ -12,6 +12,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AppPrefManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Day;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.DayProgressModel;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Detail;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
@@ -54,6 +55,23 @@ public class SplashScreeActivity extends AppCompatActivity {
                         Log.e(TAG, "plans: " + e.getLocalizedMessage());
                     }
                 }
+
+                //insert Day and progress
+
+                if(appDataBase.dayProgressDao().getCount() == 0)
+                {
+                    try {
+                        String json = JsonUtils.readJsonFromAssets(getApplicationContext(), "daysprogress.json");
+                        List<DayProgressModel> progressModels = gson.fromJson(json, new TypeToken<List<DayProgressModel>>() {
+                        }.getType());
+                        if (progressModels != null && progressModels.size() > 0) {
+                            appDataBase.dayProgressDao().insertAll(progressModels);
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "dayprogress: " + e.getLocalizedMessage());
+                    }
+                }
+
                 // insert exercises
                 if (appDataBase.exerciseDao().getCount() == 0) {
                     try {

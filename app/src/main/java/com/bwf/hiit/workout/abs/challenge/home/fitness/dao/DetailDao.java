@@ -12,10 +12,14 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Detail;
 import java.util.List;
 
 @Dao
-public interface DetailDao {
+public interface DetailDao
+{
 
     @Query("SELECT COUNT(*) FROM detail")
     int getCount();
+
+
+
 
     @Insert
     void addDetail(Detail detail);

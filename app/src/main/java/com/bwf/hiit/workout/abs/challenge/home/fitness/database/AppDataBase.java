@@ -7,17 +7,19 @@ import android.content.Context;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.dao.DayProgressDao;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.dao.DetailDao;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.dao.ExerciseDao;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.dao.ExerciseDayDao;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.dao.PlanDao;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.DayProgressModel;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Detail;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Plan;
 
 
-@Database(entities = {ExerciseDay.class , Plan.class , Detail.class, Exercise.class}, version = 1,exportSchema = false)
+@Database(entities = {ExerciseDay.class , Plan.class , Detail.class, Exercise.class , DayProgressModel.class}, version = 1,exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
 
     private static AppDataBase appDataBase;
@@ -29,6 +31,8 @@ public abstract class AppDataBase extends RoomDatabase {
     public abstract ExerciseDayDao exerciseDayDao();
 
     public  abstract DetailDao detailDao();
+
+    public  abstract DayProgressDao dayProgressDao();
 
     public static AppDataBase getInstance() {
 

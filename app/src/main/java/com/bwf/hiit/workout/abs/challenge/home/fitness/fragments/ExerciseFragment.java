@@ -16,6 +16,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
+import com.dinuscxj.progressbar.CircleProgressBar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,7 +41,11 @@ public class ExerciseFragment extends Fragment {
     VideoView viewVideo;
     PlayingExercise playingExercise;
 
+    CircleProgressBar playingExerciseCircle;
+
     TextView  exerciseName;
+
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -84,6 +89,15 @@ public class ExerciseFragment extends Fragment {
         playingExercise = (PlayingExercise) getActivity();
 
 
+        playingExerciseCircle = rootView.findViewById(R.id.playingExericseCircle);
+
+        playingExerciseCircle.setProgressFormatter(new CircleProgressBar.ProgressFormatter() {
+            @Override
+            public CharSequence format(int progress, int max) {
+
+                return progress + "\"";
+            }
+        });
 
         findRefrence();
         return rootView;
@@ -103,6 +117,7 @@ public class ExerciseFragment extends Fragment {
    CountDownTimer countDownTimer;
    CountDownTimer videoTimer;
 
+    int value =0;
     void  findRefrence()
     {
         exerciseTimer = rootView.findViewById(R.id.timerExerciseText);
@@ -160,9 +175,10 @@ public class ExerciseFragment extends Fragment {
         if (!PlayingExercise.is_Paused) {
             AppDataBase dataBase = AppDataBase.getInstance();
 
-            int value = playingExercise.getCurrentReps();
+            value = playingExercise.getCurrentReps();
 
             TTSManager.getInstance(playingExercise.getApplication()).play("Do "+ playingExercise.displayName +" for " +value/1000+ " seconds");
+
 
             startPlayingExercise(value, 1000, exerciseTimer);
         }
@@ -201,13 +217,17 @@ public class ExerciseFragment extends Fragment {
 
     void startPlayingExercise(int totalSkipTime, int interval, final TextView timer) {
 
+//        playingExerciseCircle.setMax(totalSkipTime/1000);
 
+        playingExerciseCircle.setMax(value/1000);
         countDownTimer = new CountDownTimer(totalSkipTime, interval)
         {
             public void onTick(long millisUntilFinished) {
 
                 remaingTime = (int)(millisUntilFinished/1000);
                 timer.setText("" + millisUntilFinished / 1000 + "\"");
+
+                playingExerciseCircle.setProgress(remaingTime);
 
             }
 

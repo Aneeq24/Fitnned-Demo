@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
+import com.dinuscxj.progressbar.CircleProgressBar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +32,8 @@ public class SkipFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+
+    CircleProgressBar skipCircleprogressBar;
     View rootView;
 
     TextView headingNameExercise;
@@ -75,6 +78,8 @@ public class SkipFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_skip, container, false);
+
+        skipCircleprogressBar = rootView.findViewById(R.id.skipExerciseTimeCircle);
         findReferences();
         return  rootView;
 
@@ -96,16 +101,19 @@ public class SkipFragment extends Fragment {
 
         headingNameExercise.setText(playingExercise.displayName);
 
-        skipTimerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startPlayingButton();
+        skipTimerButton.setOnClickListener(view -> startPlayingButton());
 
-
-            }
-        });
 
         startSkipTimer(15000 , 1000,skipTimerText);
+        skipCircleprogressBar.setProgressFormatter(new CircleProgressBar.ProgressFormatter() {
+            @Override
+            public CharSequence format(int progress, int max) {
+
+                return progress + "\"";
+            }
+        });
+        skipCircleprogressBar.setMax(15);
+
 
     }
 
@@ -113,8 +121,11 @@ public class SkipFragment extends Fragment {
 
         countDownTimer = new CountDownTimer(totalSkipTime, interval) {
 
-            public void onTick(long millisUntilFinished) {
+            public void onTick(long millisUntilFinished)
+            {
                 timer.setText("" + millisUntilFinished / 1000 + "\"");
+                int value = (int)(millisUntilFinished / 1000);
+                skipCircleprogressBar.setProgress(value);
             }
 
             public void onFinish()

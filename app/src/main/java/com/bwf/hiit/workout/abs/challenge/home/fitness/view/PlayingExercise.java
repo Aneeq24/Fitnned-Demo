@@ -262,7 +262,6 @@ public class PlayingExercise extends AppCompatActivity {
     {
         fragmentManager.beginTransaction().replace(R.id.fragment_container ,exerciseFragment,null).commit();
 
-
     }
 
     public  void  PauseFragment(int remaingTime)

@@ -96,38 +96,37 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:progress_stroke_width="7dp"
-        app:line_width="7dp"
-        app:line_count="30"
-        app:progress_text_size="30dp"
-        app:progress_stroke_cap="round"
-        app:progress_background_color="@color/bgColor"
-        app:progress_text_color="@color/colorPrimary"
-        app:progress_start_color="@color/colorPrimary"
-        app:progress_end_color="@color/colorPrimary"
-
         android:src="@drawable/pause_screen_play_icon"
         app:layout_constraintBottom_toBottomOf="@+id/nextBgButtonPanel"
-        app:layout_constraintEnd_toStartOf="@+id/iv_timer"
-        app:layout_constraintStart_toEndOf="@+id/addRestTime"
+        app:layout_constraintEnd_toEndOf="@+id/nextBgButtonPanel"
+        app:layout_constraintStart_toStartOf="@+id/nextBgButtonPanel"
         app:layout_constraintTop_toTopOf="@+id/nextBgButtonPanel"
+        app:line_count="30"
+        app:line_width="7dp"
+        app:progress_background_color="@color/bgColor"
+
+        app:progress_end_color="@color/colorPrimary"
+        app:progress_start_color="@color/colorPrimary"
+        app:progress_stroke_cap="round"
+        app:progress_stroke_width="7dp"
+        app:progress_text_color="@color/colorPrimary"
+        app:progress_text_size="30dp"
         app:style="solid_line" />
 
 
-
-        <ImageView
-            android:id="@+id/addRestTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="64dp"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/pause_screen_pluse_time_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/nextBgButtonPanel"
-            app:layout_constraintStart_toStartOf="@+id/nextBgButtonPanel"
-            app:layout_constraintTop_toTopOf="@+id/nextBgButtonPanel"
-            app:layout_constraintVertical_bias="0.503" />
+    <ImageView
+        android:id="@+id/addRestTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/pause_screen_pluse_time_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/nextBgButtonPanel"
+        app:layout_constraintEnd_toStartOf="@+id/restTimer"
+        app:layout_constraintTop_toTopOf="@+id/nextBgButtonPanel"
+        app:layout_constraintVertical_bias="0.494" />
 
     <TextView
         android:id="@+id/textView6"
@@ -144,17 +143,16 @@
 
 
     <ImageView
-            android:id="@+id/iv_timer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="64dp"
-            android:layout_marginRight="64dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/pause_screen_skip_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/nextBgButtonPanel"
-            app:layout_constraintEnd_toEndOf="@+id/nextBgButtonPanel"
-            app:layout_constraintTop_toTopOf="@+id/nextBgButtonPanel" />
+        android:id="@+id/iv_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/pause_screen_skip_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/nextBgButtonPanel"
+        app:layout_constraintTop_toTopOf="@+id/nextBgButtonPanel"
+        app:layout_constraintVertical_bias="0.489"
+        tools:layout_editor_absoluteX="262dp" />
 
 
 

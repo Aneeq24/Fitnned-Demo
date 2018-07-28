@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgColor"
-    tools:context=".fragments.NextFragment$CompleteFragment">
+    tools:context=".fragments.CompleteFragment">
 
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
+            android:background="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />/
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintBottom_toTopOf="@+id/imageView12"
 
         app:layout_constraintEnd_toEndOf="parent"
@@ -155,6 +150,7 @@
 
         <ImageView
             android:id="@+id/imageView14"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
             android:layout_marginEnd="8dp"
@@ -164,8 +160,7 @@
             android:src="@drawable/days_screen_days_normal_bar"
             app:layout_constraintBottom_toTopOf="@+id/imageView13"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/native_container" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/imageView15"
@@ -179,9 +174,11 @@
             android:src="@drawable/completed_screen_trophi_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView11"
 
 
-    </android.support.constraint.ConstraintLayout>
+            />
 
-</ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>

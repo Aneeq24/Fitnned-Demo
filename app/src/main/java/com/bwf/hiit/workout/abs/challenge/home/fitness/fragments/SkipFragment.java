@@ -33,6 +33,8 @@ public class SkipFragment extends Fragment {
 
     View rootView;
 
+    TextView headingNameExercise;
+
     PlayingExercise playingExercise;
 
     private OnFragmentInteractionListener mListener;
@@ -90,6 +92,10 @@ public class SkipFragment extends Fragment {
         skipTimerButton = rootView.findViewById(R.id.skipButton);
         skipImg = rootView.findViewById(R.id.skipLayoutImag);
 
+        headingNameExercise = rootView.findViewById(R.id.tv_exercise_name_skipScreen);
+
+        headingNameExercise.setText(playingExercise.displayName);
+
         skipTimerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,8 +145,6 @@ public class SkipFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-
 
 
 

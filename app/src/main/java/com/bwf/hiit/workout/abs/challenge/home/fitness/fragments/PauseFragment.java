@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 
 
@@ -28,6 +30,9 @@ public class PauseFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+
+    TextView nextExerciseName;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -102,6 +107,10 @@ public class PauseFragment extends Fragment {
         prevImg = rootView.findViewById(R.id.previous);
         next = rootView.findViewById(R.id.pauseNext);
 
+        nextExerciseName = rootView.findViewById(R.id.tv_pauseHeadline);
+
+        nextExerciseName.setText(playingExercise.nextExerciseName);
+
         resumeImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,12 +134,17 @@ public class PauseFragment extends Fragment {
         });
 
 
+        //TTSManager.getInstance(getApplication()).play The Next Exercise is [exercise name])
+
+        TTSManager.getInstance(playingExercise.getApplication()).play("The Next Exercise is " + playingExercise.nextExerciseName);
+
     }
 
     void  onResumeExercise()
     {
         playingExercise.onResumeFragment();
     }
+
     void  onNext()
     {
 

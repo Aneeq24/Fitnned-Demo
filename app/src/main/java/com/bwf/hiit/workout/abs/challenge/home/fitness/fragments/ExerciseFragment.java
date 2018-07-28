@@ -14,6 +14,7 @@ import android.widget.VideoView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 
 /**
@@ -38,6 +39,8 @@ public class ExerciseFragment extends Fragment {
 
     VideoView viewVideo;
     PlayingExercise playingExercise;
+
+    TextView  exerciseName;
 
     private OnFragmentInteractionListener mListener;
 
@@ -78,11 +81,6 @@ public class ExerciseFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView =inflater.inflate(R.layout.fragment_exercise, container, false);
 
-
-
-
-
-
         playingExercise = (PlayingExercise) getActivity();
 
 
@@ -103,6 +101,7 @@ public class ExerciseFragment extends Fragment {
     ImageView exerciseImage;
     ImageView helpButton;
    CountDownTimer countDownTimer;
+   CountDownTimer videoTimer;
 
     void  findRefrence()
     {
@@ -112,6 +111,8 @@ public class ExerciseFragment extends Fragment {
         viewVideo = rootView.findViewById(R.id.videoViewId);
        //Glide.with(this).load(R.drawable.girl).into(exerciseImage);
         helpButton = rootView.findViewById(R.id.help);
+
+        exerciseName = rootView.findViewById(R.id.tv_exerciseName_Playing);
 
 
         pauseButton.setOnClickListener(new View.OnClickListener() {
@@ -135,10 +136,17 @@ public class ExerciseFragment extends Fragment {
 //        view.start();
 
 
-        String  path = "android.resource://" + rootView.getContext().getPackageName() + "/" + R.raw.girl_render;
+        String str =  playingExercise.exerciseName;
+        exerciseName.setText(playingExercise.displayName);
 
 
+        //str  ="girl_render";
+       // str=str.concat(".m4v");
+        //String  path = "android.resource://" + rootView.getContext().getPackageName() + "/" + "res/raw/"+str;
 
+         int id = getResources().getIdentifier(str, "raw",rootView.getContext().getPackageName());
+
+        String path = "android.resource://" + rootView.getContext().getPackageName() + "/" + id;
 
         viewVideo.setVideoPath(path);
 
@@ -154,6 +162,7 @@ public class ExerciseFragment extends Fragment {
 
             int value = playingExercise.getCurrentReps();
 
+            TTSManager.getInstance(playingExercise.getApplication()).play("Do "+ playingExercise.displayName +" for " +value/1000+ " seconds");
 
             startPlayingExercise(value, 1000, exerciseTimer);
         }
@@ -174,13 +183,12 @@ public class ExerciseFragment extends Fragment {
 
     void  startVideo()
     {
-        countDownTimer = new CountDownTimer(1000, 1)
+        videoTimer = new CountDownTimer(1000, 1)
         {
             public void onTick(long millisUntilFinished) {
 
                 remaingTime = (int)(millisUntilFinished/1000);
               //  timer.setText("" + millisUntilFinished / 1000 + "\"");
-
 
             }
 
@@ -202,16 +210,15 @@ public class ExerciseFragment extends Fragment {
                 remaingTime = (int)(millisUntilFinished/1000);
                 timer.setText("" + millisUntilFinished / 1000 + "\"");
 
-
             }
 
             public void onFinish()
             {
+                viewVideo.setAlpha(0);
                 timer.setText("" + 0 + "\"");
                 onExerciseComplete();
             }
         }.start();
-
 
     }
     void  resetCountDownTimer()
@@ -226,6 +233,7 @@ public class ExerciseFragment extends Fragment {
 
     void  pause()
     {
+        viewVideo.setAlpha(0);
         countDownTimer.cancel();
         playingExercise.PauseFragment(remaingTime);
         remaingTime = 0;
@@ -233,12 +241,11 @@ public class ExerciseFragment extends Fragment {
 
     void  helpButtonClick()
     {
+        viewVideo.setAlpha(0);
         countDownTimer.cancel();
         playingExercise.helpFragmentFun(remaingTime);
         remaingTime =0;
     }
-
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri)
@@ -249,6 +256,14 @@ public class ExerciseFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        viewVideo.setAlpha(0);
+        videoTimer.cancel();
+        countDownTimer.cancel();
+    }
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

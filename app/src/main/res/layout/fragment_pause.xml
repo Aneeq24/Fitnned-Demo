@@ -50,10 +50,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:text="NEXT"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+        android:textColor="@android:color/darker_gray"
         app:layout_constraintBottom_toTopOf="@+id/nextScreenBg"
         app:layout_constraintStart_toStartOf="@+id/nextScreenBg" />
 
@@ -70,9 +71,10 @@
         app:layout_constraintTop_toTopOf="@+id/nextScreenBg" />
 
     <TextView
-        android:id="@+id/pauseHeadline"
+        android:id="@+id/tv_pauseHeadline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
@@ -80,6 +82,7 @@
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/nextScreenBg"
         app:layout_constraintStart_toStartOf="@+id/nextScreenBg"
         app:layout_constraintTop_toTopOf="@+id/nextScreenBg" />
 
@@ -126,15 +129,17 @@
         app:layout_constraintBottom_toBottomOf="@+id/pauseBgButtonPanel"
         app:layout_constraintEnd_toEndOf="@+id/pauseBgButtonPanel"
         app:layout_constraintTop_toTopOf="@+id/pauseBgButtonPanel" />
+
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="CAPTION EXAMPLE"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/nextScreenBg"
-        app:layout_constraintTop_toBottomOf="@+id/pauseHeadline" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_pauseHeadline" />
 
 </android.support.constraint.ConstraintLayout>

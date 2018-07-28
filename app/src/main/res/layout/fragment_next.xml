@@ -52,11 +52,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:text="NEXT"
         android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
         android:textColor="@color/colorDarkGray"
         app:layout_constraintBottom_toTopOf="@+id/nextScreenBg"
-        tools:layout_editor_absoluteX="52dp" />
+        app:layout_constraintStart_toStartOf="@+id/nextScreenBg" />
 
         <ImageView
             android:id="@+id/nextScreenSkipIcon"
@@ -70,32 +72,48 @@
             app:layout_constraintTop_toTopOf="@+id/nextScreenBg" />
 
     <TextView
-        android:id="@+id/pauseHeadline"
+        android:id="@+id/tv_nextHeadline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="HEADLINE EXAMPLE"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/nextScreenBg"
         app:layout_constraintStart_toStartOf="@+id/nextScreenBg"
         app:layout_constraintTop_toTopOf="@+id/nextScreenBg" />
 
-    <ImageView
-        android:id="@+id/nextExercisePlay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+    <com.dinuscxj.progressbar.CircleProgressBar
+        android:id="@+id/restTimer"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        app:progress_stroke_width="7dp"
+        app:line_width="7dp"
+        app:line_count="30"
+        app:progress_text_size="30dp"
+        app:progress_stroke_cap="round"
+        app:progress_background_color="@color/bgColor"
+        app:progress_text_color="@color/colorPrimary"
+        app:progress_start_color="@color/colorPrimary"
+        app:progress_end_color="@color/colorPrimary"
+
         android:src="@drawable/pause_screen_play_icon"
         app:layout_constraintBottom_toBottomOf="@+id/nextBgButtonPanel"
-        app:layout_constraintEnd_toStartOf="@+id/nextScreenSkip"
+        app:layout_constraintEnd_toStartOf="@+id/iv_timer"
         app:layout_constraintStart_toEndOf="@+id/addRestTime"
-        app:layout_constraintTop_toTopOf="@+id/nextBgButtonPanel" />
+        app:layout_constraintTop_toTopOf="@+id/nextBgButtonPanel"
+        app:style="solid_line" />
+
+
 
         <ImageView
             android:id="@+id/addRestTime"
@@ -117,15 +135,16 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="CAPTION EXAMPLE"
 
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/nextScreenBg"
-        app:layout_constraintTop_toBottomOf="@+id/pauseHeadline" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_nextHeadline" />
 
 
     <ImageView
-            android:id="@+id/nextScreenSkip"
+            android:id="@+id/iv_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"

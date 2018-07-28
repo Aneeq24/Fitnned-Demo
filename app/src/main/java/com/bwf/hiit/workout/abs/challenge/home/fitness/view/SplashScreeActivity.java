@@ -126,7 +126,7 @@ public class SplashScreeActivity extends AppCompatActivity {
                     if (backPresed)
                         return;
 
-                    Intent newActivity = new Intent(getApplicationContext(), SelectGender.class);
+                    Intent newActivity = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(newActivity);
                     finish();
                 }

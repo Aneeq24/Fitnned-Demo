@@ -59,7 +59,25 @@ public class ScrollingActivity extends AppCompatActivity {
 
         AdsManager.getInstance().showFacebookInterstitialAd();
 
-        TTSManager.getInstance(getApplication()).play("You have selected plan " + plan);
+
+        String planName = "";
+        int i = plan-1;
+        switch (i)
+        {
+            case 0:
+                planName = "Beginner";
+                break;
+            case 1:
+                planName = "Intermediate";
+                break;
+            case 2:
+                planName = "Advanced";
+                break;
+                default:
+                    break;
+        }
+
+        TTSManager.getInstance(getApplication()).play("You have selected plan " + planName + "  Mode of 30 Day Ab Challenge");
 
 
     }

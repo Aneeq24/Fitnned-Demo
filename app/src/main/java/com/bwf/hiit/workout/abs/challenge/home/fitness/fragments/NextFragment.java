@@ -1,6 +1,5 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.fragments;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -16,6 +15,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
+import com.dinuscxj.progressbar.CircleProgressBar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +39,10 @@ public class NextFragment extends Fragment {
     PlayingExercise playingExercise;
     ImageView timerUp;
     ImageView skip;
+
+    TextView nextSreenExerciseName;
+
+    CircleProgressBar mCustomCircleBar;
 
     View rootView;
 
@@ -76,6 +80,17 @@ public class NextFragment extends Fragment {
 
         LinearLayout linearLayout = rootView.findViewById(R.id.fbNative);
 
+        mCustomCircleBar = rootView.findViewById(R.id.restTimer);
+
+
+       mCustomCircleBar.setProgressFormatter(new CircleProgressBar.ProgressFormatter() {
+            @Override
+            public CharSequence format(int progress, int max) {
+                return progress + "s";
+            }
+        });
+
+
 
         AdsManager.getInstance().showFacebookInterstitialAd();
 
@@ -83,6 +98,11 @@ public class NextFragment extends Fragment {
 
 
         playingExercise = (PlayingExercise)getActivity();
+
+        mCustomCircleBar.setMax(playingExercise.restTime);
+
+        mCustomCircleBar.setProgress(playingExercise.restTime );
+        startRestTimer(playingExercise.restTime  *1000, 1000);
 
         initNext();
 
@@ -93,27 +113,25 @@ public class NextFragment extends Fragment {
     void  initNext()
     {
           timerUp = rootView.findViewById(R.id.addRestTime); //addRestTime
-          skip    =  rootView.findViewById(R.id.nextScreenSkip);
+          skip    =  rootView.findViewById(R.id.iv_timer);
 
-          ImageView view = rootView.findViewById(R.id.nextExercisePlay);
+          ImageView view = rootView.findViewById(R.id.iv_timer);
 
-          view.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
+          nextSreenExerciseName = rootView.findViewById(R.id.tv_nextHeadline);
 
+          view.setOnClickListener(view13 -> playingExercise.StartPlayingFragment());
 
-                  playingExercise.StartSkipFragment();
-
-              }
-          });
-
-          timerUp.setOnClickListener(view1 -> setTimerUpButton());
+          timerUp.setOnClickListener(view1 -> addrestTime());
 
           skip.setOnClickListener(view12 -> {
 
-              setSkipButton();
-              setSkipButton();
+              playingExercise.StartPlayingFragment();
           });
+
+
+          nextSreenExerciseName.setText(playingExercise.nextExerciseName);
+
+      //  TTSManager.getInstance(playingExercise.getApplication()).play("The Next Exercise is " + playingExercise.displayName);
 
     }
 
@@ -129,24 +147,6 @@ public class NextFragment extends Fragment {
     int remaingTime;
 
 
-    void startPlayingExercise(int totalSkipTime, int interval, final TextView timer) {
-
-
-        countDownTimer = new CountDownTimer(totalSkipTime, interval)
-        {
-            public void onTick(long millisUntilFinished)
-            {
-                remaingTime = (int)(millisUntilFinished/1000);
-                timer.setText("" + millisUntilFinished / 1000 + "\"");
-            }
-
-            public void onFinish()
-            {
-               restCompleted();
-            }
-        }.start();
-
-    }
 
     void  restCompleted()
     {
@@ -164,6 +164,48 @@ public class NextFragment extends Fragment {
         playingExercise.skipRestNextButtonClicked();
     }
 
+    int resetTime = 0;
+    int currentRestTime= 0;
+
+    void  startRestTimer(int totalSkipTime , int interval)
+    {
+
+        countDownTimer = new CountDownTimer(totalSkipTime, interval) {
+
+            public void onTick(long millisUntilFinished)
+            {
+
+                currentRestTime = (int) (millisUntilFinished / 1000);
+                mCustomCircleBar.setProgress(currentRestTime);
+            }
+
+            public void onFinish()
+            {
+                playingExercise.StartPlayingFragment();
+            }
+        }.start();
+
+    }
+
+
+     void addrestTime()
+    {
+        countDownTimer.cancel();
+        currentRestTime *=1000;
+               currentRestTime += 5000;
+         mCustomCircleBar.setMax(currentRestTime/1000);
+        // mCustomCircleBar.setProgress(currentRestTime/1000);
+
+        startRestTimer(currentRestTime ,1000 );
+
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        countDownTimer.cancel();
+    }
 
     public interface OnFragmentInteractionListener
     {
@@ -171,101 +213,5 @@ public class NextFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    /**
-     * A simple {@link Fragment} subclass.
-     * Activities that contain this fragment must implement the
-     * {@link OnFragmentInteractionListener} interface
-     * to handle interaction events.
-     * Use the {@link CompleteFragment#newInstance} factory method to
-     * create an instance of this fragment.
-     */
-    public static class CompleteFragment extends Fragment {
-        // TODO: Rename parameter arguments, choose names that match
-        // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-        private static final String ARG_PARAM1 = "param1";
-        private static final String ARG_PARAM2 = "param2";
 
-        // TODO: Rename and change types of parameters
-        private String mParam1;
-        private String mParam2;
-
-        private OnFragmentInteractionListener mListener;
-
-        public CompleteFragment() {
-            // Required empty public constructor
-        }
-
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CompleteFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        public static CompleteFragment newInstance(String param1, String param2) {
-            CompleteFragment fragment = new CompleteFragment();
-            Bundle args = new Bundle();
-            args.putString(ARG_PARAM1, param1);
-            args.putString(ARG_PARAM2, param2);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            if (getArguments() != null) {
-                mParam1 = getArguments().getString(ARG_PARAM1);
-                mParam2 = getArguments().getString(ARG_PARAM2);
-            }
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            // Inflate the layout for this fragment
-            return inflater.inflate(R.layout.fragment_complete, container, false);
-        }
-
-        // TODO: Rename method, update argument and hook method into UI event
-        public void onButtonPressed(Uri uri) {
-            if (mListener != null) {
-                mListener.onFragmentInteraction(uri);
-            }
-        }
-
-        @Override
-        public void onAttach(Context context) {
-            super.onAttach(context);
-            if (context instanceof OnFragmentInteractionListener) {
-                mListener = (OnFragmentInteractionListener) context;
-            } else {
-                throw new RuntimeException(context.toString()
-                        + " must implement OnFragmentInteractionListener");
-            }
-        }
-
-        @Override
-        public void onDetach() {
-            super.onDetach();
-            mListener = null;
-        }
-
-        /**
-         * This interface must be implemented by activities that contain this
-         * fragment to allow an interaction in this fragment to be communicated
-         * to the activity and potentially other fragments contained in that
-         * activity.
-         * <p>
-         * See the Android Training lesson <a href=
-         * "http://developer.android.com/training/basics/fragments/communicating.html"
-         * >Communicating with Other Fragments</a> for more information.
-         */
-        public interface OnFragmentInteractionListener {
-            // TODO: Update argument type and name
-            void onFragmentInteraction(Uri uri);
-        }
-    }
 }

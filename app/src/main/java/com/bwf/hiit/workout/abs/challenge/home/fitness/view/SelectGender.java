@@ -24,7 +24,8 @@ public class SelectGender extends AppCompatActivity {
                 setGender("Male"));
 
         ImageView female = findViewById(R.id.iv_female);
-        female.setOnClickListener(view -> setGender("FEMALE"));
+        female.setOnClickListener(view ->
+                setGender("FEMALE"));
 
         Button nextButton = findViewById(R.id.nextgenderButton);
 

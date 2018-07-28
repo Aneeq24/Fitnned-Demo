@@ -23,7 +23,7 @@
         app:srcCompat="?attr/colorBackgroundFloating" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tv_exercise_name_skipScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -46,7 +46,9 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/soundButton"
-        app:srcCompat="@drawable/play_screen_question_btn" />
+        app:srcCompat="@drawable/play_screen_question_btn"
+        android:visibility="gone"
+        />
 
     <TextView
         android:id="@+id/skipButton"
@@ -109,7 +111,9 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/help"
-        app:srcCompat="@drawable/play_screen_video_btn" />
+        app:srcCompat="@drawable/play_screen_video_btn"
+        android:visibility="gone"
+        />
 
     <ImageView
         android:id="@+id/emptyTimerBar"

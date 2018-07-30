@@ -99,6 +99,14 @@ public class ExerciseFragment extends Fragment {
             }
         });
 
+        playingExerciseCircle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pause();
+
+            }
+        });
+
         findRefrence();
         return rootView;
     }

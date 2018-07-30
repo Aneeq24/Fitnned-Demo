@@ -123,6 +123,8 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:paddingTop="0dp" />
 
+
+
     <ImageView
         android:id="@+id/timerBar"
         android:layout_width="wrap_content"
@@ -165,6 +167,24 @@
         app:style="solid_line" />
 
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="10dp"
+
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/play_screen_pause_btn"
+
+        app:layout_constraintBottom_toBottomOf="@+id/playingExericseCircle"
+        app:layout_constraintEnd_toEndOf="@+id/playingExericseCircle"
+        app:layout_constraintStart_toStartOf="@+id/playingExericseCircle" />
+
+
+
 
     <TextView
         android:id="@+id/timerExerciseText"
@@ -201,8 +221,52 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:text="Pause"
+        android:visibility="gone"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bgExercisePanel">
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="EXERCISES 1/5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Rounds 1/5" />
+
+
+    </LinearLayout>
 
     <!--<ProgressBar-->
         <!--android:id="@+id/progressBar"-->

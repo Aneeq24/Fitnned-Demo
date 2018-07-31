@@ -64,6 +64,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
 
     implementation 'com.squareup.picasso:picasso:2.71828'
-
+    implementation 'com.google.android.ads.consent:consent-library:1.0.6'
 
 }

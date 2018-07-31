@@ -5,7 +5,7 @@
     <color name="colorAccent">#000000</color>
 
     <color name="bgColor">#dedede</color>
-
+    <color name="white">#FFFFFF</color>
     <color name="colorFullLightGray">#eae8e8</color>
     <color name="colorLightGrey">#c7c7c7</color>
     <color name="colorDarkGray">#bec0c4</color>

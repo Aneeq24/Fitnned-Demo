@@ -44,8 +44,10 @@ public class ScrollingActivity extends AppCompatActivity {
         Toolbar toolbar =  findViewById(R.id.toolbar);
         Intent intent = getIntent();
 
-        com.google.android.gms.ads.AdView adView = findViewById(R.id.banner_day);
-
+        com.google.android.gms.ads.AdView adVie = findViewById(R.id.banner_day);
+        AdsManager.getInstance().showBanner(adVie);
+        adVie.setAlpha(0);
+        com.google.android.gms.ads.AdView adView = findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
 
         circleProgressBarLeft = findViewById(R.id.line_progress_left);

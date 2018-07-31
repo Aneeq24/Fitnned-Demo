@@ -1,5 +1,6 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.fragments;
 
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
@@ -79,6 +81,7 @@ public class PauseFragment extends Fragment {
     ImageView resumeImg;
     ImageView prevImg;
     ImageView next;
+    ImageView animationImage;
 
     PlayingExercise playingExercise;
 
@@ -110,6 +113,16 @@ public class PauseFragment extends Fragment {
         nextExerciseName = rootView.findViewById(R.id.tv_pauseHeadline);
 
         nextExerciseName.setText(playingExercise.nextExerciseName);
+        animationImage = rootView.findViewById(R.id.pf_exerciseImage);
+
+        String str =  playingExercise.nextExerciseImage;
+
+        int id = getResources().getIdentifier(str, "drawable",rootView.getContext().getPackageName());
+
+        String path = "android.resource://" + rootView.getContext().getPackageName() + "/" + id;
+
+        //  viewVideo.setVideoPath(path);
+        Glide.with(this).load(path).into(animationImage);
 
         resumeImg.setOnClickListener(new View.OnClickListener() {
             @Override

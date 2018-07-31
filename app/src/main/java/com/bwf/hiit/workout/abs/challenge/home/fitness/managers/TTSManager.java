@@ -52,6 +52,9 @@ public class TTSManager implements TextToSpeech.OnInitListener {
     static TTSManager INSTANCE;
     private final TextToSpeech textToSpeech;
 
+    public  static  boolean isPlaying = false;
+
+
     private final Application application;
 
     /**
@@ -187,6 +190,10 @@ public class TTSManager implements TextToSpeech.OnInitListener {
     }
 
     public void play(CharSequence text) {
+        int i = AppPrefManager.getInstance().getValue("sound",0);
+        if (i<=0)
+            return;
+
         play(text.toString(), null, null, null);
     }
 
@@ -235,6 +242,9 @@ public class TTSManager implements TextToSpeech.OnInitListener {
      * @param onStart
      */
     public void play(String text, Runnable onStart, Runnable onDone, Runnable onError) {
+
+
+
         if (doesNotContainUnwantedPhrase(text)) {
             text = applyRemixes(text);
             if (initialized) {

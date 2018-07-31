@@ -3,7 +3,9 @@ package com.bwf.hiit.workout.abs.challenge.home.fitness.fragments;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Debug;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +13,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.LogHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.dinuscxj.progressbar.CircleProgressBar;
 
@@ -39,11 +45,14 @@ public class NextFragment extends Fragment {
     PlayingExercise playingExercise;
     ImageView timerUp;
     ImageView skip;
-
+    ImageView aimationImage;
     TextView nextSreenExerciseName;
+    int pauseTimer = 0;
+    boolean pause = false;
 
     CircleProgressBar mCustomCircleBar;
 
+    ImageView pauseResumeImage;
     View rootView;
 
 
@@ -80,8 +89,10 @@ public class NextFragment extends Fragment {
 
         LinearLayout linearLayout = rootView.findViewById(R.id.fbNative);
 
+        pauseResumeImage = rootView.findViewById(R.id.nf_pauseTimerImageView);
         mCustomCircleBar = rootView.findViewById(R.id.restTimer);
 
+        pause = false;
 
        mCustomCircleBar.setProgressFormatter(new CircleProgressBar.ProgressFormatter() {
             @Override
@@ -101,7 +112,19 @@ public class NextFragment extends Fragment {
 
         mCustomCircleBar.setMax(playingExercise.restTime);
 
+        aimationImage = rootView.findViewById(R.id.nf_exerciseImage);
+
+
         mCustomCircleBar.setProgress(playingExercise.restTime );
+
+        mCustomCircleBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                pauseOrRenume();
+            }
+        });
+
         startRestTimer(playingExercise.restTime  *1000, 1000);
 
         initNext();
@@ -110,19 +133,34 @@ public class NextFragment extends Fragment {
     }
 
 
+    void  pauseOrRenume()
+    {
+        pause = !pause;
+
+        if (pause)
+        {
+            pauseResumeImage.setImageResource(R.drawable.play_screen_play_icon);
+            countDownTimer.cancel();
+        }
+        else
+         {
+             pauseTimer *= 1000;
+             startRestTimer(pauseTimer , 1000);
+             pauseResumeImage.setImageResource(R.drawable.play_screen_pause_btn);
+
+         }
+
+    }
+
+
     void  initNext()
     {
           timerUp = rootView.findViewById(R.id.addRestTime); //addRestTime
           skip    =  rootView.findViewById(R.id.iv_timer);
-
           ImageView view = rootView.findViewById(R.id.iv_timer);
-
           nextSreenExerciseName = rootView.findViewById(R.id.tv_nextHeadline);
-
           view.setOnClickListener(view13 -> playingExercise.StartPlayingFragment());
-
           timerUp.setOnClickListener(view1 -> addrestTime());
-
           skip.setOnClickListener(view12 -> {
 
               playingExercise.StartPlayingFragment();
@@ -130,6 +168,15 @@ public class NextFragment extends Fragment {
 
 
           nextSreenExerciseName.setText(playingExercise.nextExerciseName);
+
+        String str =  playingExercise.nextExerciseImage;
+
+        int id = getResources().getIdentifier(str, "drawable",rootView.getContext().getPackageName());
+
+        String path = "android.resource://" + rootView.getContext().getPackageName() + "/" + id;
+
+        //  viewVideo.setVideoPath(path);
+        Glide.with(this).load(path).into(aimationImage);
 
       //  TTSManager.getInstance(playingExercise.getApplication()).play("The Next Exercise is " + playingExercise.displayName);
 
@@ -167,6 +214,7 @@ public class NextFragment extends Fragment {
     int resetTime = 0;
     int currentRestTime= 0;
 
+
     void  startRestTimer(int totalSkipTime , int interval)
     {
 
@@ -174,13 +222,17 @@ public class NextFragment extends Fragment {
 
             public void onTick(long millisUntilFinished)
             {
-
                 currentRestTime = (int) (millisUntilFinished / 1000);
+                pauseTimer = currentRestTime;
                 mCustomCircleBar.setProgress(currentRestTime);
+                int id = getResources().getIdentifier("clock", "raw",rootView.getContext().getPackageName());
+                Utils.playAudio(rootView.getContext(),id);
             }
 
             public void onFinish()
             {
+                int id = getResources().getIdentifier("ding", "raw",rootView.getContext().getPackageName());
+                mCustomCircleBar.setProgress(0);
                 playingExercise.StartPlayingFragment();
             }
         }.start();
@@ -192,7 +244,7 @@ public class NextFragment extends Fragment {
     {
         countDownTimer.cancel();
         currentRestTime *=1000;
-               currentRestTime += 5000;
+        currentRestTime += 5000;
          mCustomCircleBar.setMax(currentRestTime/1000);
         // mCustomCircleBar.setProgress(currentRestTime/1000);
 

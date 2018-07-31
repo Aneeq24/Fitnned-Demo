@@ -140,7 +140,8 @@ public class SplashScreeActivity extends AppCompatActivity {
 
             new Handler().postDelayed(new Runnable() {
                 @Override
-                public void run() {
+                public void run()
+                {
                     if (backPresed)
                         return;
 

@@ -119,6 +119,8 @@
                     app:layout_constraintStart_toEndOf="@+id/line_progress_finished"
                     app:layout_constraintTop_toTopOf="@+id/imageView9" />
 
+
+
             </android.support.constraint.ConstraintLayout>
 
 
@@ -154,6 +156,22 @@
             app:fontFamily="@font/roboto_bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/baner_Admob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:visibility="visible"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_ad_unit"
+            ads:layout_constraintBottom_toBottomOf="parent"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintStart_toStartOf="parent" />
 
         <!--<com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"-->
             <!--android:id="@+id/banner_day"-->

@@ -41,7 +41,6 @@ public class AppPrefManager {
     public  void  setValue(String key , int value)
     {
         sharedPreferences.edit().putInt(key,value).apply();
-
     }
 
     public  void  setValue(String key , String value)

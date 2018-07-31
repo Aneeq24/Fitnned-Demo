@@ -63,11 +63,13 @@ public class AdsManager {
         Context context = Application.getContext();
         interstitialAd = new InterstitialAd(context);
         interstitialAd.setAdUnitId(context.getString(R.string.interstitial_ad_unit));
-        if (BuildConfig.DEBUG) {
-            fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, "YOUR_PLACEMENT_ID");
-        } else {
+//        if (BuildConfig.DEBUG) {
+//           // fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, "YOUR_PLACEMENT_ID");
+//            fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, context.getString(R.string.interstitial_facebook));
+//        }
+//         else {
             fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, context.getString(R.string.interstitial_facebook));
-        }
+//        }
         // load the ads and cache them for later use
         loadInterstitialAd();
         loadFacebookInterstitialAd();
@@ -98,11 +100,11 @@ public class AdsManager {
     public void showBanner(final AdView banner) {
         if (Utils.isNetworkAvailable(Application.getContext())) {
             if (banner != null) {
-                if (BuildConfig.DEBUG) {
-                    banner.loadAd(new AdRequest.Builder().addTestDevice("77E8217B3B70EA3BEB6347C1EBE4CDCC").build());
-                } else {
+//                if (BuildConfig.DEBUG) {
+//                    banner.loadAd(new AdRequest.Builder().addTestDevice("728E481201E977FE91F3F915B469D33D").build());
+//                } else {
                     banner.loadAd(prepareAdRequest());
-                }
+//                }
                 banner.setAdListener(new AdListener() {
 
                     @Override
@@ -126,11 +128,11 @@ public class AdsManager {
 
     private void loadInterstitialAd() {
         if (Utils.isNetworkAvailable(Application.getContext())) {
-            if (BuildConfig.DEBUG) {
-                interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("77E8217B3B70EA3BEB6347C1EBE4CDCC").build());
-            } else {
+//            if (BuildConfig.DEBUG) {
+//                interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("728E481201E977FE91F3F915B469D33D").build());
+//            } else {
                 interstitialAd.loadAd(prepareAdRequest());
-            }
+//            }
             interstitialAd.setAdListener(new AdListener() {
 
                 @Override
@@ -166,11 +168,11 @@ public class AdsManager {
     private void loadRewardedVideo(final Context context, final RewardedVideoListener listener) {
         if (Utils.isNetworkAvailable(context)) {
             rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(context);
-            if (BuildConfig.DEBUG) {
-                rewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917", new AdRequest.Builder().addTestDevice("77E8217B3B70EA3BEB6347C1EBE4CDCC").build());
-            } else {
+//            if (BuildConfig.DEBUG) {
+//                rewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917", new AdRequest.Builder().addTestDevice("728E481201E977FE91F3F915B469D33D").build());
+//            } else {
                 rewardedVideoAd.loadAd(context.getString(R.string.rewarded_ad_unit), prepareAdRequest());
-            }
+//            }
             rewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
                 @Override
                 public void onRewardedVideoAdLoaded() {
@@ -416,11 +418,11 @@ public class AdsManager {
     }
 
     public void showFacebookNativeAd(final Context context, final LinearLayout nativeAdContainer, final AdView adView) {
-        if(BuildConfig.DEBUG){
-            nativeAd = new com.facebook.ads.NativeAd(context, "YOUR_PLACEMENT_ID");
-        }else{
+//        if(BuildConfig.DEBUG){
+//            nativeAd = new com.facebook.ads.NativeAd(context, "YOUR_PLACEMENT_ID");
+//        }else{
             nativeAd = new com.facebook.ads.NativeAd(context, context.getString(R.string.native_facebook));
-        }
+//        }
         nativeAd.setAdListener(new com.facebook.ads.AdListener() {
             @Override
             public void onError(Ad ad, AdError adError) {

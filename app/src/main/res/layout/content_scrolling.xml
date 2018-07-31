@@ -34,6 +34,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         ads:adSize="BANNER"
+        android:alpha="0"
         ads:adUnitId="@string/banner_ad_unit"
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
@@ -44,6 +45,6 @@
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:layout_margin="@dimen/text_margin"-->
-        <!--android:text="@string/large_text" />-->
+        <!--a+ndroid:text="@string/large_text" />-->
 
 </android.support.v4.widget.NestedScrollView>

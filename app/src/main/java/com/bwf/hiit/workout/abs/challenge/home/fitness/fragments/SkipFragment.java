@@ -1,5 +1,6 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.fragments;
 
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -9,8 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AppPrefManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.dinuscxj.progressbar.CircleProgressBar;
 
@@ -35,10 +41,20 @@ public class SkipFragment extends Fragment {
 
     CircleProgressBar skipCircleprogressBar;
     View rootView;
-
     TextView headingNameExercise;
-
     PlayingExercise playingExercise;
+    TextView skipTimerText;
+    TextView skipTimerButton;
+    ImageView skipImg;
+    CountDownTimer countDownTimer;
+    VideoView skipExerciseVideoView;
+    CountDownTimer videoStartTimer;
+    ImageView soundButton_B;
+
+    int pauseTimer = 0;
+    boolean pause = false;
+    ImageView pauseResumeImage;
+    int soundValue;
 
     private OnFragmentInteractionListener mListener;
 
@@ -79,16 +95,52 @@ public class SkipFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_skip, container, false);
 
+        pauseResumeImage = rootView.findViewById(R.id.sf_pauseTimerImageView);
+        com.google.android.gms.ads.AdView adView = rootView.findViewById(R.id.baner_Admob);
+        AdsManager.getInstance().showBanner(adView);
         skipCircleprogressBar = rootView.findViewById(R.id.skipExerciseTimeCircle);
         findReferences();
         return  rootView;
 
     }
 
-    TextView skipTimerText;
-    TextView skipTimerButton;
-    ImageView skipImg;
-    CountDownTimer countDownTimer;
+    void  pauseOrRenume()
+    {
+        pause = !pause;
+
+        if (pause)
+        {
+            pauseResumeImage.setImageResource(R.drawable.play_screen_play_icon);
+            countDownTimer.cancel();
+        }
+        else
+        {
+            pauseTimer *= 1000;
+            startSkipTimer(pauseTimer , 1000 , skipTimerText);
+            pauseResumeImage.setImageResource(R.drawable.play_screen_pause_btn);
+
+        }
+
+    }
+
+
+    void  soundButton()
+    {
+
+        if (soundValue>0)
+        {
+            soundValue = 0;
+            soundButton_B.setImageResource(R.drawable.play_screen_sound_off_btn);
+        }
+        else
+        {
+            soundValue = 1;
+            soundButton_B.setImageResource(R.drawable.play_screen_sound_on_btn);
+        }
+
+        AppPrefManager.getInstance().setValue("sound",soundValue);
+
+    }
 
     void  findReferences()
     {
@@ -96,7 +148,7 @@ public class SkipFragment extends Fragment {
         skipTimerText = rootView.findViewById(R.id.timerSkipText);
         skipTimerButton = rootView.findViewById(R.id.skipButton);
         skipImg = rootView.findViewById(R.id.skipLayoutImag);
-
+        skipExerciseVideoView = rootView.findViewById(R.id.sf_exerciseVideoView);
         headingNameExercise = rootView.findViewById(R.id.tv_exercise_name_skipScreen);
 
         headingNameExercise.setText(playingExercise.displayName);
@@ -105,16 +157,89 @@ public class SkipFragment extends Fragment {
 
 
         startSkipTimer(15000 , 1000,skipTimerText);
-        skipCircleprogressBar.setProgressFormatter(new CircleProgressBar.ProgressFormatter() {
+        skipCircleprogressBar.setProgressFormatter(new CircleProgressBar.ProgressFormatter()
+        {
             @Override
             public CharSequence format(int progress, int max) {
 
                 return progress + "\"";
             }
         });
+
         skipCircleprogressBar.setMax(15);
 
+        skipCircleprogressBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pauseOrRenume();
+            }
+        });
 
+
+        soundButton_B = rootView.findViewById(R.id.sf_soundFragment);
+
+        soundValue = AppPrefManager.getInstance().getValue("sound",0);
+
+        if(soundValue>0)
+        {
+            soundButton_B.setImageResource(R.drawable.play_screen_sound_on_btn);
+        }
+        else
+        {
+            soundButton_B.setImageResource(R.drawable.play_screen_sound_off_btn);
+        }
+
+        soundButton_B.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                soundButton();
+            }
+        });
+
+
+
+        String str =  playingExercise.exerciseName;
+        int id = getResources().getIdentifier(str, "drawable",rootView.getContext().getPackageName());
+
+        String path = "android.resource://" + rootView.getContext().getPackageName() + "/" + id;
+
+        Glide.with(this).load(path).into(skipImg);
+
+//        skipExerciseVideoView.setVideoPath(path);
+//
+//        skipExerciseVideoView.start();
+//
+//        skipExerciseVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//            @Override
+//            public void onCompletion(MediaPlayer mediaPlayer)
+//            {
+//                skipExerciseVideoView.start();
+//            }
+//        });
+//        startVideo(1000,1);
+
+
+    }
+
+    void  startVideo(int totalskipTime , int interval)
+
+    {
+        videoStartTimer = new CountDownTimer(totalskipTime , interval)
+        {
+            @Override
+            public void onTick(long l)
+            {
+
+            }
+
+            @Override
+            public void onFinish()
+            {
+                skipExerciseVideoView.setAlpha(1);
+            }
+        }.start();
     }
 
     void startSkipTimer(int totalSkipTime, int interval, final TextView timer) {
@@ -125,11 +250,16 @@ public class SkipFragment extends Fragment {
             {
                 timer.setText("" + millisUntilFinished / 1000 + "\"");
                 int value = (int)(millisUntilFinished / 1000);
+                pauseTimer = value;
                 skipCircleprogressBar.setProgress(value);
+                int id = getResources().getIdentifier("clock", "raw",rootView.getContext().getPackageName());
+
+                Utils.playAudio(rootView.getContext(),id);
             }
 
             public void onFinish()
             {
+                //skipCircleprogressBar.setProgress(0);
                 startPlayingButton();
             }
         }.start();
@@ -140,11 +270,18 @@ public class SkipFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        countDownTimer.cancel();
+       countDownTimer.cancel();
+      //  skipExerciseVideoView.setAlpha(0);
+      //  videoStartTimer.cancel();
     }
 
     void  startPlayingButton()
     {
+
+       // videoStartTimer.cancel();
+
+       // skipExerciseVideoView.setAlpha(0);
+
         countDownTimer.cancel();
 
         playingExercise.StartPlayingFragment();
@@ -156,6 +293,7 @@ public class SkipFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+
 
 
 

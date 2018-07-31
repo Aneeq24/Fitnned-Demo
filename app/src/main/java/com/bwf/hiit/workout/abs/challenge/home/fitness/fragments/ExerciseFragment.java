@@ -12,9 +12,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.LogHelper;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AppPrefManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.dinuscxj.progressbar.CircleProgressBar;
 
@@ -40,10 +46,13 @@ public class ExerciseFragment extends Fragment {
 
     VideoView viewVideo;
     PlayingExercise playingExercise;
-
     CircleProgressBar playingExerciseCircle;
-
     TextView  exerciseName;
+
+    TextView roundTextView;
+    TextView exerciseTextView;
+
+    int soundValue;
 
 
 
@@ -80,6 +89,23 @@ public class ExerciseFragment extends Fragment {
         }
     }
 
+    void  soundButton()
+    {
+
+        if (soundValue>0)
+        {
+            soundValue = 0;
+            soundButton_B.setImageResource(R.drawable.play_screen_sound_off_btn);
+        }
+        else
+        {
+            soundValue = 1;
+            soundButton_B.setImageResource(R.drawable.play_screen_sound_on_btn);
+        }
+
+        AppPrefManager.getInstance().setValue("sound",soundValue);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,7 +113,6 @@ public class ExerciseFragment extends Fragment {
         rootView =inflater.inflate(R.layout.fragment_exercise, container, false);
 
         playingExercise = (PlayingExercise) getActivity();
-
 
         playingExerciseCircle = rootView.findViewById(R.id.playingExericseCircle);
 
@@ -101,9 +126,9 @@ public class ExerciseFragment extends Fragment {
 
         playingExerciseCircle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 pause();
-
             }
         });
 
@@ -122,8 +147,10 @@ public class ExerciseFragment extends Fragment {
     Button pauseButton;
     ImageView exerciseImage;
     ImageView helpButton;
-   CountDownTimer countDownTimer;
-   CountDownTimer videoTimer;
+    CountDownTimer countDownTimer;
+    CountDownTimer videoTimer;
+
+    ImageView soundButton_B;
 
     int value =0;
     void  findRefrence()
@@ -132,11 +159,35 @@ public class ExerciseFragment extends Fragment {
         pauseButton = rootView.findViewById(R.id.pause);
         exerciseImage = rootView.findViewById(R.id.animationImage);
         viewVideo = rootView.findViewById(R.id.videoViewId);
+        exerciseTextView = rootView.findViewById(R.id.ef_exerciseTextView);
+        roundTextView = rootView.findViewById(R.id.ef_roundTextView);
        //Glide.with(this).load(R.drawable.girl).into(exerciseImage);
         helpButton = rootView.findViewById(R.id.help);
-
         exerciseName = rootView.findViewById(R.id.tv_exerciseName_Playing);
+        soundButton_B = rootView.findViewById(R.id.ef_soundFragment);
 
+        com.google.android.gms.ads.AdView adView = rootView.findViewById(R.id.baner_Admob);
+        AdsManager.getInstance().showBanner(adView);
+
+       soundValue = AppPrefManager.getInstance().getValue("sound",0);
+
+        if(soundValue>0)
+        {
+            soundButton_B.setImageResource(R.drawable.play_screen_sound_on_btn);
+        }
+        else
+        {
+            soundButton_B.setImageResource(R.drawable.play_screen_sound_off_btn);
+        }
+
+        soundButton_B.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                soundButton();
+            }
+        });
 
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,31 +205,30 @@ public class ExerciseFragment extends Fragment {
             }
         });
 
+        assignTopUi();
+
 //        String path = "android.resource://" + rootView.getContext().getPackageName() + "/" + R.raw.video_file;
 //        view.setVideoURI(Uri.parse(path));
 //        view.start();
 
 
         String str =  playingExercise.exerciseName;
+
         exerciseName.setText(playingExercise.displayName);
 
-
-        //str  ="girl_render";
-       // str=str.concat(".m4v");
-        //String  path = "android.resource://" + rootView.getContext().getPackageName() + "/" + "res/raw/"+str;
-
-         int id = getResources().getIdentifier(str, "raw",rootView.getContext().getPackageName());
+         int id = getResources().getIdentifier(str, "drawable",rootView.getContext().getPackageName());
 
         String path = "android.resource://" + rootView.getContext().getPackageName() + "/" + id;
 
-        viewVideo.setVideoPath(path);
+      //  viewVideo.setVideoPath(path);
+        Glide.with(this).load(path).into(exerciseImage);
 
-        viewVideo.start();
+       // viewVideo.start();
 
 
-        viewVideo.setOnCompletionListener(mediaPlayer -> viewVideo.start());
+       // viewVideo.setOnCompletionListener(mediaPlayer -> viewVideo.start());
 
-        startVideo();
+      //  startVideo();
 
         if (!PlayingExercise.is_Paused) {
             AppDataBase dataBase = AppDataBase.getInstance();
@@ -205,6 +255,14 @@ public class ExerciseFragment extends Fragment {
     public int remaingTime;
 
 
+
+
+    void  assignTopUi()
+    {
+        roundTextView.setText((playingExercise.currentRound+1) + "/"+ playingExercise.totalRounds);
+        exerciseTextView.setText((playingExercise.currentExercise+1) + "/" + playingExercise.totalExercisePerRound);
+    }
+
     void  startVideo()
     {
         videoTimer = new CountDownTimer(1000, 1)
@@ -217,7 +275,7 @@ public class ExerciseFragment extends Fragment {
 
             public void onFinish()
             {
-               viewVideo.setAlpha(1);
+              // viewVideo.setAlpha(1);
             }
         }.start();
 
@@ -225,7 +283,7 @@ public class ExerciseFragment extends Fragment {
 
     void startPlayingExercise(int totalSkipTime, int interval, final TextView timer) {
 
-//        playingExerciseCircle.setMax(totalSkipTime/1000);
+//      playingExerciseCircle.setMax(totalSkipTime/1000);
 
         playingExerciseCircle.setMax(value/1000);
         countDownTimer = new CountDownTimer(totalSkipTime, interval)
@@ -235,13 +293,28 @@ public class ExerciseFragment extends Fragment {
                 remaingTime = (int)(millisUntilFinished/1000);
                 timer.setText("" + millisUntilFinished / 1000 + "\"");
 
-                playingExerciseCircle.setProgress(remaingTime);
+                int id = getResources().getIdentifier("clock", "raw",rootView.getContext().getPackageName());
 
+                if(remaingTime>3)
+                {
+                    Utils.playAudio(rootView.getContext(),id);
+
+
+                }
+                else
+                {
+                    TTSManager.getInstance(playingExercise.getApplication()).play( "" +remaingTime);
+                }
+
+                playingExerciseCircle.setProgress(remaingTime);
             }
 
             public void onFinish()
             {
-                viewVideo.setAlpha(0);
+                int id = getResources().getIdentifier("ding", "raw",rootView.getContext().getPackageName());
+                Utils.playAudio(rootView.getContext(),id);
+
+              //  viewVideo.setAlpha(0);
                 timer.setText("" + 0 + "\"");
                 onExerciseComplete();
             }
@@ -260,15 +333,15 @@ public class ExerciseFragment extends Fragment {
 
     void  pause()
     {
-        viewVideo.setAlpha(0);
-        countDownTimer.cancel();
+       // viewVideo.setAlpha(0);
+       countDownTimer.cancel();
         playingExercise.PauseFragment(remaingTime);
         remaingTime = 0;
     }
 
     void  helpButtonClick()
     {
-        viewVideo.setAlpha(0);
+    //    viewVideo.setAlpha(0);
         countDownTimer.cancel();
         playingExercise.helpFragmentFun(remaingTime);
         remaingTime =0;
@@ -287,8 +360,8 @@ public class ExerciseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
 
-        viewVideo.setAlpha(0);
-        videoTimer.cancel();
+      //  viewVideo.setAlpha(0);
+       // videoTimer.cancel();
         countDownTimer.cancel();
     }
 

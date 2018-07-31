@@ -50,6 +50,9 @@ public class DailyExerciseAdapter  extends RecyclerView.Adapter<DailyExerciseAda
             {
                 Exercise exercise = dataBase.exerciseDao().findById(day.getId());
                 dataModelWorkout.dailyExercise_VideoView.add(exercise.getName());
+                dataModelWorkout.exercisTimeList.add(day.getReps());
+                dataModelWorkout.resetTimeList.add(day.getDelay());
+
                 LogHelper.logD("1994:","" + dataModelWorkout.dailyExercise_VideoView.size());
             }
 
@@ -70,8 +73,8 @@ public class DailyExerciseAdapter  extends RecyclerView.Adapter<DailyExerciseAda
     {
         this.dataModelWorkout = dataModelWorkout;
         info = obj;
-        //GetDataFromDb db = new GetDataFromDb();
-       // db.execute();
+        GetDataFromDb db = new GetDataFromDb();
+        db.execute();
     }
 
     @NonNull
@@ -89,18 +92,24 @@ public class DailyExerciseAdapter  extends RecyclerView.Adapter<DailyExerciseAda
 
         String nameOfExercise = dataModelWorkout.dailyExercise_ExerciseName.get(position);
 
-
         holder.nameOfExercise.setText(nameOfExercise);
 
-        Glide.with(info).load(R.drawable.animation).into(holder.imgeOfExercise);
 
+
+        if (dataUp)
+        {
+            holder.exerciseTime.setText(dataModelWorkout.exercisTimeList.get(position)+ "s");
+            holder.restTime.setText(dataModelWorkout.resetTimeList.get(position) + "s");
+            String videoPath = dataModelWorkout.dailyExercise_VideoView.get(position);
+            int id = info.getApplication().getResources().getIdentifier(videoPath, "drawable", info.getApplication().getPackageName());
+            Glide.with(info).load(id).into(holder.imgeOfExercise);
+        }
+
+        /*
         if(dataUp) {
             String videoPath = dataModelWorkout.dailyExercise_VideoView.get(position);
 
             int id = info.getApplication().getResources().getIdentifier(videoPath, "raw", info.getApplication().getPackageName());
-
-
-
             String path = "android.resource://" + info.getApplication().getPackageName() + "/" + id;
 
             holder.viewVideo.setVideoPath(path);
@@ -109,11 +118,15 @@ public class DailyExerciseAdapter  extends RecyclerView.Adapter<DailyExerciseAda
             holder.viewVideo.setOnCompletionListener(mediaPlayer ->
                     holder.viewVideo.start());
 
+            holder.exerciseTime.setText(dataModelWorkout.exercisTimeList.get(position)+ " SEC");
+            holder.restTime.setText(dataModelWorkout.resetTimeList.get(position) + " SEC");
+
+
             holder.itemView.setOnClickListener(view -> {
 
             });
         }
-
+        */
     }
 
     @Override
@@ -129,6 +142,8 @@ public class DailyExerciseAdapter  extends RecyclerView.Adapter<DailyExerciseAda
         ImageView bgImage;
         TextView textColor;
         VideoView viewVideo;
+        TextView exerciseTime;
+        TextView restTime;
 
         public DailyExerciseDataHolder(View itemView)
         {
@@ -138,6 +153,9 @@ public class DailyExerciseAdapter  extends RecyclerView.Adapter<DailyExerciseAda
             bgImage = itemView.findViewById(R.id.bgForDailyPerformance);
             textColor = itemView.findViewById(R.id.dayNameId);
             viewVideo = itemView.findViewById(R.id.vdExerciseVideo);
+            exerciseTime = itemView.findViewById(R.id.edi_exerciseTime);
+            restTime = itemView.findViewById(R.id.edi_exerciseRestTime);
+
         }
     }
 

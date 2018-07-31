@@ -69,14 +69,14 @@
     <string name="app_id" translatable="false">ca-app-pub-2972677223588085~8301994603</string>
     <string name="native_ad_unit" translatable="false">ca-app-pub-6412217023250030/9137922994</string>
     <!-- <string name="banner_ad_unit" translatable="false">ca-app-pub-2972677223588085/7985874802</string> -->
-    <string name="banner_ad_unit" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit" translatable="false">ca-app-pub-2972677223588085/7985874802</string>
     <string name="rewarded_ad_unit" translatable="false">ca-app-pub-6412217023250030/7633506345</string>
     <string name="exit_banner_ad_unit" translatable="false">ca-app-pub-2972677223588085/7985874802</string>
     <string name="interstitial_ad_unit" translatable="false">ca-app-pub-2972677223588085/8936419421</string>
 
-    <string name="native_facebook" translatable="false">207441110073930_207441706740537</string>
-    <string name="banner_facebook" translatable="false">207441110073930_207441706740537</string>
-    <string name="interstitial_facebook" translatable="false">207441110073930_207441206740587</string>
+    <string name="native_facebook" translatable="false">511255115963411_511255379296718</string>
+    <string name="banner_facebook" translatable="false">511255115963411_511257882629801</string>
+    <string name="interstitial_facebook" translatable="false">511255115963411_511258032629786</string>
 
     <string name="ko" translatable="false">한국어</string>
     <string name="ru" translatable="false">русский</string>

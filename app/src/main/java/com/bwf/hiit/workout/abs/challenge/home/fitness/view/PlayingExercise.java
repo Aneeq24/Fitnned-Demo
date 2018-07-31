@@ -50,19 +50,25 @@ public class PlayingExercise extends AppCompatActivity {
     FragmentTransaction fragmentTransaction;
 
     public  int currentReps;
-    public  int totalExercises;
-
+    public  int totalExercises = 0;
+    public  int totalExercisePerRound = 0;
     public  int currentPlan = 0;
     public  int currentDay = 0;
     public  int restTime;
     public  int nextRest;
-
     public  String exerciseName;
     public  String displayName;
-
     public  String nextExerciseName;
-
+    public  String nextExerciseImage;
     SharedPreferences sharedPreferences;
+    List<ExerciseDay> exerciseDays = new ArrayList<ExerciseDay>();
+    public int currentRound = 0;
+    public int currentExercise = 0;
+    public int totalRounds = 0;
+    AppDataBase dataBase;
+    int totalExercisesPlayed;
+
+    boolean iscomplete;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -94,12 +100,6 @@ public class PlayingExercise extends AppCompatActivity {
 
     }
 
-    List<ExerciseDay> exerciseDays = new ArrayList<ExerciseDay>();
-
-    int currentRound = 0;
-    int currentExercise = 0;
-    AppDataBase dataBase;
-    int totalExercisesPlayed;
 
 
     @SuppressLint("StaticFieldLeak")
@@ -141,8 +141,10 @@ public class PlayingExercise extends AppCompatActivity {
 
                 //currentRound = AppStateManager.roundCleared;
 
-//                int totalRounds = exerciseDays.get(0).getRounds();
-//                int totalExercises =  exerciseDays.get(0).getTotalExercise();
+                totalExercisePerRound = exerciseDays.size();
+
+                totalRounds = exerciseDays.get(0).getRounds();
+                totalExercises =  exerciseDays.get(0).getTotalExercise();
 
                 int roundsCleared = exerciseDays.get(0).getRoundCompleted();
                 totalExercisesPlayed =exerciseDays.get(0).getRoundCompleted();
@@ -164,10 +166,12 @@ public class PlayingExercise extends AppCompatActivity {
 
                     nextExerciseName =  dataBase.exerciseDao().findById(exerciseDays.get(currentExercise+1).getId()).getDisplay_name();
 
+                    nextExerciseImage = dataBase.exerciseDao().findById(exerciseDays.get(currentExercise+1).getId()).getName();
                 }
                 else
                 {
                     nextExerciseName =  dataBase.exerciseDao().findById(exerciseDays.get(0).getId()).getDisplay_name();
+                    nextExerciseImage =  dataBase.exerciseDao().findById(exerciseDays.get(0).getId()).getName();
                 }
 
                 int exerciseId = exerciseDays.get(currentExercise).getId();
@@ -260,8 +264,10 @@ public class PlayingExercise extends AppCompatActivity {
 
     public void StartPlayingFragment()
     {
+        if(!iscomplete)
         fragmentManager.beginTransaction().replace(R.id.fragment_container ,exerciseFragment,null).commit();
-
+        else
+            fragmentManager.beginTransaction().replace(R.id.fragment_container ,completeFragment , null).commit();
     }
 
     public  void  PauseFragment(int remaingTime)
@@ -338,7 +344,7 @@ public class PlayingExercise extends AppCompatActivity {
             fragmentTransaction.add(R.id.fragment_container , completeFragment ,  null);
 
             TTSManager.getInstance(getApplication()).play(" Well Done. This is end of day " + (currentDay+1) + "of your training");
-
+            iscomplete = true;
             InsetData insetData = new InsetData();
             insetData.execute();
             return;
@@ -346,6 +352,7 @@ public class PlayingExercise extends AppCompatActivity {
         }
 
         InsetData insetData = new InsetData();
+
 
         //Your Workout Today will consist of [5] different exercises completed in [3] rounds. You will do each exercise in short intense intervals followed by a rest of few seconds. You will get a rest of [60] seconds at the end of each round.
         LogHelper.logD("1994:Current round" , "" +currentRound);
@@ -376,8 +383,10 @@ public class PlayingExercise extends AppCompatActivity {
 
                 //currentRound = AppStateManager.roundCleared;
 
-//                int totalRounds = exerciseDays.get(0).getRounds();
-//                int totalExercises =  exerciseDays.get(0).getTotalExercise();
+                totalRounds = exerciseDays.get(0).getRounds();
+                totalExercises =  exerciseDays.get(0).getTotalExercise();
+
+                totalExercisePerRound = exerciseDays.size();
 
                 int roundsCleared = exerciseDays.get(0).getRoundCompleted();
                 totalExercisesPlayed =exerciseDays.get(0).getRoundCompleted();
@@ -410,10 +419,12 @@ public class PlayingExercise extends AppCompatActivity {
                 {
 
                     nextExerciseName =  dataBase.exerciseDao().findById(exerciseDays.get(currentExercise+1).getId()).getDisplay_name();
+                    nextExerciseImage = dataBase.exerciseDao().findById(exerciseDays.get(currentExercise+1).getId()).getName();
                 }
                 else
                 {
                     nextExerciseName =  dataBase.exerciseDao().findById(exerciseDays.get(0).getId()).getDisplay_name();
+                    nextExerciseImage =  dataBase.exerciseDao().findById(exerciseDays.get(0).getId()).getName();
                 }
 
                 LogHelper.logD("1994:Current round" , "" +currentRound);

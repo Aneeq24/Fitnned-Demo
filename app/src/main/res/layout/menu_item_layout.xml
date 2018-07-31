@@ -88,7 +88,7 @@
         tools:background="@android:color/darker_gray" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/home_textViewDaysleft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -108,10 +108,10 @@
         android:textSize="10sp"
         app:fontFamily="@font/roboto_bold"
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
-        app:layout_constraintStart_toEndOf="@+id/textView12" />
+        app:layout_constraintStart_toEndOf="@+id/home_textViewDaysleft" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/home_textVewPercentage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

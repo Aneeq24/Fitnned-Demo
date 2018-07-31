@@ -12,11 +12,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.AppStateManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DailyExerciseAdapter;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.LogHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.DataModelWorkout;
@@ -35,10 +37,71 @@ public class DailyExerciseInfo extends AppCompatActivity {
     ImageView startButton;
     Toolbar toolbar;
 
-   public int plan = 0;
+    public int plan = 0;
     public int day = 0;
 
+    TextView currentExerciseTextView;
+    TextView roundsCleardTextView;
+
+    AppDataBase dataBase;
+
     SharedPreferences sharedPreferences;
+
+
+    List<ExerciseDay> exerciseDays;
+
+    public  class  GetDataFromDb extends AsyncTask<Void , Void , Void>
+    {
+
+        @Override
+        protected Void doInBackground(Void... voids)
+        {
+
+            exerciseDays = dataBase.exerciseDayDao().getExerciseDays(plan, day);
+            if (exerciseDays.get(0).getExerciseComplete() >= exerciseDays.get(0).getTotalExercise())
+            {
+                exerciseDays.get(0).setRoundCompleted(0);
+
+                for (ExerciseDay day: exerciseDays)
+                {
+                    if (day.isStatus())
+                        day.setStatus(false);
+
+                }
+                exerciseDays.get(0).setExerciseComplete(0);
+                exerciseDays.get(0).setRoundCompleted(0);
+
+            }
+
+            int   totalRounds = exerciseDays.get(0).getRounds();
+            int  totalExercises =  exerciseDays.get(0).getTotalExercise();
+            int totalExercisePerRound = exerciseDays.size();
+            int roundsCleared = exerciseDays.get(0).getRoundCompleted();
+            int  totalExercisesPlayed =exerciseDays.get(0).getRoundCompleted();
+            int cE = 0;
+            for (ExerciseDay day: exerciseDays)
+            {
+                if (day.isStatus())
+                    cE++;
+            }
+
+            int currentRound = roundsCleared;
+            int currentExercise = cE;
+
+
+            roundsCleardTextView.setText((currentRound+1) + "/"+ totalRounds);
+            currentExerciseTextView.setText((currentExercise+1) + "/" + totalExercisePerRound);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
+    }
+
+
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -70,7 +133,9 @@ public class DailyExerciseInfo extends AppCompatActivity {
         sharedPreferences = this.getSharedPreferences(String.valueOf(getApplicationContext()), Context.MODE_PRIVATE);
 
         dataModelWorkout = new DataModelWorkout();
-
+        currentExerciseTextView = findViewById(R.id.ei_exerciseTextView);
+        roundsCleardTextView = findViewById(R.id.ei_roundTextView);
+        dataBase = AppDataBase.getInstance();
         populateData();
 
         startButton = findViewById(R.id.startButton);
@@ -92,6 +157,9 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
     }
 
+
+
+
     void  initExerciseList()
     {
         RecyclerView recyleView = findViewById(R.id.dailyExercise_RecyclerView);
@@ -99,6 +167,9 @@ public class DailyExerciseInfo extends AppCompatActivity {
         recyleView.setAdapter(new  DailyExerciseAdapter(dataModelWorkout , this));
 
         validatingDb();
+
+        GetDataFromDb getDataFromDb = new GetDataFromDb();
+        getDataFromDb.execute();
 
     }
 
@@ -127,16 +198,13 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
 
 
-
-
-    List<ExerciseDay> exerciseDays;
     @SuppressLint("StaticFieldLeak")
     void  downLoaddbData()
     {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                AppDataBase dataBase = AppDataBase.getInstance();
+
                 dataModelWorkout = new DataModelWorkout();
                 exerciseDays = dataBase.exerciseDayDao().getExerciseDays(plan, day);
                 for (ExerciseDay day : exerciseDays)

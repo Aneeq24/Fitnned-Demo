@@ -19,12 +19,11 @@ public class Application extends android.app.Application {
         super.onCreate();
         context = getApplicationContext();
 
-        if (BuildConfig.DEBUG)
-            AdSettings.addTestDevice("3dbbcd0d-15e0-4081-85ec-07b314e3fd00");
-
         MobileAds.initialize(context,context.getString(R.string.app_id));
-
+        if (BuildConfig.DEBUG) {
+        AdSettings.addTestDevice("728E481201E977FE91F3F915B469D33D");}
         AdsManager.getInstance();
+
         AnalyticsManager.getInstance().sendAnalytics(TAG, "Application Opened");
     }
 

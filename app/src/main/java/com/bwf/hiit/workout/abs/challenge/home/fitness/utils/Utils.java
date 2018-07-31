@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AppPrefManager;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -58,6 +59,10 @@ public class Utils {
     }
 
     public static void playAudio(Context context, int resourceId) {
+        int i = AppPrefManager.getInstance().getValue("sound",0);
+        if (i<=0)
+            return;
+
         try {
             MediaPlayer mediaPlayer = MediaPlayer.create(context, resourceId);
             mediaPlayer.setOnCompletionListener(MediaPlayer -> mediaPlayer.release());

@@ -26,8 +26,10 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="9dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+        app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="@+id/imageView8"
         app:layout_constraintTop_toTopOf="@+id/imageView8"
         app:srcCompat="@drawable/pause_screen_next_bar_image" />
@@ -45,19 +47,176 @@
         android:visibility="gone"
         />
 
-    <TextView
-        android:id="@+id/exerciseInfo_ExerciseName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Exerecise 1"
-        android:textColor="@color/colorPrimary"
-        android:textSize="24sp"
-        app:fontFamily="@font/roboto_bold"
+    <LinearLayout
+        android:id="@+id/mainHeadLayout"
+        android:layout_width="0dp"
+        android:layout_height="96dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/exerciseInfo_Icon"
         app:layout_constraintStart_toStartOf="@+id/imageView8"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.476" />
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+            android:id="@+id/topLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/exerciseInfo_ExerciseName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:layout_marginLeft="8dp"
+                android:gravity="center_vertical"
+                android:text="Exerecise 1"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:fontFamily="@font/roboto_bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottomLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:id="@+id/leftLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/imageLayoutLeftCell"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right|center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right|center"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/exercise_screen_workout_bar_icon"
+
+                        app:srcCompat="@drawable/exercise_screen_workout_bar_icon" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/textLayoutLeftCell"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_bold"
+                        android:gravity="bottom|left"
+                        android:text="Workout"
+                        android:textColor="#a1a1a1"
+                        />
+
+                    <TextView
+                        android:id="@+id/edi_exerciseTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_bold"
+                        android:gravity="top|left"
+                        android:textColor="#a1a1a1"
+                        android:text="30 SEC" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rightLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/imageLayoutRightCell"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right|center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center|left"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_marginLeft="8dp"
+                        android:src="@drawable/exercise_screen_rest_bar_icon"
+
+                        app:srcCompat="@drawable/exercise_screen_rest_bar_icon" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/textLayoutrightCell"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_bold"
+                        android:gravity="left|bottom"
+                        android:text="REST"
+                        android:textColor="#a1a1a1"
+                        />
+
+                    <TextView
+                        android:id="@+id/edi_exerciseRestTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_bold"
+                        android:gravity="top|left"
+                        android:text="10 SEC"
+                        android:textColor="#a1a1a1"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
 
 </android.support.constraint.ConstraintLayout>

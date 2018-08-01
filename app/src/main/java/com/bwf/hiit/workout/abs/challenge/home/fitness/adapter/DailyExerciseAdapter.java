@@ -62,6 +62,8 @@ public class DailyExerciseAdapter  extends RecyclerView.Adapter<DailyExerciseAda
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            if(isCancelled())
+                return;
             LogHelper.logD("1994:","" +dataModelWorkout.dailyExercise_VideoView.size());
             dataUp = true;
             notifyDataSetChanged();
@@ -69,11 +71,13 @@ public class DailyExerciseAdapter  extends RecyclerView.Adapter<DailyExerciseAda
     }
 
 
+    GetDataFromDb db;
     public  DailyExerciseAdapter( DataModelWorkout dataModelWorkout , DailyExerciseInfo obj)
     {
         this.dataModelWorkout = dataModelWorkout;
         info = obj;
-        GetDataFromDb db = new GetDataFromDb();
+        dataUp = false;
+        db = new GetDataFromDb();
         db.execute();
     }
 
@@ -91,7 +95,6 @@ public class DailyExerciseAdapter  extends RecyclerView.Adapter<DailyExerciseAda
     public void onBindViewHolder(@NonNull DailyExerciseDataHolder holder, final int position) {
 
         String nameOfExercise = dataModelWorkout.dailyExercise_ExerciseName.get(position);
-
         holder.nameOfExercise.setText(nameOfExercise);
 
 
@@ -102,6 +105,7 @@ public class DailyExerciseAdapter  extends RecyclerView.Adapter<DailyExerciseAda
             holder.restTime.setText(dataModelWorkout.resetTimeList.get(position) + "s");
             String videoPath = dataModelWorkout.dailyExercise_VideoView.get(position);
             int id = info.getApplication().getResources().getIdentifier(videoPath, "drawable", info.getApplication().getPackageName());
+            //if(holder.imgeOfExercise!=null)
             Glide.with(info).load(id).into(holder.imgeOfExercise);
         }
 
@@ -130,9 +134,24 @@ public class DailyExerciseAdapter  extends RecyclerView.Adapter<DailyExerciseAda
     }
 
     @Override
+    public void onViewRecycled(@NonNull DailyExerciseDataHolder holder) {
+        holder.imgeOfExercise.setImageDrawable(null);
+        super.onViewRecycled(holder);
+
+    }
+
+    @Override
     public int getItemCount()
     {
         return dataModelWorkout.dailyExercise_ExerciseName.size();
+    }
+
+    public void update(DataModelWorkout modelWorkout)
+    {
+        dataModelWorkout=modelWorkout;
+        notifyDataSetChanged();
+        dataUp = false;
+        // db.execute();
     }
 
     public  class  DailyExerciseDataHolder extends RecyclerView.ViewHolder
@@ -158,6 +177,7 @@ public class DailyExerciseAdapter  extends RecyclerView.Adapter<DailyExerciseAda
 
         }
     }
+
 
 
 

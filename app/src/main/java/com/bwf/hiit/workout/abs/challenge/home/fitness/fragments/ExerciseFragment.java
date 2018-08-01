@@ -331,7 +331,7 @@ public class ExerciseFragment extends Fragment {
         playingExercise.NextFragment();
     }
 
-    void  pause()
+   public   void  pause()
     {
        // viewVideo.setAlpha(0);
        countDownTimer.cancel();

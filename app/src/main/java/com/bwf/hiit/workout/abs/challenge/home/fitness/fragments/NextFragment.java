@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
@@ -49,6 +50,7 @@ public class NextFragment extends Fragment {
     TextView nextSreenExerciseName;
     int pauseTimer = 0;
     boolean pause = false;
+
 
     CircleProgressBar mCustomCircleBar;
 
@@ -88,6 +90,7 @@ public class NextFragment extends Fragment {
         rootView =  inflater.inflate(R.layout.fragment_next, container, false);
 
         LinearLayout linearLayout = rootView.findViewById(R.id.fbNative);
+
 
         pauseResumeImage = rootView.findViewById(R.id.nf_pauseTimerImageView);
         mCustomCircleBar = rootView.findViewById(R.id.restTimer);
@@ -133,7 +136,7 @@ public class NextFragment extends Fragment {
     }
 
 
-    void  pauseOrRenume()
+    public void  pauseOrRenume()
     {
         pause = !pause;
 

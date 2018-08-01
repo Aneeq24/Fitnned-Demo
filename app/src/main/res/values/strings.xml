@@ -221,6 +221,7 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="next">Next</string>
+    <string name="exercie_complete">WORKOUT DONE</string>
 
 
 </resources>

@@ -104,7 +104,7 @@ public class SkipFragment extends Fragment {
 
     }
 
-    void  pauseOrRenume()
+   public   void  pauseOrRenume()
     {
         pause = !pause;
 
@@ -284,6 +284,7 @@ public class SkipFragment extends Fragment {
 
         countDownTimer.cancel();
 
+        getActivity().getSupportFragmentManager().beginTransaction().remove(SkipFragment.this).commit();
         playingExercise.StartPlayingFragment();
     }
 

@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.CompleteFragment;
@@ -155,6 +156,7 @@ public class PlayingExercise extends AppCompatActivity {
                         cE++;
                 }
                 currentRound = roundsCleared;
+
                 currentExercise = cE;
                 int time = exerciseDays.get(currentExercise).getReps();
                 restTime = exerciseDays.get(currentExercise).getDelay();
@@ -189,6 +191,8 @@ public class PlayingExercise extends AppCompatActivity {
             @Override
             protected void onPostExecute (Void aVoid){
                 super.onPostExecute(aVoid);
+                if(isCancelled())
+                    return;
 
                 if (exerciseDays.get(0).getExerciseComplete() >= exerciseDays.get(0).getTotalExercise())
                 {
@@ -270,6 +274,22 @@ public class PlayingExercise extends AppCompatActivity {
             fragmentManager.beginTransaction().replace(R.id.fragment_container ,completeFragment , null).commit();
     }
 
+
+    @Override
+    public void onBackPressed()
+    {
+        // code here to show dialog
+        super.onBackPressed();  // optional depending on your needs
+    }
+
+    public  void  back()
+    {
+        Intent newActivity = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(newActivity);
+        finish();
+//        onBackPressed();
+    }
+
     public  void  PauseFragment(int remaingTime)
     {
         is_Paused = true;
@@ -302,7 +322,7 @@ public class PlayingExercise extends AppCompatActivity {
         }
         else
         {
-            if ( currentRound < exerciseDays.get(0).getRounds()-1)
+            if ( currentRound < exerciseDays.get(0).getRounds())
             {
                 currentRound++;
 
@@ -319,7 +339,9 @@ public class PlayingExercise extends AppCompatActivity {
             }
 
         }
-        if (currentRound < exerciseDays.get(0).getRounds()-1)
+
+        //TODO round checking
+        if ((currentRound < exerciseDays.get(0).getRounds() ))
         {
 
             Log.i("1994:Current round" , "Day not updated");
@@ -352,8 +374,6 @@ public class PlayingExercise extends AppCompatActivity {
         }
 
         InsetData insetData = new InsetData();
-
-
         //Your Workout Today will consist of [5] different exercises completed in [3] rounds. You will do each exercise in short intense intervals followed by a rest of few seconds. You will get a rest of [60] seconds at the end of each round.
         LogHelper.logD("1994:Current round" , "" +currentRound);
         LogHelper.logD("1994:Currnet day" , ""  + currentDay);
@@ -367,6 +387,25 @@ public class PlayingExercise extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if(skipFragment !=null && skipFragment.isVisible())
+            skipFragment.pauseOrRenume();
+        else  if(exerciseFragment!=null && exerciseFragment.isVisible())
+        {
+            exerciseFragment.pause();
+        }
+        else if (nextFragment!=null && nextFragment.isVisible())
+        {
+            nextFragment.pauseOrRenume();
+        }
+        else
+        {
+
+        }
+    }
 
     @SuppressLint("StaticFieldLeak")
     void  dbLoadData()
@@ -380,7 +419,6 @@ public class PlayingExercise extends AppCompatActivity {
 
 
                 //  currentExercise = AppStateManager.currentExercise;
-
                 //currentRound = AppStateManager.roundCleared;
 
                 totalRounds = exerciseDays.get(0).getRounds();
@@ -399,8 +437,11 @@ public class PlayingExercise extends AppCompatActivity {
                         cE++;
                 }
 
+
+
                 currentRound = roundsCleared;
                 currentExercise = cE;
+
 
                 int exerciseId = exerciseDays.get(currentExercise).getId();
                 exerciseName = dataBase.exerciseDao().findById(exerciseId).getName();
@@ -437,6 +478,8 @@ public class PlayingExercise extends AppCompatActivity {
             @Override
             protected void onPostExecute (Void aVoid){
                 super.onPostExecute(aVoid);
+                if(isCancelled())
+                    return;
               //  StartSkipFragment();
 //                initExerciseList();
             }
@@ -469,9 +512,14 @@ public class PlayingExercise extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            if(isCancelled())
+                return;
+
+            if(!iscomplete)
             dbLoadData();
         }
     }
+
 
 
 

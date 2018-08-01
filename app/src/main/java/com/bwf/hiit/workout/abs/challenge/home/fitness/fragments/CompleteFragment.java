@@ -3,11 +3,15 @@ package com.bwf.hiit.workout.abs.challenge.home.fitness.fragments;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,10 +26,22 @@ public class CompleteFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    PlayingExercise playingExercise;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    View rootView;
+
+    Toolbar toolbar;
+
+    ImageView backButton;
+
+    TextView totalExercisTextView;
+    TextView totalTimeSpendCount;
+
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,7 +80,41 @@ public class CompleteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_complete, container, false);
+        rootView = inflater.inflate(R.layout.fragment_complete, container, false);
+
+
+        toolbar = rootView.findViewById(R.id.toolbar10);
+
+        totalExercisTextView = rootView.findViewById(R.id.cf_exerciseNo);
+        totalTimeSpendCount = rootView.findViewById(R.id.cf_totalTime);
+
+        PlayingExercise playingExercise = (PlayingExercise) getActivity();
+
+//        totalExercisTextView.text   //playingExercise.totalExercises;
+
+        totalExercisTextView.setText(playingExercise.totalExercises);
+//        totalTimeSpendCount.setText(playingExercise.totalExercisePerRound ());
+
+
+        toolbar.setNavigationOnClickListener(view -> {
+            if (getActivity() != null) {
+                getActivity().getSupportFragmentManager().beginTransaction().remove(CompleteFragment.this).commit();
+                getActivity().finish();
+            }
+        });
+
+
+ /*       backButton = rootView.findViewById(R.id.backButton);
+
+
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });*/
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

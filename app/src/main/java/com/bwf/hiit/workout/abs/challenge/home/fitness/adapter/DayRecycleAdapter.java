@@ -65,11 +65,14 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            if(isCancelled())
+                return;
             notifyDataSetChanged();
         }
     }
 
     ScrollingActivity ac;
+    GetDataFromDb data;
 
     public DayRecycleAdapter(ScrollingActivity activity , DataModelWorkout dataModelWorkout)
     {
@@ -80,8 +83,8 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
 
 
         dataBase = AppDataBase.getInstance();
-        GetDataFromDb data = new GetDataFromDb();
-       data.execute();
+        data = new GetDataFromDb();
+        data.execute();
 
     }
 
@@ -133,6 +136,13 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
 
 
 
+   public void  resetAdapter(DataModelWorkout modelWorkout)
+    {
+        dataModelWorkout  = modelWorkout;
+        data = new GetDataFromDb();
+        data.execute();
+
+    }
 
 
 

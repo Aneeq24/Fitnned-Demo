@@ -135,6 +135,8 @@ public class SplashScreeActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            if(isCancelled())
+                return;
 
             //TODO
 

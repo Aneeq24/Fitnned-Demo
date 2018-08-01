@@ -82,13 +82,8 @@ public class HomeActivity extends AppCompatActivity implements
         requestGoogleConsentForm(true);
 
         String[] plans = getResources().getStringArray(R.array.plans);
-//        TabLayout tabLayout = findViewById(R.id.tabLayout);
-//        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-//
-//        final ViewPager viewPager = findViewById(R.id.viewPager);
-//        final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager() , tabLayout.getTabCount());
-//
-//        //TODO
+
+//      //TODO Ads
         AdsManager.getInstance().showFacebookInterstitialAd();
 //
 //        viewPager.setAdapter(pagerAdapter);

@@ -149,7 +149,7 @@ public class PauseFragment extends Fragment {
 
         //TTSManager.getInstance(getApplication()).play The Next Exercise is [exercise name])
 
-        TTSManager.getInstance(playingExercise.getApplication()).play("The Next Exercise is " + playingExercise.nextExerciseName);
+//        TTSManager.getInstance(playingExercise.getApplication()).play("The Next Exercise is " + playingExercise.nextExerciseName);
 
     }
 

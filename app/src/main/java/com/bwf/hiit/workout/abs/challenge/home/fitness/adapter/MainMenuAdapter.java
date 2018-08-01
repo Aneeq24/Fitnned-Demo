@@ -53,6 +53,7 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
 
             for (int plan = 1; plan < 4; plan++)
             {
+                val = 0;
                 for (int i = 0; i < 30; i++) {
                     int totalComplete = dataBase.exerciseDayDao().getExerciseDays(plan,
                             i + 1).get(0).getExerciseComplete();
@@ -82,6 +83,8 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
         protected void onPostExecute(Void aVoid)
         {
             super.onPostExecute(aVoid);
+            if(isCancelled())
+                return;
 
             isDataUp = true;
             notifyDataSetChanged();

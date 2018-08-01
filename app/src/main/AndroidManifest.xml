@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bwf.hiit.workout.abs.challenge.home.fitness">
 
-
-
     <application
         android:name=".Application"
         android:allowBackup="true"
@@ -11,6 +9,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".view.MainActivity"
@@ -48,7 +47,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.ReminderSetActivity" />
         <activity android:name=".view.SelectGender" />
-        <activity android:name=".view.AgeWeightHeightActivity"/>
+        <activity android:name=".view.AgeWeightHeightActivity" />
     </application>
 
 </manifest>

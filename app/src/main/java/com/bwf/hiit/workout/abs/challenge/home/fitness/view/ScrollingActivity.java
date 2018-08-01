@@ -29,6 +29,9 @@ public class ScrollingActivity extends AppCompatActivity {
     CircleProgressBar circleProgressBarLeft;
     CircleProgressBar  circleProgressBarCompleted;
 
+    DayRecycleAdapter dayRecycleAdapter;
+
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -181,6 +184,8 @@ public class ScrollingActivity extends AppCompatActivity {
                 @Override
                 protected void onPostExecute (Void aVoid){
                     super.onPostExecute(aVoid);
+                    if(isCancelled())
+                        return;
 
                 }
 
@@ -197,7 +202,8 @@ public class ScrollingActivity extends AppCompatActivity {
             RecyclerView recycleViewActivity =  findViewById(R.id.dayTaskRecycleid);
             recycleViewActivity.setNestedScrollingEnabled(false);
             recycleViewActivity.setLayoutManager(new LinearLayoutManager(this));
-            recycleViewActivity.setAdapter(new DayRecycleAdapter(ScrollingActivity.this , dataModelsWorkout));
+            dayRecycleAdapter = new DayRecycleAdapter(ScrollingActivity.this , dataModelsWorkout);
+            recycleViewActivity.setAdapter(dayRecycleAdapter);
         }
         @Override
         public void onBackPressed()
@@ -207,10 +213,21 @@ public class ScrollingActivity extends AppCompatActivity {
         }
 
 
+        boolean paused;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        paused = true;
+    }
+
     @Override
     protected void onResume()
     {
         super.onResume();
+        if(paused)
+           dayRecycleAdapter.resetAdapter(dataModelsWorkout);
+
 //        circleProgressBarLeft = findViewById(R.id.line_progress_left);
 //        circleProgressBarCompleted = findViewById(R.id.line_progress_finished);
 //        circleProgressBarLeft.setProgressFormatter((progress, max) -> progress + "");

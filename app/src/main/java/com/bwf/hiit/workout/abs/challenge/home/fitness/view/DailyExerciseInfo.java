@@ -33,7 +33,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
 
     public DataModelWorkout dataModelWorkout= new DataModelWorkout();
-
+    public  DailyExerciseAdapter dailyExerciseAdapter;
     ImageView startButton;
     Toolbar toolbar;
 
@@ -46,6 +46,13 @@ public class DailyExerciseInfo extends AppCompatActivity {
     AppDataBase dataBase;
 
     SharedPreferences sharedPreferences;
+
+
+    int currentRound;
+    int currentExercise;
+    int   totalRounds;
+    int totalExercisePerRound;
+
 
 
     List<ExerciseDay> exerciseDays;
@@ -73,9 +80,9 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
             }
 
-            int   totalRounds = exerciseDays.get(0).getRounds();
+            totalRounds = exerciseDays.get(0).getRounds();
             int  totalExercises =  exerciseDays.get(0).getTotalExercise();
-            int totalExercisePerRound = exerciseDays.size();
+            totalExercisePerRound = exerciseDays.size();
             int roundsCleared = exerciseDays.get(0).getRoundCompleted();
             int  totalExercisesPlayed =exerciseDays.get(0).getRoundCompleted();
             int cE = 0;
@@ -85,19 +92,23 @@ public class DailyExerciseInfo extends AppCompatActivity {
                     cE++;
             }
 
-            int currentRound = roundsCleared;
-            int currentExercise = cE;
+             currentRound = roundsCleared;
+             currentExercise = cE;
 
 
-            roundsCleardTextView.setText((currentRound+1) + "/"+ totalRounds);
-            currentExerciseTextView.setText((currentExercise+1) + "/" + totalExercisePerRound);
 
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
+
             super.onPostExecute(aVoid);
+            if(isCancelled())
+                return;
+
+            roundsCleardTextView.setText((currentRound+1) + "/"+ totalRounds);
+            currentExerciseTextView.setText((currentExercise+1) + "/" + totalExercisePerRound);
         }
     }
 
@@ -137,9 +148,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
         roundsCleardTextView = findViewById(R.id.ei_roundTextView);
         dataBase = AppDataBase.getInstance();
         populateData();
-
         startButton = findViewById(R.id.startButton);
-
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -159,19 +168,22 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
 
 
-
+    RecyclerView recyleView;
+    GetDataFromDb getDataFromDb;
     void  initExerciseList()
     {
         RecyclerView recyleView = findViewById(R.id.dailyExercise_RecyclerView);
         recyleView.setLayoutManager(new LinearLayoutManager(this));
-        recyleView.setAdapter(new  DailyExerciseAdapter(dataModelWorkout , this));
+        dailyExerciseAdapter=new DailyExerciseAdapter(dataModelWorkout,this);
+        recyleView.setAdapter(dailyExerciseAdapter);
 
         validatingDb();
 
-        GetDataFromDb getDataFromDb = new GetDataFromDb();
+        getDataFromDb = new GetDataFromDb();
         getDataFromDb.execute();
 
     }
+
 
     void  validatingDb()
     {
@@ -179,7 +191,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
         int totalExercises =  exerciseDays.get(0).getTotalExercise();
 
         int roundsCleared = exerciseDays.get(0).getRoundCompleted();
-        int totalexercisePlayed =exerciseDays.get(0).getRoundCompleted();
+//        int totalexercisePlayed =exerciseDays.get(0).getRoundCompleted();
         int currentExercise = 0;
 
         for (ExerciseDay day: exerciseDays)
@@ -187,6 +199,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
             if (day.isStatus())
                 currentExercise++;
         }
+
 
         AppStateManager.currentExercise  = currentExercise;
         AppStateManager.roundCleared = roundsCleared;
@@ -196,10 +209,39 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
     }
 
+//    @Override
+//    protected void onPause()
+//    {
+//        super.onPause();
+//        getDataFromDb.cancel(true);
+//    }
+//
+//
+//    @Override
+//    protected void onDestroy()
+//    {
+//        super.onDestroy();
+//        getDataFromDb.cancel(true);
+//    }
 
+
+    boolean flag = false;
+    @Override
+    protected void onPause() {
+        super.onPause();
+        flag = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(flag)
+            downLoaddbData(true);
+    }
 
     @SuppressLint("StaticFieldLeak")
-    void  downLoaddbData()
+    void  downLoaddbData(boolean val)
     {
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -219,7 +261,15 @@ public class DailyExerciseInfo extends AppCompatActivity {
                 @Override
                 protected void onPostExecute (Void aVoid){
                     super.onPostExecute(aVoid);
-                    initExerciseList();
+                    if(isCancelled())
+                        return;
+
+                    if(!val)
+                        initExerciseList();
+                    else
+                    {
+                        updateRecycleView();
+                    }
                 }
 
                 @Override
@@ -266,10 +316,17 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
     }
 
+    void  updateRecycleView()
+    {
+        //recyleView.setAdapter(new DailyExerciseAdapter(dataModelWorkout, this));
+       // dailyExerciseAdapter.update(dataModelWorkout);
+    }
+
+
     void  populateData()
     {
 
-        downLoaddbData();
+        downLoaddbData(false);
 
     }
 

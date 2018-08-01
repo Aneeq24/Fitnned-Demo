@@ -29,9 +29,8 @@ import java.util.List;
 
 
 
-public class DailyExerciseInfo extends AppCompatActivity {
-
-
+public class DailyExerciseInfo extends AppCompatActivity
+{
     public DataModelWorkout dataModelWorkout= new DataModelWorkout();
     public  DailyExerciseAdapter dailyExerciseAdapter;
     ImageView startButton;
@@ -127,7 +126,6 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
         setContentView(R.layout.activity_daily_exercise_info);
 
-        //AppStateManager.currentExercise = 0;
         toolbar =  findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -136,6 +134,22 @@ public class DailyExerciseInfo extends AppCompatActivity {
         com.google.android.gms.ads.AdView adView = findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
 
+
+        //TODO  Ads
+        //if facebook ad is avaliable then show it else show admob ad
+
+        if(AdsManager.getInstance().isFacebookInterstitalLoaded())
+        {
+            AdsManager.getInstance().showFacebookInterstitialAd();
+        }
+        else
+        {
+            AdsManager.getInstance().showInterstitialAd();
+        }
+        //Todo AdsEnd
+
+        //TODO Analytics
+        AnalyticsManager.getInstance().sendAnalytics("Activity Started", "Exercise List Activity");
 
         Intent intent = getIntent();
         plan = intent.getIntExtra(getApplicationContext().getString(R.string.plan),0);
@@ -162,7 +176,6 @@ public class DailyExerciseInfo extends AppCompatActivity {
             }
         });
 
-       // TTSManager.getInstance(getApplication()).play("You have selected day " + AppStateManager.dailyExercise_ExeciseIndex);
 
     }
 
@@ -191,7 +204,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
         int totalExercises =  exerciseDays.get(0).getTotalExercise();
 
         int roundsCleared = exerciseDays.get(0).getRoundCompleted();
-//        int totalexercisePlayed =exerciseDays.get(0).getRoundCompleted();
+
         int currentExercise = 0;
 
         for (ExerciseDay day: exerciseDays)
@@ -205,24 +218,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
         AppStateManager.roundCleared = roundsCleared;
 
 
-
-
     }
-
-//    @Override
-//    protected void onPause()
-//    {
-//        super.onPause();
-//        getDataFromDb.cancel(true);
-//    }
-//
-//
-//    @Override
-//    protected void onDestroy()
-//    {
-//        super.onDestroy();
-//        getDataFromDb.cancel(true);
-//    }
 
 
     boolean flag = false;
@@ -318,8 +314,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
     void  updateRecycleView()
     {
-        //recyleView.setAdapter(new DailyExerciseAdapter(dataModelWorkout, this));
-       // dailyExerciseAdapter.update(dataModelWorkout);
+
     }
 
 

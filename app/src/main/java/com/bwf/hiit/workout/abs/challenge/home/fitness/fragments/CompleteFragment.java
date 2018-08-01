@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 
+import java.math.BigDecimal;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -90,10 +92,14 @@ public class CompleteFragment extends Fragment {
 
         PlayingExercise playingExercise = (PlayingExercise) getActivity();
 
-//        totalExercisTextView.text   //playingExercise.totalExercises;
+
+//        int  minutes = (playingExercise.totaTimeSpend % 3600) / 60;
+//        int seconds = playingExercise.totaTimeSpend % 60;
+//
+//        String timeString = String.format("%02d:%02d", minutes, seconds);
 
         totalExercisTextView.setText(playingExercise.totalExercises);
-//        totalTimeSpendCount.setText(playingExercise.totalExercisePerRound ());
+      //  totalTimeSpendCount.setText(timeString);
 
 
         toolbar.setNavigationOnClickListener(view -> {
@@ -102,17 +108,6 @@ public class CompleteFragment extends Fragment {
                 getActivity().finish();
             }
         });
-
-
- /*       backButton = rootView.findViewById(R.id.backButton);
-
-
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });*/
 
         return rootView;
     }

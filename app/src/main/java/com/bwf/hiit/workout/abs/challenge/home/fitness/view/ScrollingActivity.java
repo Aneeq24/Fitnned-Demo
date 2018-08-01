@@ -48,16 +48,18 @@ public class ScrollingActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         com.google.android.gms.ads.AdView adVie = findViewById(R.id.banner_day);
+        com.google.android.gms.ads.AdView adView = findViewById(R.id.baner_Admob);
+
         AdsManager.getInstance().showBanner(adVie);
         adVie.setAlpha(0);
-        com.google.android.gms.ads.AdView adView = findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
 
         circleProgressBarLeft = findViewById(R.id.line_progress_left);
         circleProgressBarCompleted = findViewById(R.id.line_progress_finished);
         circleProgressBarLeft.setProgressFormatter((progress, max) -> progress + "");
 
-        AnalyticsManager.getInstance().sendAnalytics("Activity Started", "Day activity");
+        //TODO Analytics
+        AnalyticsManager.getInstance().sendAnalytics("Activity Started", "Day Selection Activity");
 
         if(getIntent() != null && intent.getExtras() != null && intent.hasExtra(getString(R.string.plan))){
             plan = getIntent().getIntExtra(getString(R.string.plan), 0);
@@ -73,9 +75,6 @@ public class ScrollingActivity extends AppCompatActivity {
         dataModelsWorkout = new DataModelWorkout();
         populateData();
         initView();
-
-
-        AdsManager.getInstance().showFacebookInterstitialAd();
 
 
         String planName = "";
@@ -222,18 +221,28 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //TODO  Ads
+        //if facebook ad is avaliable then show it else show admob ad
+
+        if(AdsManager.getInstance().isFacebookInterstitalLoaded())
+        {
+            AdsManager.getInstance().showFacebookInterstitialAd();
+        }
+        else
+        {
+            AdsManager.getInstance().showInterstitialAd();
+        }
+        //Todo AdsEnd
+    }
+
+    @Override
     protected void onResume()
     {
         super.onResume();
         if(paused)
            dayRecycleAdapter.resetAdapter(dataModelsWorkout);
-
-//        circleProgressBarLeft = findViewById(R.id.line_progress_left);
-//        circleProgressBarCompleted = findViewById(R.id.line_progress_finished);
-//        circleProgressBarLeft.setProgressFormatter((progress, max) -> progress + "");
-//        dataModelsWorkout = new DataModelWorkout();
-//        populateData();
-//        initView();
 
     }
 

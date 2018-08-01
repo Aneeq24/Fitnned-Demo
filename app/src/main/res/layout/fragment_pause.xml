@@ -16,10 +16,9 @@
         android:id="@+id/pauseBgButtonPanel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
 
         android:background="@drawable/pause_screen_image_bg"
-        app:layout_constraintBottom_toTopOf="@+id/pauseNextHeading"
+        app:layout_constraintBottom_toTopOf="@+id/nextScreenBg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -39,26 +38,25 @@
         android:id="@+id/nextScreenBg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:src="@drawable/days_screen_days_normal_bar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintDimensionRatio="1"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/pauseNextHeading"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="NEXT"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-        android:textColor="@android:color/background_light"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/nextScreenBg"
-        app:layout_constraintStart_toStartOf="@+id/nextScreenBg" />
+        app:layout_constraintStart_toStartOf="@+id/nextScreenBg"
+        app:layout_constraintTop_toTopOf="@+id/nextScreenBg" />
 
     <ImageView
         android:id="@+id/pf_exerciseImage"

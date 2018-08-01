@@ -115,6 +115,7 @@ public class SkipFragment extends Fragment {
         }
         else
         {
+            pauseTimer+=1;
             pauseTimer *= 1000;
             startSkipTimer(pauseTimer , 1000 , skipTimerText);
             pauseResumeImage.setImageResource(R.drawable.play_screen_pause_btn);
@@ -156,7 +157,8 @@ public class SkipFragment extends Fragment {
         skipTimerButton.setOnClickListener(view -> startPlayingButton());
 
 
-        startSkipTimer(15000 , 1000,skipTimerText);
+        startSkipTimer(16000 , 1000,skipTimerText);
+
         skipCircleprogressBar.setProgressFormatter(new CircleProgressBar.ProgressFormatter()
         {
             @Override
@@ -207,20 +209,6 @@ public class SkipFragment extends Fragment {
 
         Glide.with(this).load(path).into(skipImg);
 
-//        skipExerciseVideoView.setVideoPath(path);
-//
-//        skipExerciseVideoView.start();
-//
-//        skipExerciseVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//            @Override
-//            public void onCompletion(MediaPlayer mediaPlayer)
-//            {
-//                skipExerciseVideoView.start();
-//            }
-//        });
-//        startVideo(1000,1);
-
-
     }
 
     void  startVideo(int totalskipTime , int interval)
@@ -260,6 +248,10 @@ public class SkipFragment extends Fragment {
             public void onFinish()
             {
                 //skipCircleprogressBar.setProgress(0);
+
+                int id = getResources().getIdentifier("ding", "raw",rootView.getContext().getPackageName());
+                Utils.playAudio(rootView.getContext() , id);
+
                 startPlayingButton();
             }
         }.start();
@@ -278,12 +270,7 @@ public class SkipFragment extends Fragment {
     void  startPlayingButton()
     {
 
-       // videoStartTimer.cancel();
-
-       // skipExerciseVideoView.setAlpha(0);
-
         countDownTimer.cancel();
-
         getActivity().getSupportFragmentManager().beginTransaction().remove(SkipFragment.this).commit();
         playingExercise.StartPlayingFragment();
     }

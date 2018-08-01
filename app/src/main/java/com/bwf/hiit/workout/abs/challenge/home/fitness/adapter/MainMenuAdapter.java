@@ -158,7 +158,7 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
             @Override
             public void onClick(View view)
             {
-                Toast.makeText(view.getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(view.getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
 
              //   AppStateManager.mainCategory = position +1;
 

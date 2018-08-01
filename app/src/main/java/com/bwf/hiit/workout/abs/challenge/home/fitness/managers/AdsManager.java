@@ -409,9 +409,14 @@ public class AdsManager {
         }
     }
 
-    //1994
-    public  boolean  getFacebookInterstitalLoaded()
+    //1994 Facebook ad  checking
+    public  boolean  isFacebookInterstitalLoaded()
     {
+        if (!fbInterstitialAd.isAdLoaded())
+        {
+            loadFacebookInterstitialAd();
+        }
+
         return fbInterstitialAd.isAdLoaded();
     }
     public void showFacebookInterstitialAd() {

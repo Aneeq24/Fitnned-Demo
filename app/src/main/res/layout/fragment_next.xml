@@ -28,10 +28,10 @@
         android:id="@+id/nextBgButtonPanel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
 
+        android:layout_marginBottom="8dp"
         android:src="@drawable/pause_screen_image_bg"
-        app:layout_constraintBottom_toTopOf="@+id/nextScreenSkipHeading"
+        app:layout_constraintBottom_toTopOf="@+id/nextScreenBg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -40,7 +40,6 @@
         android:id="@+id/nextScreenBg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:src="@drawable/days_screen_days_normal_bar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,14 +49,16 @@
         android:id="@+id/nextScreenSkipHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="NEXT"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/nextScreenBg"
-        app:layout_constraintStart_toStartOf="@+id/nextScreenBg" />
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/nextScreenBg"
+        app:layout_constraintTop_toTopOf="@+id/nextScreenBg" />
 
     <ImageView
         android:id="@+id/nf_exerciseImage"
@@ -82,16 +83,14 @@
         android:id="@+id/tv_nextHeadline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="HEADLINE EXAMPLE"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/nextScreenBg"
         app:layout_constraintStart_toStartOf="@+id/nextScreenBg"
-        app:layout_constraintTop_toTopOf="@+id/nextScreenBg" />
+        app:layout_constraintTop_toBottomOf="@+id/nextScreenSkipHeading" />
 
 
     <com.dinuscxj.progressbar.CircleProgressBar
@@ -180,7 +179,23 @@
         app:layout_constraintTop_toTopOf="@+id/nextBgButtonPanel"
         app:layout_constraintVertical_bias="0.489" />
 
+    <TextView
+        android:id="@+id/cf_roundText"
+        style="@style/Base.TextAppearance.AppCompat.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
 
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Round 1/5 "
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toTopOf="@+id/restTimer"
+        app:layout_constraintEnd_toEndOf="@+id/nextBgButtonPanel"
+        app:layout_constraintStart_toStartOf="@+id/nextBgButtonPanel" />
 
 
 </android.support.constraint.ConstraintLayout>

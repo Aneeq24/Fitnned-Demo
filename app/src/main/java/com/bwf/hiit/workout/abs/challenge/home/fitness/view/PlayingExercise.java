@@ -66,6 +66,7 @@ public class PlayingExercise extends AppCompatActivity {
     public int currentRound = 0;
     public int currentExercise = 0;
     public int totalRounds = 0;
+    public  int totaTimeSpend;
     AppDataBase dataBase;
     int totalExercisesPlayed;
 
@@ -85,10 +86,9 @@ public class PlayingExercise extends AppCompatActivity {
         DataModelWorkout dataModelWorkout = new DataModelWorkout();
         fragmentManager = getSupportFragmentManager();
 
-        AnalyticsManager.getInstance().sendAnalytics("Activity Started", "Playing Exercise Activity");
+        AnalyticsManager.getInstance().sendAnalytics("Activity Started", "Starting Exercise Activity");
 
-        //TODO
-        AdsManager.getInstance().showFacebookInterstitialAd();
+
 
         Intent i = getIntent();
         currentPlan = i.getIntExtra(getApplicationContext().getString(R.string.plan),0);
@@ -111,12 +111,7 @@ public class PlayingExercise extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... voids) {
                dataBase = AppDataBase.getInstance();
-
-
-
                exerciseDays = dataBase.exerciseDayDao().getExerciseDays(currentPlan, currentDay);
-
-
 
                 if (exerciseDays.get(0).getExerciseComplete() >= exerciseDays.get(0).getTotalExercise())
                 {
@@ -127,20 +122,17 @@ public class PlayingExercise extends AppCompatActivity {
                         if (day.isStatus())
                             day.setStatus(false);
 
+                        totaTimeSpend += day.getReps();
+
                     }
+
+                    totaTimeSpend *= exerciseDays.get(0).getRounds();
 
                     exerciseDays.get(0).setExerciseComplete(0);
                     exerciseDays.get(0).setRoundCompleted(0);
                     InsetData insetData = new InsetData();
                     insetData.execute();
                 }
-
-
-
-
-              //  currentExercise = AppStateManager.currentExercise;
-
-                //currentRound = AppStateManager.roundCleared;
 
                 totalExercisePerRound = exerciseDays.size();
 
@@ -196,26 +188,16 @@ public class PlayingExercise extends AppCompatActivity {
 
                 if (exerciseDays.get(0).getExerciseComplete() >= exerciseDays.get(0).getTotalExercise())
                 {
-                    Toast.makeText(PlayingExercise.this, "Completed", Toast.LENGTH_SHORT).show();
-
                     fragmentTransaction  = fragmentManager.beginTransaction();
                     fragmentTransaction.add(R.id.fragment_container , completeFragment ,  null);
                     fragmentTransaction.commit();
-//                    fragmentTransaction  = fragmentManager.beginTransaction();
-//                    fragmentTransaction.add(R.id.fragment_container , completeFragment ,  null);
-//                    fragmentTransaction.commit();
+
 
                 }
                 else {
                     StartSkipFragment();
                 }
-//                initExerciseList();
 
-//                TTSManager.getInstance(getApplication()).play(
-//
-//                      "  Your Workout Today will consist of "+exerciseDays.size()+" different exercises completed in"+exerciseDays.get(0).getRounds() + "rounds. You will do each exercise in short intense intervals followed by a rest of few seconds. You will get a rest of 60 seconds at the end of each round."
-//
-//                );
 
                 int i = currentRound +1;
 
@@ -243,7 +225,25 @@ public class PlayingExercise extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        //TODO Analytics
+        AnalyticsManager.getInstance().sendAnalytics("Exercise Screen End", "Plan " + currentPlan + " Day " + currentDay + " Total Exercises " + totalExercises + " Total Exercises Done " + totalExercisesPlayed);
+
         resetStaticPauseValues();
+
+
+        //TODO  Ads
+        //if facebook ad is avaliable then show it else show admob ad
+
+        if(AdsManager.getInstance().isFacebookInterstitalLoaded())
+        {
+            AdsManager.getInstance().showFacebookInterstitialAd();
+        }
+        else
+        {
+            AdsManager.getInstance().showInterstitialAd();
+        }
+        //Todo AdsEnd
     }
 
     public static void  resetStaticPauseValues() {
@@ -292,8 +292,23 @@ public class PlayingExercise extends AppCompatActivity {
 
     public  void  PauseFragment(int remaingTime)
     {
+
+        //TODO  Ads
+        //if facebook ad is avaliable then show it else show admob ad
+
+        if(AdsManager.getInstance().isFacebookInterstitalLoaded())
+        {
+            AdsManager.getInstance().showFacebookInterstitialAd();
+        }
+        else
+        {
+            AdsManager.getInstance().showInterstitialAd();
+        }
+        //Todo AdsEnd
+
         is_Paused = true;
         pauseTimer = remaingTime;
+
         fragmentManager.beginTransaction().replace(R.id.fragment_container ,pauseFragment,null).commit();
     }
 
@@ -326,6 +341,10 @@ public class PlayingExercise extends AppCompatActivity {
             {
                 currentRound++;
 
+                //TODO Analytics
+                AnalyticsManager.getInstance().sendAnalytics("Round Complete", "Plan " + currentPlan + " Day " + currentDay);
+
+
                 TTSManager.getInstance(getApplication()).play(" This is end of Round "+ currentRound +" Take a rest for" + restTime + "seconds . You have" + (exerciseDays.get(0).getRounds() - currentRound ) +"round remaining"  +"The Next Exercise is "+nextExerciseName);
 
                 Log.i("1994:Current exercise" , "current rounds less than total");
@@ -357,13 +376,17 @@ public class PlayingExercise extends AppCompatActivity {
 
             LogHelper.logD("1994:Current Round" , "" + currentRound + "Get Rounds" + (exerciseDays.get(0).getRounds()-1));
 
-            Toast.makeText(this, "All exercise completed ", Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, "All exercise completed ", Toast.LENGTH_LONG).show();
 
             exerciseDays.get(0).setExerciseComplete(exerciseDays.get(0).getTotalExercise());
 
             exerciseDays.get(0).setRoundCompleted(currentRound);
 
             fragmentTransaction.add(R.id.fragment_container , completeFragment ,  null);
+
+            //TODO Analytics
+            AnalyticsManager.getInstance().sendAnalytics("Complete All Exercises", "Plan " + currentPlan + " Day " + currentDay);
+
 
             TTSManager.getInstance(getApplication()).play(" Well Done. This is end of day " + (currentDay+1) + "of your training");
             iscomplete = true;
@@ -391,6 +414,7 @@ public class PlayingExercise extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
+
         if(skipFragment !=null && skipFragment.isVisible())
             skipFragment.pauseOrRenume();
         else  if(exerciseFragment!=null && exerciseFragment.isVisible())
@@ -406,6 +430,7 @@ public class PlayingExercise extends AppCompatActivity {
 
         }
     }
+
 
     @SuppressLint("StaticFieldLeak")
     void  dbLoadData()

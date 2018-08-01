@@ -51,6 +51,7 @@ public class NextFragment extends Fragment {
     int pauseTimer = 0;
     boolean pause = false;
 
+    TextView textView;
 
     CircleProgressBar mCustomCircleBar;
 
@@ -95,6 +96,9 @@ public class NextFragment extends Fragment {
         pauseResumeImage = rootView.findViewById(R.id.nf_pauseTimerImageView);
         mCustomCircleBar = rootView.findViewById(R.id.restTimer);
 
+        textView = rootView.findViewById(R.id.cf_roundText);
+
+
         pause = false;
 
        mCustomCircleBar.setProgressFormatter(new CircleProgressBar.ProgressFormatter() {
@@ -106,8 +110,7 @@ public class NextFragment extends Fragment {
 
 
 
-        AdsManager.getInstance().showFacebookInterstitialAd();
-
+        //TODO native ad
         AdsManager.getInstance().showFacebookNativeAd(Application.getContext() , linearLayout , null);
 
 
@@ -116,6 +119,8 @@ public class NextFragment extends Fragment {
         mCustomCircleBar.setMax(playingExercise.restTime);
 
         aimationImage = rootView.findViewById(R.id.nf_exerciseImage);
+
+        textView.setText("Round " + (playingExercise.currentRound +1)+"/" + playingExercise.totalRounds);
 
 
         mCustomCircleBar.setProgress(playingExercise.restTime );
@@ -129,12 +134,12 @@ public class NextFragment extends Fragment {
         });
 
         startRestTimer(playingExercise.restTime  *1000, 1000);
+        
 
         initNext();
 
         return  rootView;
     }
-
 
     public void  pauseOrRenume()
     {
@@ -235,6 +240,8 @@ public class NextFragment extends Fragment {
             public void onFinish()
             {
                 int id = getResources().getIdentifier("ding", "raw",rootView.getContext().getPackageName());
+                Utils.playAudio(rootView.getContext() , id);
+
                 mCustomCircleBar.setProgress(0);
                 playingExercise.StartPlayingFragment();
             }

@@ -93,9 +93,6 @@ public class PauseFragment extends Fragment {
 
         LinearLayout fbNative = rootView.findViewById(R.id.fbNative);
 
-        //TODO
-        AdsManager.getInstance().showFacebookInterstitialAd();
-
         AdsManager.getInstance().showFacebookNativeAd(Application.getContext(),fbNative ,null);
         findReferences();
         return rootView;

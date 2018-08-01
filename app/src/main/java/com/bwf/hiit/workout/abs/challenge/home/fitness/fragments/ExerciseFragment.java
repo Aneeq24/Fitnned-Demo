@@ -298,8 +298,6 @@ public class ExerciseFragment extends Fragment {
                 if(remaingTime>3)
                 {
                     Utils.playAudio(rootView.getContext(),id);
-
-
                 }
                 else
                 {

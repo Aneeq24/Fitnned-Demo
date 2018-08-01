@@ -85,16 +85,10 @@ public class HomeActivity extends AppCompatActivity implements
 
 //      //TODO Ads
         AdsManager.getInstance().showFacebookInterstitialAd();
-//
-//        viewPager.setAdapter(pagerAdapter);
 
-        AnalyticsManager.getInstance().sendAnalytics("Activity Started", "Home Activity");
+        //TODO Analytics
+        AnalyticsManager.getInstance().sendAnalytics("Activity Started", "Plan Screen Activity");
 
-//        int  k = viewPager.getCurrentItem();
-
-
-        TTSManager.getInstance(getApplication()).play("Welcome");
-//
 
         try {
             initApp();
@@ -116,57 +110,14 @@ public class HomeActivity extends AppCompatActivity implements
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-
     @SuppressLint("StaticFieldLeak")
     void initApp() {
+
         RecyclerView recycleViewActivity = findViewById(R.id.menuData);
         recycleViewActivity.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         MenuDataClass dataClass = new MenuDataClass();
-
         recycleViewActivity.setAdapter(new MainMenuAdapter(dataClass.tilte, dataClass.image, dataClass.description));
-/*
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-
-                AppDataBase dataBase = AppDataBase.getInstance();
-
-                for (int plan = 1; plan < 4; plan++) {
-                    for (int i = 0; i < 30; i++) {
-                        int totalComplete = dataBase.exerciseDayDao().getExerciseDays(plan,
-                                i + 1).get(0).getExerciseComplete();
-                        int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan,
-                                i + 1).get(0).getTotalExercise();
-
-
-                        float v = (float) totalComplete / (float) totalExercises;
-
-                        LogHelper.logD("1994:", "" + v);
-                        if (v >= 1) {
-                            val++;
-                            LogHelper.logD("1994:", "" + val);
-                        }
-
-                    }
-
-
-                }
-
-                return null;
-            }
-
-
-        }.execute();
-
-*/
     }
-
-    Workout.MenuDataClass obj1;
-    Workout.MenuDataClass obj2;
-    Workout.MenuDataClass obj3;
-    Workout.MenuDataClass[] array;
-
-    List<Workout.MenuDataClass> list = new ArrayList<Workout.MenuDataClass>();
 
     @Override
     public void onClick(View view) {
@@ -187,7 +138,6 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
     public class MenuDataClass {
-        //1994 populate main screen
 
         //ToDo need to get images from the data base
         String[] tilte = {"BEGINEER", "INTERMEDIATE", "ADVANCED"};
@@ -207,18 +157,6 @@ public class HomeActivity extends AppCompatActivity implements
 
         }
     }
-
-
-//    void initApp()
-//    {
-////        RecyclerView recycleViewActivity = findViewById(R.id.menuData);
-////        recycleViewActivity.setLayoutManager(new LinearLayoutManager(this));
-////        populateData();
-////        MenuDataClass dataClass = new MenuDataClass();
-////        recycleViewActivity.setAdapter(new MainMenuAdapter(dataClass.tilte , dataClass.image,dataClass.description));
-////
-//
-//    }
 
     @Override
     public void onBackPressed() {
@@ -261,13 +199,11 @@ public class HomeActivity extends AppCompatActivity implements
 
         }
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
     private void requestGoogleConsentForm(boolean isAppLaunch) {
         if (BuildConfig.DEBUG) {
@@ -289,7 +225,6 @@ public class HomeActivity extends AppCompatActivity implements
                     }
                 }
             }
-
             @Override
             public void onFailedToUpdateConsentInfo(String errorDescription) {
                 // User's consent status failed to update
@@ -354,17 +289,10 @@ public class HomeActivity extends AppCompatActivity implements
 
     public void onSettingsClicked() {
         onBackPressed();
-
-
-//        Intent newActivity = new Intent(getApplicationContext(), SettingsActivity.class);
-//        startActivity(newActivity);
-
-//        new Handler().postDelayed(() -> ActivityManager.openNewActivity(HomeActivity.this, SettingsActivity.class, true), 500);
     }
 
     public void onFeedbackClicked() {
         onBackPressed();
-//        new Handler().postDelayed(() -> ActivityManager.getInstance().openNewActivity(MainActivity.this, FeedbackActivity.class, true), 500);
     }
 
     public void onMoreAppsClicked() {

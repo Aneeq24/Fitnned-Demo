@@ -93,13 +93,13 @@ public class CompleteFragment extends Fragment {
         PlayingExercise playingExercise = (PlayingExercise) getActivity();
 
 
-//        int  minutes = (playingExercise.totaTimeSpend % 3600) / 60;
-//        int seconds = playingExercise.totaTimeSpend % 60;
-//
-//        String timeString = String.format("%02d:%02d", minutes, seconds);
+        int  minutes = (playingExercise.totaTimeSpend % 3600) / 60;
+        int seconds = playingExercise.totaTimeSpend % 60;
 
-        totalExercisTextView.setText(playingExercise.totalExercises);
-      //  totalTimeSpendCount.setText(timeString);
+        String timeString = String.format("%02d:%02d", minutes, seconds);
+
+       totalExercisTextView.setText(""+playingExercise.totalExercises);
+        totalTimeSpendCount.setText(""+timeString);
 
 
         toolbar.setNavigationOnClickListener(view -> {

@@ -4,192 +4,192 @@
     "unit": 1,
     "lang": 1,
     "calories": 0.039,
-    "name": "high_knees",
-    "display":"Hight Knees"
+    "name": "bicycle_crunches",
+    "display":"Bicycle Crunches"
   },
   {
     "id": 2,
     "unit": 1,
     "lang": 1,
     "calories": 0.05,
-    "name": "squats",
-    "display":"Squats"
+    "name": "burpees",
+    "display":"Burpees"
   },
   {
     "id": 3,
     "unit": 1,
     "lang": 1,
     "calories": 0.038,
-    "name": "burpees",
-    "display":"Burpees"
+    "name": "circle_crunches",
+    "display":"Circle Crunches"
   },
   {
     "id": 4,
     "unit": 1,
     "lang": 1,
     "calories": 0.23,
-    "name": "elbow_plank",
-    "display":"Elbow Plank"
+    "name": "crunches",
+    "display":"Sit up Crunches"
   },
   {
     "id": 5,
     "unit": 1,
     "lang": 1,
     "calories": 0.045,
-    "name": "jumping_jacks",
-    "display":"Jumping Jacks"
+    "name": "elbow_plank",
+    "display":"Elbow Plank"
   },
   {
     "id": 6,
     "unit": 1,
     "lang": 1,
     "calories": 0.038,
-    "name": "side_leg_raises",
-    "display":"Side Leg Raises"
+    "name": "flutter_kicks",
+    "display":"Flutter Kicks"
   },
   {
     "id": 7,
     "unit": 1,
     "lang": 1,
     "calories": 0.038,
-    "name": "toe_tap_hops",
-    "display":"Toe Tap Hops"
+    "name": "high_knees",
+    "display":"High Knees"
   },
   {
     "id": 8,
     "unit": 1,
     "lang": 1,
     "calories": 0.04,
-    "name": "lunge_step_ups",
-    "display":"Lunge Step Ups"
+    "name": "jump_push_up",
+    "display":"Jump Pushup"
   },
   {
     "id": 9,
     "unit": 1,
     "lang": 1,
     "calories": 0.03,
-    "name": "plank_leg_raises",
-    "display":"Plank Leg Raises"
+    "name": "jumping_jacks",
+    "display":"Jumping Jacks"
   },
   {
     "id": 10,
     "unit": 1,
     "lang": 1,
     "calories": 0.04,
-    "name": "mountain_climbers",
-    "display":"Mountain Climbers"
+    "name": "leg_raises",
+    "display":"Leg Raises"
   },
   {
     "id": 11,
     "unit": 1,
     "lang": 1,
     "calories": 0.038,
-    "name": "plank_jacks",
-    "display":"Plank Jacks"
+    "name": "lunge_step_ups",
+    "display":"Lunge Step Ups"
   },
   {
     "id": 12,
     "unit": 1,
     "lang": 1,
     "calories": 0.045,
-    "name": "plank_arm_raises",
-    "display":"Plank Arm Raises"
+    "name": "mountain_climbers",
+    "display":"Mountain Climbers"
   },
   {
     "id": 13,
     "unit": 1,
     "lang": 1,
     "calories": 0.045,
-    "name": "crunches",
-    "display":"Crunches"
+    "name": "moving_plank",
+    "display":"Moving Plank"
   },
   {
     "id": 14,
     "unit": 2,
     "lang": 1,
     "calories": 0.045,
-    "name": "reverse_crunches",
-    "display":"Reverse Crunches"
+    "name": "one_legged_push_up_plank",
+    "display":"Push Up Plank Leg Raises"
   },
   {
     "id": 15,
     "unit": 1,
     "lang": 1,
     "calories": 0.036,
-    "name": "flutter_kicks",
-    "display":"Flutter Kicks"
+    "name": "pike_walk",
+    "display":"Pike Walk"
   },
   {
     "id": 16,
     "unit": 1,
     "lang": 1,
     "calories": 0.038,
-    "name": "scissors",
-    "display":"Scissors"
+    "name": "plank",
+    "display":"Plank"
   },
   {
     "id": 17,
     "unit": 1,
     "lang": 1,
     "calories": 0.036,
-    "name": "half_jacks",
-    "display":"Half Jacks"
+    "name": "plank_arm_raises",
+    "display":"Plank Arm Raises"
   },
   {
     "id": 18,
     "unit": 1,
     "lang": 1,
     "calories": 0.036,
-    "name": "raised_arm_circles",
-    "display":"Raised Arm Circles"
+    "name": "plank_jacks",
+    "display":"Plank Jacks"
   },
   {
     "id": 19,
     "unit": 1,
     "lang": 1,
     "calories": 0.04,
-    "name": "plank",
-    "display":"Plank"
+    "name": "plank_jump_ins",
+    "display":"Plank Jump-Ins"
   },
   {
     "id": 20,
     "unit": 1,
     "lang": 1,
     "calories": 0.04,
-    "name": "one_arm_plank",
-    "display":"One Arm Plank"
+    "name": "plank_leg_raises",
+    "display":"Plank Leg Raises"
   },
   {
     "id": 21,
     "unit": 1,
     "lang": 1,
     "calories": 0.036,
-    "name": "jumping_tsl",
-    "display":"Jumping TSL"
+    "name": "push_up",
+    "display":"Push Ups"
   },
   {
     "id": 22,
     "unit": 1,
     "lang": 1,
     "calories": 0.039,
-    "name": "sitting_twists",
-    "display":"Sitting Twists"
+    "name": "push_up_plank",
+    "display":"Push Up Plank"
   },
   {
     "id": 23,
     "unit": 1,
     "lang": 1,
     "calories": 0.039,
-    "name": "moving_plank",
-    "display":"Moving Plank"
+    "name": "raised_leg_circles",
+    "display":"Raised Leg Circles"
   },
   {
     "id": 24,
     "unit": 1,
     "lang": 1,
     "calories": 0.026,
-    "name": "leg_raises",
-    "display":"Leg Raises"
+    "name": "reverse_crunches",
+    "display":"Reverse Crunches"
 
   },
   {
@@ -197,151 +197,31 @@
     "unit": 1,
     "lang": 1,
     "calories": 0.045,
-    "name": "raised_leg_circles",
-    "display":"Raised Leg Circles"
+    "name": "russian_twist",
+    "display":"Russian Twist"
   },
   {
     "id": 26,
     "unit": 1,
     "lang": 1,
     "calories": 0.045,
-    "name": "raised_leg_plank",
-    "display":"Raised Leg Plank"
+    "name": "scissors",
+    "display":"Scissors"
   },
   {
     "id": 27,
     "unit": 1,
     "lang": 1,
     "calories": 0.03,
-    "name": "turning_kicks",
-    "display":"Turning Kicks"
+    "name": "side_plank_leg_raise",
+    "display":"Side Plank + Leg Raises"
   },
   {
     "id": 28,
     "unit": 1,
     "lang": 1,
     "calories": 0.03,
-    "name": "punches",
-    "display":"Punches"
-  },
-  {
-    "id": 29,
-    "unit": 1,
-    "lang": 1,
-    "calories": 0.03,
-    "name": "scissor_chops",
-    "display":"Scissor Chops"
-  },
-  {
-    "id": 30,
-    "unit": 1,
-    "lang": 1,
-    "calories": 0.03,
-    "name": "plank_jump_ins",
-    "display":"Plank Jump Ins"
-  },
-  {
-    "id": 31,
-    "unit": 1,
-    "lang": 1,
-    "calories": 0.045,
-    "name": "sit_ups",
-    "display":"Sit Ups"
-  },
-  {
-    "id": 32,
-    "unit": 1,
-    "lang": 1,
-    "calories": 0.026,
-    "name": "push_up_plank",
-    "display":"Push Up Plank"
-  },
-  {
-    "id": 33,
-    "unit": 1,
-    "lang": 1,
-    "calories": 0.043,
-    "name": "one_legged_plank",
-    "display":"One Legged Plank"
-  },
-  {
-    "id": 34,
-    "unit": 1,
-    "lang": 1,
-    "calories": 0.043,
-    "name": "one_legged_push_up_plank",
-    "display":"One Legged Push Up Plank"
-  },
-  {
-    "id": 35,
-    "unit": 1,
-    "lang": 1,
-    "calories": 0.045,
-    "name": "half_jack_squat",
-    "display":"Half Jack Squat"
-  },
-  {
-    "id": 36,
-    "unit": 1,
-    "lang": 1,
-    "calories": 0.45,
-    "name": "knee_to_elbow_crunches",
-    "display":"Knee To Elbow Crunches"
-  },
-  {
-    "id": 37,
-    "unit": 1,
-    "lang": 1,
-    "calories": 0.053,
-    "name": "side_to_side_jumps",
-    "display":"Side To Side Jumps"
-  },
-  {
-    "id": 38,
-    "unit": 1,
-    "lang": 1,
-    "calories": 0.045,
-    "name": "circle_crunches",
-    "display":"Circle Crunches"
-  },
-  {
-    "id": 39,
-    "unit": 1,
-    "lang": 1,
-    "calories": 0.04,
-    "name": "cross_jump_rotation",
-    "display":"Cross Jump Rotation"
-  },
-  {
-    "id": 40,
-    "unit": 1,
-    "lang": 1,
-    "calories": 0.049,
-    "name": "pike_walk",
-    "display":"Pike Walk"
-  },
-  {
-    "id": 41,
-    "unit": 1,
-    "lang": 1,
-    "calories": 0.049,
-    "name": "push_up",
-    "display":"Push Up"
-  },
-  {
-    "id": 42,
-    "unit": 1,
-    "lang": 1,
-    "calories": 0.038,
-    "name": "jump_push_up",
-    "display":"Jump Push Up"
-  },
-  {
-    "id": 43,
-    "unit": 1,
-    "lang": 1,
-    "calories": 0.045,
-    "name": "pistol_squats",
-    "display":"Pistol Squats"
+    "name": "v_ups",
+    "display":"V Ups"
   }
 ]

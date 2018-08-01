@@ -140,7 +140,7 @@ public class HomeActivity extends AppCompatActivity implements
     public class MenuDataClass {
 
         //ToDo need to get images from the data base
-        String[] tilte = {"BEGINEER", "INTERMEDIATE", "ADVANCED"};
+        String[] tilte = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
 
         String[] description = {
                 "",

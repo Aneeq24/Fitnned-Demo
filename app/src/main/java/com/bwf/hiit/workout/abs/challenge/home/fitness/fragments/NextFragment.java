@@ -120,9 +120,10 @@ public class NextFragment extends Fragment {
 
         aimationImage = rootView.findViewById(R.id.nf_exerciseImage);
 
-        textView.setText("Round " + (playingExercise.currentRound +1)+"/" + playingExercise.totalRounds);
-
-
+        if (playingExercise.currentRound<=(playingExercise.totalRounds-1))
+            textView.setText("Round " + (playingExercise.currentRound +1)+"/" + playingExercise.totalRounds);
+        else
+            textView.setText("Round " + playingExercise.totalRounds+"/" + playingExercise.totalRounds);
         mCustomCircleBar.setProgress(playingExercise.restTime );
 
         mCustomCircleBar.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +174,7 @@ public class NextFragment extends Fragment {
 
               playingExercise.StartPlayingFragment();
           });
+
 
 
           nextSreenExerciseName.setText(playingExercise.nextExerciseName);

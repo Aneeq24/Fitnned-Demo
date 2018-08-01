@@ -149,7 +149,7 @@
     "lang": 1,
     "calories": 0.04,
     "name": "plank_jump_ins",
-    "display":"Plank Jump-Ins"
+    "display":"Plank Jump Ins"
   },
   {
     "id": 20,
@@ -214,7 +214,7 @@
     "lang": 1,
     "calories": 0.03,
     "name": "side_plank_leg_raise",
-    "display":"Side Plank + Leg Raises"
+    "display":"Side Plank Leg Raises"
   },
   {
     "id": 28,

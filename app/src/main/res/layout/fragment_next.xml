@@ -115,7 +115,7 @@
         app:progress_stroke_cap="round"
         app:progress_stroke_width="7dp"
         app:progress_text_color="@color/colorPrimary"
-        app:progress_text_size="15dp"
+        app:progress_text_size="20dp"
         app:style="solid_line" />
 
     <ImageView
@@ -184,18 +184,28 @@
         style="@style/Base.TextAppearance.AppCompat.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto_bold"
         android:text="Round 1/5 "
         android:textColor="@android:color/background_light"
-        app:layout_constraintBottom_toTopOf="@+id/restTimer"
+        app:layout_constraintStart_toStartOf="@+id/nextBgButtonPanel"
+        app:layout_constraintTop_toTopOf="@+id/nextBgButtonPanel" />
+
+    <TextView
+        android:id="@+id/nf_exerciseText"
+        style="@style/Base.TextAppearance.AppCompat.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Exercise 1/5 "
+        android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="@+id/nextBgButtonPanel"
-        app:layout_constraintStart_toStartOf="@+id/nextBgButtonPanel" />
+        app:layout_constraintTop_toTopOf="@+id/nextBgButtonPanel" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -51,6 +51,8 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
         @Override
         protected Void doInBackground(Void... voids) {
 
+            isDataUp = false;
+
             for (int plan = 1; plan < 4; plan++)
             {
                 val = 0;
@@ -139,7 +141,7 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
                 Intent i = new Intent(view.getContext() ,ScrollingActivity.class);
                 i.putExtra(view.getContext().getString(R.string.plan) ,(position+1));
                 view.getContext().startActivity(i);
-                AnalyticsManager.getInstance().sendAnalytics("Plan", "Selected :" + (position+1));
+                AnalyticsManager.getInstance().sendAnalytics("plan_selected", "value " + (position+1));
             }
         });
 
@@ -165,11 +167,18 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
                 Intent i = new Intent(view.getContext() ,ScrollingActivity.class);
                 int tempValue = position+1;
                 i.putExtra(view.getContext().getString(R.string.plan) ,tempValue);
-                AnalyticsManager.getInstance().sendAnalytics("Plan", "Selected :" + (position+1));
+                AnalyticsManager.getInstance().sendAnalytics("plan", "selected " + (position+1));
                 view.getContext().startActivity(i);
 
             }
         });
+
+    }
+
+    public  void  updateRecycleView()
+    {
+        GetDataFromDb dataFromDb = new GetDataFromDb();
+        dataFromDb.execute();
 
     }
 

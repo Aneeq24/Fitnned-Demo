@@ -203,7 +203,7 @@ public class SplashScreeActivity extends AppCompatActivity {
 
         Stetho.initializeWithDefaults(this);
 
-        AnalyticsManager.getInstance().sendAnalytics("Activity Started", "Splash Activity");
+        AnalyticsManager.getInstance().sendAnalytics("splash_screen_started", "activity_started");
 
         AppDbCheckingTask appDbCheckingTask = new AppDbCheckingTask();
         appDbCheckingTask.execute();

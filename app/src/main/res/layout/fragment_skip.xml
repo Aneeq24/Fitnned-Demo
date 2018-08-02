@@ -62,8 +62,6 @@
     <VideoView
         android:id="@+id/sf_exerciseVideoView"
         android:layout_width="0dp"
-
-
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -81,13 +79,17 @@
         android:id="@+id/tv_exercise_name_skipScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:paddingLeft="0dp"
         android:text="HEADING EXAMPLE"
+        android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/sf_soundFragment"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:paddingTop="0dp" />
@@ -184,11 +186,10 @@
         app:progress_stroke_width="7dp"
         app:line_width="7dp"
         app:line_count="30"
-        app:progress_text_size="15dp"
+        app:progress_text_size="20dp"
         app:progress_stroke_cap="round"
         app:progress_background_color="@color/bgColor"
         app:progress_text_color="@color/colorPrimary"
-
         app:progress_start_color="@color/colorPrimary"
         app:progress_end_color="@color/colorPrimary"
         android:layout_marginBottom="90dp"

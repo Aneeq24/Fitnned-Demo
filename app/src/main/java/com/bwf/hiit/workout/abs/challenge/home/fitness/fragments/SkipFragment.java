@@ -13,9 +13,11 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AppPrefManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.dinuscxj.progressbar.CircleProgressBar;
@@ -156,7 +158,7 @@ public class SkipFragment extends Fragment {
         skipTimerButton.setOnClickListener(view -> startPlayingButton());
 
 
-        startSkipTimer(16000 , 1000,skipTimerText);
+        startSkipTimer(11000 , 1000,skipTimerText);
 
         skipCircleprogressBar.setProgressFormatter(new CircleProgressBar.ProgressFormatter()
         {
@@ -240,8 +242,10 @@ public class SkipFragment extends Fragment {
                 pauseTimer = value;
                 skipCircleprogressBar.setProgress(value);
                 int id = getResources().getIdentifier("clock", "raw",rootView.getContext().getPackageName());
-
+                if (value>3)
                 Utils.playAudio(rootView.getContext(),id);
+                else
+                    TTSManager.getInstance(playingExercise.getApplication()).play("" +value);
             }
 
             public void onFinish()

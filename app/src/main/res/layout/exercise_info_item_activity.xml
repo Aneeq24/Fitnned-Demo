@@ -121,7 +121,7 @@
                     android:id="@+id/textLayoutLeftCell"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="0.8"
                     android:orientation="vertical">
 
                     <TextView
@@ -192,7 +192,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_bold"
                         android:gravity="left|bottom"
-                        android:text="REST"
+                        android:text="Rest"
                         android:textColor="#a1a1a1"
                         />
 

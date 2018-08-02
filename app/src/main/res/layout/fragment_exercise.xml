@@ -164,7 +164,6 @@
         android:layout_marginStart="8dp"
         android:src="@drawable/pause_screen_play_icon"
         app:layout_constraintBottom_toBottomOf="parent"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:line_count="30"
@@ -175,7 +174,7 @@
         app:progress_stroke_cap="round"
         app:progress_stroke_width="7dp"
         app:progress_text_color="@color/colorPrimary"
-        app:progress_text_size="15dp"
+        app:progress_text_size="20dp"
 
         app:style="solid_line" />
 
@@ -308,9 +307,9 @@
                 android:id="@+id/ef_exerciseTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="5dp"
-                android:gravity="left|center"
+                android:gravity="center|left"
                 android:text=" 1/5"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp" />

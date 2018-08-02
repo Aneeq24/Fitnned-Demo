@@ -59,6 +59,7 @@ public class HomeActivity extends AppCompatActivity implements
     private TextView moreApps;
     private TextView privacyPolicy;
     private boolean isAppInBackground = false;
+    boolean paused;
     private ConsentInformation consentInformation;
     private final String TAG = HomeActivity.class.getSimpleName();
 
@@ -78,6 +79,9 @@ public class HomeActivity extends AppCompatActivity implements
         moreApps.setOnClickListener(this);
         privacyPolicy.setOnClickListener(this);
 
+        paused = false;
+
+
         consentInformation = ConsentInformation.getInstance(this);
         requestGoogleConsentForm(true);
 
@@ -87,7 +91,7 @@ public class HomeActivity extends AppCompatActivity implements
         AdsManager.getInstance().showFacebookInterstitialAd();
 
         //TODO Analytics
-        AnalyticsManager.getInstance().sendAnalytics("Activity Started", "Plan Screen Activity");
+        AnalyticsManager.getInstance().sendAnalytics("activity_started", "plan_screen_activity");
 
 
         try {
@@ -110,13 +114,16 @@ public class HomeActivity extends AppCompatActivity implements
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    MainMenuAdapter menuAdapter;
     @SuppressLint("StaticFieldLeak")
     void initApp() {
 
         RecyclerView recycleViewActivity = findViewById(R.id.menuData);
         recycleViewActivity.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         MenuDataClass dataClass = new MenuDataClass();
-        recycleViewActivity.setAdapter(new MainMenuAdapter(dataClass.tilte, dataClass.image, dataClass.description));
+
+        menuAdapter = new MainMenuAdapter(dataClass.tilte, dataClass.image, dataClass.description);
+        recycleViewActivity.setAdapter(menuAdapter);
     }
 
     @Override
@@ -185,6 +192,22 @@ public class HomeActivity extends AppCompatActivity implements
         //noinspection SimplifiableIfStatement
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        paused = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (paused)
+        {
+            menuAdapter.updateRecycleView();
+            paused = false;
+        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -304,7 +327,7 @@ public class HomeActivity extends AppCompatActivity implements
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Theta+Mobile")));
             }
         }, 500);
-        AnalyticsManager.getInstance().sendAnalytics("More Apps", "Clicked");
+        AnalyticsManager.getInstance().sendAnalytics("more_apps", "clicked");
     }
 
     public void onPrivacyPolicyClicked() {
@@ -313,7 +336,7 @@ public class HomeActivity extends AppCompatActivity implements
             consentInformation.setConsentStatus(ConsentStatus.UNKNOWN);
             requestGoogleConsentForm(false);
         }, 500);
-        AnalyticsManager.getInstance().sendAnalytics("Privacy Policy", "Clicked");
+        AnalyticsManager.getInstance().sendAnalytics("privacy_policy", "clicked");
     }
 
 

@@ -17,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
+        android:layout_marginBottom="8dp"
         android:background="@drawable/pause_screen_image_bg"
         app:layout_constraintBottom_toTopOf="@+id/nextScreenBg"
         app:layout_constraintEnd_toEndOf="parent"
@@ -148,5 +149,34 @@
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/nextScreenBg"
         app:layout_constraintTop_toBottomOf="@+id/tv_pauseHeadline" />
+
+
+    <TextView
+        android:id="@+id/pf_roundText"
+        style="@style/Base.TextAppearance.AppCompat.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Round 1/5 "
+        android:textColor="@android:color/background_light"
+        app:layout_constraintStart_toEndOf="@+id/previous"
+        app:layout_constraintTop_toTopOf="@+id/pauseBgButtonPanel" />
+
+    <TextView
+        android:id="@+id/pf_exerciseText"
+        style="@style/Base.TextAppearance.AppCompat.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Round 1/5 "
+        android:textColor="@android:color/background_light"
+        app:layout_constraintEnd_toStartOf="@+id/pauseNext"
+        app:layout_constraintTop_toTopOf="@+id/pauseBgButtonPanel" />
 
 </android.support.constraint.ConstraintLayout>

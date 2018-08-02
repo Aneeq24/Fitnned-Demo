@@ -36,7 +36,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="2dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="HIT 30 DAY CHALLENGE"
+        android:text="HIIT 30 DAY CHALLENGE"
         android:textColor="?attr/colorBackgroundFloating"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -93,10 +93,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
+        android:lineSpacingExtra="8sp"
         android:text="30 "
         android:textColor="@android:color/background_light"
         app:fontFamily="@font/roboto_bold"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView13"
         app:layout_constraintStart_toStartOf="@+id/taskImageId" />
 
     <TextView

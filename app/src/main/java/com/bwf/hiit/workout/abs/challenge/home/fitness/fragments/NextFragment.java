@@ -52,6 +52,7 @@ public class NextFragment extends Fragment {
     public boolean pause = false;
 
     TextView textView;
+    TextView exerciseTextView;
 
     CircleProgressBar mCustomCircleBar;
 
@@ -98,6 +99,7 @@ public class NextFragment extends Fragment {
 
         textView = rootView.findViewById(R.id.cf_roundText);
 
+        exerciseTextView = rootView.findViewById(R.id.nf_exerciseText);
 
         pause = false;
 
@@ -124,6 +126,11 @@ public class NextFragment extends Fragment {
             textView.setText("Round " + (playingExercise.currentRound +1)+"/" + playingExercise.totalRounds);
         else
             textView.setText("Round " + playingExercise.totalRounds+"/" + playingExercise.totalRounds);
+
+
+        exerciseTextView.setText("Exercise " + (playingExercise.currentExercise+1) + "/" + playingExercise.totalExercisePerRound);
+
+
         mCustomCircleBar.setProgress(playingExercise.restTime );
 
         mCustomCircleBar.setOnClickListener(new View.OnClickListener() {
@@ -239,7 +246,12 @@ public class NextFragment extends Fragment {
                 pauseTimer = currentRestTime;
                 mCustomCircleBar.setProgress(currentRestTime);
                 int id = getResources().getIdentifier("clock", "raw",rootView.getContext().getPackageName());
-                Utils.playAudio(rootView.getContext(),id);
+//                Utils.playAudio(rootView.getContext(),id);
+
+                if (currentRestTime>3)
+                    Utils.playAudio(rootView.getContext(),id);
+                else
+                    TTSManager.getInstance(playingExercise.getApplication()).play("" +currentRestTime);
             }
 
             public void onFinish()
@@ -257,23 +269,25 @@ public class NextFragment extends Fragment {
 
      void addrestTime()
     {
+
         countDownTimer.cancel();
-        currentRestTime *=1000;
-        currentRestTime += 5000;
-         mCustomCircleBar.setMax(currentRestTime/1000);
-        // mCustomCircleBar.setProgress(currentRestTime/1000);
-
-
-
-        if(!pause)
-        {
-            pauseTimer = currentRestTime;
+        if(!pause) {
+            currentRestTime *= 1000;
+            currentRestTime += 5000;
+            mCustomCircleBar.setMax(currentRestTime / 1000);
+            mCustomCircleBar.setProgress(currentRestTime / 1000);
             startRestTimer(currentRestTime, 1000);
         }
+
         else
         {
-            pauseTimer = currentRestTime/1000;
+            pauseTimer += 5;
+            mCustomCircleBar.setMax(pauseTimer );
+            mCustomCircleBar.setProgress(pauseTimer);
+
         }
+
+
 
     }
 

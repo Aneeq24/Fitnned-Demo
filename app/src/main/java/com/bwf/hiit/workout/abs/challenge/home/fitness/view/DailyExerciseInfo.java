@@ -149,12 +149,12 @@ public class DailyExerciseInfo extends AppCompatActivity
         //Todo AdsEnd
 
         //TODO Analytics
-        AnalyticsManager.getInstance().sendAnalytics("Activity Started", "Exercise List Activity");
+        AnalyticsManager.getInstance().sendAnalytics("activity_started", "exercise_list_activity");
 
         Intent intent = getIntent();
         plan = intent.getIntExtra(getApplicationContext().getString(R.string.plan),0);
         day = intent.getIntExtra(getApplicationContext().getString(R.string.day_selected) , 0);
-        AnalyticsManager.getInstance().sendAnalytics("Activity Started", "Exercise List Activity");
+        AnalyticsManager.getInstance().sendAnalytics("activity_started", "exercise_list_activity");
         sharedPreferences = this.getSharedPreferences(String.valueOf(getApplicationContext()), Context.MODE_PRIVATE);
 
         dataModelWorkout = new DataModelWorkout();
@@ -234,6 +234,7 @@ public class DailyExerciseInfo extends AppCompatActivity
 
         if(flag)
             downLoaddbData(true);
+            flag = false;
     }
 
     @SuppressLint("StaticFieldLeak")

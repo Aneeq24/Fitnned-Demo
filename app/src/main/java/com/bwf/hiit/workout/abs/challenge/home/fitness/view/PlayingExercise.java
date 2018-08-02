@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -88,7 +89,7 @@ public class PlayingExercise extends AppCompatActivity {
         DataModelWorkout dataModelWorkout = new DataModelWorkout();
         fragmentManager = getSupportFragmentManager();
 
-        AnalyticsManager.getInstance().sendAnalytics("Activity Started", "Starting Exercise Activity");
+        AnalyticsManager.getInstance().sendAnalytics("activity_started", "exercise_activity_started");
 
 
 
@@ -196,14 +197,15 @@ public class PlayingExercise extends AppCompatActivity {
 
 
                 }
-                else {
+                else
+                    {
                     StartSkipFragment();
                 }
 
 
                 int i = currentRound +1;
 
-                TTSManager.getInstance(getApplication()).play("This is start of round" + i);
+                TTSManager.getInstance(getApplication()).play("This is start of round" + i + "  next exercise is  " + displayName);
             }
 
             @Override
@@ -327,6 +329,7 @@ public class PlayingExercise extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.fragment_container , exerciseFragment,null).commit();
     }
 
+    @SuppressLint("StaticFieldLeak")
     void  onCompleteCheckingNext()
     {
         exerciseDays.get(currentExercise).setStatus(true);
@@ -344,10 +347,41 @@ public class PlayingExercise extends AppCompatActivity {
                 currentRound++;
 
                 //TODO Analytics
-                AnalyticsManager.getInstance().sendAnalytics("Round Complete", "Plan " + currentPlan + " Day " + currentDay);
+                AnalyticsManager.getInstance().sendAnalytics("round_complete", "plan " + currentPlan + "day " + currentDay);
 
 
-                TTSManager.getInstance(getApplication()).play(" This is end of Round "+ currentRound +" Take a rest for" + restTime + "seconds . You have" + (exerciseDays.get(0).getRounds() - currentRound ) +"round remaining"  +"The Next Exercise is "+nextExerciseName);
+                TTSManager.getInstance(getApplication()).play(" This is end of Round "+ currentRound +" Take a rest for" + restTime + "seconds ");//. You have" + (exerciseDays.get(0).getRounds() - currentRound ) +"round remaining"  +"The Next Exercise is "+nextExerciseName);
+
+                new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+
+
+
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        super.onPostExecute(aVoid);
+
+                        new CountDownTimer(2000,1000)
+                        {
+                            @Override
+                            public void onTick(long l) {
+
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                if( nextFragment!=null && nextFragment.isVisible() && !nextFragment.pause)
+                                {
+                                    TTSManager.getInstance(getApplication()).play("You have" + (exerciseDays.get(0).getRounds() - currentRound ) +"round remaining"  +"The Next Exercise is "+nextExerciseName);
+                                }
+                            }
+                        }.start();
+                    }
+                }.execute();
 
                 Log.i("1994:Current exercise" , "current rounds less than total");
 
@@ -387,7 +421,7 @@ public class PlayingExercise extends AppCompatActivity {
             fragmentTransaction.add(R.id.fragment_container , completeFragment ,  null);
 
             //TODO Analytics
-            AnalyticsManager.getInstance().sendAnalytics("Complete All Exercises", "Plan " + currentPlan + " Day " + currentDay);
+            AnalyticsManager.getInstance().sendAnalytics("complete_all_exercises", "plan " + currentPlan + "day " + currentDay);
 
 
             TTSManager.getInstance(getApplication()).play(" Well Done. This is end of day " + (currentDay+1) + "of your training");

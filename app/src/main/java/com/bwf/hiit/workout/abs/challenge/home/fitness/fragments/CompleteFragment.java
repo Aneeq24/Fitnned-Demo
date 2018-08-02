@@ -98,7 +98,7 @@ public class CompleteFragment extends Fragment {
 
         String timeString = String.format("%02d:%02d", minutes, seconds);
 
-       totalExercisTextView.setText(""+playingExercise.totalExercises);
+        totalExercisTextView.setText(""+playingExercise.totalExercises);
         totalTimeSpendCount.setText(""+timeString);
 
 

@@ -59,7 +59,7 @@ public class ScrollingActivity extends AppCompatActivity {
         circleProgressBarLeft.setProgressFormatter((progress, max) -> progress + "");
 
         //TODO Analytics
-        AnalyticsManager.getInstance().sendAnalytics("Activity Started", "Day Selection Activity");
+        AnalyticsManager.getInstance().sendAnalytics("activity_started", "day_selection_activity");
 
         if(getIntent() != null && intent.getExtras() != null && intent.hasExtra(getString(R.string.plan))){
             plan = getIntent().getIntExtra(getString(R.string.plan), 0);
@@ -94,7 +94,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     break;
         }
 
-        TTSManager.getInstance(getApplication()).play("You have selected plan " + planName + "  Mode of 30 Day Ab Challenge");
+//        TTSManager.getInstance(getApplication()).play("You have selected plan " + planName + "  Mode of 30 Day Ab Challenge");
 
 
     }

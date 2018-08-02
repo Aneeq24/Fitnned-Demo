@@ -126,7 +126,7 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
             Intent i = new Intent(ac , DailyExerciseInfo.class);
             i.putExtra(view.getContext().getString(R.string.day_selected) , position+1);
             i.putExtra(view.getContext().getString(R.string.plan) , currentPlan);
-            AnalyticsManager.getInstance().sendAnalytics("Day Selected", "Day : " + (position+1) + "of plan:" + currentPlan);
+            AnalyticsManager.getInstance().sendAnalytics("day_selected", "day  " + (position+1) + "of_plan:" + currentPlan);
             view.getContext().startActivity(i);
         });
 

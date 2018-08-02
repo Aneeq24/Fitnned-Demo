@@ -24,7 +24,7 @@ public class Application extends android.app.Application {
         AdSettings.addTestDevice("728E481201E977FE91F3F915B469D33D");}
         AdsManager.getInstance();
 
-        AnalyticsManager.getInstance().sendAnalytics(TAG, "Application Opened");
+        AnalyticsManager.getInstance().sendAnalytics(TAG, "application_opened");
     }
 
     @Override

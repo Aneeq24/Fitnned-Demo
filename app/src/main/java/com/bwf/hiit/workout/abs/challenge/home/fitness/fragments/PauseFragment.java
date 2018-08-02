@@ -40,6 +40,9 @@ public class PauseFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    TextView textView;
+
+    TextView exerciseTextView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -93,6 +96,9 @@ public class PauseFragment extends Fragment {
 
         LinearLayout fbNative = rootView.findViewById(R.id.fbNative);
 
+        textView = rootView.findViewById(R.id.pf_roundText);
+        exerciseTextView = rootView.findViewById(R.id.pf_exerciseText);
+
         AdsManager.getInstance().showFacebookNativeAd(Application.getContext(),fbNative ,null);
         findReferences();
         return rootView;
@@ -142,6 +148,16 @@ public class PauseFragment extends Fragment {
                 onNext();
             }
         });
+
+
+
+        if (playingExercise.currentRound<=(playingExercise.totalRounds-1))
+            textView.setText("Round " + (playingExercise.currentRound +1)+"/" + playingExercise.totalRounds);
+        else
+            textView.setText("Round " + playingExercise.totalRounds+"/" + playingExercise.totalRounds);
+
+
+        exerciseTextView.setText("Exercise " + playingExercise.currentExercise + "/" + playingExercise.totalExercisePerRound);
 
 
         //TTSManager.getInstance(getApplication()).play The Next Exercise is [exercise name])

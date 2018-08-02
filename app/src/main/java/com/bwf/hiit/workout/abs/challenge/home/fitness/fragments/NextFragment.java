@@ -49,7 +49,7 @@ public class NextFragment extends Fragment {
     ImageView aimationImage;
     TextView nextSreenExerciseName;
     int pauseTimer = 0;
-    boolean pause = false;
+    public boolean pause = false;
 
     TextView textView;
 
@@ -153,7 +153,10 @@ public class NextFragment extends Fragment {
         }
         else
          {
-             pauseTimer *= 1000;
+             if(pauseTimer<900)
+             {
+                 pauseTimer *= 1000;
+             }
              startRestTimer(pauseTimer , 1000);
              pauseResumeImage.setImageResource(R.drawable.play_screen_pause_btn);
 
@@ -260,7 +263,17 @@ public class NextFragment extends Fragment {
          mCustomCircleBar.setMax(currentRestTime/1000);
         // mCustomCircleBar.setProgress(currentRestTime/1000);
 
-        startRestTimer(currentRestTime ,1000 );
+
+
+        if(!pause)
+        {
+            pauseTimer = currentRestTime;
+            startRestTimer(currentRestTime, 1000);
+        }
+        else
+        {
+            pauseTimer = currentRestTime/1000;
+        }
 
     }
 

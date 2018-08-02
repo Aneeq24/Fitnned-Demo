@@ -59,11 +59,14 @@ public class Utils {
     }
 
     public static void playAudio(Context context, int resourceId) {
-        int i = AppPrefManager.getInstance().getValue("sound",0);
-        if (i<=0)
-            return;
+
 
         try {
+
+            int i = AppPrefManager.getInstance().getValue("sound",0);
+            if (i>0)
+                return;
+
             MediaPlayer mediaPlayer = MediaPlayer.create(context, resourceId);
             mediaPlayer.setOnCompletionListener(MediaPlayer -> mediaPlayer.release());
             mediaPlayer.start();

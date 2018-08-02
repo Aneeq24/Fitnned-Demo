@@ -190,9 +190,16 @@ public class TTSManager implements TextToSpeech.OnInitListener {
     }
 
     public void play(CharSequence text) {
-        int i = AppPrefManager.getInstance().getValue("sound",0);
-        if (i<=0)
-            return;
+        try {
+            int i = AppPrefManager.getInstance().getValue("sound",0);
+            if (i>0)
+                return;
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
         play(text.toString(), null, null, null);
     }

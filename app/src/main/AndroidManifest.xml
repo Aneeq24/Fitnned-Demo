@@ -29,6 +29,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.PlayingExercise"
+            android:keepScreenOn="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.DailyExerciseInfo"

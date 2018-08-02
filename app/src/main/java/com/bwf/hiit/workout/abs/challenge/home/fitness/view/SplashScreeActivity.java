@@ -39,6 +39,9 @@ public class SplashScreeActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
+
+            AppPrefManager.getInstance().setValue("sound",0);
+
             Gson gson = new Gson();
             AppDataBase appDataBase = AppDataBase.getInstance();
             if (appDataBase != null) {

@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
@@ -80,6 +81,7 @@ public class PlayingExercise extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playing_exercise);
 
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 //        if (instance == null)
 //            instance = this;
 
@@ -416,13 +418,17 @@ public class PlayingExercise extends AppCompatActivity {
 
 
         if(skipFragment !=null && skipFragment.isVisible())
+        {
+            if(!skipFragment.pause)
             skipFragment.pauseOrRenume();
+        }
         else  if(exerciseFragment!=null && exerciseFragment.isVisible())
         {
             exerciseFragment.pause();
         }
         else if (nextFragment!=null && nextFragment.isVisible())
         {
+            if(!nextFragment.pause)
             nextFragment.pauseOrRenume();
         }
         else

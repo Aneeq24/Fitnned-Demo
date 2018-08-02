@@ -52,7 +52,7 @@ public class SkipFragment extends Fragment {
     ImageView soundButton_B;
 
     int pauseTimer = 0;
-    boolean pause = false;
+    public boolean pause = false;
     ImageView pauseResumeImage;
     int soundValue;
 
@@ -94,7 +94,6 @@ public class SkipFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_skip, container, false);
-
         pauseResumeImage = rootView.findViewById(R.id.sf_pauseTimerImageView);
         com.google.android.gms.ads.AdView adView = rootView.findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);

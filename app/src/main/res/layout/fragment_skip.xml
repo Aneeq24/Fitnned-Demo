@@ -57,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_exercise_name_skipScreen"
-        app:srcCompat="@drawable/static_image" />
+        />
 
     <VideoView
         android:id="@+id/sf_exerciseVideoView"

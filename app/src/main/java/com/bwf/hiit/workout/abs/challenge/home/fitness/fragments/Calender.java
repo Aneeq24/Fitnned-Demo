@@ -1,3 +1,4 @@
+/*
 package com.bwf.hiit.workout.abs.challenge.home.fitness.fragments;
 
 import android.graphics.Color;
@@ -23,6 +24,7 @@ import devs.mulham.horizontalcalendar.HorizontalCalendarView;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
 
+*/
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -30,7 +32,8 @@ import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
  * to handle interaction events.
  * Use the {@link Calender#newInstance} factory method to
  * create an instance of this fragment.
- */
+ *//*
+
 public class Calender extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,14 +56,16 @@ public class Calender extends Fragment {
         // Required empty public constructor
     }
 
-    /**
+    */
+/**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
      * @return A new instance of fragment Calender.
-     */
+     *//*
+
     // TODO: Rename and change types and number of parameters
     public static Calender newInstance(String param1, String param2) {
         Calender fragment = new Calender();
@@ -190,7 +195,9 @@ public class Calender extends Fragment {
         Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.WEEK_OF_MONTH, 0);
 
-        /* end after 1 month from now */
+        */
+/* end after 1 month from now *//*
+
         Calendar endDate = Calendar.getInstance();
         endDate.add(Calendar.WEEK_OF_MONTH, 0);
 
@@ -252,7 +259,8 @@ public class Calender extends Fragment {
 
 
 
-    /**
+    */
+/**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
@@ -261,7 +269,8 @@ public class Calender extends Fragment {
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
-     */
+     *//*
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
@@ -326,3 +335,4 @@ public class Calender extends Fragment {
 //        }
   //  }
 }
+*/

@@ -60,7 +60,7 @@ public class HomeActivity extends AppCompatActivity implements
     private TextView privacyPolicy;
     private boolean isAppInBackground = false;
     private ConsentInformation consentInformation;
-    private final String TAG = MainActivity.class.getSimpleName();
+    private final String TAG = HomeActivity.class.getSimpleName();
 
 
     @Override

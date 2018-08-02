@@ -20,6 +20,10 @@
 
 
 
+<!--
+        uncomment the dependency in the gradle file
+-->
+<!--
         <devs.mulham.horizontalcalendar.HorizontalCalendarView
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
@@ -34,6 +38,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/graph"
             app:textColorSelected="#FFFF" />
+-->
 
 
 

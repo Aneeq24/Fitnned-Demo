@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     tools:context=".fragments.PauseFragment"
-    android:background="@drawable/pause_screen_bg"
+    android:background="@drawable/enter_you_numbers_bg"
     >
 
     <!-- TODO: Update blank fragment layout -->
@@ -70,7 +70,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/pause_screen_next_bar_image"
         app:layout_constraintBottom_toBottomOf="@+id/nextScreenBg"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="@+id/nextScreenBg"

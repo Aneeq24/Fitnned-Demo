@@ -1,3 +1,4 @@
+/*
 package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
 import android.net.Uri;
@@ -177,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements Workout.OnFragmen
     int day = 0;
     int exercise=0;
     int id;
+*/
 /*
     void  saveDataInDd() {
 
@@ -226,7 +228,8 @@ public class MainActivity extends AppCompatActivity implements Workout.OnFragmen
 
 
     }
-*/
+*//*
+
     void initApp()
     {
 //        RecyclerView recycleViewActivity = findViewById(R.id.menuData);
@@ -311,3 +314,4 @@ public class MainActivity extends AppCompatActivity implements Workout.OnFragmen
 }
 
 
+*/

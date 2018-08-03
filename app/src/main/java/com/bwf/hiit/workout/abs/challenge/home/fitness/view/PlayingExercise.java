@@ -236,18 +236,18 @@ public class PlayingExercise extends AppCompatActivity {
         resetStaticPauseValues();
 
 
-        //TODO  Ads
-        //if facebook ad is avaliable then show it else show admob ad
-
-        if(AdsManager.getInstance().isFacebookInterstitalLoaded())
-        {
-            AdsManager.getInstance().showFacebookInterstitialAd();
-        }
-        else
-        {
-            AdsManager.getInstance().showInterstitialAd();
-        }
-        //Todo AdsEnd
+//        //TODO  Ads
+//        //if facebook ad is avaliable then show it else show admob ad
+//
+//        if(AdsManager.getInstance().isFacebookInterstitalLoaded())
+//        {
+//            AdsManager.getInstance().showFacebookInterstitialAd();
+//        }
+//        else
+//        {
+//            AdsManager.getInstance().showInterstitialAd();
+//        }
+//        //Todo AdsEnd
     }
 
     public static void  resetStaticPauseValues() {

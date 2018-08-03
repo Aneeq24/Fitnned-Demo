@@ -4,27 +4,28 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
-import com.facebook.ads.AdSettings;
-import com.google.android.gms.ads.MobileAds;
 
 public class Application extends android.app.Application {
 
     private static Context context;
-    private  String TAG =Application.class.getSimpleName();
+    private String TAG = Application.class.getSimpleName();
 
+    public static Context getContext() {
+        return context;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
-
-        MobileAds.initialize(context,context.getString(R.string.app_id));
-        if (BuildConfig.DEBUG) {
-        AdSettings.addTestDevice("728E481201E977FE91F3F915B469D33D");}
         AdsManager.getInstance();
+   /*      MobileAds.initialize(context,context.getString(R.string.app_id));
+        if (BuildConfig.DEBUG) {
+              AdSettings.addTestDevice("728E481201E977FE91F3F915B469D33D");}
+            AdsManager.getInstance();
 
-        AnalyticsManager.getInstance().sendAnalytics(TAG, "application_opened");
+            AnalyticsManager.getInstance().sendAnalytics(TAG, "application_opened");
+        }*/
     }
 
     @Override
@@ -35,9 +36,5 @@ public class Application extends android.app.Application {
         } catch (RuntimeException multiDexException) {
             multiDexException.printStackTrace();
         }
-    }
-
-    public static Context getContext(){
-        return context;
     }
 }

@@ -229,10 +229,10 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
     private void requestGoogleConsentForm(boolean isAppLaunch) {
-        if (BuildConfig.DEBUG) {
+      /*  if (BuildConfig.DEBUG) {
             consentInformation.setDebugGeography(DebugGeography.DEBUG_GEOGRAPHY_EEA);
             consentInformation.addTestDevice("8F14986600C19D5CB98F0125581FBBF4");
-        }
+        }*/
         consentInformation.requestConsentInfoUpdate(new String[]{getString(R.string.publisher_id)}, new ConsentInfoUpdateListener() {
             @Override
             public void onConsentInfoUpdated(ConsentStatus consentStatus) {
@@ -305,7 +305,7 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
     private void showPrivacyPolicy() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://s3-us-west-2.amazonaws.com/thetaapps/PrivacyPolicy.htm"));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://docs.google.com/document/d/1-ZDXRqZfKHd_sWjgrmyLAqoBbGHzGFEYY4OEKhEA6hA/edit"));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
         startActivity(intent);
     }
@@ -322,9 +322,9 @@ public class HomeActivity extends AppCompatActivity implements
         onBackPressed();
         new Handler().postDelayed(() -> {
             try {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://developer?id=Theta+Mobile")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
             } catch (android.content.ActivityNotFoundException anfe) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Theta+Mobile")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
             }
         }, 500);
         AnalyticsManager.getInstance().sendAnalytics("more_apps", "clicked");

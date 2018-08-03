@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 
 import java.math.BigDecimal;
@@ -108,6 +109,20 @@ public class CompleteFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
+
+        //TODO  Ads
+        //if facebook ad is avaliable then show it else show admob ad
+
+        if(AdsManager.getInstance().isFacebookInterstitalLoaded())
+        {
+            AdsManager.getInstance().showFacebookInterstitialAd();
+        }
+        else
+        {
+            AdsManager.getInstance().showInterstitialAd();
+        }
+        //Todo AdsEnd
 
         return rootView;
     }

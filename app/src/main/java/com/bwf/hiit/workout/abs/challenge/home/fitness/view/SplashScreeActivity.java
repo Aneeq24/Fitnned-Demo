@@ -19,7 +19,6 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Plan;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.PlanDays;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.JsonUtils;
-import com.facebook.stetho.Stetho;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -30,6 +29,64 @@ public class SplashScreeActivity extends AppCompatActivity {
     private final String TAG = SplashScreeActivity.class.getSimpleName();
 
     boolean backPresed;
+    AppDataBase dataBase;
+    private int splashTimeOut = 15000;   //Time in mili seconds
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash_scree);
+
+        AppPrefManager.getInstance().initPref(getApplicationContext());
+
+
+        AnalyticsManager.getInstance().sendAnalytics("splash_screen_started", "activity_started");
+
+        AppDbCheckingTask appDbCheckingTask = new AppDbCheckingTask();
+        appDbCheckingTask.execute();
+
+//         new Handler().postDelayed(new Runnable()
+//         {
+//             @Override
+//             public void run()
+//             {
+//                 Intent newActivity = new Intent(getApplicationContext() , MainActivity.class);
+//                 startActivity(newActivity);
+//                 finish();
+//             }
+//           },splashTimeOut
+//
+//
+//        );
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        backPresed = true;
+    }
+
+    void testingDb() {
+
+        int val = dataBase.planDao().getCount();
+        int dayCount = dataBase.planDao().getCount();
+        int exercise = dataBase.exerciseDao().getCount();
+
+
+        if (val == 0) {
+
+        }
+        if (dayCount == 0) {
+
+        }
+
+        if (exercise == 0) {
+
+        }
+
+    }
 
     class AppDbCheckingTask extends AsyncTask<Void, Void, Void> {
         @Override
@@ -40,7 +97,7 @@ public class SplashScreeActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            AppPrefManager.getInstance().setValue("sound",0);
+            AppPrefManager.getInstance().setValue("sound", 0);
 
             Gson gson = new Gson();
             AppDataBase appDataBase = AppDataBase.getInstance();
@@ -61,8 +118,7 @@ public class SplashScreeActivity extends AppCompatActivity {
 
                 //insert Day and progress
 
-                if(appDataBase.dayProgressDao().getCount() == 0)
-                {
+                if (appDataBase.dayProgressDao().getCount() == 0) {
                     try {
                         String json = JsonUtils.readJsonFromAssets(getApplicationContext(), "daysprogress.json");
                         List<DayProgressModel> progressModels = gson.fromJson(json, new TypeToken<List<DayProgressModel>>() {
@@ -90,8 +146,7 @@ public class SplashScreeActivity extends AppCompatActivity {
                     }
                 }
 
-                if (appDataBase.detailDao().getCount() == 0)
-                {
+                if (appDataBase.detailDao().getCount() == 0) {
                     try {
                         String json = JsonUtils.readJsonFromAssets(getApplicationContext(), "details.json");
                         List<Detail> details = gson.fromJson(json, new TypeToken<List<Detail>>() {
@@ -138,15 +193,14 @@ public class SplashScreeActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if(isCancelled())
+            if (isCancelled())
                 return;
 
             //TODO
 
             new Handler().postDelayed(new Runnable() {
                 @Override
-                public void run()
-                {
+                public void run() {
                     if (backPresed)
                         return;
 
@@ -154,7 +208,7 @@ public class SplashScreeActivity extends AppCompatActivity {
                     startActivity(newActivity);
                     finish();
                 }
-            }, 2000);
+            }, 9000);
         }
 
         @Override
@@ -163,9 +217,7 @@ public class SplashScreeActivity extends AppCompatActivity {
         }
     }
 
-
-    class  InsertPrefrences extends  AsyncTask<Void,Void,Void>
-    {
+    class InsertPrefrences extends AsyncTask<Void, Void, Void> {
 
 
         @Override
@@ -173,15 +225,11 @@ public class SplashScreeActivity extends AppCompatActivity {
 
             AppDataBase dataBase = AppDataBase.getInstance();
 
-            if (dataBase != null)
-            {
+            if (dataBase != null) {
 
-                for(int i = 0; i<dataBase.planDao().getCount() ; i++)
-                {
-                    for (int j = 0 ; j <dataBase.exerciseDayDao().getCount() ; j++)
-                    {
-                        for (int k = 0; k<dataBase.exerciseDao().getCount(); k ++)
-                        {
+                for (int i = 0; i < dataBase.planDao().getCount(); i++) {
+                    for (int j = 0; j < dataBase.exerciseDayDao().getCount(); j++) {
+                        for (int k = 0; k < dataBase.exerciseDao().getCount(); k++) {
 
                         }
                     }
@@ -190,71 +238,6 @@ public class SplashScreeActivity extends AppCompatActivity {
             }
             return null;
         }
-    }
-
-    private int splashTimeOut = 15000;   //Time in mili seconds
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_scree);
-
-        AppPrefManager.getInstance().initPref(getApplicationContext());
-
-        Stetho.initializeWithDefaults(this);
-
-        AnalyticsManager.getInstance().sendAnalytics("splash_screen_started", "activity_started");
-
-        AppDbCheckingTask appDbCheckingTask = new AppDbCheckingTask();
-        appDbCheckingTask.execute();
-
-//         new Handler().postDelayed(new Runnable()
-//         {
-//             @Override
-//             public void run()
-//             {
-//                 Intent newActivity = new Intent(getApplicationContext() , MainActivity.class);
-//                 startActivity(newActivity);
-//                 finish();
-//             }
-//           },splashTimeOut
-//
-//
-//        );
-
-
-    }
-
-    @Override
-    public void onBackPressed()
-    {
-        super.onBackPressed();
-        backPresed = true;
-    }
-
-    AppDataBase dataBase;
-
-    void testingDb() {
-
-        int val = dataBase.planDao().getCount();
-        int dayCount = dataBase.planDao().getCount();
-        int exercise = dataBase.exerciseDao().getCount();
-
-
-        if (val == 0)
-        {
-
-        }
-        if (dayCount == 0)
-        {
-
-        }
-
-        if (exercise == 0)
-        {
-
-        }
-
     }
 
 

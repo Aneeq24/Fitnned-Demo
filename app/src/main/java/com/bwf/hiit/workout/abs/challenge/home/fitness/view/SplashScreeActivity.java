@@ -9,8 +9,10 @@ import android.util.Log;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AlarmManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AppPrefManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.SharedPreferencesManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Day;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.DayProgressModel;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Detail;
@@ -204,6 +206,9 @@ public class SplashScreeActivity extends AppCompatActivity {
                     if (backPresed)
                         return;
 
+                    if (!SharedPreferencesManager.getInstance().getBoolean(getString(R.string.is_first_run))) {
+                        setDefaultPreferences();
+                    }
                     Intent newActivity = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(newActivity);
                     finish();
@@ -238,6 +243,17 @@ public class SplashScreeActivity extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+
+    private void setDefaultPreferences() {
+        SharedPreferencesManager.getInstance().setInt(getString(R.string.hour), 15);
+        SharedPreferencesManager.getInstance().setInt(getString(R.string.minute), 5);
+        SharedPreferencesManager.getInstance().setInt(getString(R.string.language), 0);
+        SharedPreferencesManager.getInstance().setBoolean(getString(R.string.alarm), true);
+        SharedPreferencesManager.getInstance().setBoolean(getString(R.string.is_first_run), true);
+        // set the alarm at 13:00 AM
+        AlarmManager.getInstance().setAlarm(this, 15, 5);
     }
 
 

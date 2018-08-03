@@ -46,6 +46,16 @@
             android:label=""
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <receiver
+            android:name=".receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="false" />
+        <receiver
+            android:name=".receiver.RebootReceiver"
+            android:enabled="true"
+            android:exported="false"/>
+
+
         <activity android:name=".view.ReminderSetActivity" />
         <activity android:name=".view.SelectGender" />
         <activity android:name=".view.AgeWeightHeightActivity" />

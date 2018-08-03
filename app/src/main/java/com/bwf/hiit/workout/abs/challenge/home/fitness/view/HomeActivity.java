@@ -2,6 +2,8 @@ package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -26,6 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.BuildConfig;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.MainMenuAdapter;
@@ -33,6 +36,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.Workout;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.LogHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AlarmManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.SharedPreferencesManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
@@ -58,6 +62,7 @@ public class HomeActivity extends AppCompatActivity implements
     private TextView feedback;
     private TextView moreApps;
     private TextView privacyPolicy;
+    private  TextView rateUs;
     private boolean isAppInBackground = false;
     boolean paused;
     private ConsentInformation consentInformation;
@@ -73,11 +78,13 @@ public class HomeActivity extends AppCompatActivity implements
         feedback = findViewById(R.id.feedback);
         moreApps = findViewById(R.id.more_apps);
         privacyPolicy = findViewById(R.id.privacy_policy);
+        rateUs  = findViewById(R.id.rate_us);
 
         settings.setOnClickListener(this);
         feedback.setOnClickListener(this);
         moreApps.setOnClickListener(this);
         privacyPolicy.setOnClickListener(this);
+        rateUs.setOnClickListener(this);
 
         paused = false;
 
@@ -112,6 +119,13 @@ public class HomeActivity extends AppCompatActivity implements
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+//        AlarmManager.getInstance().setAlarm(this, 12, 42);
+//        SharedPreferencesManager.getInstance().setInt(getString(R.string.hour), 12);
+//        SharedPreferencesManager.getInstance().setInt(getString(R.string.minute), 42);
+//        SharedPreferencesManager.getInstance().setBoolean(getString(R.string.alarm), true);
+
     }
 
     MainMenuAdapter menuAdapter;
@@ -141,6 +155,9 @@ public class HomeActivity extends AppCompatActivity implements
             case R.id.privacy_policy:
                 onPrivacyPolicyClicked();
                 break;
+            case R.id.rate_us:
+                onRateUs();
+
         }
     }
 
@@ -171,9 +188,51 @@ public class HomeActivity extends AppCompatActivity implements
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                    this);
+
+            // set title
+            alertDialogBuilder.setTitle("HIIT Workout 30 Day Abs");
+
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage("Do you want to exit?")
+                    .setCancelable(false)
+                    .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // if this button is clicked, close
+                            // current activity
+                            dialog.cancel();
+                            finish();
+
+
+                        }
+                    }).setNeutralButton("Rate Us", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // if this button is clicked, close
+                    // current activity
+                    dialog.cancel();
+                    onRateUs();
+
+                }
+            })
+                    .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // if this button is clicked, just close
+                            // the dialog box and do nothing
+                            dialog.cancel();
+                        }
+                    });
+
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            // show it
+            alertDialog.show();
+
         }
-    }
+        }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -339,6 +398,14 @@ public class HomeActivity extends AppCompatActivity implements
         AnalyticsManager.getInstance().sendAnalytics("privacy_policy", "clicked");
     }
 
+    public  void  onRateUs()
+    {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
+        } catch (android.content.ActivityNotFoundException anfe) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
+        }
+    }
 
 }
 

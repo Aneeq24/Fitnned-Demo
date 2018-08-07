@@ -6,7 +6,7 @@ public class DataModelWorkout
 {
     //region [30 Day Data Info]
     public String[] dayName;
-    public  ArrayList<Float> progress = new ArrayList<Float>();
+    public  ArrayList<Float> progress;
     public int[] iconForExcersice;
     public int  curretPlan;
     //endregion
@@ -26,19 +26,18 @@ public class DataModelWorkout
 
     //region [Daily ExerciseList]
 
-        public ArrayList<String> dailyExercise_ExerciseName = new ArrayList<String>();
-        public ArrayList<String> dailyExercise_VideoView = new ArrayList<String>();
-        public  ArrayList<Integer> dailyExercise_ImageIndex = new ArrayList<Integer>();
-        public  ArrayList<Integer> exercisTimeList = new ArrayList<Integer>();
-        public  ArrayList<Integer> resetTimeList = new ArrayList<Integer>();
+        public ArrayList<String> dailyExercise_ExerciseName = new ArrayList<>();
+        public ArrayList<String> dailyExercise_VideoView = new ArrayList<>();
+        public  ArrayList<Integer> dailyExercise_ImageIndex = new ArrayList<>();
+        public  ArrayList<Integer> exercisTimeList = new ArrayList<>();
+        public  ArrayList<Integer> resetTimeList = new ArrayList<>();
 
     //endregion
 
 
-    public DataModelWorkout()
-    {
+    public DataModelWorkout() {
         dayName = new String[]{};
-        progress = new ArrayList<Float>();
+        progress = new ArrayList<>();
         iconForExcersice = null;
 
     }

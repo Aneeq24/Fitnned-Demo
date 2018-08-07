@@ -1,15 +1,19 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.utils;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AppPrefManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -63,7 +67,7 @@ public class Utils {
 
         try {
 
-            int i = AppPrefManager.getInstance().getValue("sound",0);
+            int i = SharedPrefHelper.readInteger(context,"sound");
             if (i>0)
                 return;
 
@@ -112,4 +116,38 @@ public class Utils {
             Log.d(TAG, "Failed to export DB");
         }
     }
+
+    public static void setRateAppDialog(Context context){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+        // set title
+        alertDialogBuilder.setTitle(context.getString(R.string.app_name));
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Do you want to Rate us?")
+                .setCancelable(false)
+                .setPositiveButton("YES", (dialog, id) -> {
+                    dialog.cancel();
+                    onRateUs(context);
+                }).setNegativeButton("NO", (dialog, id) -> {
+                    // if this button is clicked, just close
+                    // the dialog box and do nothing
+                    dialog.cancel();
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+    }
+
+    private static void onRateUs(Context context) {
+        try {
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
+        } catch (ActivityNotFoundException anfe) {
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
+        }
+    }
+
 }

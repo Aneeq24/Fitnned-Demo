@@ -10,15 +10,10 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 
 public class AgeWeightHeightActivity extends AppCompatActivity {
 
-
-
+    Button btnNext;
+    TextView inches;
     TextView ageText;
     TextView feetText;
-    TextView inches;
-    TextView weight;
-
-    Button button;
-
     TextView skipText;
 
     @Override
@@ -26,30 +21,18 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_age_weight_height);
 
-
-
         ageText = findViewById(R.id.agetextInput);
         feetText = findViewById(R.id.feetTextInput);
         inches  = findViewById(R.id.inchesTextInput);
-        button = findViewById(R.id.nextButtonNumberScreen);
+        btnNext = findViewById(R.id.nextButtonNumberScreen);
 
-
-        button.setOnClickListener(view -> startNewActivity());
+        btnNext.setOnClickListener(view -> startNewActivity());
         skipText = findViewById(R.id.skipButtonNoScreen);
-
-
     }
 
-    void  startNewActivity()
-    {
-        Intent newActivity = new Intent(getApplicationContext(), ReminderSetActivity.class);
-        startActivity(newActivity);
+    private void  startNewActivity() {
+        startActivity(new Intent(getApplicationContext(), ReminderSetActivity.class));
         finish();
     }
 
-
-    void  showText()
-    {
-
-    }
 }

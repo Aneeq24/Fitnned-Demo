@@ -11,8 +11,8 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.models.DayProgressModel;
 import java.util.List;
 
 @Dao
-public interface DayProgressDao
-{
+public interface DayProgressDao {
+
     @Query("SELECT COUNT(*) FROM dayprogressmodel")
     int getCount();
 

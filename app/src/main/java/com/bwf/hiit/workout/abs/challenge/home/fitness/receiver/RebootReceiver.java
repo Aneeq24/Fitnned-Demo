@@ -5,17 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AlarmManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.SharedPreferencesManager;
 
 
 public class RebootReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (SharedPreferencesManager.getInstance().getBoolean(context.getString(R.string.alarm))) {
-            int hour = Integer.parseInt(SharedPreferencesManager.getInstance().getString(context.getString(R.string.hour)));
-            int minute = Integer.parseInt(SharedPreferencesManager.getInstance().getString(context.getString(R.string.minute)));
+        if (SharedPrefHelper.readBoolean(context,context.getString(R.string.alarm))) {
+            int hour = SharedPrefHelper.readInteger(context,context.getString(R.string.hour));
+            int minute = SharedPrefHelper.readInteger(context,context.getString(R.string.minute));
             AlarmManager.getInstance().setAlarm(context, hour, minute);
         }
     }

@@ -17,7 +17,7 @@ public class ExerciseDay implements Parcelable {
     private int planId;
     private int dayId;
 
-    @SerializedName("id")
+    @SerializedName("excersice_id")
     private int id;
 
     @SerializedName("reps")

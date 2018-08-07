@@ -14,8 +14,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDetail;
 import java.util.List;
 
 @Dao
-public interface ExerciseDao
-{
+public interface ExerciseDao {
 
     @Query("SELECT COUNT(*) FROM exercise")
     int getCount();

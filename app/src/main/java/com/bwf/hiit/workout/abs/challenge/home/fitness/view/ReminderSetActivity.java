@@ -3,37 +3,43 @@ package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
+import android.view.View;
 import android.widget.EditText;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class ReminderSetActivity extends AppCompatActivity {
 
 
-    EditText reminderTime ;
-
-    Button setReminderTime;
+    @BindView(R.id.edt_reminderTime)
+    EditText edtReminderTime;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_set);
-
-        reminderTime = findViewById(R.id.reminderScreenTime);
-
-        setReminderTime  = findViewById(R.id.setbuttonReminderScreen);
-
-        setReminderTime.setOnClickListener(view -> startActivity());
-
+        ButterKnife.bind(this);
     }
 
-
-    void  startActivity()
-    {
+    private void startActivity() {
         Intent newActivity = new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(newActivity);
         finish();
+    }
+
+    @OnClick({R.id.btn_setReminder, R.id.btn_skipReminder})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_setReminder:
+                startActivity();
+                break;
+            case R.id.btn_skipReminder:
+                startActivity();
+                break;
+        }
     }
 }

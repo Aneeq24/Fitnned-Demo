@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="false"
     android:background="#dedede"
+    android:fitsSystemWindows="false"
     tools:context=".view.ScrollingActivity">
 
 
@@ -22,9 +22,7 @@
             android:background="@drawable/days_screen_top_image"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar"
-
-            >
+            app:toolbarId="@+id/toolbar">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -56,18 +54,18 @@
                     android:id="@+id/line_progress_left"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    app:progress_stroke_width="4dp"
-                    app:line_width="4dp"
-                    app:line_count="30"
-                    app:progress_text_color="@color/colorPrimary"
-                    app:progress_start_color="@color/colorPrimary"
-                    app:progress_end_color="@color/colorPrimary"
-                    app:progress_text_size="12dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginStart="16dp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView9"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/imageView9"
+                    app:line_count="30"
+                    app:line_width="4dp"
+                    app:progress_end_color="@color/colorPrimary"
+                    app:progress_start_color="@color/colorPrimary"
+                    app:progress_stroke_width="4dp"
+                    app:progress_text_color="@color/colorPrimary"
+                    app:progress_text_size="12dp"
                     app:style="solid_line" />
 
                 <TextView
@@ -90,18 +88,18 @@
                     android:id="@+id/line_progress_finished"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    app:progress_stroke_width="4dp"
-                    app:progress_start_color="@color/colorPrimary"
-                    app:progress_end_color="@color/colorPrimary"
-                    app:line_width="4dp"
-                    app:line_count="30"
-                    app:progress_text_color="@color/colorPrimary"
-                    app:progress_text_size="12dp"
                     android:layout_marginLeft="24dp"
                     android:layout_marginStart="24dp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView9"
                     app:layout_constraintStart_toEndOf="@+id/textView2"
                     app:layout_constraintTop_toTopOf="@+id/imageView9"
+                    app:line_count="30"
+                    app:line_width="4dp"
+                    app:progress_end_color="@color/colorPrimary"
+                    app:progress_start_color="@color/colorPrimary"
+                    app:progress_stroke_width="4dp"
+                    app:progress_text_color="@color/colorPrimary"
+                    app:progress_text_size="12dp"
                     app:style="solid_line" />
 
                 <TextView
@@ -111,14 +109,13 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
                     android:alpha="0.5"
-                    android:textSize="18sp"
                     android:text="FINISHED"
                     android:textColor="@color/colorAccent"
+                    android:textSize="18sp"
                     app:fontFamily="@font/roboto_bold"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView9"
                     app:layout_constraintStart_toEndOf="@+id/line_progress_finished"
                     app:layout_constraintTop_toTopOf="@+id/imageView9" />
-
 
 
             </android.support.constraint.ConstraintLayout>
@@ -140,17 +137,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="48dp"
             android:layout_marginStart="48dp"
             android:layout_marginTop="10dp"
-            android:paddingLeft="0dp"
-            android:paddingTop="0dp"
             android:text="DAY SELECT"
-
             android:textColor="@android:color/background_light"
             android:textSize="24sp"
             app:fontFamily="@font/roboto_bold"
@@ -173,23 +166,8 @@
             ads:layout_constraintEnd_toEndOf="parent"
             ads:layout_constraintStart_toStartOf="parent" />
 
-        <!--<com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"-->
-            <!--android:id="@+id/banner_day"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginEnd="8dp"-->
-            <!--android:layout_marginLeft="8dp"-->
-            <!--android:layout_marginRight="8dp"-->
-            <!--android:layout_marginStart="8dp"-->
-            <!--ads:adSize="BANNER"-->
-            <!--ads:adUnitId="@string/banner_ad_unit"-->
-            <!--ads:layout_constraintBottom_toBottomOf="parent"-->
-            <!--ads:layout_constraintEnd_toEndOf="parent"-->
-            <!--ads:layout_constraintStart_toStartOf="parent" />-->
-
 
     </android.support.constraint.ConstraintLayout>
-
 
 
 </android.support.design.widget.CoordinatorLayout>

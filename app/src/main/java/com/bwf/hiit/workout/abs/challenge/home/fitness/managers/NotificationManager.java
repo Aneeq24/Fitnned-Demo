@@ -13,15 +13,11 @@ import android.support.v4.app.NotificationCompat;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.SplashScreeActivity;
 
-
 public class NotificationManager {
 
     private static NotificationManager manager;
     private final static int NOTIFICATION_ID = 1;
     private static final String TAG = NotificationManager.class.getSimpleName();
-
-    private NotificationManager() {
-    }
 
     public static NotificationManager getInstance() {
         if (manager == null) {

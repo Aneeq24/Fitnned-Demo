@@ -14,7 +14,6 @@ import java.util.List;
     @Relation(parentColumn = "id", entityColumn = "eid", entity = Detail.class)
     private List<Detail> detail;
 
-
     public Exercise getExercise() {
         return exercise;
     }

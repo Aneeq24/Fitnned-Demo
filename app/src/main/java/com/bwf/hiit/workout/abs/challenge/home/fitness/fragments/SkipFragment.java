@@ -1,9 +1,10 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.fragments;
 
-import android.media.MediaPlayer;
-import android.net.Uri;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,32 +14,17 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AppPrefManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.dinuscxj.progressbar.CircleProgressBar;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link SkipFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link SkipFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class SkipFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.Objects;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class SkipFragment extends Fragment {
 
 
     CircleProgressBar skipCircleprogressBar;
@@ -57,45 +43,14 @@ public class SkipFragment extends Fragment {
     public boolean pause = false;
     ImageView pauseResumeImage;
     int soundValue;
-
-    private OnFragmentInteractionListener mListener;
-
-    public SkipFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SkipFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SkipFragment newInstance(String param1, String param2) {
-        SkipFragment fragment = new SkipFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    Context context;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_skip, container, false);
+        context = getContext();
         pauseResumeImage = rootView.findViewById(R.id.sf_pauseTimerImageView);
         com.google.android.gms.ads.AdView adView = rootView.findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
@@ -118,7 +73,7 @@ public class SkipFragment extends Fragment {
         {
             pauseTimer+=1;
             pauseTimer *= 1000;
-            startSkipTimer(pauseTimer , 1000 , skipTimerText);
+            startSkipTimer(pauseTimer , skipTimerText);
             pauseResumeImage.setImageResource(R.drawable.play_screen_pause_btn);
 
         }
@@ -140,7 +95,7 @@ public class SkipFragment extends Fragment {
             soundButton_B.setImageResource(R.drawable.play_screen_sound_on_btn);
         }
 
-        AppPrefManager.getInstance().setValue("sound",soundValue);
+        SharedPrefHelper.writeInteger(context,"sound",soundValue);
 
     }
 
@@ -158,30 +113,18 @@ public class SkipFragment extends Fragment {
         skipTimerButton.setOnClickListener(view -> startPlayingButton());
 
 
-        startSkipTimer(11000 , 1000,skipTimerText);
+        startSkipTimer(11000 , skipTimerText);
 
-        skipCircleprogressBar.setProgressFormatter(new CircleProgressBar.ProgressFormatter()
-        {
-            @Override
-            public CharSequence format(int progress, int max) {
-
-                return progress + "\"";
-            }
-        });
+        skipCircleprogressBar.setProgressFormatter((progress, max) -> progress + "\"");
 
         skipCircleprogressBar.setMax(15);
 
-        skipCircleprogressBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pauseOrRenume();
-            }
-        });
+        skipCircleprogressBar.setOnClickListener(view -> pauseOrRenume());
 
 
         soundButton_B = rootView.findViewById(R.id.sf_soundFragment);
 
-        soundValue = AppPrefManager.getInstance().getValue("sound",0);
+        soundValue = SharedPrefHelper.readInteger(context,"sound");
 
         if(soundValue>0)
         {
@@ -192,14 +135,7 @@ public class SkipFragment extends Fragment {
             soundButton_B.setImageResource(R.drawable.play_screen_sound_off_btn);
         }
 
-        soundButton_B.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                soundButton();
-            }
-        });
+        soundButton_B.setOnClickListener(view -> soundButton());
 
 
 
@@ -231,10 +167,11 @@ public class SkipFragment extends Fragment {
         }.start();
     }
 
-    void startSkipTimer(int totalSkipTime, int interval, final TextView timer) {
+    void startSkipTimer(int totalSkipTime, final TextView timer) {
 
-        countDownTimer = new CountDownTimer(totalSkipTime, interval) {
+        countDownTimer = new CountDownTimer(totalSkipTime, 1000) {
 
+            @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished)
             {
                 timer.setText("" + millisUntilFinished / 1000 + "\"");
@@ -272,24 +209,9 @@ public class SkipFragment extends Fragment {
 
     void  startPlayingButton()
     {
-
         countDownTimer.cancel();
-        getActivity().getSupportFragmentManager().beginTransaction().remove(SkipFragment.this).commit();
+        Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().remove(SkipFragment.this).commit();
         playingExercise.StartPlayingFragment();
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-
-
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }

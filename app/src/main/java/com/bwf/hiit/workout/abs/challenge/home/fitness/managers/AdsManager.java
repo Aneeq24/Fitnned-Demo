@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.BuildConfig;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.interfaces.RewardedVideoListener;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.facebook.ads.AbstractAdListener;
@@ -63,13 +64,7 @@ public class AdsManager {
         Context context = Application.getContext();
         interstitialAd = new InterstitialAd(context);
         interstitialAd.setAdUnitId(context.getString(R.string.interstitial_ad_unit));
-//        if (BuildConfig.DEBUG) {
-//           // fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, "YOUR_PLACEMENT_ID");
-//            fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, context.getString(R.string.interstitial_facebook));
-//        }
-//         else {
-            fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, context.getString(R.string.interstitial_facebook));
-//        }
+        fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, context.getString(R.string.interstitial_facebook));
         // load the ads and cache them for later use
         loadInterstitialAd();
         loadFacebookInterstitialAd();
@@ -85,7 +80,7 @@ public class AdsManager {
     private AdRequest prepareAdRequest() {
         AdRequest adRequest;
         Context context = Application.getContext();
-        if (SharedPreferencesManager.getInstance().getBoolean(context.getString(R.string.npa))) {
+        if (SharedPrefHelper.readBoolean(context, context.getString(R.string.npa))) {
             Bundle bundle = new Bundle();
             bundle.putString(context.getString(R.string.npa), "1");
             Log.d(TAG, "consent status: npa");
@@ -100,11 +95,7 @@ public class AdsManager {
     public void showBanner(final AdView banner) {
         if (Utils.isNetworkAvailable(Application.getContext())) {
             if (banner != null) {
-//                if (BuildConfig.DEBUG) {
-//                    banner.loadAd(new AdRequest.Builder().addTestDevice("728E481201E977FE91F3F915B469D33D").build());
-//                } else {
-                    banner.loadAd(prepareAdRequest());
-//                }
+                banner.loadAd(prepareAdRequest());
                 banner.setAdListener(new AdListener() {
 
                     @Override
@@ -128,11 +119,8 @@ public class AdsManager {
 
     private void loadInterstitialAd() {
         if (Utils.isNetworkAvailable(Application.getContext())) {
-//            if (BuildConfig.DEBUG) {
-//                interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("728E481201E977FE91F3F915B469D33D").build());
-//            } else {
-                interstitialAd.loadAd(prepareAdRequest());
-//            }
+
+            interstitialAd.loadAd(prepareAdRequest());
             interstitialAd.setAdListener(new AdListener() {
 
                 @Override
@@ -168,11 +156,8 @@ public class AdsManager {
     private void loadRewardedVideo(final Context context, final RewardedVideoListener listener) {
         if (Utils.isNetworkAvailable(context)) {
             rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(context);
-//            if (BuildConfig.DEBUG) {
-//                rewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917", new AdRequest.Builder().addTestDevice("728E481201E977FE91F3F915B469D33D").build());
-//            } else {
-                rewardedVideoAd.loadAd(context.getString(R.string.rewarded_ad_unit), prepareAdRequest());
-//            }
+
+            rewardedVideoAd.loadAd(context.getString(R.string.rewarded_ad_unit), prepareAdRequest());
             rewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
                 @Override
                 public void onRewardedVideoAdLoaded() {
@@ -350,7 +335,8 @@ public class AdsManager {
         if (BuildConfig.DEBUG) {
             adView = new com.facebook.ads.AdView(context, "YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50);
         } else {
-            adView = new com.facebook.ads.AdView(context, context.getString(R.string.banner_facebook), AdSize.BANNER_HEIGHT_50);}
+            adView = new com.facebook.ads.AdView(context, context.getString(R.string.banner_facebook), AdSize.BANNER_HEIGHT_50);
+        }
         if (bannerContainer != null) {
             adView.loadAd();
             adView.setAdListener(new com.facebook.ads.AdListener() {
@@ -410,10 +396,10 @@ public class AdsManager {
     }
 
     //1994 Facebook ad  checking
-    public  boolean  isFacebookInterstitalLoaded()
-    {
+    public boolean isFacebookInterstitalLoaded() {
         return fbInterstitialAd.isAdLoaded();
     }
+
     public void showFacebookInterstitialAd() {
         if (fbInterstitialAd.isAdLoaded()) {
             fbInterstitialAd.show();
@@ -426,7 +412,7 @@ public class AdsManager {
 //        if(BuildConfig.DEBUG){
 //            nativeAd = new com.facebook.ads.NativeAd(context, "YOUR_PLACEMENT_ID");
 //        }else{
-            nativeAd = new com.facebook.ads.NativeAd(context, context.getString(R.string.native_facebook));
+        nativeAd = new com.facebook.ads.NativeAd(context, context.getString(R.string.native_facebook));
 //        }
         nativeAd.setAdListener(new com.facebook.ads.AdListener() {
             @Override

@@ -14,10 +14,6 @@ public class AlarmManager {
 
     private static AlarmManager manager;
 
-    private AlarmManager() {
-
-    }
-
     public static AlarmManager getInstance() {
         if (manager == null) {
             manager = new AlarmManager();

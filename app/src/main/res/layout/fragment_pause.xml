@@ -1,182 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    tools:context=".fragments.PauseFragment"
     android:background="@drawable/enter_you_numbers_bg"
-    >
+    android:padding="10dp"
+    tools:context=".fragments.PauseFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-
-    <ImageView
-        android:id="@+id/pauseBgButtonPanel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/pause_screen_image_bg"
-        app:layout_constraintBottom_toTopOf="@+id/nextScreenBg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <LinearLayout
-        android:id="@+id/fbNative"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_centerVertical="true"
+        android:background="@drawable/pause_screen_image_bg"
+        android:padding="10dp">
 
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/nextScreenBg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/days_screen_days_normal_bar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/pf_roundText"
+                style="@style/Base.TextAppearance.AppCompat.Large"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Round 1/5 "
+                android:textColor="@android:color/background_light" />
 
-    <TextView
-        android:id="@+id/pauseNextHeading"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="NEXT"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/nextScreenBg"
-        app:layout_constraintTop_toTopOf="@+id/nextScreenBg" />
+            <TextView
+                android:id="@+id/pf_exerciseText"
+                style="@style/Base.TextAppearance.AppCompat.Large"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Round 1/5 "
+                android:textColor="@android:color/background_light"
+                app:layout_constraintEnd_toStartOf="@+id/pauseNext"
+                app:layout_constraintTop_toTopOf="@+id/pauseBgButtonPanel" />
 
-    <ImageView
-        android:id="@+id/pf_exerciseImage"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
 
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="@+id/nextScreenBg"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintEnd_toEndOf="@+id/nextScreenBg"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_pauseHeadline"
-        app:layout_constraintTop_toTopOf="@+id/nextScreenBg" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/pauseResume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/pause_screen_play_icon" />
+
+    </RelativeLayout>
 
     <TextView
-        android:id="@+id/tv_pauseHeadline"
+        style="@style/Base.TextAppearance.AppCompat.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="HEADLINE EXAMPLE"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/nextScreenBg"
-        app:layout_constraintStart_toStartOf="@+id/nextScreenBg"
-        app:layout_constraintTop_toTopOf="@+id/nextScreenBg" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:text="Next"
+        android:textColor="@android:color/background_light" />
 
-    <ImageView
-        android:id="@+id/pauseResume"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/pause_screen_play_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/pauseBgButtonPanel"
-        app:layout_constraintEnd_toStartOf="@+id/pauseNext"
-        app:layout_constraintStart_toEndOf="@+id/previous"
-        app:layout_constraintTop_toTopOf="@+id/pauseBgButtonPanel" />
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:padding="10dp">
 
-    <ImageView
-        android:id="@+id/previous"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="64dp"
-        android:layout_marginStart="64dp"
-        android:visibility="gone"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/pause_screen_forword_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/pauseBgButtonPanel"
-        app:layout_constraintStart_toStartOf="@+id/pauseBgButtonPanel"
-        app:layout_constraintTop_toTopOf="@+id/pauseBgButtonPanel"
-        app:layout_constraintVertical_bias="0.503" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/pauseNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:visibility="gone"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/pause_screen_next_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/pauseBgButtonPanel"
-        app:layout_constraintEnd_toEndOf="@+id/pauseBgButtonPanel"
-        app:layout_constraintTop_toTopOf="@+id/pauseBgButtonPanel" />
+            <TextView
+                android:id="@+id/tv_pauseHeadline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HEADLINE EXAMPLE"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:text="CAPTION EXAMPLE"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/nextScreenBg"
-        app:layout_constraintTop_toBottomOf="@+id/tv_pauseHeadline" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CAPTION EXAMPLE"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/pf_exerciseImage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:scaleType="centerCrop" />
+
+    </RelativeLayout>
 
 
-    <TextView
-        android:id="@+id/pf_roundText"
-        style="@style/Base.TextAppearance.AppCompat.Large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Round 1/5 "
-        android:textColor="@android:color/background_light"
-        app:layout_constraintStart_toEndOf="@+id/previous"
-        app:layout_constraintTop_toTopOf="@+id/pauseBgButtonPanel" />
-
-    <TextView
-        android:id="@+id/pf_exerciseText"
-        style="@style/Base.TextAppearance.AppCompat.Large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Round 1/5 "
-        android:textColor="@android:color/background_light"
-        app:layout_constraintEnd_toStartOf="@+id/pauseNext"
-        app:layout_constraintTop_toTopOf="@+id/pauseBgButtonPanel" />
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

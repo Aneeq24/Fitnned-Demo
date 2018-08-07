@@ -1,5 +1,7 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,10 +11,9 @@ import android.util.Log;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AlarmManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AppPrefManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.SharedPreferencesManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Day;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.DayProgressModel;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Detail;
@@ -21,6 +22,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Plan;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.PlanDays;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.JsonUtils;
+import com.facebook.stetho.Stetho;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -29,68 +31,21 @@ import java.util.List;
 public class SplashScreeActivity extends AppCompatActivity {
 
     private final String TAG = SplashScreeActivity.class.getSimpleName();
-
     boolean backPresed;
-    AppDataBase dataBase;
-    private int splashTimeOut = 15000;   //Time in mili seconds
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_scree);
-
-        AppPrefManager.getInstance().initPref(getApplicationContext());
-
-
+        context = this;
         AnalyticsManager.getInstance().sendAnalytics("splash_screen_started", "activity_started");
 
-        AppDbCheckingTask appDbCheckingTask = new AppDbCheckingTask();
-        appDbCheckingTask.execute();
-
-//         new Handler().postDelayed(new Runnable()
-//         {
-//             @Override
-//             public void run()
-//             {
-//                 Intent newActivity = new Intent(getApplicationContext() , MainActivity.class);
-//                 startActivity(newActivity);
-//                 finish();
-//             }
-//           },splashTimeOut
-//
-//
-//        );
-
-
+        new AppDbCheckingTask().execute();
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        backPresed = true;
-    }
-
-    void testingDb() {
-
-        int val = dataBase.planDao().getCount();
-        int dayCount = dataBase.planDao().getCount();
-        int exercise = dataBase.exerciseDao().getCount();
-
-
-        if (val == 0) {
-
-        }
-        if (dayCount == 0) {
-
-        }
-
-        if (exercise == 0) {
-
-        }
-
-    }
-
-    class AppDbCheckingTask extends AsyncTask<Void, Void, Void> {
+    @SuppressLint("StaticFieldLeak")
+    private class AppDbCheckingTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -99,8 +54,9 @@ public class SplashScreeActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            AppPrefManager.getInstance().setValue("sound", 0);
+            SharedPrefHelper.writeInteger(context, "sound", 0);
 
+            Stetho.initializeWithDefaults(context);
             Gson gson = new Gson();
             AppDataBase appDataBase = AppDataBase.getInstance();
             if (appDataBase != null) {
@@ -171,18 +127,15 @@ public class SplashScreeActivity extends AppCompatActivity {
                         if (planDays != null && planDays.size() > 0) {
                             for (PlanDays days : planDays) {
                                 for (Day day : days.getDays()) {
-
-
                                     for (ExerciseDay exerciseDay : day.getExercisesOfDay()) {
                                         exerciseDay.setPlanId(days.getPlanId());
-                                        exerciseDay.setDayId(day.getDayId());
+                                        exerciseDay.setDayId(day.getDayId());exerciseDay.getId();
                                         exerciseDay.setTotalExercise(day.getExercisesOfDay().size() * exerciseDay.getRounds());
                                     }
                                     appDataBase.exerciseDayDao().insertAll(day.getExercisesOfDay());
 
                                 }
                             }
-//                            appDataBase.exerciseDayDao().insertAll(planDays);
                         }
                     } catch (Exception e) {
                         Log.e(TAG, "days: " + e.getLocalizedMessage());
@@ -198,22 +151,17 @@ public class SplashScreeActivity extends AppCompatActivity {
             if (isCancelled())
                 return;
 
-            //TODO
+            new Handler().postDelayed(() -> {
+                if (backPresed)
+                    return;
 
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (backPresed)
-                        return;
+                if (!SharedPrefHelper.readBoolean(context,getString(R.string.is_first_run)))
+                    setDefaultPreferences();
 
-                    if (!SharedPreferencesManager.getInstance().getBoolean(getString(R.string.is_first_run))) {
-                        setDefaultPreferences();
-                    }
-                    Intent newActivity = new Intent(getApplicationContext(), HomeActivity.class);
-                    startActivity(newActivity);
-                    finish();
-                }
-            }, 9000);
+                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                finish();
+
+            }, 1000);
         }
 
         @Override
@@ -222,39 +170,21 @@ public class SplashScreeActivity extends AppCompatActivity {
         }
     }
 
-    class InsertPrefrences extends AsyncTask<Void, Void, Void> {
-
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            AppDataBase dataBase = AppDataBase.getInstance();
-
-            if (dataBase != null) {
-
-                for (int i = 0; i < dataBase.planDao().getCount(); i++) {
-                    for (int j = 0; j < dataBase.exerciseDayDao().getCount(); j++) {
-                        for (int k = 0; k < dataBase.exerciseDao().getCount(); k++) {
-
-                        }
-                    }
-                }
-
-            }
-            return null;
-        }
-    }
-
-
     private void setDefaultPreferences() {
-        SharedPreferencesManager.getInstance().setInt(getString(R.string.hour), 15);
-        SharedPreferencesManager.getInstance().setInt(getString(R.string.minute), 5);
-        SharedPreferencesManager.getInstance().setInt(getString(R.string.language), 0);
-        SharedPreferencesManager.getInstance().setBoolean(getString(R.string.alarm), true);
-        SharedPreferencesManager.getInstance().setBoolean(getString(R.string.is_first_run), true);
+        SharedPrefHelper.writeInteger(context,getString(R.string.hour), 15);
+        SharedPrefHelper.writeInteger(context,getString(R.string.minute), 5);
+        SharedPrefHelper.writeInteger(context,getString(R.string.language), 0);
+        SharedPrefHelper.writeInteger(context,"kcal", 0);
+        SharedPrefHelper.writeBoolean(context,getString(R.string.alarm), true);
+        SharedPrefHelper.writeBoolean(context,getString(R.string.is_first_run), true);
         // set the alarm at 13:00 AM
         AlarmManager.getInstance().setAlarm(this, 15, 5);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        backPresed = true;
+    }
 
 }

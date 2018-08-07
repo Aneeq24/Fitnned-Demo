@@ -19,8 +19,6 @@ public class DayProgressModel  implements Serializable {
     @SerializedName("complete")
     private boolean complete;
 
-
-
     public DayProgressModel(int id, int progress, boolean complete) {
         this.id = id;
         this.progress = progress;
@@ -33,8 +31,6 @@ public class DayProgressModel  implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-
-
 
     public boolean isComplete() {
         return complete;

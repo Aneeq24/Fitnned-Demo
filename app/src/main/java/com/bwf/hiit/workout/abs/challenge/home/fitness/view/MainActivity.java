@@ -236,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements Workout.OnFragmen
 //        recycleViewActivity.setLayoutManager(new LinearLayoutManager(this));
 //        populateData();
 //        MenuDataClass dataClass = new MenuDataClass();
-//        recycleViewActivity.setAdapter(new MainMenuAdapter(dataClass.tilte , dataClass.image,dataClass.description));
+//        recycleViewActivity.setAdapter(new HomeAdapter(dataClass.tilte , dataClass.image,dataClass.description));
 //
 
     }

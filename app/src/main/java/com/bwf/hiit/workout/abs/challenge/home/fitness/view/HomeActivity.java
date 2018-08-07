@@ -1,18 +1,14 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
-import android.annotation.SuppressLint;
-import android.app.ActivityManager;
-import android.app.Dialog;
-import android.content.DialogInterface;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -23,48 +19,37 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
-import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.BuildConfig;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.MainMenuAdapter;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.Workout;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.LogHelper;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.HomeAdapter;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AlarmManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.SharedPreferencesManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.google.ads.consent.ConsentForm;
 import com.google.ads.consent.ConsentFormListener;
 import com.google.ads.consent.ConsentInfoUpdateListener;
 import com.google.ads.consent.ConsentInformation;
 import com.google.ads.consent.ConsentStatus;
-import com.google.ads.consent.DebugGeography;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class HomeActivity extends AppCompatActivity implements
-        NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        NavigationView.OnNavigationItemSelectedListener {
+    String[] titles = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
 
-    AppDataBase appDataBase;
+    Bitmap[] image;
+
+    Context context;
+    HomeAdapter mAdapter;
     private ConsentForm form;
-    static int selectedIndex = 0;
-    private TextView settings;
-    private TextView feedback;
-    private TextView moreApps;
-    private TextView privacyPolicy;
-    private  TextView rateUs;
     private boolean isAppInBackground = false;
-    boolean paused;
+    private boolean paused;
     private ConsentInformation consentInformation;
     private final String TAG = HomeActivity.class.getSimpleName();
 
@@ -73,33 +58,21 @@ public class HomeActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        settings = findViewById(R.id.settings);
-        feedback = findViewById(R.id.feedback);
-        moreApps = findViewById(R.id.more_apps);
-        privacyPolicy = findViewById(R.id.privacy_policy);
-        rateUs  = findViewById(R.id.rate_us);
-
-        settings.setOnClickListener(this);
-        feedback.setOnClickListener(this);
-        moreApps.setOnClickListener(this);
-        privacyPolicy.setOnClickListener(this);
-        rateUs.setOnClickListener(this);
-
+        ButterKnife.bind(this);
+        context = this;
         paused = false;
 
+        image = new Bitmap[]{BitmapFactory.decodeResource(getResources(), R.drawable.main_screen_beginner_image),
+                BitmapFactory.decodeResource(getResources(), R.drawable.main_screen_intermediate_image),
+                BitmapFactory.decodeResource(getResources(), R.drawable.main_screen_advanced_image)
+        };
 
         consentInformation = ConsentInformation.getInstance(this);
         requestGoogleConsentForm(true);
 
-        String[] plans = getResources().getStringArray(R.array.plans);
-
-//      //TODO Ads
         AdsManager.getInstance().showFacebookInterstitialAd();
 
-        //TODO Analytics
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "plan_screen_activity");
-
 
         try {
             initApp();
@@ -107,122 +80,57 @@ public class HomeActivity extends AppCompatActivity implements
             e.printStackTrace();
         }
 
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
-//        AlarmManager.getInstance().setAlarm(this, 12, 42);
-//        SharedPreferencesManager.getInstance().setInt(getString(R.string.hour), 12);
-//        SharedPreferencesManager.getInstance().setInt(getString(R.string.minute), 42);
-//        SharedPreferencesManager.getInstance().setBoolean(getString(R.string.alarm), true);
-
     }
 
-    MainMenuAdapter menuAdapter;
-    @SuppressLint("StaticFieldLeak")
-    void initApp() {
+    private void initApp() {
+        RecyclerView rvHomeScreen = findViewById(R.id.rv_Home);
+        rvHomeScreen.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-        RecyclerView recycleViewActivity = findViewById(R.id.menuData);
-        recycleViewActivity.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        MenuDataClass dataClass = new MenuDataClass();
-
-        menuAdapter = new MainMenuAdapter(dataClass.tilte, dataClass.image, dataClass.description);
-        recycleViewActivity.setAdapter(menuAdapter);
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.settings:
-                onSettingsClicked();
-                break;
-            case R.id.feedback:
-                onFeedbackClicked();
-                break;
-            case R.id.more_apps:
-                onMoreAppsClicked();
-                break;
-            case R.id.privacy_policy:
-                onPrivacyPolicyClicked();
-                break;
-            case R.id.rate_us:
-                onRateUs();
-
-        }
-    }
-
-    public class MenuDataClass {
-
-        //ToDo need to get images from the data base
-        String[] tilte = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
-
-        String[] description = {
-                "",
-                "",
-                ""
-        };
-
-        Bitmap[] image = {BitmapFactory.decodeResource(getResources(), R.drawable.main_screen_beginner_image),
-                BitmapFactory.decodeResource(getResources(), R.drawable.main_screen_intermediate_image),
-                BitmapFactory.decodeResource(getResources(), R.drawable.main_screen_advanced_image)
-        };
-
-        MenuDataClass() {
-
-        }
+        mAdapter = new HomeAdapter(titles, image);
+        rvHomeScreen.setAdapter(mAdapter);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                    this);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
             // set title
-            alertDialogBuilder.setTitle("HIIT Workout 30 Day Abs");
+            alertDialogBuilder.setTitle(getString(R.string.app_name));
 
             // set dialog message
             alertDialogBuilder
                     .setMessage("Do you want to exit?")
                     .setCancelable(false)
-                    .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // if this button is clicked, close
-                            // current activity
-                            dialog.cancel();
-                            finish();
-
-
-                        }
-                    }).setNeutralButton("Rate Us", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    // if this button is clicked, close
-                    // current activity
-                    dialog.cancel();
-                    onRateUs();
-
-                }
+                    .setPositiveButton("YES", (dialog, id) -> {
+                        // if this button is clicked, close
+                        // current activity
+                        dialog.cancel();
+                        finish();
+                    }).setNeutralButton("Rate Us", (dialog, id) -> {
+                // if this button is clicked, close
+                // current activity
+                dialog.cancel();
+                onRateUs();
             })
-                    .setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // if this button is clicked, just close
-                            // the dialog box and do nothing
-                            dialog.cancel();
-                        }
+                    .setNegativeButton("NO", (dialog, id) -> {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
                     });
 
             // create alert dialog
@@ -231,26 +139,6 @@ public class HomeActivity extends AppCompatActivity implements
             alertDialog.show();
 
         }
-        }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.layout.layout_navigation_drawer, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -262,26 +150,17 @@ public class HomeActivity extends AppCompatActivity implements
     @Override
     protected void onResume() {
         super.onResume();
-        if (paused)
-        {
-            menuAdapter.updateRecycleView();
+        if (paused) {
+            mAdapter.updateRecycleView();
             paused = false;
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -307,6 +186,7 @@ public class HomeActivity extends AppCompatActivity implements
                     }
                 }
             }
+
             @Override
             public void onFailedToUpdateConsentInfo(String errorDescription) {
                 // User's consent status failed to update
@@ -347,9 +227,9 @@ public class HomeActivity extends AppCompatActivity implements
                         // Consent form was closed.
                         Log.d(TAG, "onConsentFormClosed");
                         if (consentStatus == ConsentStatus.PERSONALIZED) {
-                            SharedPreferencesManager.getInstance().setBoolean(getString(R.string.npa), false);
+                            SharedPrefHelper.writeBoolean(context, getString(R.string.npa), false);
                         } else if (consentStatus == ConsentStatus.NON_PERSONALIZED) {
-                            SharedPreferencesManager.getInstance().setBoolean(getString(R.string.npa), true);
+                            SharedPrefHelper.writeBoolean(context, getString(R.string.npa), true);
                         }
                     }
 
@@ -382,7 +262,7 @@ public class HomeActivity extends AppCompatActivity implements
         new Handler().postDelayed(() -> {
             try {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
-            } catch (android.content.ActivityNotFoundException anfe) {
+            } catch (ActivityNotFoundException anfe) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
             }
         }, 500);
@@ -398,16 +278,34 @@ public class HomeActivity extends AppCompatActivity implements
         AnalyticsManager.getInstance().sendAnalytics("privacy_policy", "clicked");
     }
 
-    public  void  onRateUs()
-    {
+    public void onRateUs() {
         try {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
-        } catch (android.content.ActivityNotFoundException anfe) {
+        } catch (ActivityNotFoundException anfe) {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
         }
     }
 
+    @OnClick({R.id.settings, R.id.feedback, R.id.rate_us, R.id.more_apps, R.id.privacy_policy})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.settings:
+                onSettingsClicked();
+                break;
+            case R.id.feedback:
+                onFeedbackClicked();
+                break;
+            case R.id.rate_us:
+                onRateUs();
+                break;
+            case R.id.more_apps:
+                onMoreAppsClicked();
+                break;
+            case R.id.privacy_policy:
+                onPrivacyPolicyClicked();
+                break;
+        }
+    }
 }
-
 
 

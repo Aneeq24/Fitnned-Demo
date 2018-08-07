@@ -1,20 +1,6 @@
-/*
- * Copyright 2014 Mapzen
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.bwf.hiit.workout.abs.challenge.home.fitness.managers;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Application;
@@ -29,6 +15,8 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
 
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -39,8 +27,8 @@ public class TTSManager implements TextToSpeech.OnInitListener {
     /**
      * ID for when no text is spoken
      */
-    public static final String UTTERANCE_ID_NONE = "-1";
-    final static String TAG = TTSManager.class.getSimpleName();
+    private static final String UTTERANCE_ID_NONE = "-1";
+    private final static String TAG = TTSManager.class.getSimpleName();
     /**
      * Pitch when we have focus
      */
@@ -49,7 +37,8 @@ public class TTSManager implements TextToSpeech.OnInitListener {
      * Pitch when we should duck audio for another app
      */
     private static final float DUCK_PITCH = 0.5f;
-    static TTSManager INSTANCE;
+    @SuppressLint("StaticFieldLeak")
+    private static TTSManager INSTANCE;
     private final TextToSpeech textToSpeech;
 
     public  static  boolean isPlaying = false;
@@ -57,15 +46,10 @@ public class TTSManager implements TextToSpeech.OnInitListener {
 
     private final Application application;
 
-    /**
-     * Callbacks are registered for upon initialization. Set an activity on the TTSManager
-     * object to have this class take care of shutting down the TextToSpeech object or register
-     * for {@link android.app.Application.ActivityLifecycleCallbacks} in your application and
-     */
     private final Application.ActivityLifecycleCallbacks callbacks;
     private final LinkedHashMap<String, String> samples = new LinkedHashMap<String, String>();
     private final ArrayList<String> unwantedPhrases = new ArrayList<String>();
-    AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+    private AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         public void onAudioFocusChange(int focusChange) {
             switch (focusChange) {
                 case AudioManager.AUDIOFOCUS_GAIN:
@@ -85,36 +69,36 @@ public class TTSManager implements TextToSpeech.OnInitListener {
     private HashMap<String, Runnable> onStartRunnables = new HashMap<String, Runnable>();
     private HashMap<String, Runnable> onDoneRunnables = new HashMap<String, Runnable>();
     private HashMap<String, Runnable> onErrorRunnables = new HashMap<String, Runnable>();
-    UtteranceProgressListener utteranceProgressListener = new UtteranceProgressListener() {
-        @Override
-        public void onStart(String utteranceId) {
-            detectAndRun(utteranceId, onStartRunnables);
-        }
 
-        @Override
-        public void onDone(String utteranceId) {
-            if (detectAndRun(utteranceId, onDoneRunnables)) {
-                // because either onDone or onError will be called for an utteranceId, cleanup other
-                if (onErrorRunnables.containsKey(utteranceId)) {
-                    onErrorRunnables.remove(utteranceId);
-                }
-            }
-        }
-
-        @Override
-        public void onError(String utteranceId) {
-            if (detectAndRun(utteranceId, onErrorRunnables)) {
-                // because either onDone or onError will be called for an utteranceId, cleanup other
-                if (onDoneRunnables.containsKey(utteranceId)) {
-                    onDoneRunnables.remove(utteranceId);
-                }
-            }
-        }
-    };
-
-    public TTSManager(final Application application) {
+    private TTSManager(final Application application) {
         this.application = application;
         this.textToSpeech = new TextToSpeech(application, this);
+        UtteranceProgressListener utteranceProgressListener = new UtteranceProgressListener() {
+            @Override
+            public void onStart(String utteranceId) {
+                detectAndRun(utteranceId, onStartRunnables);
+            }
+
+            @Override
+            public void onDone(String utteranceId) {
+                if (detectAndRun(utteranceId, onDoneRunnables)) {
+                    // because either onDone or onError will be called for an utteranceId, cleanup other
+                    if (onErrorRunnables.containsKey(utteranceId)) {
+                        onErrorRunnables.remove(utteranceId);
+                    }
+                }
+            }
+
+            @Override
+            public void onError(String utteranceId) {
+                if (detectAndRun(utteranceId, onErrorRunnables)) {
+                    // because either onDone or onError will be called for an utteranceId, cleanup other
+                    if (onDoneRunnables.containsKey(utteranceId)) {
+                        onDoneRunnables.remove(utteranceId);
+                    }
+                }
+            }
+        };
         this.textToSpeech.setOnUtteranceProgressListener(utteranceProgressListener);
         this.callbacks = new Application.ActivityLifecycleCallbacks() {
             @Override
@@ -158,10 +142,6 @@ public class TTSManager implements TextToSpeech.OnInitListener {
         application.registerActivityLifecycleCallbacks(callbacks);
     }
 
-    /**
-     * If set, this class will shut itself down when the activity is destroyed. Only set an
-     * activity if you want the TTSManager's state to be tied to the activity lifecycle
-     */
     public static TTSManager getInstance(Application application) {
         if (INSTANCE == null)
             INSTANCE = new TTSManager(application);
@@ -191,7 +171,7 @@ public class TTSManager implements TextToSpeech.OnInitListener {
 
     public void play(CharSequence text) {
         try {
-            int i = AppPrefManager.getInstance().getValue("sound",0);
+            int i = SharedPrefHelper.readInteger(activity,"sound");
             if (i>0)
                 return;
 
@@ -204,51 +184,19 @@ public class TTSManager implements TextToSpeech.OnInitListener {
         play(text.toString(), null, null, null);
     }
 
-    /**
-     * Play text and perform action when text starts playing
-     * <p>
-     * Runnable is run on the main thread
-     *
-     * @param text
-     * @param onStart
-     */
     public void playAndOnStart(String text, Runnable onStart) {
         play(text, onStart, null, null);
     }
 
-    /**
-     * Play text and perform action when text finishes playing
-     * <p>
-     * Runnable is run on the main thread
-     *
-     * @param text
-     * @param onDone
-     */
     public void playAndOnDone(String text, Runnable onDone) {
         play(text, null, onDone, null);
     }
 
-    /**
-     * Play text and perform action when error occurs in playback
-     * <p>
-     * Runnable is run on the main thread
-     *
-     * @param text
-     * @param onError
-     */
     public void playAndOnError(String text, Runnable onError) {
         play(text, null, null, onError);
     }
 
-    /**
-     * Play text and perform actions when text starts playing, text finishes playing or
-     * text incurs error playing. Note that {@param onDone} and {@param onError} are mutually
-     * exclusive and only one will be called. All runnables are run on the main thread
-     *
-     * @param text
-     * @param onStart
-     */
-    public void play(String text, Runnable onStart, Runnable onDone, Runnable onError) {
+    private void play(String text, Runnable onStart, Runnable onDone, Runnable onError) {
 
 
 
@@ -348,7 +296,7 @@ public class TTSManager implements TextToSpeech.OnInitListener {
         am.abandonAudioFocus(audioFocusChangeListener);
     }
 
-    public void enableVolumeControl(Activity activity) {
+    private void enableVolumeControl(Activity activity) {
         if (activity != null) {
             activity.setVolumeControlStream(AudioManager.STREAM_MUSIC);
         }
@@ -373,23 +321,12 @@ public class TTSManager implements TextToSpeech.OnInitListener {
         textToSpeech.setLanguage(locale);
     }
 
-    /**
-     * Shutdown the {@link TextToSpeech} object and unregister activity lifecycle callbacks
-     */
-    public void shutdown() {
+    private void shutdown() {
         Log.d(TAG, "shutdown: ");
         textToSpeech.shutdown();
         application.unregisterActivityLifecycleCallbacks(callbacks);
     }
 
-    /**
-     * Find the runnable for a given utterance id, run it on the main thread and then remove
-     * it from the map
-     *
-     * @param utteranceId the id key to use
-     * @param hashMap     utteranceIds to runnable map to use
-     * @return whether value was found
-     */
     private boolean detectAndRun(String utteranceId, HashMap<String, Runnable> hashMap) {
         if (hashMap.containsKey(utteranceId)) {
             Runnable runnable = hashMap.get(utteranceId);

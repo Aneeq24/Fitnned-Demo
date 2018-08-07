@@ -1,5 +1,6 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.adapter;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -22,38 +23,28 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.view.DailyExerciseInfo;
 import java.util.List;
 
 
-public class DailyExerciseAdapter  extends RecyclerView.Adapter<DailyExerciseAdapter.DailyExerciseDataHolder>
-{
+public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdapter.DailyExerciseDataHolder> {
 
-    DataModelWorkout dataModelWorkout;
+    private DataModelWorkout dataModelWorkout;
+    private DailyExerciseInfo info;
+    private boolean dataUp = false;
+    private List<ExerciseDay> exerciseDays;
 
-    DailyExerciseInfo info;
-
-    View rootView;
-
-    boolean dataUp = false;
-
-    AppDataBase dataBase;
-
-    List<ExerciseDay> exerciseDays;
-
-    public  class  GetDataFromDb extends AsyncTask<Void , Void , Void>
-    {
+    @SuppressLint("StaticFieldLeak")
+    private class GetDataFromDb extends AsyncTask<Void, Void, Void> {
 
         @Override
-        protected Void doInBackground(Void... voids)
-        {
-            dataBase = AppDataBase.getInstance();
+        protected Void doInBackground(Void... voids) {
+            AppDataBase dataBase = AppDataBase.getInstance();
 
             exerciseDays = dataBase.exerciseDayDao().getExerciseDays(info.plan, info.day);
-            for (ExerciseDay day : exerciseDays)
-            {
+            for (ExerciseDay day : exerciseDays) {
                 Exercise exercise = dataBase.exerciseDao().findById(day.getId());
                 dataModelWorkout.dailyExercise_VideoView.add(exercise.getName());
                 dataModelWorkout.exercisTimeList.add(day.getReps());
                 dataModelWorkout.resetTimeList.add(day.getDelay());
 
-                LogHelper.logD("1994:","" + dataModelWorkout.dailyExercise_VideoView.size());
+                LogHelper.logD("1994:", "" + dataModelWorkout.dailyExercise_VideoView.size());
             }
 
             return null;
@@ -62,46 +53,38 @@ public class DailyExerciseAdapter  extends RecyclerView.Adapter<DailyExerciseAda
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if(isCancelled())
+            if (isCancelled())
                 return;
-            LogHelper.logD("1994:","" +dataModelWorkout.dailyExercise_VideoView.size());
+            LogHelper.logD("1994:", "" + dataModelWorkout.dailyExercise_VideoView.size());
             dataUp = true;
             notifyDataSetChanged();
         }
     }
 
-
-    GetDataFromDb db;
-    public  DailyExerciseAdapter( DataModelWorkout dataModelWorkout , DailyExerciseInfo obj)
-    {
+    public DailyExerciseAdapter(DataModelWorkout dataModelWorkout, DailyExerciseInfo obj) {
         this.dataModelWorkout = dataModelWorkout;
         info = obj;
         dataUp = false;
-        db = new GetDataFromDb();
-        db.execute();
+        new GetDataFromDb().execute();
     }
 
     @NonNull
     @Override
-    public DailyExerciseDataHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-    {
+    public DailyExerciseDataHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view =  layoutInflater.inflate(R.layout.exercise_info_item_activity, parent , false);
-
+        View view = layoutInflater.inflate(R.layout.exercise_info_item_activity, parent, false);
         return new DailyExerciseDataHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull DailyExerciseDataHolder holder, final int position) {
 
         String nameOfExercise = dataModelWorkout.dailyExercise_ExerciseName.get(position);
         holder.nameOfExercise.setText(nameOfExercise);
 
-
-
-        if (dataUp)
-        {
-            holder.exerciseTime.setText(dataModelWorkout.exercisTimeList.get(position)+ "s");
+        if (dataUp) {
+            holder.exerciseTime.setText(dataModelWorkout.exercisTimeList.get(position) + "s");
             holder.restTime.setText(dataModelWorkout.resetTimeList.get(position) + "s");
             String videoPath = dataModelWorkout.dailyExercise_VideoView.get(position);
             int id = info.getApplication().getResources().getIdentifier(videoPath, "drawable", info.getApplication().getPackageName());
@@ -118,9 +101,9 @@ public class DailyExerciseAdapter  extends RecyclerView.Adapter<DailyExerciseAda
 
             holder.viewVideo.setVideoPath(path);
             LogHelper.logD("1994:", "" + videoPath);
-            holder.viewVideo.start();
+            holder.viewVideo.imgStart();
             holder.viewVideo.setOnCompletionListener(mediaPlayer ->
-                    holder.viewVideo.start());
+                    holder.viewVideo.imgStart());
 
             holder.exerciseTime.setText(dataModelWorkout.exercisTimeList.get(position)+ " SEC");
             holder.restTime.setText(dataModelWorkout.resetTimeList.get(position) + " SEC");
@@ -137,25 +120,21 @@ public class DailyExerciseAdapter  extends RecyclerView.Adapter<DailyExerciseAda
     public void onViewRecycled(@NonNull DailyExerciseDataHolder holder) {
         holder.imgeOfExercise.setImageDrawable(null);
         super.onViewRecycled(holder);
-
     }
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return dataModelWorkout.dailyExercise_ExerciseName.size();
     }
 
-    public void update(DataModelWorkout modelWorkout)
-    {
-        dataModelWorkout=modelWorkout;
+    public void update(DataModelWorkout modelWorkout) {
+        dataModelWorkout = modelWorkout;
         notifyDataSetChanged();
         dataUp = false;
         // db.execute();
     }
 
-    public  class  DailyExerciseDataHolder extends RecyclerView.ViewHolder
-    {
+     class DailyExerciseDataHolder extends RecyclerView.ViewHolder {
         ImageView imgeOfExercise;
         TextView nameOfExercise;
         ImageView bgImage;
@@ -164,8 +143,7 @@ public class DailyExerciseAdapter  extends RecyclerView.Adapter<DailyExerciseAda
         TextView exerciseTime;
         TextView restTime;
 
-        public DailyExerciseDataHolder(View itemView)
-        {
+         DailyExerciseDataHolder(View itemView) {
             super(itemView);
             imgeOfExercise = itemView.findViewById(R.id.exerciseInfo_Icon);
             nameOfExercise = itemView.findViewById(R.id.exerciseInfo_ExerciseName);
@@ -177,10 +155,6 @@ public class DailyExerciseAdapter  extends RecyclerView.Adapter<DailyExerciseAda
 
         }
     }
-
-
-
-
 
 
 }

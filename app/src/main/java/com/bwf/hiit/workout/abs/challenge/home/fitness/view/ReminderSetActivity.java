@@ -15,7 +15,7 @@ import butterknife.OnClick;
 public class ReminderSetActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.edt_reminderTime)
+    @BindView(R.id.reminderScreenTime)
     EditText edtReminderTime;
 
     @Override
@@ -31,13 +31,13 @@ public class ReminderSetActivity extends AppCompatActivity {
         finish();
     }
 
-    @OnClick({R.id.btn_setReminder, R.id.btn_skipReminder})
+    @OnClick({R.id.setbuttonReminderScreen, R.id.skipReminderScreen})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btn_setReminder:
+            case R.id.setbuttonReminderScreen:
                 startActivity();
                 break;
-            case R.id.btn_skipReminder:
+            case R.id.skipReminderScreen:
                 startActivity();
                 break;
         }

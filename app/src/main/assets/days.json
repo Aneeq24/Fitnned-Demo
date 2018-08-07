@@ -20,7 +20,6 @@
             "reps": 20,
             "rounds": 3,
             "delay" : 10,
-
             "status": false
           },
           {

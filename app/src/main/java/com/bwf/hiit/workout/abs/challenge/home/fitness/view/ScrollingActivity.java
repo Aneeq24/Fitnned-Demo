@@ -157,7 +157,7 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        RecyclerView rvDayTasks = findViewById(R.id.rv_day_tasks);
+        RecyclerView rvDayTasks = findViewById(R.id.dayTaskRecycleid);
         rvDayTasks.setNestedScrollingEnabled(false);
         rvDayTasks.setLayoutManager(new LinearLayoutManager(this));
         dayRecycleAdapter = new DayRecycleAdapter(ScrollingActivity.this, dataModelsWorkout);

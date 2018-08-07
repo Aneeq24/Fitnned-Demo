@@ -22,10 +22,10 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Plan;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.PlanDays;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.JsonUtils;
-import com.facebook.stetho.Stetho;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SplashScreeActivity extends AppCompatActivity {
@@ -56,7 +56,6 @@ public class SplashScreeActivity extends AppCompatActivity {
 
             SharedPrefHelper.writeInteger(context, "sound", 0);
 
-            Stetho.initializeWithDefaults(context);
             Gson gson = new Gson();
             AppDataBase appDataBase = AppDataBase.getInstance();
             if (appDataBase != null) {
@@ -66,9 +65,8 @@ public class SplashScreeActivity extends AppCompatActivity {
                         String json = JsonUtils.readJsonFromAssets(getApplicationContext(), "plans.json");
                         List<Plan> plans = gson.fromJson(json, new TypeToken<List<Plan>>() {
                         }.getType());
-                        if (plans != null && plans.size() > 0) {
+                        if (plans != null && plans.size() > 0)
                             appDataBase.planDao().insertAll(plans);
-                        }
                     } catch (Exception e) {
                         Log.e(TAG, "plans: " + e.getLocalizedMessage());
                     }
@@ -81,9 +79,8 @@ public class SplashScreeActivity extends AppCompatActivity {
                         String json = JsonUtils.readJsonFromAssets(getApplicationContext(), "daysprogress.json");
                         List<DayProgressModel> progressModels = gson.fromJson(json, new TypeToken<List<DayProgressModel>>() {
                         }.getType());
-                        if (progressModels != null && progressModels.size() > 0) {
+                        if (progressModels != null && progressModels.size() > 0)
                             appDataBase.dayProgressDao().insertAll(progressModels);
-                        }
                     } catch (Exception e) {
                         Log.e(TAG, "dayprogress: " + e.getLocalizedMessage());
                     }
@@ -95,10 +92,8 @@ public class SplashScreeActivity extends AppCompatActivity {
                         String json = JsonUtils.readJsonFromAssets(getApplicationContext(), "exercises.json");
                         List<Exercise> exercises = gson.fromJson(json, new TypeToken<List<Exercise>>() {
                         }.getType());
-                        if (exercises != null && exercises.size() > 0) {
+                        if (exercises != null && exercises.size() > 0)
                             appDataBase.exerciseDao().insertAll(exercises);
-
-                        }
                     } catch (Exception e) {
                         Log.e(TAG, "exercises: " + e.getLocalizedMessage());
                     }
@@ -109,9 +104,8 @@ public class SplashScreeActivity extends AppCompatActivity {
                         String json = JsonUtils.readJsonFromAssets(getApplicationContext(), "details.json");
                         List<Detail> details = gson.fromJson(json, new TypeToken<List<Detail>>() {
                         }.getType());
-                        if (details != null && details.size() > 0) {
+                        if (details != null && details.size() > 0)
                             appDataBase.detailDao().insertAll(details);
-                        }
                     } catch (Exception e) {
                         Log.e(TAG, "detail: " + e.getLocalizedMessage());
                     }
@@ -127,12 +121,16 @@ public class SplashScreeActivity extends AppCompatActivity {
                         if (planDays != null && planDays.size() > 0) {
                             for (PlanDays days : planDays) {
                                 for (Day day : days.getDays()) {
+                                    List<ExerciseDay> mList = new ArrayList<>();
                                     for (ExerciseDay exerciseDay : day.getExercisesOfDay()) {
                                         exerciseDay.setPlanId(days.getPlanId());
-                                        exerciseDay.setDayId(day.getDayId());exerciseDay.getId();
+                                        exerciseDay.setDayId(day.getDayId());
+                                        exerciseDay.setRoundCompleted(day.getRoundCompleted());
+                                        exerciseDay.setTotalExercise(day.getTotalExercise());
                                         exerciseDay.setTotalExercise(day.getExercisesOfDay().size() * exerciseDay.getRounds());
+                                        mList.add(exerciseDay);
                                     }
-                                    appDataBase.exerciseDayDao().insertAll(day.getExercisesOfDay());
+                                    appDataBase.exerciseDayDao().insertAll(mList);
 
                                 }
                             }
@@ -155,7 +153,7 @@ public class SplashScreeActivity extends AppCompatActivity {
                 if (backPresed)
                     return;
 
-                if (!SharedPrefHelper.readBoolean(context,getString(R.string.is_first_run)))
+                if (!SharedPrefHelper.readBoolean(context, getString(R.string.is_first_run)))
                     setDefaultPreferences();
 
                 startActivity(new Intent(getApplicationContext(), HomeActivity.class));
@@ -171,12 +169,13 @@ public class SplashScreeActivity extends AppCompatActivity {
     }
 
     private void setDefaultPreferences() {
-        SharedPrefHelper.writeInteger(context,getString(R.string.hour), 15);
-        SharedPrefHelper.writeInteger(context,getString(R.string.minute), 5);
-        SharedPrefHelper.writeInteger(context,getString(R.string.language), 0);
-        SharedPrefHelper.writeInteger(context,"kcal", 0);
-        SharedPrefHelper.writeBoolean(context,getString(R.string.alarm), true);
-        SharedPrefHelper.writeBoolean(context,getString(R.string.is_first_run), true);
+        SharedPrefHelper.writeInteger(context, getString(R.string.hour), 15);
+        SharedPrefHelper.writeInteger(context, getString(R.string.minute), 5);
+        SharedPrefHelper.writeInteger(context, getString(R.string.language), 0);
+        SharedPrefHelper.writeInteger(context, "kcal", 0);
+        SharedPrefHelper.writeBoolean(context, "rate", false);
+        SharedPrefHelper.writeBoolean(context, getString(R.string.alarm), true);
+        SharedPrefHelper.writeBoolean(context, getString(R.string.is_first_run), true);
         // set the alarm at 13:00 AM
         AlarmManager.getInstance().setAlarm(this, 15, 5);
     }

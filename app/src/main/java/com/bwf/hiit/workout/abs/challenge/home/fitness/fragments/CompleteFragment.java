@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 
 public class CompleteFragment extends Fragment {
@@ -32,10 +33,9 @@ public class CompleteFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_complete, container, false);
 
         toolbar = view.findViewById(R.id.toolbar10);
-        tvExerciseNo = view.findViewById(R.id.tv_exerciseNo);
-        tvTotalTime = view.findViewById(R.id.tv_totalTime);
-        tvKcal = view.findViewById(R.id.tv_kcal);
-
+        tvExerciseNo = view.findViewById(R.id.cf_exerciseNo);
+        tvTotalTime = view.findViewById(R.id.cf_totalTime);
+        tvKcal = view.findViewById(R.id.textView17);
         context = getContext();
 
         PlayingExercise playingExercise = (PlayingExercise) getActivity();
@@ -43,12 +43,14 @@ public class CompleteFragment extends Fragment {
         assert playingExercise != null;
         int minutes = (playingExercise.totaTimeSpend % 3600) / 60;
         int seconds = playingExercise.totaTimeSpend % 60;
-
+        playingExercise.exerciseDays.get(playingExercise.currentExercise).setStatus(true);
         @SuppressLint("DefaultLocale") String timeString = String.format("%02d:%02d", minutes, seconds);
 
-        tvExerciseNo.setText("" + playingExercise.totalExercises);
+        tvExerciseNo.setText("" + playingExercise.totalExercisesPlayed);
         tvTotalTime.setText("" + timeString);
-        tvKcal.setText(SharedPrefHelper.readInteger(context, "kcal"));
+        String kcal = String.valueOf(SharedPrefHelper.readInteger(context, "kcal"));
+        tvKcal.setText(kcal);
+        SharedPrefHelper.writeInteger(context,"kcal", 0);
 
         toolbar.setNavigationOnClickListener(view1 -> {
             if (getActivity() != null) {
@@ -61,6 +63,9 @@ public class CompleteFragment extends Fragment {
             AdsManager.getInstance().showFacebookInterstitialAd();
         else
             AdsManager.getInstance().showInterstitialAd();
+
+        if (!SharedPrefHelper.readBoolean(context, "rate"))
+            Utils.setRateAppDialog(context);
 
         return view;
     }

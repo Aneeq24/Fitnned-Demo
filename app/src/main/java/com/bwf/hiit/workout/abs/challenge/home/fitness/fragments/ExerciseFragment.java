@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -25,9 +26,6 @@ import com.google.android.gms.ads.AdView;
 
 import java.util.Objects;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 public class ExerciseFragment extends Fragment {
 
@@ -39,16 +37,22 @@ public class ExerciseFragment extends Fragment {
     CountDownTimer countDownTimer;
     PlayingExercise playingExercise;
 
-    TextView tvRound;
-    TextView tvExercise;
-    TextView tvExerciseName;
-    ImageView btnPause;
-    ImageView btnSound;
-    ImageView animationImage;
-    AdView banerAdmob;
-    VideoView videoViewId;
-    CircleProgressBar playingExericseCircle;
-    Unbinder unbinder;
+    VideoView viewVideo;
+    CircleProgressBar playingExerciseCircle;
+    TextView exerciseName;
+
+    TextView roundTextView;
+    TextView exerciseTextView;
+    TextView exerciseTimer;
+    Button pauseButton;
+    ImageView exerciseImage;
+    ImageView helpButton;
+    CountDownTimer videoTimer;
+
+    ImageView soundButton_B;
+
+    AdView adView;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -59,32 +63,42 @@ public class ExerciseFragment extends Fragment {
         playingExercise = (PlayingExercise) getActivity();
         context = getContext();
 
-        playingExericseCircle = rootView.findViewById(R.id.playingExericseCircle);
-        btnPause = rootView.findViewById(R.id.btn_pause);
-        btnSound = rootView.findViewById(R.id.btn_sound);
-        tvExercise = rootView.findViewById(R.id.tv_exercise);
-        tvRound = rootView.findViewById(R.id.tv_round);
-        tvExerciseName = rootView.findViewById(R.id.tv_exercise_name);
-        animationImage = rootView.findViewById(R.id.animationImage);
-        videoViewId = rootView.findViewById(R.id.videoViewId);
-        banerAdmob = rootView.findViewById(R.id.baner_Admob);
+        exerciseTimer = rootView.findViewById(R.id.timerExerciseText);
+        pauseButton = rootView.findViewById(R.id.pause);
+        exerciseImage = rootView.findViewById(R.id.animationImage);
+        viewVideo = rootView.findViewById(R.id.videoViewId);
+        exerciseTextView = rootView.findViewById(R.id.ef_exerciseTextView);
+        roundTextView = rootView.findViewById(R.id.ef_roundTextView);
+        helpButton = rootView.findViewById(R.id.help);
+        exerciseName = rootView.findViewById(R.id.tv_exerciseName_Playing);
+        soundButton_B = rootView.findViewById(R.id.ef_soundFragment);
+        playingExerciseCircle = rootView.findViewById(R.id.playingExericseCircle);
+        playingExerciseCircle.setProgressFormatter((progress, max) -> progress + "\"");
 
-        playingExericseCircle.setProgressFormatter((progress, max) -> progress + "\"");
-        playingExericseCircle.setOnClickListener(view -> pause());
+        playingExerciseCircle.setOnClickListener(view -> pause());
 
+        soundButton_B.setOnClickListener(view -> soundButton());
+
+        pauseButton.setOnClickListener(view -> pause());
+
+        helpButton.setOnClickListener(view -> helpButtonClick());
         findRefrence();
-        unbinder = ButterKnife.bind(this, rootView);
+
         return rootView;
     }
 
     private void soundButton() {
+
+        AdsManager.getInstance().showBanner(adView);
+
         if (soundValue > 0) {
             soundValue = 0;
-            btnSound.setImageResource(R.drawable.play_screen_sound_off_btn);
+            soundButton_B.setImageResource(R.drawable.play_screen_sound_off_btn);
         } else {
             soundValue = 1;
-            btnSound.setImageResource(R.drawable.play_screen_sound_on_btn);
+            soundButton_B.setImageResource(R.drawable.play_screen_sound_on_btn);
         }
+
         SharedPrefHelper.writeInteger(context, "sound", soundValue);
     }
 
@@ -92,25 +106,26 @@ public class ExerciseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         countDownTimer.cancel();
-        unbinder.unbind();
     }
 
     private void findRefrence() {
 
-        AdsManager.getInstance().showBanner(banerAdmob);
-        soundValue = SharedPrefHelper.readInteger(context, "sound");
+        AdsManager.getInstance().showBanner(adView);
 
         if (soundValue > 0)
-            btnSound.setImageResource(R.drawable.play_screen_sound_on_btn);
+            soundButton_B.setImageResource(R.drawable.play_screen_sound_on_btn);
         else
-            btnSound.setImageResource(R.drawable.play_screen_sound_off_btn);
+            soundButton_B.setImageResource(R.drawable.play_screen_sound_off_btn);
+
+        soundValue = SharedPrefHelper.readInteger(context, "sound");
 
         assignTopUi();
         String str = playingExercise.exerciseName;
-        tvExerciseName.setText(playingExercise.displayName);
+        exerciseName.setText(playingExercise.displayName);
+
         int id = getResources().getIdentifier(str, "drawable", context.getPackageName());
         String path = "android.resource://" + context.getPackageName() + "/" + id;
-        Glide.with(context).load(path).into(animationImage);
+        Glide.with(context).load(path).into(exerciseImage);
 
         if (!PlayingExercise.is_Paused) {
             value = playingExercise.getCurrentReps();
@@ -127,13 +142,13 @@ public class ExerciseFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void assignTopUi() {
-        tvRound.setText((playingExercise.currentRound + 1) + "/" + playingExercise.totalRounds);
-        tvExercise.setText((playingExercise.currentExercise + 1) + "/" + playingExercise.totalExercisePerRound);
+        roundTextView.setText((playingExercise.currentRound + 1) + "/" + playingExercise.totalRounds);
+        exerciseTextView.setText((playingExercise.currentExercise + 1) + "/" + playingExercise.totalExercisePerRound);
     }
 
     private void startPlayingExercise(int totalSkipTime) {
 
-        playingExericseCircle.setMax(value / 1000);
+        playingExerciseCircle.setMax(value / 1000);
         countDownTimer = new CountDownTimer(totalSkipTime, 1000) {
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
@@ -148,7 +163,7 @@ public class ExerciseFragment extends Fragment {
                     TTSManager.getInstance(playingExercise.getApplication()).play("" + remaingTime);
                 }
 
-                playingExericseCircle.setProgress(remaingTime);
+                playingExerciseCircle.setProgress(remaingTime);
             }
 
             @SuppressLint("SetTextI18n")
@@ -186,21 +201,4 @@ public class ExerciseFragment extends Fragment {
         countDownTimer.cancel();
     }
 
-    @OnClick({R.id.btn_sound, R.id.btn_video, R.id.btn_help, R.id.btn_pause})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btn_sound:
-                soundButton();
-                break;
-            case R.id.btn_video:
-
-                break;
-            case R.id.btn_help:
-                helpButtonClick();
-                break;
-            case R.id.btn_pause:
-                pause();
-                break;
-        }
-    }
 }

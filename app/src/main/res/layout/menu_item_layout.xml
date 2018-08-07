@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dp"
         android:scaleType="fitXY"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"
@@ -30,6 +31,7 @@
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="2dp"
@@ -49,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
+
         android:alpha="0.7"
         android:fontFamily="@font/roboto_regular"
         android:text="BEGINEER"

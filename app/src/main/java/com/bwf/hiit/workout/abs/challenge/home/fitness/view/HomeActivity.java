@@ -21,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.HomeAdapter;
@@ -40,7 +41,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class HomeActivity extends AppCompatActivity implements
-        NavigationView.OnNavigationItemSelectedListener {
+        NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     String[] titles = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
 
     Bitmap[] image;
@@ -53,6 +54,10 @@ public class HomeActivity extends AppCompatActivity implements
     private ConsentInformation consentInformation;
     private final String TAG = HomeActivity.class.getSimpleName();
 
+    private TextView settings;
+    private TextView feedback;
+    private TextView moreApps;
+    private TextView privacyPolicy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +66,15 @@ public class HomeActivity extends AppCompatActivity implements
         ButterKnife.bind(this);
         context = this;
         paused = false;
+        settings = findViewById(R.id.settings);
+        feedback = findViewById(R.id.feedback);
+        moreApps = findViewById(R.id.more_apps);
+        privacyPolicy = findViewById(R.id.privacy_policy);
+
+        settings.setOnClickListener(this);
+        feedback.setOnClickListener(this);
+        moreApps.setOnClickListener(this);
+        privacyPolicy.setOnClickListener(this);
 
         image = new Bitmap[]{BitmapFactory.decodeResource(getResources(), R.drawable.main_screen_beginner_image),
                 BitmapFactory.decodeResource(getResources(), R.drawable.main_screen_intermediate_image),
@@ -94,7 +108,7 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
     private void initApp() {
-        RecyclerView rvHomeScreen = findViewById(R.id.rv_Home);
+        RecyclerView rvHomeScreen = findViewById(R.id.menuData);
         rvHomeScreen.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         mAdapter = new HomeAdapter(titles, image);
@@ -279,6 +293,7 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
     public void onRateUs() {
+        SharedPrefHelper.writeBoolean(context,"rate",true);
         try {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
         } catch (ActivityNotFoundException anfe) {
@@ -286,17 +301,14 @@ public class HomeActivity extends AppCompatActivity implements
         }
     }
 
-    @OnClick({R.id.settings, R.id.feedback, R.id.rate_us, R.id.more_apps, R.id.privacy_policy})
-    public void onViewClicked(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.settings:
                 onSettingsClicked();
                 break;
             case R.id.feedback:
                 onFeedbackClicked();
-                break;
-            case R.id.rate_us:
-                onRateUs();
                 break;
             case R.id.more_apps:
                 onMoreAppsClicked();

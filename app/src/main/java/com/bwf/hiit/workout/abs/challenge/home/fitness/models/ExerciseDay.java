@@ -17,7 +17,7 @@ public class ExerciseDay implements Parcelable {
     private int planId;
     private int dayId;
 
-    @SerializedName("excersice_id")
+    @SerializedName("id")
     private int id;
 
     @SerializedName("reps")
@@ -29,18 +29,32 @@ public class ExerciseDay implements Parcelable {
     @SerializedName("status")
     private boolean status;
 
-    @SerializedName("round_completed")
     private int roundCompleted;
 
-    @SerializedName("total_exercise")
     private int totalExercise;
 
-    @SerializedName("exercise_complete")
     private int exerciseComplete;
 
     @SerializedName("delay")
     private  int delay;
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(pid);
+        dest.writeInt(planId);
+        dest.writeInt(dayId);
+        dest.writeInt(id);
+        dest.writeInt(reps);
+        dest.writeInt(totalExercise);
+        dest.writeInt(exerciseComplete);
+        dest.writeInt(roundCompleted);
+        dest.writeByte((byte) (status ? 1 : 0));
+    }
 
     public ExerciseDay(int pid, int planId, int dayId, int id, int reps, boolean status, int rounds, int roundCompleted, int totalExercise, int exerciseComplete , int delay) {
         this.pid = pid;
@@ -128,24 +142,6 @@ public class ExerciseDay implements Parcelable {
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(pid);
-        dest.writeInt(planId);
-        dest.writeInt(dayId);
-        dest.writeInt(id);
-        dest.writeInt(reps);
-        dest.writeInt(totalExercise);
-        dest.writeInt(exerciseComplete);
-        dest.writeInt(roundCompleted);
-        dest.writeByte((byte) (status ? 1 : 0));
     }
 
     public int getRounds() {

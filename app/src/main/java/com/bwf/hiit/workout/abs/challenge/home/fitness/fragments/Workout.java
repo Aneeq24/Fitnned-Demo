@@ -26,7 +26,7 @@ public class Workout extends Fragment {
 
     Bitmap[] image;
 
-    @BindView(R.id.rv_main_container)
+    @BindView(R.id.menuData)
     RecyclerView rvMainContainer;
     Unbinder unbinder;
 

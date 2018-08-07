@@ -78,31 +78,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/feedback" />
 
-
-    <TextView
-        android:id="@+id/rate_us"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="?selectableItemBackground"
-        android:clickable="true"
-        android:drawableLeft="@drawable/ic_more_apps"
-        android:drawablePadding="10dp"
-        android:drawableStart="@drawable/ic_more_apps"
-        android:focusable="true"
-        android:text="@string/rate_us"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/about_us" />
-
-
     <TextView
         android:id="@+id/more_apps"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:background="?selectableItemBackground"
         android:clickable="true"
         android:drawableLeft="@drawable/ic_more_apps"
@@ -114,7 +94,7 @@
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rate_us" />
+        app:layout_constraintTop_toBottomOf="@+id/about_us" />
 
     <TextView
         android:id="@+id/privacy_policy"

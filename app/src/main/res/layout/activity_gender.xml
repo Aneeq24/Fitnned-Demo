@@ -88,7 +88,7 @@
         android:layout_width="wrap_content"
         android:id="@+id/nextgenderButton"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_btn_bg_corner_round"
+        android:background="@drawable/next_btn"
         android:text="@string/next"
         android:textAllCaps="true"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"

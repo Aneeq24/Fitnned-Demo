@@ -36,13 +36,13 @@ public class PauseFragment extends Fragment {
 
         LinearLayout fbNative = rootView.findViewById(R.id.fbNative);
 
-        AdsManager.getInstance().showFacebookNativeAd(Application.getContext(),fbNative ,null);
+        AdsManager.getInstance().showFacebookNativeAd(Application.getContext(), fbNative, null);
         findReferences();
         return rootView;
     }
 
     @SuppressLint("SetTextI18n")
-    private void  findReferences() {
+    private void findReferences() {
 
         playingExercise = (PlayingExercise) getActivity();
         btnResume = rootView.findViewById(R.id.pauseResume);
@@ -53,23 +53,25 @@ public class PauseFragment extends Fragment {
 
         nextExerciseName.setText(playingExercise.nextExerciseName);
 
-        String str =  playingExercise.nextExerciseImage;
-        int id = getResources().getIdentifier(str, "drawable",rootView.getContext().getPackageName());
+        String str = playingExercise.nextExerciseImage;
+        int id = getResources().getIdentifier(str, "drawable", rootView.getContext().getPackageName());
         String path = "android.resource://" + rootView.getContext().getPackageName() + "/" + id;
 
         Glide.with(this).load(path).into(imgAnimate);
 
         btnResume.setOnClickListener(view -> onResumeExercise());
 
-        if (playingExercise.currentRound<=(playingExercise.totalRounds-1))
-            tvRound.setText("Round " + (playingExercise.currentRound +1)+"/" + playingExercise.totalRounds);
+        if (playingExercise.currentRound <= (playingExercise.totalRounds - 1))
+            tvRound.setText("Round " + (playingExercise.currentRound + 1) + "/" + playingExercise.totalRounds);
         else
-            tvRound.setText("Round " + playingExercise.totalRounds+"/" + playingExercise.totalRounds);
+            tvRound.setText("Round " + playingExercise.totalRounds + "/" + playingExercise.totalRounds);
+        if (playingExercise.currentExercise <= (playingExercise.totalExercises - 1))
+            tvExercise.setText("Exercise " + (playingExercise.currentExercise + 1) + "/" + playingExercise.totalExercisePerRound);
+        else
+            tvExercise.setText("Exercise " + playingExercise.totalExercisePerRound + "/" + playingExercise.totalExercisePerRound);
+    }
 
-        tvExercise.setText("Exercise " + playingExercise.currentExercise + "/" + playingExercise.totalExercisePerRound);
-      }
-
-    private void  onResumeExercise() {
+    private void onResumeExercise() {
         playingExercise.onResumeFragment();
     }
 

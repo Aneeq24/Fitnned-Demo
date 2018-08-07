@@ -143,6 +143,7 @@ public class Utils {
     }
 
     private static void onRateUs(Context context) {
+        SharedPrefHelper.writeBoolean(context,"rate",true);
         try {
             context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
         } catch (ActivityNotFoundException anfe) {

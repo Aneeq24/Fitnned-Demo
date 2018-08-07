@@ -24,13 +24,4 @@
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
-    <!--<style name="TabItem" parent="android:TextAppearance">-->
-    <!--&lt;!&ndash; Custom Attr&ndash;&gt;-->
-    <!--<item name="textAppearance">@style/customfontstyle</item>-->
-    <!--</style>-->
-
-    <!--<style name="customfontstyle" parent="@android:style/TextAppearance.Small">-->
-    <!--<item name="android:fontFamily">@font/roboto_regular</item>-->
-    <!--</style>-->
-
 </resources>

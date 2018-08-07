@@ -114,8 +114,7 @@ public class NextFragment extends Fragment {
         int id = getResources().getIdentifier(str, "drawable", context.getPackageName());
         String path = "android.resource://" + context.getPackageName() + "/" + id;
         Glide.with(this).load(path).into(aimationImage);
-
-        TTSManager.getInstance(playingExercise.getApplication()).play("The Next Exercise is " + playingExercise.displayName);
+        TTSManager.getInstance(playingExercise.getApplication()).play("Take a Rest for " + playingExercise.restTime + "seconds" + "The Next Exercise is " + playingExercise.nextExerciseName);
     }
 
     private void startRestTimer(int totalSkipTime) {

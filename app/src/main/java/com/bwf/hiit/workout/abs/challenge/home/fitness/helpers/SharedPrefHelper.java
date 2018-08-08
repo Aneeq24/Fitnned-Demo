@@ -7,6 +7,8 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 
 public class SharedPrefHelper {
 
+    public static final String BREATH_REMINDER = "reminder_breath";
+    public static final String BREATH_REMINDER_TIME = "reminder_breath_time";
 
     private SharedPrefHelper() {
     }
@@ -48,5 +50,33 @@ public class SharedPrefHelper {
 
     public static boolean readBoolean(Context context,String key) {
         return getPreferences(context).getBoolean(key, false);
+    }
+
+    public static int readInteger(Context context, String key, int defValue) {
+        return getPreferences(context).getInt(key, defValue);
+    }
+
+    public static long readLong(Context context, String key) {
+        return getPreferences(context).getLong(key, 0);
+    }
+
+    public static void writeLong(Context context, String key, long value) {
+        getEditor(context).putLong(key, value);
+    }
+
+    public static long getBreathReminderTime(Context context) {
+        return readLong(context, BREATH_REMINDER_TIME);
+    }
+
+    public static void setBreathReminderTime(Context context, long value) {
+        writeLong(context, BREATH_REMINDER_TIME, value);
+    }
+
+    public static int getBreathReminder(Context context) {
+        return readInteger(context, BREATH_REMINDER, -1);
+    }
+
+    public static void setBreathReminder(Context context, int value) {
+        writeInteger(context, BREATH_REMINDER, value);
     }
 }

@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.BuildConfig;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
@@ -39,7 +40,6 @@ import com.google.android.gms.ads.formats.UnifiedNativeAdView;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -285,8 +285,7 @@ public class AdsManager {
                 ((Button) adView.getCallToActionView()).setText(nativeAppInstallAd.getCallToAction());
                 // ((ImageView) adView.getIconView()).setImageDrawable(nativeAppInstallAd.getIcon().getDrawable());
 
-                Picasso.get()
-                        .load(nativeAppInstallAd.getIcon().getUri())
+                        Glide.with(adView.getContext()).load(nativeAppInstallAd.getIcon().getUri())
                         .into(((ImageView) adView.getIconView()));
 
                 MediaView mediaView = adView.findViewById(R.id.appinstall_media);
@@ -305,7 +304,7 @@ public class AdsManager {
                     // At least one image is guaranteed.
                     List<NativeAd.Image> images = nativeAppInstallAd.getImages();
                     if (images.size() > 0) {
-                        Picasso.get()
+                        Glide.with(adView.getContext())
                                 .load(images.get(0).getUri())
                                 .into(mainImageView);
                     }

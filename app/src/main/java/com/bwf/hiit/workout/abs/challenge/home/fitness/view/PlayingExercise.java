@@ -265,6 +265,7 @@ public class PlayingExercise extends AppCompatActivity {
                         if (nextFragment != null && nextFragment.isVisible() && !nextFragment.pause) {
                             TTSManager.getInstance(getApplication()).play("This is end of Round " + currentRound +
                                     "You have" + (exerciseDays.get(0).getRounds() - currentRound) + "round remaining" + "The Next Exercise is " + nextExerciseName);
+                            AnalyticsManager.getInstance().sendAnalytics("round_complete" + currentRound, "plan " + currentPlan + "day " + currentDay);
                             currentExercise = 0;
                         }
                     }
@@ -276,7 +277,6 @@ public class PlayingExercise extends AppCompatActivity {
 
                 currentRound++;
                 Log.i("1994:Current exercise", "current rounds less than total");
-                AnalyticsManager.getInstance().sendAnalytics("round_complete", "plan " + currentPlan + "day " + currentDay);
             }
 
         }
@@ -413,5 +413,9 @@ public class PlayingExercise extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        AnalyticsManager.getInstance().sendAnalytics("playing_exercise", "close at" +  "plan " + currentPlan + "day " + currentDay);
+        super.onBackPressed();
+    }
 }

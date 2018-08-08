@@ -128,6 +128,7 @@ public class SplashScreeActivity extends AppCompatActivity {
                                         exerciseDay.setRoundCompleted(day.getRoundCompleted());
                                         exerciseDay.setTotalExercise(day.getTotalExercise());
                                         exerciseDay.setTotalExercise(day.getExercisesOfDay().size() * exerciseDay.getRounds());
+                                        exerciseDay.setTotalKcal(0);
                                         mList.add(exerciseDay);
                                     }
                                     appDataBase.exerciseDayDao().insertAll(mList);
@@ -173,6 +174,7 @@ public class SplashScreeActivity extends AppCompatActivity {
         SharedPrefHelper.writeInteger(context, getString(R.string.minute), 5);
         SharedPrefHelper.writeInteger(context, getString(R.string.language), 0);
         SharedPrefHelper.writeInteger(context, "kcal", 0);
+        SharedPrefHelper.writeInteger(context, "bmi", 0);
         SharedPrefHelper.writeBoolean(context, "rate", false);
         SharedPrefHelper.writeBoolean(context, getString(R.string.alarm), true);
         SharedPrefHelper.writeBoolean(context, getString(R.string.is_first_run), true);

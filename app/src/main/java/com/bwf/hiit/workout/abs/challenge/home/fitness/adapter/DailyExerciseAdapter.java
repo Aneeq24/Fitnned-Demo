@@ -1,6 +1,7 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.adapter;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.models.DataModelWorkout;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.DailyExerciseInfo;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 
 import java.util.List;
 
@@ -27,7 +29,9 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
 
     private DataModelWorkout dataModelWorkout;
     private DailyExerciseInfo info;
-    private boolean dataUp = false;
+    private int day;
+    private int plan;
+    private boolean dataUp;
     private List<ExerciseDay> exerciseDays;
 
     @SuppressLint("StaticFieldLeak")
@@ -92,28 +96,12 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
             Glide.with(info).load(id).into(holder.imgeOfExercise);
         }
 
-        /*
-        if(dataUp) {
-            String videoPath = dataModelWorkout.dailyExercise_VideoView.get(position);
-
-            int id = info.getApplication().getResources().getIdentifier(videoPath, "raw", info.getApplication().getPackageName());
-            String path = "android.resource://" + info.getApplication().getPackageName() + "/" + id;
-
-            holder.viewVideo.setVideoPath(path);
-            LogHelper.logD("1994:", "" + videoPath);
-            holder.viewVideo.imgStart();
-            holder.viewVideo.setOnCompletionListener(mediaPlayer ->
-                    holder.viewVideo.imgStart());
-
-            holder.exerciseTime.setText(dataModelWorkout.exercisTimeList.get(position)+ " SEC");
-            holder.restTime.setText(dataModelWorkout.resetTimeList.get(position) + " SEC");
-
-
-            holder.itemView.setOnClickListener(view -> {
-
-            });
-        }
-        */
+        holder.itemView.setOnClickListener(view -> {
+            Intent i = new Intent(view.getContext(), PlayingExercise.class);
+            i.putExtra(view.getContext().getString(R.string.day_selected), day);
+            i.putExtra(view.getContext().getString(R.string.plan), plan);
+            view.getContext().startActivity(i);
+        });
     }
 
     @Override
@@ -127,11 +115,15 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
         return dataModelWorkout.dailyExercise_ExerciseName.size();
     }
 
+    public void setDayPlan(int day,int plan) {
+        this.day= day;
+        this.plan= plan;
+    }
+
     public void update(DataModelWorkout modelWorkout) {
         dataModelWorkout = modelWorkout;
         notifyDataSetChanged();
         dataUp = false;
-        // db.execute();
     }
 
      class DailyExerciseDataHolder extends RecyclerView.ViewHolder {

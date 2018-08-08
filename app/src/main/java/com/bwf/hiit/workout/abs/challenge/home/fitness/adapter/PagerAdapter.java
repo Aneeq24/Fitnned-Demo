@@ -5,7 +5,7 @@
 //import android.support.v4.app.FragmentStatePagerAdapter;
 //import android.util.Log;
 //
-//import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.Calender;
+//import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.CalenderFragment;
 //import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.Workout;
 //
 //public class PagerAdapter extends FragmentStatePagerAdapter {
@@ -30,7 +30,7 @@
 //                Log.d("Case 1" , "WorkOut Tab");
 //                return  tab1;
 //            case  1:
-//                Calender tab2 = new Calender();
+//                CalenderFragment tab2 = new CalenderFragment();
 //                Log.d("Case 2" , "CalenderTab");
 //                return  tab2;
 //

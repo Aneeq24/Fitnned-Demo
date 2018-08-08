@@ -1,5 +1,6 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.utils;
 
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,8 @@ import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.NumberPicker;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
@@ -24,6 +27,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class Utils {
@@ -67,8 +71,8 @@ public class Utils {
 
         try {
 
-            int i = SharedPrefHelper.readInteger(context,"sound");
-            if (i>0)
+            int i = SharedPrefHelper.readInteger(context, "sound");
+            if (i > 0)
                 return;
 
             MediaPlayer mediaPlayer = MediaPlayer.create(context, resourceId);
@@ -117,7 +121,7 @@ public class Utils {
         }
     }
 
-    public static void setRateAppDialog(Context context){
+    public static void setRateAppDialog(Context context) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
         // set title
@@ -131,10 +135,10 @@ public class Utils {
                     dialog.cancel();
                     onRateUs(context);
                 }).setNegativeButton("NO", (dialog, id) -> {
-                    // if this button is clicked, just close
-                    // the dialog box and do nothing
-                    dialog.cancel();
-                });
+            // if this button is clicked, just close
+            // the dialog box and do nothing
+            dialog.cancel();
+        });
 
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
@@ -143,12 +147,13 @@ public class Utils {
     }
 
     private static void onRateUs(Context context) {
-        SharedPrefHelper.writeBoolean(context,"rate",true);
+        SharedPrefHelper.writeBoolean(context, "rate", true);
         try {
             context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
         } catch (ActivityNotFoundException anfe) {
             context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
         }
     }
+
 
 }

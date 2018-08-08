@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#dedede">
@@ -38,12 +37,11 @@
         android:layout_height="0dp"
         android:layout_marginBottom="4dp"
         android:layout_marginTop="4dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/imageView8"
         app:layout_constraintEnd_toEndOf="@+id/imageView8"
         app:layout_constraintStart_toStartOf="@+id/exerciseInfo_Icon"
-        app:layout_constraintTop_toTopOf="@+id/imageView8"
-        android:visibility="gone"
-        />
+        app:layout_constraintTop_toTopOf="@+id/imageView8" />
 
     <LinearLayout
         android:id="@+id/mainHeadLayout"
@@ -131,8 +129,7 @@
                         android:fontFamily="@font/roboto_bold"
                         android:gravity="bottom|left"
                         android:text="Workout"
-                        android:textColor="#a1a1a1"
-                        />
+                        android:textColor="#a1a1a1" />
 
                     <TextView
                         android:id="@+id/edi_exerciseTime"
@@ -141,8 +138,8 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_bold"
                         android:gravity="top|left"
-                        android:textColor="#a1a1a1"
-                        android:text="30 SEC" />
+                        android:text="30 SEC"
+                        android:textColor="#a1a1a1" />
 
 
                 </LinearLayout>
@@ -168,10 +165,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center|left"
-                        android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:layout_marginRight="0dp"
                         android:layout_marginLeft="8dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_marginTop="8dp"
                         android:src="@drawable/exercise_screen_rest_bar_icon"
 
                         app:srcCompat="@drawable/exercise_screen_rest_bar_icon" />
@@ -193,8 +190,7 @@
                         android:fontFamily="@font/roboto_bold"
                         android:gravity="left|bottom"
                         android:text="Rest"
-                        android:textColor="#a1a1a1"
-                        />
+                        android:textColor="#a1a1a1" />
 
                     <TextView
                         android:id="@+id/edi_exerciseRestTime"
@@ -204,8 +200,7 @@
                         android:fontFamily="@font/roboto_bold"
                         android:gravity="top|left"
                         android:text="10 SEC"
-                        android:textColor="#a1a1a1"
-                        />
+                        android:textColor="#a1a1a1" />
 
                 </LinearLayout>
 

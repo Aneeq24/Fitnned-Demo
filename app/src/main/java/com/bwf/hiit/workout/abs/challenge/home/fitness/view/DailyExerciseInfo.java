@@ -66,10 +66,8 @@ public class DailyExerciseInfo extends AppCompatActivity {
             }
 
             totalRounds = exerciseDays.get(0).getRounds();
-            int totalExercises = exerciseDays.get(0).getTotalExercise();
             totalExercisePerRound = exerciseDays.size();
             int roundsCleared = exerciseDays.get(0).getRoundCompleted();
-            int totalExercisesPlayed = exerciseDays.get(0).getRoundCompleted();
             int cE = 0;
             for (ExerciseDay day : exerciseDays) {
                 if (day.isStatus())
@@ -115,7 +113,6 @@ public class DailyExerciseInfo extends AppCompatActivity {
         com.google.android.gms.ads.AdView adView = findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
 
-
         if (AdsManager.getInstance().isFacebookInterstitalLoaded())
             AdsManager.getInstance().showFacebookInterstitialAd();
         else
@@ -142,18 +139,18 @@ public class DailyExerciseInfo extends AppCompatActivity {
             i.putExtra(view.getContext().getString(R.string.plan), plan);
             view.getContext().startActivity(i);
         });
-
     }
 
     private void initExerciseList() {
         RecyclerView recyleView = findViewById(R.id.dailyExercise_RecyclerView);
         recyleView.setLayoutManager(new LinearLayoutManager(this));
         dailyExerciseAdapter = new DailyExerciseAdapter(dataModelWorkout, this);
+        dailyExerciseAdapter.setDayPlan(day,plan);
         recyleView.setAdapter(dailyExerciseAdapter);
 
         validatingDb();
-//        if (reset)
-//            new GetDataFromDb().execute();
+        if (reset)
+            new GetDataFromDb().execute();
     }
 
     private void validatingDb() {

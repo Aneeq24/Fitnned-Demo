@@ -15,6 +15,7 @@ public class ExerciseDay implements Parcelable {
     private int pid;
 
     private int planId;
+
     private int dayId;
 
     @SerializedName("id")
@@ -36,7 +37,9 @@ public class ExerciseDay implements Parcelable {
     private int exerciseComplete;
 
     @SerializedName("delay")
-    private  int delay;
+    private int delay;
+
+    private int totalKcal;
 
     @Override
     public int describeContents() {
@@ -53,20 +56,22 @@ public class ExerciseDay implements Parcelable {
         dest.writeInt(totalExercise);
         dest.writeInt(exerciseComplete);
         dest.writeInt(roundCompleted);
+        dest.writeInt(totalKcal);
         dest.writeByte((byte) (status ? 1 : 0));
     }
 
-    public ExerciseDay(int pid, int planId, int dayId, int id, int reps, boolean status, int rounds, int roundCompleted, int totalExercise, int exerciseComplete , int delay) {
+    public ExerciseDay(int pid, int planId, int dayId, int id, int reps, int rounds, boolean status, int roundCompleted, int totalExercise, int exerciseComplete, int totalKcal, int delay) {
         this.pid = pid;
         this.planId = planId;
         this.dayId = dayId;
         this.id = id;
         this.reps = reps;
-        this.status = status;
         this.rounds = rounds;
+        this.status = status;
         this.roundCompleted = roundCompleted;
         this.totalExercise = totalExercise;
         this.exerciseComplete = exerciseComplete;
+        this.totalKcal = totalKcal;
         this.delay = delay;
     }
 
@@ -78,9 +83,10 @@ public class ExerciseDay implements Parcelable {
         reps = in.readInt();
         rounds = in.readInt();
         status = in.readByte() != 0;
-        roundCompleted =in.readInt();
+        roundCompleted = in.readInt();
         totalExercise = in.readInt();
         exerciseComplete = in.readInt();
+        totalKcal= in.readInt();
         delay = in.readInt();
     }
 
@@ -136,14 +142,6 @@ public class ExerciseDay implements Parcelable {
         this.reps = reps;
     }
 
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
     public int getRounds() {
         return rounds;
     }
@@ -152,12 +150,20 @@ public class ExerciseDay implements Parcelable {
         this.rounds = rounds;
     }
 
-    public int getExerciseComplete() {
-        return exerciseComplete;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setExerciseComplete(int exerciseComplete) {
-        this.exerciseComplete = exerciseComplete;
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public int getRoundCompleted() {
+        return roundCompleted;
+    }
+
+    public void setRoundCompleted(int roundCompleted) {
+        this.roundCompleted = roundCompleted;
     }
 
     public int getTotalExercise() {
@@ -168,12 +174,20 @@ public class ExerciseDay implements Parcelable {
         this.totalExercise = totalExercise;
     }
 
-    public int getRoundCompleted() {
-        return roundCompleted;
+    public int getExerciseComplete() {
+        return exerciseComplete;
     }
 
-    public void setRoundCompleted(int roundCompleted) {
-        this.roundCompleted = roundCompleted;
+    public void setExerciseComplete(int exerciseComplete) {
+        this.exerciseComplete = exerciseComplete;
+    }
+
+    public int getTotalKcal() {
+        return totalKcal;
+    }
+
+    public void setTotalKcal(int totalKcal) {
+        this.totalKcal = totalKcal;
     }
 
     public int getDelay() {

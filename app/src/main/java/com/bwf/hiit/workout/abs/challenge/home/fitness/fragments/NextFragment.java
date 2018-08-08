@@ -126,7 +126,6 @@ public class NextFragment extends Fragment {
                 pauseTimer = currentRestTime;
                 mCustomCircleBar.setProgress(currentRestTime);
                 int id = getResources().getIdentifier("clock", "raw", context.getPackageName());
-//                Utils.playAudio(rootView.getContext(),id);
 
                 if (currentRestTime > 3)
                     Utils.playAudio(context, id);

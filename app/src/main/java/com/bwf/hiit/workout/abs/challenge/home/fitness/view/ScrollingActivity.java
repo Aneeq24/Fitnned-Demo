@@ -101,7 +101,6 @@ public class ScrollingActivity extends AppCompatActivity {
 
                 for (int i = 0; i < 30; i++)
                     dataModelsWorkout.progress.add(i, (float) 0);
-
                 break;
             default:
 
@@ -145,7 +144,6 @@ public class ScrollingActivity extends AppCompatActivity {
                 LogHelper.logD("1993", "Day left" + (dayLeft));
                 circleProgressBarCompleted.setMax(30);
                 circleProgressBarCompleted.setProgress(val);
-
             }
 
             @Override
@@ -176,7 +174,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         if (AdsManager.getInstance().isFacebookInterstitalLoaded())
             AdsManager.getInstance().showFacebookInterstitialAd();
-         else
+        else
             AdsManager.getInstance().showInterstitialAd();
 
     }

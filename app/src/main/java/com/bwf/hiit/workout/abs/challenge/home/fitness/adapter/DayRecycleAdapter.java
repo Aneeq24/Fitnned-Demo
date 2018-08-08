@@ -34,14 +34,12 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
             AppDataBase dataBase = AppDataBase.getInstance();
 
             for (int i = 0; i < 30; i++) {
-
                 int totalComplete = dataBase.exerciseDayDao().getExerciseDays(currentPlan,
                         i + 1).get(0).getExerciseComplete();
                 int totalExercises = dataBase.exerciseDayDao().getExerciseDays(currentPlan,
                         i + 1).get(0).getTotalExercise();
 
                 float v = (float) totalComplete / (float) totalExercises;
-
                 dataModelWorkout.progress.add(i, v);
 
             }
@@ -88,13 +86,16 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
             if (holder.circleProgressBar.getProgress() == 100)
                 setResetCheckDialog(view.getContext(), position);
             else
-                goToNewActivity(view.getContext(), position,false);
+                goToNewActivity(view.getContext(), position, false);
         });
     }
 
     @Override
     public int getItemCount() {
-        return dataModelWorkout.dayName.length;
+        if (dataModelWorkout.dayName == null)
+            return 0;
+        else
+            return dataModelWorkout.dayName.length;
     }
 
     class DayItemHolder extends RecyclerView.ViewHolder {
@@ -127,7 +128,7 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
                 .setCancelable(false)
                 .setPositiveButton("YES", (dialog, id) -> {
                     dialog.cancel();
-                    goToNewActivity(context, pos,true);
+                    goToNewActivity(context, pos, true);
                 }).setNegativeButton("NO", (dialog, id) -> {
             // if this button is clicked, just close
             // the dialog box and do nothing
@@ -140,7 +141,7 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
         alertDialog.show();
     }
 
-    private void goToNewActivity(Context context, int position,boolean reset) {
+    private void goToNewActivity(Context context, int position, boolean reset) {
         Intent i = new Intent(ac, DailyExerciseInfo.class);
         i.putExtra(context.getString(R.string.day_selected), position + 1);
         i.putExtra(context.getString(R.string.plan), currentPlan);

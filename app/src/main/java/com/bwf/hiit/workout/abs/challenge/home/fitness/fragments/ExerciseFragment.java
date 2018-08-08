@@ -154,7 +154,6 @@ public class ExerciseFragment extends Fragment {
             public void onTick(long millisUntilFinished) {
 
                 remaingTime = (int) (millisUntilFinished / 1000);
-
                 int id = getResources().getIdentifier("clock", "raw", Objects.requireNonNull(getContext()).getPackageName());
 
                 if (remaingTime > 3) {

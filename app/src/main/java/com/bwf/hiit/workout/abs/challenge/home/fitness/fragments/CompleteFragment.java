@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 
@@ -39,18 +40,21 @@ public class CompleteFragment extends Fragment {
         context = getContext();
 
         PlayingExercise playingExercise = (PlayingExercise) getActivity();
-
         assert playingExercise != null;
+
+        TTSManager.getInstance(getActivity().getApplication()).play(" Well Done. This is end of day " + (playingExercise.currentDay + 1) + "of your training");
+
         int minutes = (playingExercise.totaTimeSpend % 3600) / 60;
         int seconds = playingExercise.totaTimeSpend % 60;
+
         playingExercise.exerciseDays.get(playingExercise.currentExercise).setStatus(true);
         @SuppressLint("DefaultLocale") String timeString = String.format("%02d:%02d", minutes, seconds);
 
-        tvExerciseNo.setText("" + playingExercise.totalExercisesPlayed);
-        tvTotalTime.setText("" + timeString);
+        tvExerciseNo.setText(" " + playingExercise.totalExercisesPlayed);
+        tvTotalTime.setText(" " + timeString);
         String kcal = String.valueOf(SharedPrefHelper.readInteger(context, "kcal"));
         tvKcal.setText(kcal);
-        SharedPrefHelper.writeInteger(context,"kcal", 0);
+        SharedPrefHelper.writeInteger(context, "kcal", 0);
 
         toolbar.setNavigationOnClickListener(view1 -> {
             if (getActivity() != null) {

@@ -171,7 +171,7 @@ public class TTSManager implements TextToSpeech.OnInitListener {
 
     public void play(CharSequence text) {
         try {
-            int i = SharedPrefHelper.readInteger(activity,"sound");
+            int i = SharedPrefHelper.readInteger(application.getApplicationContext(),"sound");
             if (i>0)
                 return;
 

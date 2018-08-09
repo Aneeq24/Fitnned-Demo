@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -37,11 +36,8 @@ import com.google.ads.consent.ConsentStatus;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-public class HomeActivity extends AppCompatActivity implements
-        NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     String[] titles = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
 
     Bitmap[] image;
@@ -54,23 +50,28 @@ public class HomeActivity extends AppCompatActivity implements
     private ConsentInformation consentInformation;
     private final String TAG = HomeActivity.class.getSimpleName();
 
-    private TextView settings;
-    private TextView feedback;
-    private TextView moreApps;
-    private TextView privacyPolicy;
+    TextView workOut;
+    TextView reminder;
+    TextView settings;
+    TextView feedback;
+    TextView moreApps;
+    TextView privacyPolicy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        ButterKnife.bind(this);
         context = this;
         paused = false;
+        workOut = findViewById(R.id.workout_record);
+        reminder = findViewById(R.id.reminder);
         settings = findViewById(R.id.settings);
         feedback = findViewById(R.id.feedback);
         moreApps = findViewById(R.id.more_apps);
         privacyPolicy = findViewById(R.id.privacy_policy);
 
+        workOut.setOnClickListener(this);
+        reminder.setOnClickListener(this);
         settings.setOnClickListener(this);
         feedback.setOnClickListener(this);
         moreApps.setOnClickListener(this);
@@ -110,7 +111,6 @@ public class HomeActivity extends AppCompatActivity implements
     private void initApp() {
         RecyclerView rvHomeScreen = findViewById(R.id.menuData);
         rvHomeScreen.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
         mAdapter = new HomeAdapter(titles, image);
         rvHomeScreen.setAdapter(mAdapter);
     }
@@ -263,37 +263,43 @@ public class HomeActivity extends AppCompatActivity implements
         startActivity(intent);
     }
 
+    private void onRecordClicked() {
+        startActivity(new Intent(context, RecordActivity.class));
+        onBackPressed();
+    }
+
+    private void onReminderClicked() {
+        startActivity(new Intent(context, ConfirmReminderActivity.class));
+        onBackPressed();
+    }
+
     public void onSettingsClicked() {
         onBackPressed();
     }
 
     public void onFeedbackClicked() {
-        onBackPressed();
+        onMoreAppsClicked();
     }
 
     public void onMoreAppsClicked() {
-        onBackPressed();
-        new Handler().postDelayed(() -> {
-            try {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
-            } catch (ActivityNotFoundException anfe) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
-            }
-        }, 500);
         AnalyticsManager.getInstance().sendAnalytics("more_apps", "clicked");
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
+        } catch (ActivityNotFoundException anfe) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
+        }
+        onBackPressed();
     }
 
     public void onPrivacyPolicyClicked() {
-        onBackPressed();
-        new Handler().postDelayed(() -> {
-            consentInformation.setConsentStatus(ConsentStatus.UNKNOWN);
-            requestGoogleConsentForm(false);
-        }, 500);
         AnalyticsManager.getInstance().sendAnalytics("privacy_policy", "clicked");
+        consentInformation.setConsentStatus(ConsentStatus.UNKNOWN);
+        requestGoogleConsentForm(false);
+        onBackPressed();
     }
 
     public void onRateUs() {
-        SharedPrefHelper.writeBoolean(context,"rate",true);
+        SharedPrefHelper.writeBoolean(context, "rate", true);
         try {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
         } catch (ActivityNotFoundException anfe) {
@@ -304,6 +310,12 @@ public class HomeActivity extends AppCompatActivity implements
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.workout_record:
+                onRecordClicked();
+                break;
+            case R.id.reminder:
+                onReminderClicked();
+                break;
             case R.id.settings:
                 onSettingsClicked();
                 break;

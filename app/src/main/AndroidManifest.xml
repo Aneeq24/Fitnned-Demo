@@ -11,9 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <!--      <activity
-                  android:name=".view.MainActivity"
-                  android:screenOrientation="portrait" />-->
         <activity
             android:name=".view.SplashScreeActivity"
             android:screenOrientation="portrait">
@@ -56,10 +53,24 @@
             android:enabled="true"
             android:exported="false" />
 
+        <activity
+            android:name=".view.ReminderSetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.SelectGender"
+            android:screenOrientation="portrait">
 
-        <activity android:name=".view.ReminderSetActivity" />
-        <activity android:name=".view.SelectGender" />
-        <activity android:name=".view.AgeWeightHeightActivity" />
+        </activity>
+        <activity
+            android:name=".view.AgeWeightHeightActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".view.ConfirmReminderActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.RecordActivity" />
+        <activity android:name=".view.CalenderActivity"></activity>
     </application>
 
 </manifest>

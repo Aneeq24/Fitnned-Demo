@@ -30,16 +30,11 @@ public class AlarmManager {
         }
     }
 
-    public void setAlarm(Context context, int timeHour, int timeMinute) {
+    public void setAlarm(Context context,Calendar alarmTime) {
         android.app.AlarmManager alarmManager = (android.app.AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             Intent alarmIntent = new Intent(context, AlarmReceiver.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
-
-            Calendar alarmTime = Calendar.getInstance();
-            alarmTime.set(Calendar.HOUR_OF_DAY, timeHour);
-            alarmTime.set(Calendar.MINUTE, timeMinute);
-            alarmTime.set(Calendar.SECOND, 0);
 
             Calendar currentCalendar = Calendar.getInstance();
             if (currentCalendar.getTimeInMillis() > alarmTime.getTimeInMillis()) {

@@ -12,7 +12,6 @@ import android.util.Log;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AlarmManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Day;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.DayProgressModel;
@@ -21,7 +20,9 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Plan;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.PlanDays;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.JsonUtils;
+import com.facebook.stetho.Stetho;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -40,6 +41,7 @@ public class SplashScreeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_scree);
         context = this;
         AnalyticsManager.getInstance().sendAnalytics("splash_screen_started", "activity_started");
+        Stetho.initializeWithDefaults(this);
 
         new AppDbCheckingTask().execute();
     }
@@ -58,11 +60,17 @@ public class SplashScreeActivity extends AppCompatActivity {
 
             Gson gson = new Gson();
             AppDataBase appDataBase = AppDataBase.getInstance();
+
+            User user = new User();
+            user.setId(1);
+            if (!SharedPrefHelper.readBoolean(context, getString(R.string.is_first_run)))
+                appDataBase.userdao().insertAll(user);
+
             if (appDataBase != null) {
                 // insert plans
                 if (appDataBase.planDao().getCount() == 0) {
                     try {
-                        String json = JsonUtils.readJsonFromAssets(getApplicationContext(), "plans.json");
+                        String json = JsonUtils.readJsonFromAssets(context, "plans.json");
                         List<Plan> plans = gson.fromJson(json, new TypeToken<List<Plan>>() {
                         }.getType());
                         if (plans != null && plans.size() > 0)
@@ -76,7 +84,7 @@ public class SplashScreeActivity extends AppCompatActivity {
 
                 if (appDataBase.dayProgressDao().getCount() == 0) {
                     try {
-                        String json = JsonUtils.readJsonFromAssets(getApplicationContext(), "daysprogress.json");
+                        String json = JsonUtils.readJsonFromAssets(context, "daysprogress.json");
                         List<DayProgressModel> progressModels = gson.fromJson(json, new TypeToken<List<DayProgressModel>>() {
                         }.getType());
                         if (progressModels != null && progressModels.size() > 0)
@@ -89,7 +97,7 @@ public class SplashScreeActivity extends AppCompatActivity {
                 // insert exercises
                 if (appDataBase.exerciseDao().getCount() == 0) {
                     try {
-                        String json = JsonUtils.readJsonFromAssets(getApplicationContext(), "exercises.json");
+                        String json = JsonUtils.readJsonFromAssets(context, "exercises.json");
                         List<Exercise> exercises = gson.fromJson(json, new TypeToken<List<Exercise>>() {
                         }.getType());
                         if (exercises != null && exercises.size() > 0)
@@ -101,7 +109,7 @@ public class SplashScreeActivity extends AppCompatActivity {
 
                 if (appDataBase.detailDao().getCount() == 0) {
                     try {
-                        String json = JsonUtils.readJsonFromAssets(getApplicationContext(), "details.json");
+                        String json = JsonUtils.readJsonFromAssets(context, "details.json");
                         List<Detail> details = gson.fromJson(json, new TypeToken<List<Detail>>() {
                         }.getType());
                         if (details != null && details.size() > 0)
@@ -115,7 +123,7 @@ public class SplashScreeActivity extends AppCompatActivity {
 
                 if (appDataBase.exerciseDayDao().getCount() == 0) {
                     try {
-                        String json = JsonUtils.readJsonFromAssets(getApplicationContext(), "days.json");
+                        String json = JsonUtils.readJsonFromAssets(context, "days.json");
                         List<PlanDays> planDays = gson.fromJson(json, new TypeToken<List<PlanDays>>() {
                         }.getType());
                         if (planDays != null && planDays.size() > 0) {
@@ -153,12 +161,14 @@ public class SplashScreeActivity extends AppCompatActivity {
             new Handler().postDelayed(() -> {
                 if (backPresed)
                     return;
-
-                if (!SharedPrefHelper.readBoolean(context, getString(R.string.is_first_run)))
+                if (SharedPrefHelper.readBoolean(context, getString(R.string.is_first_run))) {
                     setDefaultPreferences();
+                } else {
+                    SharedPrefHelper.writeBoolean(context, getString(R.string.is_first_run), true);
+                    startActivity(new Intent(context, SelectGender.class));
+                    finish();
+                }
 
-                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                finish();
 
             }, 1000);
         }
@@ -176,10 +186,10 @@ public class SplashScreeActivity extends AppCompatActivity {
         SharedPrefHelper.writeInteger(context, "kcal", 0);
         SharedPrefHelper.writeInteger(context, "bmi", 0);
         SharedPrefHelper.writeBoolean(context, "rate", false);
+        SharedPrefHelper.writeBoolean(context, "reminder", false);
         SharedPrefHelper.writeBoolean(context, getString(R.string.alarm), true);
-        SharedPrefHelper.writeBoolean(context, getString(R.string.is_first_run), true);
-        // set the alarm at 13:00 AM
-        AlarmManager.getInstance().setAlarm(this, 15, 5);
+        startActivity(new Intent(context, HomeActivity.class));
+        finish();
     }
 
     @Override

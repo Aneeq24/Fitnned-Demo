@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,13 +24,15 @@ import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayAdapter;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.view.ConfirmReminderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.view.ReminderSetActivity;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -48,8 +51,10 @@ public class CompleteFragment extends Fragment {
     ImageView btnAddReminder;
     Context context;
     GraphView graph;
-    PlayingExercise playingExercise;
     RecyclerView rvHistory;
+    PlayingExercise playingExercise;
+
+    Record record;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @SuppressLint("SetTextI18n")
@@ -70,8 +75,13 @@ public class CompleteFragment extends Fragment {
         btnAddReminder = view.findViewById(R.id.btn_add_reminder);
         context = getContext();
 
+        record = new Record();
+
         playingExercise = (PlayingExercise) getActivity();
         assert playingExercise != null;
+
+        record.setDay(playingExercise.currentDay);
+        record.setWeight(playingExercise.exerciseKcal);
 
         TTSManager.getInstance(getActivity().getApplication()).play(" Well Done. This is end of day " + (playingExercise.currentDay + 1) + "of your training");
         AnalyticsManager.getInstance().sendAnalytics("workout_complete", "day " + (playingExercise.currentDay + 1));
@@ -100,7 +110,7 @@ public class CompleteFragment extends Fragment {
 
         btnEditBmi.setOnClickListener(view12 -> showDialog());
 
-        btnAddReminder.setOnClickListener(view12 -> startActivity(new Intent(context, ReminderSetActivity.class)));
+        btnAddReminder.setOnClickListener(view12 -> startActivity(new Intent(context, ConfirmReminderActivity.class)));
 
         if (AdsManager.getInstance().isFacebookInterstitalLoaded())
             AdsManager.getInstance().showFacebookInterstitialAd();
@@ -128,6 +138,7 @@ public class CompleteFragment extends Fragment {
         graph.addSeries(series);
 
         setDaysData();
+        new setUserGender().execute();
 
         return view;
     }
@@ -202,7 +213,7 @@ public class CompleteFragment extends Fragment {
             } else {
                 inches = Float.parseFloat(edtIn.getText().toString().trim());
                 feet = Float.parseFloat(edtFt.getText().toString().trim());
-                height = (feet * Float.parseFloat("30.48")) + inches;
+                height = (feet * 12) + inches;
             }
 
             if (!isKg)
@@ -214,12 +225,36 @@ public class CompleteFragment extends Fragment {
             tvBmi.setText(String.valueOf(bmi));
             dialog.dismiss();
         });
-
         btnCancel.setOnClickListener(v -> dialog.dismiss());
-
         dialog.show();
-
     }
 
+    @SuppressLint("StaticFieldLeak")
+    private class setUserGender extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            AppDataBase appDataBase = AppDataBase.getInstance();
+
+            if (appDataBase != null)
+                appDataBase.recorddao().insertAll(record);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+    }
 
 }

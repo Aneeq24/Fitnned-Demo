@@ -2,6 +2,10 @@
     <string name="app_name">HIIT Workout 30 Day Abs</string>
     <string name="database">7MinWorkOutDB</string>
 
+    <string name="Year">Y</string>
+    <string name="Month">M</string>
+    <string name="Day">D</string>
+
     <string name="title">Classic</string>
     <string name="explanation">Explanation</string>
     <string name="title_activity_home">HomeActivity</string>

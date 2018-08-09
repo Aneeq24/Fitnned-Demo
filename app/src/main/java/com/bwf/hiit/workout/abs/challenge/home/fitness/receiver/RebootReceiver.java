@@ -8,15 +8,15 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AlarmManager;
 
+import java.util.Calendar;
+
 
 public class RebootReceiver extends BroadcastReceiver {
+    Calendar reminderDateTime = Calendar.getInstance();
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (SharedPrefHelper.readBoolean(context,context.getString(R.string.alarm))) {
-            int hour = SharedPrefHelper.readInteger(context,context.getString(R.string.hour));
-            int minute = SharedPrefHelper.readInteger(context,context.getString(R.string.minute));
-            AlarmManager.getInstance().setAlarm(context, hour, minute);
-        }
+        if (SharedPrefHelper.readBoolean(context, context.getString(R.string.alarm)))
+            AlarmManager.getInstance().setAlarm(context, reminderDateTime);
     }
 }

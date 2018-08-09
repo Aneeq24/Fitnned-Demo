@@ -93,10 +93,10 @@ public class ExerciseFragment extends Fragment {
 
         if (soundValue > 0) {
             soundValue = 0;
-            soundButton_B.setImageResource(R.drawable.play_screen_sound_off_btn);
+            soundButton_B.setImageResource(R.drawable.play_screen_sound_on_btn);
         } else {
             soundValue = 1;
-            soundButton_B.setImageResource(R.drawable.play_screen_sound_on_btn);
+            soundButton_B.setImageResource(R.drawable.play_screen_sound_off_btn);
         }
 
         SharedPrefHelper.writeInteger(context, "sound", soundValue);
@@ -113,9 +113,9 @@ public class ExerciseFragment extends Fragment {
         AdsManager.getInstance().showBanner(adView);
 
         if (soundValue > 0)
-            soundButton_B.setImageResource(R.drawable.play_screen_sound_on_btn);
-        else
             soundButton_B.setImageResource(R.drawable.play_screen_sound_off_btn);
+        else
+            soundButton_B.setImageResource(R.drawable.play_screen_sound_on_btn);
 
         soundValue = SharedPrefHelper.readInteger(context, "sound");
 

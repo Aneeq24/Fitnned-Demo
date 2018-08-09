@@ -1,99 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/select_you_number_bg"
+    android:padding="16dp"
     tools:context=".view.ReminderSetActivity">
 
-    <ImageView
-        android:id="@+id/bgImageRemnderSet"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/enter_you_numbers_bg" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/reminderScreenTime2"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="WHAT TIME DO YOU WORKOUT ?"
+            android:textColor="@android:color/background_light"
+            android:textSize="30sp"
+            app:fontFamily="@font/roboto_bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="WE WILL REMIND YOU THEN."
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/timer_bar_bg" />
+
+                <com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets.WheelWeightPicker
+                    android:id="@+id/num_hour"
+                    android:layout_width="50dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="5dp"
+                    app:wheel_atmospheric="true"
+                    app:wheel_curved="true"
+                    android:layout_centerHorizontal="true"
+                    app:wheel_item_space="2dp"
+                    app:wheel_item_text_color="@color/white"
+                    app:wheel_item_text_size="20sp"
+                    app:wheel_visible_item_count="3" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/timer_bar_bg" />
+
+                <com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets.WheelWeightPicker
+                    android:id="@+id/num_min"
+                    android:layout_width="50dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_centerHorizontal="true"
+                    app:wheel_atmospheric="true"
+                    app:wheel_curved="true"
+                    app:wheel_item_space="2dp"
+                    app:wheel_item_text_color="@color/white"
+                    app:wheel_item_text_size="20sp"
+                    app:wheel_visible_item_count="3" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/setbuttonReminderScreen"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/next_btn"
+            android:fontFamily="@font/roboto_bold"
+            android:text="SET"
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btn_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="time"
-        android:hint="Date"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:text="SKIP"
+        android:textSize="18dp" />
 
-    <EditText
-        android:id="@+id/reminderScreenTime"
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/baner_Admob"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="time"
-        android:hint="Time"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.608" />
-
-    <Button
-        android:id="@+id/setbuttonReminderScreen"
-        android:layout_width="171dp"
-        android:layout_height="53dp"
-        android:layout_marginBottom="64dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:background="@drawable/next_btn"
-        android:fontFamily="@font/roboto_bold"
-        android:text="SET"
-        android:textColor="@android:color/background_light"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:visibility="gone"
+        ads:adSize="BANNER"
+        android:layout_alignParentBottom="true"
+        ads:adUnitId="@string/banner_ad_unit"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent" />
 
-
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="48dp"
-        android:text="WHAT TIME DO YOU WORKOUT ?"
-        android:textColor="@android:color/background_light"
-        android:textSize="30sp"
-        app:fontFamily="@font/roboto_bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="18dp"
-        android:text="WE WILL REMIND YOU THEN."
-        android:textColor="@android:color/background_light"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView24" />
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

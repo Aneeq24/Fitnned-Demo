@@ -84,7 +84,7 @@ public class CalenderActivity extends AppCompatActivity {
 
             events.add(new EventDay(calSet, R.drawable.history_screen_hot_icon));
         }
-        calendarView.setEvents(events);
+        calendarView.setSelected(true);
     }
 
     @SuppressLint("StaticFieldLeak")

@@ -34,7 +34,8 @@
             app:pagesColor="#ffff"
             app:selectionColor="#00aeef"
             app:selectionLabelColor="#ffff"
-            app:todayLabelColor="#1afa0a" />
+            app:todayLabelColor="#1afa0a"
+            app:type="many_days_picker"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_records"

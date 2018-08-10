@@ -173,6 +173,14 @@ public class SplashScreeActivity extends AppCompatActivity {
                 if (SharedPrefHelper.readBoolean(context, getString(R.string.is_first_run))) {
                     setDefaultPreferences();
                 } else {
+                    SharedPrefHelper.writeInteger(context, getString(R.string.hour), 15);
+                    SharedPrefHelper.writeInteger(context, getString(R.string.minute), 5);
+                    SharedPrefHelper.writeInteger(context, getString(R.string.language), 0);
+                    SharedPrefHelper.writeInteger(context, "kcal", 0);
+                    SharedPrefHelper.writeInteger(context, "bmi", 0);
+                    SharedPrefHelper.writeBoolean(context, "rate", false);
+                    SharedPrefHelper.writeBoolean(context, "reminder", false);
+                    SharedPrefHelper.writeBoolean(context, getString(R.string.alarm), true);
                     SharedPrefHelper.writeBoolean(context, getString(R.string.is_first_run), true);
                     startActivity(new Intent(context, SelectGender.class));
                     finish();
@@ -189,14 +197,6 @@ public class SplashScreeActivity extends AppCompatActivity {
     }
 
     private void setDefaultPreferences() {
-        SharedPrefHelper.writeInteger(context, getString(R.string.hour), 15);
-        SharedPrefHelper.writeInteger(context, getString(R.string.minute), 5);
-        SharedPrefHelper.writeInteger(context, getString(R.string.language), 0);
-        SharedPrefHelper.writeInteger(context, "kcal", 0);
-        SharedPrefHelper.writeInteger(context, "bmi", 0);
-        SharedPrefHelper.writeBoolean(context, "rate", false);
-        SharedPrefHelper.writeBoolean(context, "reminder", false);
-        SharedPrefHelper.writeBoolean(context, getString(R.string.alarm), true);
         startActivity(new Intent(context, HomeActivity.class));
         finish();
     }

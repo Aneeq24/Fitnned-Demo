@@ -124,7 +124,7 @@ public class RecordActivity extends AppCompatActivity {
                     weight = Integer.parseInt(edtWeight.getText().toString().trim());
 
                     if (isCm)
-                        height = 100 * Integer.parseInt(edtCm.getText().toString().trim());
+                        height = Integer.parseInt(edtCm.getText().toString().trim()) / 100;
                     else {
                         inches = Float.parseFloat(edtIn.getText().toString().trim());
                         feet = Float.parseFloat(edtFt.getText().toString().trim());
@@ -154,7 +154,7 @@ public class RecordActivity extends AppCompatActivity {
         rgWeight = view.findViewById(R.id.rg_weight);
         rgHeight = view.findViewById(R.id.rg_height);
         rbCm = view.findViewById(R.id.rb_cm);
-        rbIn= view.findViewById(R.id.rb_in);
+        rbIn = view.findViewById(R.id.rb_in);
 
         rgWeight.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.rb_lb) {

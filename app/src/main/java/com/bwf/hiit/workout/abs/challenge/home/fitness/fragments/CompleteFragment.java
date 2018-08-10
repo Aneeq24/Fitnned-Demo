@@ -169,7 +169,7 @@ public class CompleteFragment extends Fragment {
                     weight = Integer.parseInt(edtWeight.getText().toString().trim());
 
                     if (isCm)
-                        height = 100 * Integer.parseInt(edtCm.getText().toString().trim());
+                        height = Integer.parseInt(edtCm.getText().toString().trim()) / 100;
                     else {
                         inches = Float.parseFloat(edtIn.getText().toString().trim());
                         feet = Float.parseFloat(edtFt.getText().toString().trim());

@@ -22,6 +22,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
 
 import java.util.List;
+import java.util.Objects;
 
 public class DailyExerciseInfo extends AppCompatActivity {
     DataModelWorkout dataModelWorkout = new DataModelWorkout();
@@ -51,7 +52,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            exerciseDays = dataBase.exerciseDayDao().getExerciseDays(plan, day);
+            exerciseDays = AppDataBase.getInstance().exerciseDayDao().getExerciseDays(plan, day);
             if (exerciseDays.get(0).getExerciseComplete() >= exerciseDays.get(0).getTotalExercise()) {
                 exerciseDays.get(0).setRoundCompleted(0);
 
@@ -107,7 +108,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         com.google.android.gms.ads.AdView adView = findViewById(R.id.baner_Admob);
@@ -125,6 +126,9 @@ public class DailyExerciseInfo extends AppCompatActivity {
         day = intent.getIntExtra(getApplicationContext().getString(R.string.day_selected), 0);
         reset = intent.getBooleanExtra("reset",false);
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "exercise_list_activity");
+
+        if (reset)
+            new GetDataFromDb().execute();
 
         dataModelWorkout = new DataModelWorkout();
         currentExerciseTextView = findViewById(R.id.ei_exerciseTextView);
@@ -149,26 +153,17 @@ public class DailyExerciseInfo extends AppCompatActivity {
         recyleView.setAdapter(dailyExerciseAdapter);
 
         validatingDb();
-        if (reset)
-            new GetDataFromDb().execute();
     }
 
     private void validatingDb() {
-        int totalRounds = exerciseDays.get(0).getRounds();
-        int totalExercises = exerciseDays.get(0).getTotalExercise();
-
         int roundsCleared = exerciseDays.get(0).getRoundCompleted();
-
         int currentExercise = 0;
-
         for (ExerciseDay day : exerciseDays)
             if (day.isStatus())
                 currentExercise++;
 
         AppStateManager.currentExercise = currentExercise;
         AppStateManager.roundCleared = roundsCleared;
-
-
     }
 
     @Override

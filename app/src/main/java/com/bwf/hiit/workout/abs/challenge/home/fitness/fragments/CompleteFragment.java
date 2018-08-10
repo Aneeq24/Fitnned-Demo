@@ -31,6 +31,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.view.CalenderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.ConfirmReminderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.jjoe64.graphview.GraphView;
@@ -39,6 +40,8 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.OnClick;
 
 public class CompleteFragment extends Fragment {
 
@@ -84,8 +87,7 @@ public class CompleteFragment extends Fragment {
         assert playingExercise != null;
 
         tvBmi.setText(String.valueOf(SharedPrefHelper.readInteger(context, "bmi")));
-        record.setDay(playingExercise.currentDay);
-        record.setWeight(playingExercise.exerciseKcal);
+
 
         TTSManager.getInstance(getActivity().getApplication()).play(" Well Done. This is end of day " + playingExercise.currentDay + "of your training");
         AnalyticsManager.getInstance().sendAnalytics("workout_complete", "day " + playingExercise.currentDay);
@@ -95,8 +97,11 @@ public class CompleteFragment extends Fragment {
         playingExercise.exerciseDays.get(playingExercise.currentExercise).setTotalKcal(SharedPrefHelper.readInteger(context, "kcal"));
         @SuppressLint("DefaultLocale") String timeString = String.format("%02d", minutes);
 
-        tvExerciseNo.setText(" " + playingExercise.totalExercisesPlayed + "\nExercise");
+        tvExerciseNo.setText(" " + playingExercise.totalExercisesPlayed + 1 + "\nExercise");
         tvTotalTime.setText(" " + timeString + "\nMins");
+
+        record.setDay(playingExercise.currentDay);
+        record.setWeight(SharedPrefHelper.readInteger(context, "bmi"));
 
         if (SharedPrefHelper.readInteger(context, "bmi") != 0)
             tvBmi.setText(String.valueOf(SharedPrefHelper.readInteger(context, "bmi")));
@@ -122,6 +127,7 @@ public class CompleteFragment extends Fragment {
             AdsManager.getInstance().showInterstitialAd();
 
         setDaysData();
+
         new setUserRecord().execute();
 
         return view;
@@ -131,6 +137,11 @@ public class CompleteFragment extends Fragment {
         DayAdapter mAdapter = new DayAdapter(titles, date);
         rvHistory.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         rvHistory.setAdapter(mAdapter);
+    }
+
+    @OnClick(R.id.btn_more)
+    public void onViewClicked() {
+        startActivity(new Intent(context, CalenderActivity.class));
     }
 
     EditText edtWeight;
@@ -188,7 +199,7 @@ public class CompleteFragment extends Fragment {
         rgWeight = view.findViewById(R.id.rg_weight);
         rgHeight = view.findViewById(R.id.rg_height);
         rbCm = view.findViewById(R.id.rb_cm);
-        rbIn= view.findViewById(R.id.rb_in);
+        rbIn = view.findViewById(R.id.rb_in);
 
         rgWeight.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.rb_lb) {

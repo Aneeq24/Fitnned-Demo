@@ -103,8 +103,8 @@ public class PlayingExercise extends AppCompatActivity {
 
                     totaTimeSpend = totaTimeSpend * exerciseDays.get(0).getRounds();
 
-//                    exerciseDays.get(0).setExerciseComplete(0);
-//                    exerciseDays.get(0).setRoundCompleted(0);
+                    exerciseDays.get(0).setExerciseComplete(0);
+                    exerciseDays.get(0).setRoundCompleted(0);
                     new InsetData().execute();
                 }
 

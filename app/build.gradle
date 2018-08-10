@@ -44,7 +44,7 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
     implementation 'com.jjoe64:graphview:4.2.2'
     implementation 'com.applandeo:material-calendar-view:1.4.0'
-    implementation 'com.facebook.stetho:stetho:1.5.0'
+//    implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'com.facebook.android:audience-network-sdk:4.28.1'
     implementation 'com.google.android.gms:play-services-ads:15.0.1'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.4'

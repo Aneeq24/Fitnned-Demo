@@ -62,13 +62,13 @@ public class PauseFragment extends Fragment {
         btnResume.setOnClickListener(view -> onResumeExercise());
 
         if (playingExercise.currentRound <= (playingExercise.totalRounds - 1))
-            tvRound.setText("Round " + (playingExercise.currentRound + 1) + "/" + playingExercise.totalRounds);
+            tvRound.setText("Round " + (playingExercise.currentRound + 1) + " of " + playingExercise.totalRounds);
         else
-            tvRound.setText("Round " + playingExercise.totalRounds + "/" + playingExercise.totalRounds);
+            tvRound.setText("Round " + playingExercise.totalRounds + " of " + playingExercise.totalRounds);
         if (playingExercise.currentExercise <= (playingExercise.totalExercises - 1))
-            tvExercise.setText("Exercise " + (playingExercise.currentExercise + 1) + "/" + playingExercise.totalExercisePerRound);
+            tvExercise.setText("Exercise " + (playingExercise.currentExercise + 1) + " of " + playingExercise.totalExercisePerRound);
         else
-            tvExercise.setText("Exercise " + playingExercise.totalExercisePerRound + "/" + playingExercise.totalExercisePerRound);
+            tvExercise.setText("Exercise " + playingExercise.totalExercisePerRound + " of " + playingExercise.totalExercisePerRound);
     }
 
     private void onResumeExercise() {

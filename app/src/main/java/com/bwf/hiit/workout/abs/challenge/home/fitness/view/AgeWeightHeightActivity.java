@@ -11,7 +11,10 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets.WheelWeightPicker;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets.MyWheelPicker;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,13 +24,13 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
 
 
     @BindView(R.id.num_age)
-    WheelWeightPicker numAge;
+    MyWheelPicker numAge;
     @BindView(R.id.num_feet)
-    WheelWeightPicker numFeet;
+    MyWheelPicker numFeet;
     @BindView(R.id.num_inches)
-    WheelWeightPicker numInches;
+    MyWheelPicker numInches;
     @BindView(R.id.num_weight)
-    WheelWeightPicker numWeight;
+    MyWheelPicker numWeight;
 
     User user;
     Record record;
@@ -37,19 +40,22 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_age_weight_height);
         ButterKnife.bind(this);
+
         user = new User();
         record = new Record();
         record.setDay(1);
         user.setId(1);
+
+        setNumbers();
     }
 
     @OnClick({R.id.nextButtonNumberScreen, R.id.btn_skip})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.nextButtonNumberScreen:
-                user.setAge(numAge.getCurrentWeight());
-                record.setWeight(numWeight.getCurrentWeight());
-                float height = (float) ((numFeet.getCurrentWeight() * 12) + numInches.getCurrentWeight());
+                user.setAge(numAge.getValue());
+                record.setWeight(numWeight.getValue());
+                float height = (float) ((numFeet.getValue() * 12) + numInches.getValue());
                 user.setHeight(height);
                 new setUserGender().execute();
                 startNewActivity();
@@ -58,6 +64,25 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
                 startNewActivity();
                 break;
         }
+    }
+
+    private void setNumbers(){
+        List<Integer> data = new ArrayList<>();
+        for (int i = 10; i <= 70; i++)
+            data.add(i);
+        numAge.setData(data);
+        data = new ArrayList<>();
+        for (int i = 4; i <= 10; i++)
+            data.add(i);
+        numFeet.setData(data);
+        data = new ArrayList<>();
+        for (int i = 0; i <= 12; i++)
+            data.add(i);
+        numInches.setData(data);
+        data = new ArrayList<>();
+        for (int i = 70; i <= 200; i++)
+            data.add(i);
+        numWeight.setData(data);
     }
 
     private void startNewActivity() {
@@ -78,7 +103,7 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
             AppDataBase appDataBase = AppDataBase.getInstance();
 
             if (appDataBase != null)
-                appDataBase.userdao().updatePlan(user);
+                appDataBase.userdao().updateUser(user);
             if (appDataBase != null)
                 appDataBase.recorddao().insertAll(record);
             return null;

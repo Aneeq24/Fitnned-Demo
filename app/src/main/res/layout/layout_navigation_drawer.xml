@@ -71,9 +71,31 @@
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/menu_screen_feedback_icon"
             android:focusable="true"
-            android:text="@string/feedback"
+            android:text="@string/rate_us"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/white" />
+
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:background="@color/colorLightGrey" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/settings"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:background="?selectableItemBackground"-->
+            <!--android:clickable="true"-->
+            <!--android:drawableLeft="@drawable/menu_screen_setting_icon"-->
+            <!--android:drawablePadding="10dp"-->
+            <!--android:drawableStart="@drawable/menu_screen_setting_icon"-->
+            <!--android:focusable="true"-->
+            <!--android:text="@string/settings"-->
+            <!--android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
+            <!--android:textColor="@android:color/white" />-->
 
         <View
             android:layout_width="match_parent"
@@ -81,42 +103,20 @@
             android:layout_marginTop="10dp"
             android:background="@color/colorLightGrey" />
 
-        <TextView
-            android:id="@+id/settings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:background="?selectableItemBackground"
-            android:clickable="true"
-            android:drawableLeft="@drawable/menu_screen_setting_icon"
-            android:drawablePadding="10dp"
-            android:drawableStart="@drawable/menu_screen_setting_icon"
-            android:focusable="true"
-            android:text="@string/settings"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@android:color/white" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorLightGrey" />
-
-
-        <TextView
-            android:id="@+id/about_us"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/roboto_bold"
-            android:text="@string/about_us"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/feedback" />
+        <!--<TextView-->
+            <!--android:id="@+id/about_us"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:fontFamily="@font/roboto_bold"-->
+            <!--android:text="@string/about_us"-->
+            <!--android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
+            <!--android:textColor="@color/white"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/feedback" />-->
 
         <TextView
             android:id="@+id/more_apps"
@@ -137,7 +137,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:background="@color/colorLightGrey" />
 
         <TextView
@@ -162,7 +162,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:background="@color/colorLightGrey" />
 
         <android.support.v7.widget.AppCompatImageView

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.WindowManager;
@@ -253,8 +254,7 @@ public class PlayingExercise extends AppCompatActivity {
             currentExercise++;
         } else {
             if (currentRound < exerciseDays.get(0).getRounds()) {
-
-                new CountDownTimer(2000, 1000) {
+                new CountDownTimer(4000, 1000) {
                     @Override
                     public void onTick(long l) {
 
@@ -262,27 +262,25 @@ public class PlayingExercise extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
-                        if (nextFragment != null && nextFragment.isVisible() && !nextFragment.pause) {
+                        if (currentRound != 3)
                             TTSManager.getInstance(getApplication()).play("This is end of Round " + currentRound +
-                                    "You have" + (exerciseDays.get(0).getRounds() - currentRound) + "round remaining" + "The Next Exercise is " + nextExerciseName);
-                            AnalyticsManager.getInstance().sendAnalytics("round_complete" + currentRound, "plan " + currentPlan + "day " + currentDay);
-                            currentExercise = 0;
-                        }
+                                    "You have" + (exerciseDays.get(0).getRounds() - currentRound) + "round remaining");
+                        AnalyticsManager.getInstance().sendAnalytics("round_complete" + currentRound, "plan " + currentPlan + "day " + currentDay);
                     }
                 }.start();
 
                 for (ExerciseDay exerciseDay : exerciseDays) {
                     exerciseDay.setStatus(false);
                 }
-
+                currentExercise = 0;
                 currentRound++;
+
                 Log.i("1994:Current exercise", "current rounds less than total");
             }
 
         }
 
         if ((currentRound < exerciseDays.get(0).getRounds())) {
-
             Log.i("1994:Current round", "Day not updated");
 
             exerciseDays.get(0).setExerciseComplete(exerciseDays.get(0).getExerciseComplete() + 1);
@@ -291,6 +289,8 @@ public class PlayingExercise extends AppCompatActivity {
             Log.i("1994:currentDay", "Day Upgraded");
 
             LogHelper.logD("1994:Current Round", "" + currentRound + "Get Rounds" + (exerciseDays.get(0).getRounds() - 1));
+
+            AnalyticsManager.getInstance().sendAnalytics("round_complete" + currentRound, "plan " + currentPlan + "day " + currentDay);
 
             exerciseDays.get(0).setExerciseComplete(exerciseDays.get(0).getTotalExercise());
             exerciseDays.get(0).setRoundCompleted(currentRound);
@@ -407,7 +407,6 @@ public class PlayingExercise extends AppCompatActivity {
             super.onPostExecute(aVoid);
             if (isCancelled())
                 return;
-
             if (!iscomplete)
                 dbLoadData();
         }
@@ -415,7 +414,20 @@ public class PlayingExercise extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AnalyticsManager.getInstance().sendAnalytics("playing_exercise", "close at" +  "plan " + currentPlan + "day " + currentDay);
-        super.onBackPressed();
+        AnalyticsManager.getInstance().sendAnalytics("playing_exercise", "close at" + "plan " + currentPlan + "day " + currentDay);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle(getString(R.string.app_name));
+        alertDialogBuilder
+                .setMessage("Do you want to exit workout ?")
+                .setCancelable(false)
+                .setPositiveButton("YES", (dialog, id) -> {
+                    dialog.cancel();
+                    finish();
+                }).setNegativeButton("NO", (dialog, id) -> {
+            dialog.cancel();
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }

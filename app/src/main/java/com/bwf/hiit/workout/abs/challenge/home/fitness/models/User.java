@@ -14,7 +14,7 @@ public class User implements Serializable {
     @PrimaryKey
     private int id;
 
-    private String gender;
+    private int gender;
 
     private int age;
 
@@ -28,11 +28,11 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String  getGender() {
+    public int  getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 

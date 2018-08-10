@@ -9,15 +9,17 @@ import android.arch.persistence.room.Update;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
 
+import java.util.List;
+
 
 @Dao
 public interface Recorddao {
 
-    @Query("SELECT COUNT(*) FROM record")
-    int getCount();
+    @Query("SELECT * FROM record")
+    List<Record> getAllRecords();
 
     @Insert
-    void addPlan(Record record);
+    void addRecord(Record record);
 
     @Query("SELECT * FROM record WHERE id = :id")
     Record findById(int id);
@@ -29,5 +31,5 @@ public interface Recorddao {
     void delete(Record record);
 
     @Update
-    void updatePlan(Record record);
+    void updateRecord(Record record);
 }

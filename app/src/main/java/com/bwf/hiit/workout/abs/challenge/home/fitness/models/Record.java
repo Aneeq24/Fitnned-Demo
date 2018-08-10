@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 @Entity
 public class Record {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     private int day;

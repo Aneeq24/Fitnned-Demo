@@ -1,10 +1,10 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,20 +13,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayAdapter;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.CompleteFragment;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -46,12 +51,14 @@ public class RecordActivity extends AppCompatActivity {
     TextView tvBmi;
     ImageView btnEditBmi;
 
+    List<Record> recordList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
         ButterKnife.bind(this);
-
+        recordList = new ArrayList<>();
         context = this;
 
         toolbar = findViewById(R.id.toolbar10);
@@ -62,6 +69,8 @@ public class RecordActivity extends AppCompatActivity {
         tvKcal = findViewById(R.id.textView17);
         tvBmi = findViewById(R.id.tv_bmi);
         btnEditBmi = findViewById(R.id.btn_edit_bmi);
+
+        tvBmi.setText(String.valueOf(SharedPrefHelper.readInteger(context, "bmi")));
 
         AnalyticsManager.getInstance().sendAnalytics("Recored_activity", "Recored_activity_started");
 
@@ -74,27 +83,9 @@ public class RecordActivity extends AppCompatActivity {
         else
             AdsManager.getInstance().showInterstitialAd();
 
-        if (!SharedPrefHelper.readBoolean(context, "rate"))
-            Utils.setRateAppDialog(context);
-
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
-                new DataPoint(20, 60),
-                new DataPoint(21, 62),
-                new DataPoint(22, 59),
-                new DataPoint(23, 66),
-                new DataPoint(24, 63)
-        });
-
-        graph.getViewport().setScrollableY(true);
-        graph.getViewport().setBackgroundColor(Color.WHITE);
-        graph.getViewport().setBorderColor(R.color.white);
-
-        // enable scaling and scrolling
-        graph.setCursorMode(true);
-        series.setColor(Color.BLUE);
-        graph.addSeries(series);
-
         btnEditBmi.setOnClickListener(view12 -> showDialog());
+
+        new getUserRecords().execute();
     }
 
     private void setDaysData() {
@@ -114,37 +105,66 @@ public class RecordActivity extends AppCompatActivity {
     EditText edtIn;
     RadioGroup rgWeight;
     RadioGroup rgHeight;
-    TextView btnCancel;
-    TextView btnSave;
+    RadioButton rbCm;
+    RadioButton rbIn;
 
-    float weight, height, inches, feet, centimeter;
+    float weight, height, inches, feet;
     boolean isKg = true;
     boolean isCm = true;
     float bmi;
 
     @SuppressLint("SetTextI18n")
     public void showDialog() {
-        final Dialog dialog = new Dialog(context);
-        dialog.setCancelable(false);
-        dialog.setTitle("BMI Calculater");
-        dialog.setContentView(R.layout.dialog_bmi);
 
-        edtWeight = dialog.findViewById(R.id.edt_weight);
-        edtCm = dialog.findViewById(R.id.edt_cm);
-        edtFt = dialog.findViewById(R.id.edt_ft);
-        edtIn = dialog.findViewById(R.id.edt_in);
-        rgWeight = dialog.findViewById(R.id.rg_weight);
-        rgHeight = dialog.findViewById(R.id.rg_height);
-        btnCancel = dialog.findViewById(R.id.btn_cancel);
-        btnSave = dialog.findViewById(R.id.btn_save);
+        MaterialDialog dialog = new MaterialDialog.Builder(context)
+                .title("BMI Calculator")
+                .customView(R.layout.dialog_bmi, true)
+                .positiveText("Save")
+                .onPositive((dialog1, which) -> {
+                    weight = Integer.parseInt(edtWeight.getText().toString().trim());
+
+                    if (isCm)
+                        height = 100 * Integer.parseInt(edtCm.getText().toString().trim());
+                    else {
+                        inches = Float.parseFloat(edtIn.getText().toString().trim());
+                        feet = Float.parseFloat(edtFt.getText().toString().trim());
+                        height = (feet * 12) + inches;
+                    }
+
+                    if (!isKg)
+                        bmi = ((weight) / (height * height)) * 703;
+                    else
+                        bmi = (weight) / (height * height);
+
+                    SharedPrefHelper.writeInteger(context, "bmi", (int) bmi);
+                    tvBmi.setText(String.valueOf((int) bmi));
+                    dialog1.dismiss();
+                })
+                .negativeText("Cancel")
+                .onNegative((dialog12, which) -> dialog12.dismiss())
+                .show();
+
+        View view = dialog.getCustomView();
+
+        assert view != null;
+        edtWeight = view.findViewById(R.id.edt_weight);
+        edtCm = view.findViewById(R.id.edt_cm);
+        edtFt = view.findViewById(R.id.edt_ft);
+        edtIn = view.findViewById(R.id.edt_in);
+        rgWeight = view.findViewById(R.id.rg_weight);
+        rgHeight = view.findViewById(R.id.rg_height);
+        rbCm = view.findViewById(R.id.rb_cm);
+        rbIn= view.findViewById(R.id.rb_in);
 
         rgWeight.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.rb_lb) {
                 edtWeight.setHint("00.00 LB");
                 isKg = false;
+                rbIn.setChecked(true);
             } else if (i == R.id.rb_kg) {
                 edtWeight.setHint("00.00 KG");
                 isKg = true;
+                rbCm.setChecked(true);
             }
         });
 
@@ -162,29 +182,40 @@ public class RecordActivity extends AppCompatActivity {
             }
         });
 
-        btnSave.setOnClickListener(view -> {
+    }
 
-            weight = Integer.parseInt(edtWeight.getText().toString().trim());
+    @SuppressLint("StaticFieldLeak")
+    private class getUserRecords extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
 
-            if (isCm) {
-                centimeter = Integer.parseInt(edtCm.getText().toString().trim());
-                height = centimeter / 100;
-            } else {
-                inches = Float.parseFloat(edtIn.getText().toString().trim());
-                feet = Float.parseFloat(edtFt.getText().toString().trim());
-                height = (feet * 12) + inches;
-            }
+        @Override
+        protected Void doInBackground(Void... voids) {
+            recordList = AppDataBase.getInstance().recorddao().getAllRecords();
+            return null;
+        }
 
-            if (!isKg)
-                weight = weight * Float.parseFloat("0.453592");
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            initApp();
+            super.onPostExecute(aVoid);
+        }
 
-            bmi = (weight) / (height * height);
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+    }
 
-            SharedPrefHelper.writeInteger(context, "bmi", (int) bmi);
-            tvBmi.setText(String.valueOf(bmi));
-            dialog.dismiss();
-        });
-        btnCancel.setOnClickListener(v -> dialog.dismiss());
-        dialog.show();
+    private void initApp() {
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
+        for (int i = 0; i < recordList.size(); i++) {
+            series.appendData(new DataPoint(recordList.get(i).getDay(), recordList.get(i).getWeight()), true, 30, false);
+        }
+        series.setColor(Color.BLUE);
+        graph.addSeries(series);
+        graph.setCursorMode(true);
     }
 }

@@ -88,8 +88,8 @@ public class DailyExerciseInfo extends AppCompatActivity {
             if (isCancelled())
                 return;
 
-            roundsCleardTextView.setText((currentRound + 1) + "/" + totalRounds);
-            currentExerciseTextView.setText((currentExercise + 1) + "/" + totalExercisePerRound);
+            roundsCleardTextView.setText((currentRound + 1) + " of " + totalRounds);
+            currentExerciseTextView.setText((currentExercise + 1) + " of " + totalExercisePerRound);
         }
     }
 

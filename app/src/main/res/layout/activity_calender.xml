@@ -12,11 +12,10 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar10"
+            android:id="@+id/toolbar"
             style="@style/tab_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:background="@color/colorPrimary"
             app:navigationIcon="@drawable/ic_back"
             app:title="Record"
@@ -25,8 +24,23 @@
         <com.applandeo.materialcalendarview.CalendarView
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@color/colorDarkGray" />
+            android:layout_height="330dp"
+            android:layout_margin="5dp"
+            app:abbreviationsBarColor="#00aeef"
+            app:abbreviationsLabelsColor="#ffff"
+            app:anotherMonthsDaysLabelsColor="#c7c7c7"
+            app:daysLabelsColor="#00aeef"
+            app:headerColor="#00aeef"
+            app:pagesColor="#ffff"
+            app:selectionColor="#00aeef"
+            app:selectionLabelColor="#ffff"
+            app:todayLabelColor="#1afa0a" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_records"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bgColor" />
 
     </LinearLayout>
 

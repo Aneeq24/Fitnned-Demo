@@ -100,7 +100,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="130dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp">
 
                         <TextView
                             android:id="@+id/tv_bmi"
@@ -164,8 +165,8 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="5dp"
-                    android:padding="5dp"
-                    android:background="@drawable/days_screen_days_normal_bar">
+                    android:background="@drawable/days_screen_days_normal_bar"
+                    android:padding="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"

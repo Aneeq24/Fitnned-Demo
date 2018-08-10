@@ -124,10 +124,8 @@ public class Utils {
     public static void setRateAppDialog(Context context) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
-        // set title
         alertDialogBuilder.setTitle(context.getString(R.string.app_name));
 
-        // set dialog message
         alertDialogBuilder
                 .setMessage("Do you want to Rate us?")
                 .setCancelable(false)
@@ -135,14 +133,9 @@ public class Utils {
                     dialog.cancel();
                     onRateUs(context);
                 }).setNegativeButton("NO", (dialog, id) -> {
-            // if this button is clicked, just close
-            // the dialog box and do nothing
             dialog.cancel();
         });
-
-        // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
-        // show it
         alertDialog.show();
     }
 

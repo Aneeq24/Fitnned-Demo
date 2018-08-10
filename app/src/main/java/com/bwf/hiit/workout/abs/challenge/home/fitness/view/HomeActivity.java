@@ -52,7 +52,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     TextView workOut;
     TextView reminder;
-    TextView settings;
     TextView feedback;
     TextView moreApps;
     TextView privacyPolicy;
@@ -65,14 +64,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         paused = false;
         workOut = findViewById(R.id.workout_record);
         reminder = findViewById(R.id.reminder);
-        settings = findViewById(R.id.settings);
         feedback = findViewById(R.id.feedback);
         moreApps = findViewById(R.id.more_apps);
         privacyPolicy = findViewById(R.id.privacy_policy);
 
         workOut.setOnClickListener(this);
         reminder.setOnClickListener(this);
-        settings.setOnClickListener(this);
         feedback.setOnClickListener(this);
         moreApps.setOnClickListener(this);
         privacyPolicy.setOnClickListener(this);
@@ -122,36 +119,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             drawer.closeDrawer(GravityCompat.START);
         } else {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-            // set title
             alertDialogBuilder.setTitle(getString(R.string.app_name));
-
-            // set dialog message
             alertDialogBuilder
                     .setMessage("Do you want to exit?")
                     .setCancelable(false)
                     .setPositiveButton("YES", (dialog, id) -> {
-                        // if this button is clicked, close
-                        // current activity
                         dialog.cancel();
                         finish();
                     }).setNeutralButton("Rate Us", (dialog, id) -> {
-                // if this button is clicked, close
-                // current activity
                 dialog.cancel();
                 onRateUs();
-            })
-                    .setNegativeButton("NO", (dialog, id) -> {
-                        // if this button is clicked, just close
-                        // the dialog box and do nothing
+            }).setNegativeButton("NO", (dialog, id) -> {
                         dialog.cancel();
                     });
-
-            // create alert dialog
             AlertDialog alertDialog = alertDialogBuilder.create();
-            // show it
             alertDialog.show();
-
         }
     }
 
@@ -258,9 +240,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void showPrivacyPolicy() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://docs.google.com/document/d/1-ZDXRqZfKHd_sWjgrmyLAqoBbGHzGFEYY4OEKhEA6hA/edit"));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        startActivity(intent);
+        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://docs.google.com/document/d/1-ZDXRqZfKHd_sWjgrmyLAqoBbGHzGFEYY4OEKhEA6hA/edit"));
+        startActivity(i);
     }
 
     private void onRecordClicked() {
@@ -271,14 +252,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private void onReminderClicked() {
         startActivity(new Intent(context, ConfirmReminderActivity.class));
         onBackPressed();
-    }
-
-    public void onSettingsClicked() {
-        onBackPressed();
-    }
-
-    public void onFeedbackClicked() {
-        onMoreAppsClicked();
     }
 
     public void onMoreAppsClicked() {
@@ -316,11 +289,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.reminder:
                 onReminderClicked();
                 break;
-            case R.id.settings:
-                onSettingsClicked();
-                break;
             case R.id.feedback:
-                onFeedbackClicked();
+                onRateUs();
                 break;
             case R.id.more_apps:
                 onMoreAppsClicked();

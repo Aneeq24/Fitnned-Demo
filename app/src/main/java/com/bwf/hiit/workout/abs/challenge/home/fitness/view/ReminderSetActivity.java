@@ -9,10 +9,12 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AlarmManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets.WheelWeightPicker;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets.MyWheelPicker;
 import com.google.android.gms.ads.AdView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,11 +23,10 @@ import butterknife.OnClick;
 public class ReminderSetActivity extends AppCompatActivity {
 
 
-    Calendar reminderDateTime = Calendar.getInstance();
     @BindView(R.id.num_hour)
-    WheelWeightPicker numHour;
+    MyWheelPicker numHour;
     @BindView(R.id.num_min)
-    WheelWeightPicker numMin;
+    MyWheelPicker numMin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,21 @@ public class ReminderSetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reminder_set);
         ButterKnife.bind(this);
 
+        setNumbers();
+
         AdView adView = findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
+    }
+
+    private void setNumbers(){
+        List<Integer> data = new ArrayList<>();
+        for (int i = 0; i <= 24; i++)
+            data.add(i);
+        numHour.setData(data);
+        data = new ArrayList<>();
+        for (int i = 0; i <= 60; i++)
+            data.add(i);
+        numMin.setData(data);
     }
 
     private void startNewActivity() {
@@ -46,11 +60,22 @@ public class ReminderSetActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setbuttonReminderScreen:
-                reminderDateTime.set(Calendar.HOUR_OF_DAY, numHour.getCurrentWeight());
-                reminderDateTime.set(Calendar.MINUTE, numMin.getCurrentWeight());
-                reminderDateTime.set(Calendar.SECOND, 0);
+                Calendar calNow = Calendar.getInstance();
+                Calendar calSet = (Calendar) calNow.clone();
+
+                calSet.set(Calendar.HOUR_OF_DAY, numHour.getValue());
+                calSet.set(Calendar.MINUTE, numMin.getValue());
+                calSet.set(Calendar.SECOND, 0);
+                calSet.set(Calendar.MILLISECOND, 0);
+
+//                if (calSet.compareTo(calNow) <= 0) {
+//                    // Today Set time passed, count to tomorrow
+////                    calSet.add(Calendar.DATE, 1);
+//                }
+                SharedPrefHelper.writeInteger(getApplicationContext(), getString(R.string.hour), numHour.getValue());
+                SharedPrefHelper.writeInteger(getApplicationContext(), getString(R.string.minute), numMin.getValue());
                 SharedPrefHelper.writeBoolean(getApplicationContext(), "reminder", true);
-                AlarmManager.getInstance().setAlarm(this, reminderDateTime);
+                AlarmManager.getInstance().setAlarm(this, calSet);
                 startNewActivity();
                 break;
             case R.id.btn_skip:

@@ -1,7 +1,6 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,9 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayAdapter;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
@@ -30,16 +31,17 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.ConfirmReminderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CompleteFragment extends Fragment {
+
     String[] titles = {"S", "M", "T", "W", "T", "F", "S", "S", "M", "T", "W", "T", "F", "S"};
     int[] date = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
     Toolbar toolbar;
@@ -55,15 +57,15 @@ public class CompleteFragment extends Fragment {
     PlayingExercise playingExercise;
 
     Record record;
+    List<Record> recordList;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @SuppressLint("SetTextI18n")
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_complete, container, false);
-
+        recordList = new ArrayList<>();
         toolbar = view.findViewById(R.id.toolbar10);
         tvExerciseNo = view.findViewById(R.id.cf_exerciseNo);
         tvTotalTime = view.findViewById(R.id.cf_totalTime);
@@ -73,6 +75,7 @@ public class CompleteFragment extends Fragment {
         graph = view.findViewById(R.id.graph);
         rvHistory = view.findViewById(R.id.rv_days);
         btnAddReminder = view.findViewById(R.id.btn_add_reminder);
+
         context = getContext();
 
         record = new Record();
@@ -80,11 +83,12 @@ public class CompleteFragment extends Fragment {
         playingExercise = (PlayingExercise) getActivity();
         assert playingExercise != null;
 
+        tvBmi.setText(String.valueOf(SharedPrefHelper.readInteger(context, "bmi")));
         record.setDay(playingExercise.currentDay);
         record.setWeight(playingExercise.exerciseKcal);
 
-        TTSManager.getInstance(getActivity().getApplication()).play(" Well Done. This is end of day " + (playingExercise.currentDay + 1) + "of your training");
-        AnalyticsManager.getInstance().sendAnalytics("workout_complete", "day " + (playingExercise.currentDay + 1));
+        TTSManager.getInstance(getActivity().getApplication()).play(" Well Done. This is end of day " + playingExercise.currentDay + "of your training");
+        AnalyticsManager.getInstance().sendAnalytics("workout_complete", "day " + playingExercise.currentDay);
         int minutes = (playingExercise.totaTimeSpend % 3600) / 60;
 
         playingExercise.exerciseDays.get(playingExercise.currentExercise).setStatus(true);
@@ -117,28 +121,8 @@ public class CompleteFragment extends Fragment {
         else
             AdsManager.getInstance().showInterstitialAd();
 
-        if (!SharedPrefHelper.readBoolean(context, "rate"))
-            Utils.setRateAppDialog(context);
-
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
-                new DataPoint(20, 60),
-                new DataPoint(21, 62),
-                new DataPoint(22, 59),
-                new DataPoint(23, 66),
-                new DataPoint(24, 63)
-        });
-
-        graph.getViewport().setScrollableY(true);
-        graph.getViewport().setBackgroundColor(Color.WHITE);
-        graph.getViewport().setBorderColor(R.color.white);
-
-        // enable scaling and scrolling
-        graph.setCursorMode(true);
-        series.setColor(Color.BLUE);
-        graph.addSeries(series);
-
         setDaysData();
-        new setUserGender().execute();
+        new setUserRecord().execute();
 
         return view;
     }
@@ -155,37 +139,66 @@ public class CompleteFragment extends Fragment {
     EditText edtIn;
     RadioGroup rgWeight;
     RadioGroup rgHeight;
-    TextView btnCancel;
-    TextView btnSave;
+    RadioButton rbCm;
+    RadioButton rbIn;
 
-    float weight, height, inches, feet, centimeter;
+    float weight, height, inches, feet;
     boolean isKg = true;
     boolean isCm = true;
     float bmi;
 
     @SuppressLint("SetTextI18n")
     public void showDialog() {
-        final Dialog dialog = new Dialog(Objects.requireNonNull(getContext()));
-        dialog.setCancelable(false);
-        dialog.setTitle("BMI Calculater");
-        dialog.setContentView(R.layout.dialog_bmi);
 
-        edtWeight = dialog.findViewById(R.id.edt_weight);
-        edtCm = dialog.findViewById(R.id.edt_cm);
-        edtFt = dialog.findViewById(R.id.edt_ft);
-        edtIn = dialog.findViewById(R.id.edt_in);
-        rgWeight = dialog.findViewById(R.id.rg_weight);
-        rgHeight = dialog.findViewById(R.id.rg_height);
-        btnCancel = dialog.findViewById(R.id.btn_cancel);
-        btnSave = dialog.findViewById(R.id.btn_save);
+        MaterialDialog dialog = new MaterialDialog.Builder(context)
+                .title("BMI Calculator")
+                .customView(R.layout.dialog_bmi, true)
+                .positiveText("Save")
+                .onPositive((dialog1, which) -> {
+                    weight = Integer.parseInt(edtWeight.getText().toString().trim());
+
+                    if (isCm)
+                        height = 100 * Integer.parseInt(edtCm.getText().toString().trim());
+                    else {
+                        inches = Float.parseFloat(edtIn.getText().toString().trim());
+                        feet = Float.parseFloat(edtFt.getText().toString().trim());
+                        height = (feet * 12) + inches;
+                    }
+
+                    if (!isKg)
+                        bmi = ((weight) / (height * height)) * 703;
+                    else
+                        bmi = (weight) / (height * height);
+
+                    SharedPrefHelper.writeInteger(context, "bmi", (int) bmi);
+                    tvBmi.setText(String.valueOf((int) bmi));
+                    dialog1.dismiss();
+                })
+                .negativeText("Cancel")
+                .onNegative((dialog12, which) -> dialog12.dismiss())
+                .show();
+
+        View view = dialog.getCustomView();
+
+        assert view != null;
+        edtWeight = view.findViewById(R.id.edt_weight);
+        edtCm = view.findViewById(R.id.edt_cm);
+        edtFt = view.findViewById(R.id.edt_ft);
+        edtIn = view.findViewById(R.id.edt_in);
+        rgWeight = view.findViewById(R.id.rg_weight);
+        rgHeight = view.findViewById(R.id.rg_height);
+        rbCm = view.findViewById(R.id.rb_cm);
+        rbIn= view.findViewById(R.id.rb_in);
 
         rgWeight.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.rb_lb) {
                 edtWeight.setHint("00.00 LB");
                 isKg = false;
+                rbIn.setChecked(true);
             } else if (i == R.id.rb_kg) {
                 edtWeight.setHint("00.00 KG");
                 isKg = true;
+                rbCm.setChecked(true);
             }
         });
 
@@ -203,34 +216,10 @@ public class CompleteFragment extends Fragment {
             }
         });
 
-        btnSave.setOnClickListener(view -> {
-
-            weight = Integer.parseInt(edtWeight.getText().toString().trim());
-
-            if (isCm) {
-                centimeter = Integer.parseInt(edtCm.getText().toString().trim());
-                height = centimeter / 100;
-            } else {
-                inches = Float.parseFloat(edtIn.getText().toString().trim());
-                feet = Float.parseFloat(edtFt.getText().toString().trim());
-                height = (feet * 12) + inches;
-            }
-
-            if (!isKg)
-                weight = weight * Float.parseFloat("0.453592");
-
-            bmi = (weight) / (height * height);
-
-            SharedPrefHelper.writeInteger(context, "bmi", (int) bmi);
-            tvBmi.setText(String.valueOf(bmi));
-            dialog.dismiss();
-        });
-        btnCancel.setOnClickListener(v -> dialog.dismiss());
-        dialog.show();
     }
 
     @SuppressLint("StaticFieldLeak")
-    private class setUserGender extends AsyncTask<Void, Void, Void> {
+    private class setUserRecord extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -248,6 +237,7 @@ public class CompleteFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            new getUserRecords().execute();
             super.onPostExecute(aVoid);
         }
 
@@ -255,6 +245,41 @@ public class CompleteFragment extends Fragment {
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
         }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private class getUserRecords extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            recordList = AppDataBase.getInstance().recorddao().getAllRecords();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            initApp();
+            super.onPostExecute(aVoid);
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+    }
+
+    private void initApp() {
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
+        for (int i = 0; i < recordList.size(); i++) {
+            series.appendData(new DataPoint(recordList.get(i).getDay(), recordList.get(i).getWeight()), true, 30, false);
+        }
+        series.setColor(Color.BLUE);
+        graph.addSeries(series);
+        graph.setCursorMode(true);
     }
 
 }

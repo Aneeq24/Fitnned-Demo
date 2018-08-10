@@ -20,6 +20,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Plan;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.PlanDays;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Reminder;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.JsonUtils;
 import com.facebook.stetho.Stetho;
@@ -63,8 +64,17 @@ public class SplashScreeActivity extends AppCompatActivity {
 
             User user = new User();
             user.setId(1);
+            Reminder reminder = new Reminder();
+            reminder.setId(1);
+            reminder.setFriday(true);
+            reminder.setSatday(true);
+            reminder.setSunday(true);
+
             if (!SharedPrefHelper.readBoolean(context, getString(R.string.is_first_run)))
                 appDataBase.userdao().insertAll(user);
+
+            if (!SharedPrefHelper.readBoolean(context, getString(R.string.is_first_run)))
+                appDataBase.reminderDao().insertAll(reminder);
 
             if (appDataBase != null) {
                 // insert plans

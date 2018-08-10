@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#dedede">
@@ -30,18 +29,6 @@
         app:layout_constraintStart_toStartOf="@+id/bgForDailyPerformance"
         app:layout_constraintTop_toTopOf="@+id/bgForDailyPerformance" />
 
-    <!--<ProgressBar-->
-        <!--android:id="@+id/progressBar3"-->
-        <!--style="?android:attr/progressBarStyle"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginEnd="4dp"-->
-        <!--android:layout_marginRight="4dp"-->
-        <!--android:indeterminate="false"-->
-        <!--app:layout_constraintBottom_toBottomOf="@+id/bgForDailyPerformance"-->
-        <!--app:layout_constraintEnd_toEndOf="@+id/bgForDailyPerformance"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/bgForDailyPerformance"-->
-        <!--app:layout_constraintVertical_bias="0.0" />-->
 
     <com.dinuscxj.progressbar.CircleProgressBar
         android:id="@+id/line_progress_left"
@@ -61,18 +48,5 @@
         app:layout_constraintEnd_toEndOf="@+id/bgForDailyPerformance"
         app:layout_constraintTop_toTopOf="@+id/bgForDailyPerformance" />
 
-    <!--<TextView-->
-        <!--android:id="@+id/dayProgressId"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="20"-->
-        <!--android:textColor="@android:color/background_light"-->
-        <!--android:textSize="18sp"-->
-        <!--app:layout_constraintBottom_toBottomOf="@+id/progressBar3"-->
-        <!--app:layout_constraintEnd_toEndOf="@+id/progressBar3"-->
-        <!--app:layout_constraintHorizontal_bias="0.535"-->
-        <!--app:layout_constraintStart_toStartOf="@+id/progressBar3"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--app:layout_constraintVertical_bias="0.583" />-->
 
 </android.support.constraint.ConstraintLayout>

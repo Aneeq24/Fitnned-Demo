@@ -70,7 +70,9 @@
             android:name=".view.ConfirmReminderActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".view.RecordActivity" />
-        <activity android:name=".view.CalenderActivity"></activity>
+        <activity android:name=".view.CalenderActivity">
+
+        </activity>
     </application>
 
 </manifest>

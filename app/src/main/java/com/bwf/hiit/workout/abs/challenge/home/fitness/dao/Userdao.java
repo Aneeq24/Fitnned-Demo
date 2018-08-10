@@ -16,7 +16,7 @@ public interface Userdao {
     int getCount();
 
     @Insert
-    void addPlan(User user);
+    void addUser(User user);
 
     @Query("SELECT * FROM user WHERE id = :id")
     User findById(int id);
@@ -28,6 +28,6 @@ public interface Userdao {
     void delete(User user);
 
     @Update
-    void updatePlan(User user);
+    void updateUser(User user);
 
 }

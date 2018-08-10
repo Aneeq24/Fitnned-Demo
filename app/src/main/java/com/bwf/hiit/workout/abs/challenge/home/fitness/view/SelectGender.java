@@ -37,8 +37,8 @@ public class SelectGender extends AppCompatActivity {
     }
 
 
-    private void setGender(String gender) {
-        user.setGender(gender);
+    private void setGender(String gender, int sex) {
+        user.setGender(sex);
         SharedPrefHelper.writeString(getApplicationContext(), "gender", gender);
         AnalyticsManager.getInstance().sendAnalytics("gender_selected", gender);
         LogHelper.logD("1994:", "" + gender);
@@ -55,10 +55,10 @@ public class SelectGender extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rb_male:
-                setGender("MALE");
+                setGender("MALE", 1);
                 break;
             case R.id.rb_female:
-                setGender("FEMALE");
+                setGender("FEMALE", 0);
                 break;
             case R.id.btn_skip:
                 startNewActivity();
@@ -79,7 +79,7 @@ public class SelectGender extends AppCompatActivity {
             AppDataBase appDataBase = AppDataBase.getInstance();
 
             if (appDataBase != null)
-                appDataBase.userdao().updatePlan(user);
+                appDataBase.userdao().updateUser(user);
             return null;
         }
 

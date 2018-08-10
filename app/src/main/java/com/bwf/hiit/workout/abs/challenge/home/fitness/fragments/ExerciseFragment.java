@@ -142,8 +142,8 @@ public class ExerciseFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void assignTopUi() {
-        roundTextView.setText((playingExercise.currentRound + 1) + "/" + playingExercise.totalRounds);
-        exerciseTextView.setText((playingExercise.currentExercise + 1) + "/" + playingExercise.totalExercisePerRound);
+        roundTextView.setText((playingExercise.currentRound + 1) + " of " + playingExercise.totalRounds);
+        exerciseTextView.setText((playingExercise.currentExercise + 1) + " of " + playingExercise.totalExercisePerRound);
     }
 
     private void startPlayingExercise(int totalSkipTime) {

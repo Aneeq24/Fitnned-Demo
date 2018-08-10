@@ -72,11 +72,11 @@ public class NextFragment extends Fragment {
         mCustomCircleBar.setMax(playingExercise.restTime);
 
         if (playingExercise.currentRound <= (playingExercise.totalRounds - 1))
-            textView.setText("Round " + (playingExercise.currentRound + 1) + "/" + playingExercise.totalRounds);
+            textView.setText("Round " + (playingExercise.currentRound + 1) + " of " + playingExercise.totalRounds);
         else
-            textView.setText("Round " + playingExercise.totalRounds + "/" + playingExercise.totalRounds);
+            textView.setText("Round " + playingExercise.totalRounds + " of " + playingExercise.totalRounds);
 
-        exerciseTextView.setText("Exercise " + (playingExercise.currentExercise + 1) + "/" + playingExercise.totalExercisePerRound);
+        exerciseTextView.setText("Exercise " + (playingExercise.currentExercise + 1) + " of " + playingExercise.totalExercisePerRound);
         mCustomCircleBar.setProgress(playingExercise.restTime);
         mCustomCircleBar.setOnClickListener(view -> pauseOrRenume());
         startRestTimer(playingExercise.restTime * 1000);
@@ -114,7 +114,10 @@ public class NextFragment extends Fragment {
         int id = getResources().getIdentifier(str, "drawable", context.getPackageName());
         String path = "android.resource://" + context.getPackageName() + "/" + id;
         Glide.with(this).load(path).into(aimationImage);
-        TTSManager.getInstance(playingExercise.getApplication()).play("Take a Rest for " + playingExercise.restTime + "seconds" + "The Next Exercise is " + playingExercise.nextExerciseName);
+        if (playingExercise.currentRound == 3)
+            TTSManager.getInstance(playingExercise.getApplication()).play("This is the end of the last round. Take 60 sec break to end today's workout");
+        else
+            TTSManager.getInstance(playingExercise.getApplication()).play("Take a Rest for " + playingExercise.restTime + "seconds" + "The Next Exercise is " + playingExercise.nextExerciseName);
     }
 
     private void startRestTimer(int totalSkipTime) {
@@ -127,6 +130,9 @@ public class NextFragment extends Fragment {
                 mCustomCircleBar.setProgress(currentRestTime);
                 int id = getResources().getIdentifier("clock", "raw", context.getPackageName());
 
+                if (currentRestTime == 30)
+                    TTSManager.getInstance(playingExercise.getApplication()).play("You have 30 sec remaining");
+
                 if (currentRestTime > 3)
                     Utils.playAudio(context, id);
                 else
@@ -138,6 +144,7 @@ public class NextFragment extends Fragment {
                 Utils.playAudio(context, id);
 
                 mCustomCircleBar.setProgress(0);
+
                 playingExercise.StartPlayingFragment();
             }
         }.start();

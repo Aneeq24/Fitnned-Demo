@@ -41,7 +41,7 @@
                     android:layout_marginTop="10dp"
                     android:text="lbs"
                     android:textColor="@android:color/background_light"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:visibility="invisible" />
 
@@ -57,7 +57,7 @@
                         android:scaleType="fitXY"
                         android:src="@drawable/timer_bar_bg" />
 
-                    <com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets.WheelWeightPicker
+                    <com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets.MyWheelPicker
                         android:id="@+id/num_age"
                         android:layout_width="50dp"
                         android:layout_height="100dp"
@@ -96,7 +96,7 @@
                     android:layout_marginTop="10dp"
                     android:text="lbs"
                     android:textColor="@android:color/background_light"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <RelativeLayout
@@ -111,7 +111,7 @@
                         android:scaleType="fitXY"
                         android:src="@drawable/timer_bar_bg" />
 
-                    <com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets.WheelWeightPicker
+                    <com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets.MyWheelPicker
                         android:id="@+id/num_weight"
                         android:layout_width="50dp"
                         android:layout_height="100dp"
@@ -155,7 +155,7 @@
                     android:layout_gravity="center"
                     android:text="ft"
                     android:textColor="@android:color/background_light"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <RelativeLayout
@@ -170,7 +170,7 @@
                         android:scaleType="fitXY"
                         android:src="@drawable/timer_bar_bg" />
 
-                    <com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets.WheelWeightPicker
+                    <com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets.MyWheelPicker
                         android:id="@+id/num_feet"
                         android:layout_width="50dp"
                         android:layout_height="100dp"
@@ -198,7 +198,7 @@
                     android:layout_gravity="center"
                     android:text="in"
                     android:textColor="@android:color/background_light"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <RelativeLayout
@@ -213,7 +213,7 @@
                         android:scaleType="fitXY"
                         android:src="@drawable/timer_bar_bg" />
 
-                    <com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets.WheelWeightPicker
+                    <com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets.MyWheelPicker
                         android:id="@+id/num_inches"
                         android:layout_width="50dp"
                         android:layout_height="100dp"

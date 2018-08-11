@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.ToastHelper;
 
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MainMenuItemHolder> {
 

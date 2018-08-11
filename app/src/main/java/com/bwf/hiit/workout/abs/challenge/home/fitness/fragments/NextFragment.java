@@ -114,9 +114,11 @@ public class NextFragment extends Fragment {
         int id = getResources().getIdentifier(str, "drawable", context.getPackageName());
         String path = "android.resource://" + context.getPackageName() + "/" + id;
         Glide.with(this).load(path).into(aimationImage);
-        if (playingExercise.currentRound == 3)
+        if (playingExercise.currentRound == 3) {
+            aimationImage.setVisibility(View.GONE);
+            nextSreenExerciseName.setVisibility(View.GONE);
             TTSManager.getInstance(playingExercise.getApplication()).play("This is the end of the last round. Take 60 sec break to end today's workout");
-        else
+        }else
             TTSManager.getInstance(playingExercise.getApplication()).play("Take a Rest for " + playingExercise.restTime + "seconds" + "The Next Exercise is " + playingExercise.nextExerciseName);
     }
 

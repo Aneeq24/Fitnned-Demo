@@ -62,7 +62,7 @@ public class CompleteFragment extends Fragment {
 
     Record record;
     List<Record> recordList;
-    User user;
+    User user, updateUser;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -81,14 +81,13 @@ public class CompleteFragment extends Fragment {
         btnAddReminder = view.findViewById(R.id.btn_add_reminder);
 
         context = getContext();
-
         record = new Record();
+        updateUser = new User();
 
         playingExercise = (PlayingExercise) getActivity();
         assert playingExercise != null;
 
         tvBmi.setText(String.valueOf(SharedPrefHelper.readInteger(context, "bmi")));
-
 
         TTSManager.getInstance(getActivity().getApplication()).play(" Well Done. This is end of day " + playingExercise.currentDay + "of your training");
         AnalyticsManager.getInstance().sendAnalytics("workout_complete", "day " + playingExercise.currentDay);
@@ -98,16 +97,16 @@ public class CompleteFragment extends Fragment {
         playingExercise.exerciseDays.get(playingExercise.currentExercise).setTotalKcal(SharedPrefHelper.readInteger(context, "kcal"));
         @SuppressLint("DefaultLocale") String timeString = String.format("%02d", minutes);
 
-        tvExerciseNo.setText(" " + playingExercise.totalExercisesPlayed + 1 + "\nExercise");
-        tvTotalTime.setText(" " + timeString + "\nMins");
+        tvExerciseNo.setText(String.valueOf((playingExercise.totalExercisesPlayed + 1)));
+        tvTotalTime.setText(timeString);
 
-        record.setWeight(SharedPrefHelper.readInteger(context, "bmi"));
+        record.setWeight(playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
 
         if (SharedPrefHelper.readInteger(context, "bmi") != 0)
             tvBmi.setText(String.valueOf(SharedPrefHelper.readInteger(context, "bmi")));
 
         String kcal = String.valueOf(playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
-        tvKcal.setText(kcal + "\nKCAL");
+        tvKcal.setText(kcal);
         SharedPrefHelper.writeInteger(context, "kcal", 0);
 
         toolbar.setNavigationOnClickListener(view1 -> {
@@ -128,7 +127,7 @@ public class CompleteFragment extends Fragment {
 
         setDaysData();
 
-        new setUserRecord().execute();
+        new getUserRecords().execute();
 
         return view;
     }
@@ -184,7 +183,7 @@ public class CompleteFragment extends Fragment {
                         bmi = (weight) / (height * height);
 
                     SharedPrefHelper.writeInteger(context, "bmi", (int) bmi);
-                    tvBmi.setText(String.valueOf(bmi));
+                    tvBmi.setText(String.valueOf((int) bmi) + bmiCategory((int) bmi));
                     dialog1.dismiss();
                 })
                 .negativeText("Cancel")
@@ -268,17 +267,13 @@ public class CompleteFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-
-            AppDataBase appDataBase = AppDataBase.getInstance();
-
-            if (appDataBase != null)
-                appDataBase.recorddao().insertAll(record);
+            AppDataBase.getInstance().recorddao().insertAll(record);
+            AppDataBase.getInstance().userdao().updateUser(updateUser);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            new getUserRecords().execute();
             super.onPostExecute(aVoid);
         }
 
@@ -327,6 +322,23 @@ public class CompleteFragment extends Fragment {
         series.setColor(Color.BLUE);
         graph.addSeries(series);
         graph.setCursorMode(true);
+        updateUser.setId(1);
+        updateUser.setTotalExcercise(user.getTotalExcercise() + Integer.parseInt(tvExerciseNo.getText().toString()));
+        updateUser.setTotalKcal(user.getTotalKcal() + Integer.parseInt(tvKcal.getText().toString()));
+        updateUser.setTotalTime(user.getTotalTime() + Integer.parseInt(tvTotalTime.getText().toString()));
+        new setUserRecord().execute();
+    }
+
+    private String bmiCategory(int bmi) {
+        if (bmi > 0 && bmi < 19)
+            return " - Under Weight";
+        else if (bmi >= 19 && bmi < 25)
+            return " - Healthy Weight";
+        else if (bmi >= 25 && bmi < 30)
+            return " - Over Weight";
+        else if (bmi > 30)
+            return " - Heavily Over Weight";
+        else return null;
     }
 
 }

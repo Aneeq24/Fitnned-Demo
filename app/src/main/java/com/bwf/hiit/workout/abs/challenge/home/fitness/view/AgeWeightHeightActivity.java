@@ -57,6 +57,7 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
                 float height = (float) ((numFeet.getValue() * 12) + numInches.getValue());
                 user.setHeight(height);
                 user.setWeight((float) numWeight.getValue());
+                user.setTotalKcal(numWeight.getValue());
                 new setUserGender().execute();
                 startNewActivity();
                 break;
@@ -68,11 +69,11 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
 
     private void setNumbers() {
         List<Integer> data = new ArrayList<>();
-        for (int i = 10; i <= 70; i++)
+        for (int i = 20; i <= 70; i++)
             data.add(i);
         numAge.setData(data);
         data = new ArrayList<>();
-        for (int i = 4; i <= 10; i++)
+        for (int i = 5; i <= 10; i++)
             data.add(i);
         numFeet.setData(data);
         data = new ArrayList<>();
@@ -80,7 +81,7 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
             data.add(i);
         numInches.setData(data);
         data = new ArrayList<>();
-        for (int i = 70; i <= 200; i++)
+        for (int i = 100; i <= 200; i++)
             data.add(i);
         numWeight.setData(data);
     }

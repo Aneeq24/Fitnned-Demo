@@ -22,6 +22,12 @@ public class User implements Serializable {
 
     private float weight;
 
+    private int totalExcercise;
+
+    private int totalKcal;
+
+    private int totalTime;
+
     public int getId() {
         return id;
     }
@@ -62,4 +68,27 @@ public class User implements Serializable {
         this.weight = weight;
     }
 
+    public int getTotalExcercise() {
+        return totalExcercise;
+    }
+
+    public void setTotalExcercise(int totalExcercise) {
+        this.totalExcercise = totalExcercise;
+    }
+
+    public int getTotalKcal() {
+        return totalKcal;
+    }
+
+    public void setTotalKcal(int totalKcal) {
+        this.totalKcal = totalKcal;
+    }
+
+    public int getTotalTime() {
+        return totalTime;
+    }
+
+    public void setTotalTime(int totalTime) {
+        this.totalTime = totalTime;
+    }
 }

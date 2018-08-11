@@ -166,10 +166,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void requestGoogleConsentForm(boolean isAppLaunch) {
-      /*  if (BuildConfig.DEBUG) {
-            consentInformation.setDebugGeography(DebugGeography.DEBUG_GEOGRAPHY_EEA);
-            consentInformation.addTestDevice("8F14986600C19D5CB98F0125581FBBF4");
-        }*/
         consentInformation.requestConsentInfoUpdate(new String[]{getString(R.string.publisher_id)}, new ConsentInfoUpdateListener() {
             @Override
             public void onConsentInfoUpdated(ConsentStatus consentStatus) {

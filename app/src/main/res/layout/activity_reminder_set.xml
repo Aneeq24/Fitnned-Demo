@@ -48,7 +48,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="HH"
+                    android:text="hrs"
                     android:textAlignment="center"
                     android:textColor="@android:color/background_light"
                     android:textSize="16sp"
@@ -60,7 +60,7 @@
 
                     <ImageView
                         android:layout_width="80dp"
-                        android:layout_height="50dp"
+                        android:layout_height="40dp"
                         android:layout_centerVertical="true"
                         android:scaleType="fitXY"
                         android:src="@drawable/timer_bar_bg" />
@@ -91,7 +91,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="MM"
+                    android:text="mins"
                     android:textAlignment="center"
                     android:textColor="@android:color/background_light"
                     android:textSize="16sp"
@@ -103,7 +103,7 @@
 
                     <ImageView
                         android:layout_width="80dp"
-                        android:layout_height="50dp"
+                        android:layout_height="40dp"
                         android:layout_centerVertical="true"
                         android:scaleType="fitXY"
                         android:src="@drawable/timer_bar_bg" />

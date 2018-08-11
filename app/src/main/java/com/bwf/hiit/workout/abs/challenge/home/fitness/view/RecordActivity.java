@@ -70,8 +70,6 @@ public class RecordActivity extends AppCompatActivity {
         tvBmi = findViewById(R.id.tv_bmi);
         btnEditBmi = findViewById(R.id.btn_edit_bmi);
 
-        tvBmi.setText(String.valueOf(SharedPrefHelper.readInteger(context, "bmi")));
-
         AnalyticsManager.getInstance().sendAnalytics("Recored_activity", "Recored_activity_started");
 
         setDaysData();
@@ -139,7 +137,7 @@ public class RecordActivity extends AppCompatActivity {
                         bmi = (weight) / (height * height);
 
                     SharedPrefHelper.writeInteger(context, "bmi", (int) bmi);
-                    tvBmi.setText(String.valueOf(bmi));
+                    tvBmi.setText(String.valueOf((int) bmi) + bmiCategory((int) bmi));
                     dialog1.dismiss();
                 })
                 .negativeText("Cancel")
@@ -198,6 +196,18 @@ public class RecordActivity extends AppCompatActivity {
 
     }
 
+    private String bmiCategory(int bmi) {
+        if (bmi > 0 && bmi < 19)
+            return " - Under Weight";
+        else if (bmi >= 19 && bmi < 25)
+            return " - Healthy Weight";
+        else if (bmi >= 25 && bmi < 30)
+            return " - Over Weight";
+        else if (bmi > 30)
+            return " - Heavily Over Weight";
+        else return null;
+    }
+
     private int convertIntoInteger(String xVal) {
         try {
             return Integer.parseInt(xVal);
@@ -240,11 +250,15 @@ public class RecordActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void initApp() {
         float weight = user.getWeight();
         float height = user.getHeight();
         float bmi = ((weight) / (height * height)) * 703;
-        tvBmi.setText(String.valueOf((int) bmi));
+        tvBmi.setText(String.valueOf((int) bmi) + bmiCategory((int) bmi));
+        tvExerciseNo.setText(String.valueOf(user.getTotalExcercise()) + "\nExercise");
+        tvKcal.setText(String.valueOf(user.getTotalKcal()) + "\nKcal");
+        tvTotalTime.setText(String.valueOf(user.getTotalTime()) + "\nMins");
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
         for (int i = 0; i < recordList.size(); i++) {
             series.appendData(new DataPoint(recordList.get(i).getId() + 1, recordList.get(i).getWeight()), true, 30, false);

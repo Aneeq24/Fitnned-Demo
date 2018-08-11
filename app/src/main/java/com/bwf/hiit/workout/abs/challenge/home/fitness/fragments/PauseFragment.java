@@ -37,6 +37,7 @@ public class PauseFragment extends Fragment {
         LinearLayout fbNative = rootView.findViewById(R.id.fbNative);
 
         AdsManager.getInstance().showFacebookNativeAd(Application.getContext(), fbNative, null);
+
         findReferences();
         return rootView;
     }
@@ -74,6 +75,5 @@ public class PauseFragment extends Fragment {
     private void onResumeExercise() {
         playingExercise.onResumeFragment();
     }
-
 
 }

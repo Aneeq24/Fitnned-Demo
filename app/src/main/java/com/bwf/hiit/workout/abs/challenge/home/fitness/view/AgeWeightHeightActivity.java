@@ -43,7 +43,6 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
 
         user = new User();
         record = new Record();
-        record.setDay(1);
         user.setId(1);
 
         setNumbers();
@@ -57,6 +56,7 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
                 record.setWeight(numWeight.getValue());
                 float height = (float) ((numFeet.getValue() * 12) + numInches.getValue());
                 user.setHeight(height);
+                user.setWeight((float) numWeight.getValue());
                 new setUserGender().execute();
                 startNewActivity();
                 break;
@@ -66,7 +66,7 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
         }
     }
 
-    private void setNumbers(){
+    private void setNumbers() {
         List<Integer> data = new ArrayList<>();
         for (int i = 10; i <= 70; i++)
             data.add(i);

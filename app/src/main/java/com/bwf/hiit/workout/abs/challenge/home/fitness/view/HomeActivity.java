@@ -82,7 +82,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         consentInformation = ConsentInformation.getInstance(this);
         requestGoogleConsentForm(true);
 
-        AdsManager.getInstance().showFacebookInterstitialAd();
+        if (AdsManager.getInstance().isFacebookInterstitalLoaded())
+            AdsManager.getInstance().showFacebookInterstitialAd();
+        else
+            AdsManager.getInstance().showInterstitialAd();
 
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "plan_screen_activity");
 
@@ -257,9 +260,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public void onMoreAppsClicked() {
         AnalyticsManager.getInstance().sendAnalytics("more_apps", "clicked");
         try {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Body+Works+%26+Fitness+Group")));
         } catch (ActivityNotFoundException anfe) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Body+Works+%26+Fitness+Group")));
         }
         onBackPressed();
     }

@@ -127,9 +127,6 @@ public class DailyExerciseInfo extends AppCompatActivity {
         reset = intent.getBooleanExtra("reset",false);
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "exercise_list_activity");
 
-        if (reset)
-            new GetDataFromDb().execute();
-
         dataModelWorkout = new DataModelWorkout();
         currentExerciseTextView = findViewById(R.id.ei_exerciseTextView);
         roundsCleardTextView = findViewById(R.id.ei_roundTextView);
@@ -141,7 +138,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
             Intent i = new Intent(view.getContext(), PlayingExercise.class);
             i.putExtra(view.getContext().getString(R.string.day_selected), day);
             i.putExtra(view.getContext().getString(R.string.plan), plan);
-            view.getContext().startActivity(i);
+            startActivity(i);
         });
     }
 

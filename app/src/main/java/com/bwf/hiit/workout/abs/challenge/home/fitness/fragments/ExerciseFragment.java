@@ -47,7 +47,6 @@ public class ExerciseFragment extends Fragment {
     Button pauseButton;
     ImageView exerciseImage;
     ImageView helpButton;
-    CountDownTimer videoTimer;
 
     ImageView soundButton_B;
 

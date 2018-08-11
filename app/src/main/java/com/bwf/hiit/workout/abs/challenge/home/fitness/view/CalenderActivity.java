@@ -80,7 +80,7 @@ public class CalenderActivity extends AppCompatActivity {
             Calendar calNow = Calendar.getInstance();
             Calendar calSet = (Calendar) calNow.clone();
 
-            calSet.add(Calendar.DAY_OF_MONTH, recordList.get(i).getDay());
+            calSet.add(Calendar.DAY_OF_MONTH, recordList.get(i).getId() + 1);
 
             events.add(new EventDay(calSet, R.drawable.history_screen_hot_icon));
         }

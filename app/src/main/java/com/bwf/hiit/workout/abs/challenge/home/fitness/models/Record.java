@@ -11,8 +11,6 @@ public class Record {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    private int day;
-
     private int weight;
 
     public int getId() {
@@ -21,14 +19,6 @@ public class Record {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getDay() {
-        return day;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
     }
 
     public int getWeight() {

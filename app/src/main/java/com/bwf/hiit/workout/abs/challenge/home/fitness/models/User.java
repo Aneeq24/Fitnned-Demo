@@ -20,6 +20,8 @@ public class User implements Serializable {
 
     private float height;
 
+    private float weight;
+
     public int getId() {
         return id;
     }
@@ -51,4 +53,13 @@ public class User implements Serializable {
     public void setHeight(float height) {
         this.height = height;
     }
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
 }

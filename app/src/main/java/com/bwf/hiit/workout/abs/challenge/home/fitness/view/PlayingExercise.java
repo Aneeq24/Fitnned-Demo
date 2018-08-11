@@ -188,12 +188,6 @@ public class PlayingExercise extends AppCompatActivity {
         AnalyticsManager.getInstance().sendAnalytics("Exercise Screen End", "Plan " + currentPlan + " Day " + currentDay + " Total Exercises " + totalExercises + " Total Exercises Done " + totalExercisesPlayed);
 
         resetStaticPauseValues();
-
-        if (AdsManager.getInstance().isFacebookInterstitalLoaded()) {
-            AdsManager.getInstance().showFacebookInterstitialAd();
-        } else {
-            AdsManager.getInstance().showInterstitialAd();
-        }
     }
 
     public static void resetStaticPauseValues() {

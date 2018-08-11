@@ -5,10 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -31,6 +30,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.CalenderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.ConfirmReminderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
@@ -38,6 +38,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class CompleteFragment extends Fragment {
     TextView tvTotalTime;
     TextView tvKcal;
     TextView tvBmi;
-    ImageView btnEditBmi;
+    RelativeLayout btnEditBmi;
     ImageView btnAddReminder;
     Context context;
     GraphView graph;
@@ -61,8 +62,8 @@ public class CompleteFragment extends Fragment {
 
     Record record;
     List<Record> recordList;
+    User user;
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -100,7 +101,6 @@ public class CompleteFragment extends Fragment {
         tvExerciseNo.setText(" " + playingExercise.totalExercisesPlayed + 1 + "\nExercise");
         tvTotalTime.setText(" " + timeString + "\nMins");
 
-        record.setDay(playingExercise.currentDay);
         record.setWeight(SharedPrefHelper.readInteger(context, "bmi"));
 
         if (SharedPrefHelper.readInteger(context, "bmi") != 0)
@@ -152,6 +152,8 @@ public class CompleteFragment extends Fragment {
     RadioGroup rgHeight;
     RadioButton rbCm;
     RadioButton rbIn;
+    RadioButton rbKg;
+    RadioButton rbLbs;
 
     float weight, height, inches, feet;
     boolean isKg = true;
@@ -166,13 +168,13 @@ public class CompleteFragment extends Fragment {
                 .customView(R.layout.dialog_bmi, true)
                 .positiveText("Save")
                 .onPositive((dialog1, which) -> {
-                    weight = Integer.parseInt(edtWeight.getText().toString().trim());
+                    weight = convertIntoInteger(edtWeight.getText().toString().trim());
 
                     if (isCm)
-                        height = Integer.parseInt(edtCm.getText().toString().trim()) / 100;
+                        height = (float) convertIntoInteger(edtCm.getText().toString().trim()) / 100;
                     else {
-                        inches = Float.parseFloat(edtIn.getText().toString().trim());
-                        feet = Float.parseFloat(edtFt.getText().toString().trim());
+                        inches = convertIntoFloat(edtIn.getText().toString().trim());
+                        feet = convertIntoFloat(edtFt.getText().toString().trim());
                         height = (feet * 12) + inches;
                     }
 
@@ -182,7 +184,7 @@ public class CompleteFragment extends Fragment {
                         bmi = (weight) / (height * height);
 
                     SharedPrefHelper.writeInteger(context, "bmi", (int) bmi);
-                    tvBmi.setText(String.valueOf((int) bmi));
+                    tvBmi.setText(String.valueOf(bmi));
                     dialog1.dismiss();
                 })
                 .negativeText("Cancel")
@@ -200,6 +202,11 @@ public class CompleteFragment extends Fragment {
         rgHeight = view.findViewById(R.id.rg_height);
         rbCm = view.findViewById(R.id.rb_cm);
         rbIn = view.findViewById(R.id.rb_in);
+        rbKg = view.findViewById(R.id.rb_kg);
+        rbLbs = view.findViewById(R.id.rb_lb);
+
+        edtWeight.setText(String.valueOf((int) (user.getWeight() * 0.453592)));
+        edtCm.setText(String.valueOf((int) (user.getHeight() * 2.54)));
 
         rgWeight.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.rb_lb) {
@@ -219,14 +226,37 @@ public class CompleteFragment extends Fragment {
                 edtFt.setVisibility(View.GONE);
                 edtIn.setVisibility(View.GONE);
                 isCm = true;
+                edtWeight.setText(String.valueOf((int) (user.getWeight() * 0.453592)));
+                edtCm.setText(String.valueOf((int) (user.getHeight() * 2.54)));
+                rbKg.setChecked(true);
             } else if (i == R.id.rb_in) {
                 edtFt.setVisibility(View.VISIBLE);
                 edtIn.setVisibility(View.VISIBLE);
                 edtCm.setVisibility(View.GONE);
                 isCm = false;
+                edtWeight.setText(String.valueOf((int) user.getWeight()));
+                edtFt.setText(String.valueOf((int) (user.getHeight() / 12)));
+                edtIn.setText(String.valueOf((int) (user.getHeight() % 12)));
+                rbLbs.setChecked(true);
             }
         });
 
+    }
+
+    private int convertIntoInteger(String xVal) {
+        try {
+            return Integer.parseInt(xVal);
+        } catch (Exception ex) {
+            return 0;
+        }
+    }
+
+    private float convertIntoFloat(String xVal) {
+        try {
+            return Float.parseFloat(xVal);
+        } catch (Exception ex) {
+            return 0;
+        }
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -268,6 +298,7 @@ public class CompleteFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             recordList = AppDataBase.getInstance().recorddao().getAllRecords();
+            user = AppDataBase.getInstance().userdao().findById(1);
             return null;
         }
 
@@ -284,9 +315,14 @@ public class CompleteFragment extends Fragment {
     }
 
     private void initApp() {
+        float weight = user.getWeight();
+        float height = user.getHeight();
+        float bmi = ((weight) / (height * height)) * 703;
+        DecimalFormat dtime = new DecimalFormat("##.##");
+        tvBmi.setText(String.valueOf(dtime.format(bmi)));
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
         for (int i = 0; i < recordList.size(); i++) {
-            series.appendData(new DataPoint(recordList.get(i).getDay(), recordList.get(i).getWeight()), true, 30, false);
+            series.appendData(new DataPoint(recordList.get(i).getId() + 1, recordList.get(i).getWeight()), true, 30, false);
         }
         series.setColor(Color.BLUE);
         graph.addSeries(series);

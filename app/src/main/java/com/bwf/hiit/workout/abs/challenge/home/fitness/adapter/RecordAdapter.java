@@ -32,7 +32,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MainMenuIt
     @Override
     public void onBindViewHolder(@NonNull MainMenuItemHolder holder, final int position) {
 
-        holder.tvTitle.setText("Day " + String.valueOf(recordList.get(position).getDay()));
+        holder.tvTitle.setText("Day " + String.valueOf(recordList.get(position).getId() + 1));
         holder.tvWeight.setText(String.valueOf(recordList.get(position).getWeight()));
 
     }

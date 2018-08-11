@@ -12,9 +12,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -25,10 +25,10 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class RecordActivity extends AppCompatActivity {
-
 
     String[] titles = {"S", "M", "T", "W", "T", "F", "S", "S", "M", "T", "W", "T", "F", "S"};
     int[] date = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
@@ -49,9 +48,10 @@ public class RecordActivity extends AppCompatActivity {
     TextView tvTotalTime;
     TextView tvKcal;
     TextView tvBmi;
-    ImageView btnEditBmi;
+    RelativeLayout btnEditBmi;
 
     List<Record> recordList;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +107,8 @@ public class RecordActivity extends AppCompatActivity {
     RadioGroup rgHeight;
     RadioButton rbCm;
     RadioButton rbIn;
+    RadioButton rbKg;
+    RadioButton rbLbs;
 
     float weight, height, inches, feet;
     boolean isKg = true;
@@ -121,13 +123,13 @@ public class RecordActivity extends AppCompatActivity {
                 .customView(R.layout.dialog_bmi, true)
                 .positiveText("Save")
                 .onPositive((dialog1, which) -> {
-                    weight = Integer.parseInt(edtWeight.getText().toString().trim());
+                    weight = convertIntoInteger(edtWeight.getText().toString().trim());
 
                     if (isCm)
-                        height = Integer.parseInt(edtCm.getText().toString().trim()) / 100;
+                        height = (float) convertIntoInteger(edtCm.getText().toString().trim()) / 100;
                     else {
-                        inches = Float.parseFloat(edtIn.getText().toString().trim());
-                        feet = Float.parseFloat(edtFt.getText().toString().trim());
+                        inches = convertIntoFloat(edtIn.getText().toString().trim());
+                        feet = convertIntoFloat(edtFt.getText().toString().trim());
                         height = (feet * 12) + inches;
                     }
 
@@ -137,7 +139,7 @@ public class RecordActivity extends AppCompatActivity {
                         bmi = (weight) / (height * height);
 
                     SharedPrefHelper.writeInteger(context, "bmi", (int) bmi);
-                    tvBmi.setText(String.valueOf((int) bmi));
+                    tvBmi.setText(String.valueOf(bmi));
                     dialog1.dismiss();
                 })
                 .negativeText("Cancel")
@@ -155,6 +157,11 @@ public class RecordActivity extends AppCompatActivity {
         rgHeight = view.findViewById(R.id.rg_height);
         rbCm = view.findViewById(R.id.rb_cm);
         rbIn = view.findViewById(R.id.rb_in);
+        rbKg = view.findViewById(R.id.rb_kg);
+        rbLbs = view.findViewById(R.id.rb_lb);
+
+        edtWeight.setText(String.valueOf((int) (user.getWeight() * 0.453592)));
+        edtCm.setText(String.valueOf((int) (user.getHeight() * 2.54)));
 
         rgWeight.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.rb_lb) {
@@ -174,14 +181,37 @@ public class RecordActivity extends AppCompatActivity {
                 edtFt.setVisibility(View.GONE);
                 edtIn.setVisibility(View.GONE);
                 isCm = true;
+                edtWeight.setText(String.valueOf((int) (user.getWeight() * 0.453592)));
+                edtCm.setText(String.valueOf((int) (user.getHeight() * 2.54)));
+                rbKg.setChecked(true);
             } else if (i == R.id.rb_in) {
                 edtFt.setVisibility(View.VISIBLE);
                 edtIn.setVisibility(View.VISIBLE);
                 edtCm.setVisibility(View.GONE);
                 isCm = false;
+                edtWeight.setText(String.valueOf((int) user.getWeight()));
+                edtFt.setText(String.valueOf((int) (user.getHeight() / 12)));
+                edtIn.setText(String.valueOf((int) (user.getHeight() % 12)));
+                rbLbs.setChecked(true);
             }
         });
 
+    }
+
+    private int convertIntoInteger(String xVal) {
+        try {
+            return Integer.parseInt(xVal);
+        } catch (Exception ex) {
+            return 0;
+        }
+    }
+
+    private float convertIntoFloat(String xVal) {
+        try {
+            return Float.parseFloat(xVal);
+        } catch (Exception ex) {
+            return 0;
+        }
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -194,6 +224,7 @@ public class RecordActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             recordList = AppDataBase.getInstance().recorddao().getAllRecords();
+            user = AppDataBase.getInstance().userdao().findById(1);
             return null;
         }
 
@@ -210,9 +241,13 @@ public class RecordActivity extends AppCompatActivity {
     }
 
     private void initApp() {
+        float weight = user.getWeight();
+        float height = user.getHeight();
+        float bmi = ((weight) / (height * height)) * 703;
+        tvBmi.setText(String.valueOf((int) bmi));
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
         for (int i = 0; i < recordList.size(); i++) {
-            series.appendData(new DataPoint(recordList.get(i).getDay(), recordList.get(i).getWeight()), true, 30, false);
+            series.appendData(new DataPoint(recordList.get(i).getId() + 1, recordList.get(i).getWeight()), true, 30, false);
         }
         series.setColor(Color.BLUE);
         graph.addSeries(series);

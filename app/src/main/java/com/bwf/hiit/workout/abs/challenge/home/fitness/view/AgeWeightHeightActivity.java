@@ -57,7 +57,6 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
                 float height = (float) ((numFeet.getValue() * 12) + numInches.getValue());
                 user.setHeight(height);
                 user.setWeight((float) numWeight.getValue());
-                user.setTotalKcal(numWeight.getValue());
                 new setUserGender().execute();
                 startNewActivity();
                 break;

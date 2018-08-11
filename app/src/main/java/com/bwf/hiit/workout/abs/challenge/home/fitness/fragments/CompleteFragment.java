@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -41,7 +40,6 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.OnClick;
 
 public class CompleteFragment extends Fragment {
 
@@ -53,7 +51,8 @@ public class CompleteFragment extends Fragment {
     TextView tvKcal;
     TextView tvBmi;
     RelativeLayout btnEditBmi;
-    ImageView btnAddReminder;
+    RelativeLayout btnAddReminder;
+    RelativeLayout btnMore;
     Context context;
     GraphView graph;
     RecyclerView rvHistory;
@@ -78,6 +77,7 @@ public class CompleteFragment extends Fragment {
         graph = view.findViewById(R.id.graph);
         rvHistory = view.findViewById(R.id.rv_days);
         btnAddReminder = view.findViewById(R.id.btn_add_reminder);
+        btnMore = view.findViewById(R.id.btn_more);
 
         context = getContext();
         record = new Record();
@@ -96,13 +96,12 @@ public class CompleteFragment extends Fragment {
         playingExercise.exerciseDays.get(playingExercise.currentExercise).setTotalKcal(SharedPrefHelper.readInteger(context, "kcal"));
         @SuppressLint("DefaultLocale") String timeString = String.format("%02d", minutes);
 
-        tvExerciseNo.setText(String.valueOf((playingExercise.totalExercisesPlayed + 1)));
         tvTotalTime.setText(timeString);
 
         record.setWeight(playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
 
         if (SharedPrefHelper.readInteger(context, "bmi") != 0)
-            tvBmi.setText(String.valueOf(SharedPrefHelper.readInteger(context, "bmi")));
+            tvBmi.setText(String.valueOf(SharedPrefHelper.readInteger(context, "bmi")) + bmiCategory(SharedPrefHelper.readInteger(context, "bmi")));
 
         String kcal = String.valueOf(playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
         tvKcal.setText(kcal);
@@ -118,6 +117,7 @@ public class CompleteFragment extends Fragment {
         btnEditBmi.setOnClickListener(view12 -> showDialog());
 
         btnAddReminder.setOnClickListener(view12 -> startActivity(new Intent(context, ConfirmReminderActivity.class)));
+        btnMore.setOnClickListener(view12 -> startActivity(new Intent(context, CalenderActivity.class)));
 
         if (AdsManager.getInstance().isFacebookInterstitalLoaded())
             AdsManager.getInstance().showFacebookInterstitialAd();
@@ -137,10 +137,6 @@ public class CompleteFragment extends Fragment {
         rvHistory.setAdapter(mAdapter);
     }
 
-    @OnClick(R.id.btn_more)
-    public void onViewClicked() {
-        startActivity(new Intent(context, CalenderActivity.class));
-    }
 
     EditText edtWeight;
     EditText edtCm;
@@ -320,11 +316,14 @@ public class CompleteFragment extends Fragment {
         series.setColor(Color.BLUE);
         graph.addSeries(series);
         graph.setCursorMode(true);
-        updateUser.setId(1);
+        updateUser = user;
         updateUser.setTotalExcercise(user.getTotalExcercise() + Integer.parseInt(tvExerciseNo.getText().toString()));
         updateUser.setTotalKcal(user.getTotalKcal() + Integer.parseInt(tvKcal.getText().toString()));
         updateUser.setTotalTime(user.getTotalTime() + Integer.parseInt(tvTotalTime.getText().toString()));
-        new setUserRecord().execute();
+        if (playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal() > 0) {
+            tvExerciseNo.setText(String.valueOf((playingExercise.totalExercisesPlayed + 1)));
+            new setUserRecord().execute();
+        }
     }
 
     private String bmiCategory(int bmi) {

@@ -92,27 +92,21 @@ public class PlayingExercise extends AppCompatActivity {
                 dataBase = AppDataBase.getInstance();
                 exerciseDays = dataBase.exerciseDayDao().getExerciseDays(currentPlan, currentDay);
 
-                if (exerciseDays.get(0).getExerciseComplete() >= exerciseDays.get(0).getTotalExercise()) {
-                    exerciseDays.get(0).setRoundCompleted(0);
-
-                    for (ExerciseDay day : exerciseDays) {
-                        if (day.isStatus())
-                            day.setStatus(false);
-                        totaTimeSpend = totaTimeSpend + day.getReps();
-                    }
-
-                    totaTimeSpend = totaTimeSpend * exerciseDays.get(0).getRounds();
-
-                    exerciseDays.get(0).setExerciseComplete(0);
-                    exerciseDays.get(0).setRoundCompleted(0);
-                    new InsetData().execute();
+                for (ExerciseDay day : exerciseDays) {
+                    if (day.isStatus())
+                        day.setStatus(false);
+                    totaTimeSpend = totaTimeSpend + day.getReps();
                 }
+                totaTimeSpend = totaTimeSpend * exerciseDays.get(0).getRounds();
+//                exerciseDays.get(0).setExerciseComplete(exerciseDays.get(0).getExerciseComplete());
+//                exerciseDays.get(0).setRoundCompleted(exerciseDays.get(0).getRoundCompleted());
+                exerciseDays.get(0).setExerciseComplete(0);
+                exerciseDays.get(0).setRoundCompleted(0);
+                new InsetData().execute();
 
                 totalExercisePerRound = exerciseDays.size();
-
                 totalRounds = exerciseDays.get(0).getRounds();
                 totalExercises = exerciseDays.get(0).getTotalExercise();
-
                 int roundsCleared = exerciseDays.get(0).getRoundCompleted();
                 totalExercisesPlayed = exerciseDays.get(0).getExerciseComplete();
                 int cE = 0;
@@ -121,7 +115,6 @@ public class PlayingExercise extends AppCompatActivity {
                         cE++;
                 }
                 currentRound = roundsCleared;
-
                 currentExercise = cE;
                 int time = exerciseDays.get(currentExercise).getReps();
                 restTime = exerciseDays.get(currentExercise).getDelay();

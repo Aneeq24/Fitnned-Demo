@@ -45,7 +45,6 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
     List<ExerciseDay> exerciseDays;
     boolean flag = false;
-    boolean reset = false;
 
     @SuppressLint("StaticFieldLeak")
     public class GetDataFromDb extends AsyncTask<Void, Void, Void> {
@@ -124,7 +123,6 @@ public class DailyExerciseInfo extends AppCompatActivity {
         Intent intent = getIntent();
         plan = intent.getIntExtra(getApplicationContext().getString(R.string.plan), 0);
         day = intent.getIntExtra(getApplicationContext().getString(R.string.day_selected), 0);
-        reset = intent.getBooleanExtra("reset",false);
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "exercise_list_activity");
 
         dataModelWorkout = new DataModelWorkout();

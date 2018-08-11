@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,10 +82,7 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
         holder.circleProgressBar.setProgress((int) (progress * 100));
 
         holder.itemView.setOnClickListener(view -> {
-            if (holder.circleProgressBar.getProgress() == 100)
-                setResetCheckDialog(view.getContext(), position);
-            else
-                goToNewActivity(view.getContext(), position, false);
+                goToNewActivity(view.getContext(), position);
         });
     }
 
@@ -116,36 +112,11 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
         new GetDataFromDb().execute();
     }
 
-    private void setResetCheckDialog(Context context, int pos) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
-        // set title
-        alertDialogBuilder.setTitle(context.getString(R.string.app_name));
-
-        // set dialog message
-        alertDialogBuilder
-                .setMessage("This Exercise is Done.\nDo you want to start again?")
-                .setCancelable(false)
-                .setPositiveButton("YES", (dialog, id) -> {
-                    dialog.cancel();
-                    goToNewActivity(context, pos, true);
-                }).setNegativeButton("NO", (dialog, id) -> {
-            // if this button is clicked, just close
-            // the dialog box and do nothing
-            dialog.cancel();
-        });
-
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        // show it
-        alertDialog.show();
-    }
-
-    private void goToNewActivity(Context context, int position, boolean reset) {
+    private void goToNewActivity(Context context, int position) {
         Intent i = new Intent(ac, DailyExerciseInfo.class);
         i.putExtra(context.getString(R.string.day_selected), position + 1);
         i.putExtra(context.getString(R.string.plan), currentPlan);
-        i.putExtra("reset", reset);
         AnalyticsManager.getInstance().sendAnalytics("day_selected", "day  " + (position + 1) + "of_plan:" + currentPlan);
         context.startActivity(i);
     }

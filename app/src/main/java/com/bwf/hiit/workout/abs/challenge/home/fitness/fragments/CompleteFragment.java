@@ -38,7 +38,6 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -313,8 +312,7 @@ public class CompleteFragment extends Fragment {
         float weight = user.getWeight();
         float height = user.getHeight();
         float bmi = ((weight) / (height * height)) * 703;
-        DecimalFormat dtime = new DecimalFormat("##.##");
-        tvBmi.setText(String.valueOf(dtime.format(bmi)));
+        tvBmi.setText(String.valueOf((int) bmi));
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
         for (int i = 0; i < recordList.size(); i++) {
             series.appendData(new DataPoint(recordList.get(i).getId() + 1, recordList.get(i).getWeight()), true, 30, false);

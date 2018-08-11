@@ -20,7 +20,7 @@
             android:background="@color/colorPrimary"
             app:navigationIcon="@drawable/ic_back"
             app:title="Record"
-            app:titleTextColor="#FFDF00" />
+            app:titleTextColor="#ffff" />
 
         <LinearLayout
             android:layout_width="match_parent"

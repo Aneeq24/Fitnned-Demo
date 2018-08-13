@@ -90,8 +90,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="130dp"
-                android:orientation="vertical"
-                android:layout_marginStart="130dp">
+                android:layout_marginStart="130dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_bmi"
@@ -149,12 +149,14 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/btn_more"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/days_screen_days_normal_bar">
+            android:background="@drawable/days_screen_days_normal_bar"
+            android:clickable="true">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -166,7 +168,6 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/btn_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -210,7 +211,8 @@
                 android:id="@+id/graph"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:layout_marginTop="40dp" />
+                android:layout_marginTop="40dp"
+                android:paddingBottom="10dp" />
         </RelativeLayout>
 
     </LinearLayout>

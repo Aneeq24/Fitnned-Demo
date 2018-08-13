@@ -27,254 +27,57 @@ import java.util.List;
 
 
 public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable {
-    /**
-     * 滚动状态标识值
-     *
-     * @see OnWheelChangeListener#onWheelScrollStateChanged(int)
-     */
+
     public static final int SCROLL_STATE_IDLE = 0, SCROLL_STATE_DRAGGING = 1,
             SCROLL_STATE_SCROLLING = 2;
-
-    /**
-     * 数据项对齐方式标识值
-     *
-     * @see #setItemAlign(int)
-     */
     public static final int ALIGN_CENTER = 0, ALIGN_LEFT = 1, ALIGN_RIGHT = 2;
-
     private static final String TAG = WheelPicker.class.getSimpleName();
-
     private final Handler mHandler = new Handler();
-
     private Paint mPaint;
     private Scroller mScroller;
     private VelocityTracker mTracker;
-    /**
-     * Determines whether the current scrolling animation is triggered by touchEvent or setSelectedItemPosition.
-     * User added eventListeners will only be fired after touchEvents.
-     */
     private boolean isTouchTriggered;
-
-    /**
-     * 相关监听器
-     *
-     * @see OnWheelChangeListener,OnItemSelectedListener
-     */
     private OnItemSelectedListener mOnItemSelectedListener;
     private OnWheelChangeListener mOnWheelChangeListener;
-
     private Rect mRectDrawn;
     private Rect mRectIndicatorHead, mRectIndicatorFoot;
     private Rect mRectCurrentItem;
-
     private Camera mCamera;
     private Matrix mMatrixRotate, mMatrixDepth;
-
-    /**
-     * 数据源
-     */
     private List mData;
-
-    /**
-     * 最宽的文本
-     *
-     * @see #setMaximumWidthText(String)
-     */
     private String mMaxWidthText;
-
-    /**
-     * 滚轮选择器中可见的数据项数量和滚轮选择器将会绘制的数据项数量
-     *
-     * @see #setVisibleItemCount(int)
-     */
     private int mVisibleItemCount, mDrawnItemCount;
-
-    /**
-     * 滚轮选择器将会绘制的Item数量的一半
-     */
     private int mHalfDrawnItemCount;
-
-    /**
-     * 单个文本最大宽高
-     */
     private int mTextMaxWidth, mTextMaxHeight;
-
-    /**
-     * 数据项文本颜色以及被选中的数据项文本颜色
-     *
-     * @see #setItemTextColor(int)
-     * @see #setSelectedItemTextColor(int)
-     */
     private int mItemTextColor, mSelectedItemTextColor;
-
-    /**
-     * 数据项文本尺寸
-     *
-     * @see #setItemTextSize(int)
-     */
     private int mItemTextSize;
-
-    /**
-     * 指示器尺寸
-     *
-     * @see #setIndicatorSize(int)
-     */
     private int mIndicatorSize;
-
-    /**
-     * 指示器颜色
-     *
-     * @see #setIndicatorColor(int)
-     */
     private int mIndicatorColor;
-
-    /**
-     * 幕布颜色
-     *
-     * @see #setCurtainColor(int)
-     */
     private int mCurtainColor;
-
-    /**
-     * 数据项之间间距
-     *
-     * @see #setItemSpace(int)
-     */
     private int mItemSpace;
-
-    /**
-     * 数据项对齐方式
-     *
-     * @see #setItemAlign(int)
-     */
     private int mItemAlign;
-
-    /**
-     * 滚轮选择器单个数据项高度以及单个数据项一半的高度
-     */
     private int mItemHeight, mHalfItemHeight;
-
-    /**
-     * 滚轮选择器内容区域高度的一半
-     */
     private int mHalfWheelHeight;
-
-    /**
-     * 当前被选中的数据项所显示的数据在数据源中的位置
-     *
-     * @see #setSelectedItemPosition(int)
-     */
     private int mSelectedItemPosition;
-
-    /**
-     * 当前被选中的数据项所显示的数据在数据源中的位置
-     *
-     * @see #getCurrentItemPosition()
-     */
     private int mCurrentItemPosition;
-
-    /**
-     * 滚轮滑动时可以滑动到的最小/最大的Y坐标
-     */
     private int mMinFlingY, mMaxFlingY;
-
-    /**
-     * 滚轮滑动时的最小/最大速度
-     */
     private int mMinimumVelocity = 50, mMaximumVelocity = 8000;
-
-    /**
-     * 滚轮选择器中心坐标
-     */
     private int mWheelCenterX, mWheelCenterY;
-
-    /**
-     * 滚轮选择器绘制中心坐标
-     */
     private int mDrawnCenterX, mDrawnCenterY;
-
-    /**
-     * 滚轮选择器视图区域在Y轴方向上的偏移值
-     */
     private int mScrollOffsetY;
-
-    /**
-     * 滚轮选择器中最宽或最高的文本在数据源中的位置
-     */
     private int mTextMaxWidthPosition;
-
-    /**
-     * 用户手指上一次触摸事件发生时事件Y坐标
-     */
     private int mLastPointY;
-
-    /**
-     * 手指触摸屏幕时事件点的Y坐标
-     */
     private int mDownPointY;
-
-    /**
-     * 点击与触摸的切换阀值
-     */
     private int mTouchSlop = 8;
-
-    /**
-     * 滚轮选择器的每一个数据项文本是否拥有相同的宽度
-     *
-     * @see #setSameWidth(boolean)
-     */
     private boolean hasSameWidth;
-
-    /**
-     * 是否显示指示器
-     *
-     * @see #setIndicator(boolean)
-     */
     private boolean hasIndicator;
-
-    /**
-     * 是否显示幕布
-     *
-     * @see #setCurtain(boolean)
-     */
     private boolean hasCurtain;
-
-    /**
-     * 是否显示空气感效果
-     *
-     * @see #setAtmospheric(boolean)
-     */
     private boolean hasAtmospheric;
-
-    /**
-     * 数据是否循环展示
-     *
-     * @see #setCyclic(boolean)
-     */
     private boolean isCyclic;
-
-    /**
-     * 滚轮是否为卷曲效果
-     *
-     * @see #setCurved(boolean)
-     */
     private boolean isCurved;
-
-    /**
-     * 是否为点击模式
-     */
     private boolean isClick;
-
-    /**
-     * 是否为强制结束滑动
-     */
     private boolean isForceFinishScroll;
-
-    /**
-     * Font typeface path from assets
-     */
     private String fontPath;
-
     private boolean isDebug;
 
     public WheelPicker(Context context) {
@@ -313,9 +116,6 @@ public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable 
         mItemAlign = a.getInt(R.styleable.WheelPicker_wheel_item_align, ALIGN_CENTER);
         fontPath = a.getString(R.styleable.WheelPicker_wheel_font_path);
         a.recycle();
-
-        // 可见数据项改变后更新与之相关的参数
-        // Update relevant parameters when the count of visible item changed
         updateVisibleItemCount();
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG | Paint.LINEAR_TEXT_FLAG);
@@ -326,22 +126,16 @@ public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable 
             setTypeface(typeface);
         }
 
-        // 更新文本对齐方式
-        // Update alignment of text
         updateItemTextAlign();
 
-        // 计算文本尺寸
-        // Correct sizes of text
         computeTextSize();
 
         mScroller = new Scroller(getContext());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
-            ViewConfiguration conf = ViewConfiguration.get(getContext());
-            mMinimumVelocity = conf.getScaledMinimumFlingVelocity();
-            mMaximumVelocity = conf.getScaledMaximumFlingVelocity();
-            mTouchSlop = conf.getScaledTouchSlop();
-        }
+        ViewConfiguration conf = ViewConfiguration.get(getContext());
+        mMinimumVelocity = conf.getScaledMinimumFlingVelocity();
+        mMaximumVelocity = conf.getScaledMaximumFlingVelocity();
+        mTouchSlop = conf.getScaledTouchSlop();
         mRectDrawn = new Rect();
 
         mRectIndicatorHead = new Rect();
@@ -359,8 +153,6 @@ public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable 
         if (mVisibleItemCount < 2)
             throw new ArithmeticException("Wheel's visible item count can not be less than 2!");
 
-        // 确保滚轮选择器可见数据项数量为奇数
-        // Be sure count of visible item is odd number
         if (mVisibleItemCount % 2 == 0)
             mVisibleItemCount += 1;
         mDrawnItemCount = mVisibleItemCount + 2;

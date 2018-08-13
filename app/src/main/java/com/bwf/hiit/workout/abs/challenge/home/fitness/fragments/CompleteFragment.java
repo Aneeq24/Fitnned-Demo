@@ -1,13 +1,16 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -39,12 +42,17 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class CompleteFragment extends Fragment {
 
     String[] titles = {"S", "M", "T", "W", "T", "F", "S", "S", "M", "T", "W", "T", "F", "S"};
     int[] date = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
+
+    private static TextView tvTime;
+
     Toolbar toolbar;
     TextView tvExerciseNo;
     TextView tvTotalTime;
@@ -55,9 +63,7 @@ public class CompleteFragment extends Fragment {
     RelativeLayout btnMore;
     Context context;
     GraphView graph;
-    RecyclerView rvHistory;
     PlayingExercise playingExercise;
-
     Record record;
     List<Record> recordList;
     User user, updateUser;
@@ -75,36 +81,40 @@ public class CompleteFragment extends Fragment {
         tvBmi = view.findViewById(R.id.tv_bmi);
         btnEditBmi = view.findViewById(R.id.btn_edit_bmi);
         graph = view.findViewById(R.id.graph);
-        rvHistory = view.findViewById(R.id.rv_days);
         btnAddReminder = view.findViewById(R.id.btn_add_reminder);
         btnMore = view.findViewById(R.id.btn_more);
+        tvTime = view.findViewById(R.id.tv_reminder);
 
         context = getContext();
         record = new Record();
         updateUser = new User();
 
+        if (!SharedPrefHelper.readBoolean(context, "rate")) {
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    TTSManager.getInstance(playingExercise.getApplication()).play("If You Like Our Workout App Please Do Rate Us At The End Of This Workout");
+                }
+            }, 5000);
+        }
+
         playingExercise = (PlayingExercise) getActivity();
         assert playingExercise != null;
 
-        tvBmi.setText(String.valueOf(SharedPrefHelper.readInteger(context, "bmi")));
-
         TTSManager.getInstance(getActivity().getApplication()).play(" Well Done. This is end of day " + playingExercise.currentDay + "of your training");
-        AnalyticsManager.getInstance().sendAnalytics("workout_complete", "day " + playingExercise.currentDay);
-        int minutes = (playingExercise.totaTimeSpend % 3600) / 60;
+        AnalyticsManager.getInstance().sendAnalytics("day " + playingExercise.currentDay,"workout_complete");
 
-        playingExercise.exerciseDays.get(playingExercise.currentExercise).setStatus(true);
         playingExercise.exerciseDays.get(playingExercise.currentExercise).setTotalKcal(SharedPrefHelper.readInteger(context, "kcal"));
-        @SuppressLint("DefaultLocale") String timeString = String.format("%02d", minutes);
+        playingExercise.exerciseDays.get(playingExercise.currentExercise).setStatus(true);
 
+        int minutes = (playingExercise.totaTimeSpend % 3600) / 60;
+        @SuppressLint("DefaultLocale") String timeString = String.format("%02d", minutes);
         tvTotalTime.setText(timeString);
 
         record.setWeight(playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
+        record.setType(getPlanName());
 
-        if (SharedPrefHelper.readInteger(context, "bmi") != 0)
-            tvBmi.setText(String.valueOf(SharedPrefHelper.readInteger(context, "bmi")) + bmiCategory(SharedPrefHelper.readInteger(context, "bmi")));
-
-        String kcal = String.valueOf(playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
-        tvKcal.setText(kcal);
+        tvKcal.setText(String.valueOf(playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal()));
         SharedPrefHelper.writeInteger(context, "kcal", 0);
 
         toolbar.setNavigationOnClickListener(view1 -> {
@@ -115,8 +125,7 @@ public class CompleteFragment extends Fragment {
         });
 
         btnEditBmi.setOnClickListener(view12 -> showDialog());
-
-        btnAddReminder.setOnClickListener(view12 -> startActivity(new Intent(context, ConfirmReminderActivity.class)));
+        btnAddReminder.setOnClickListener(view12 -> startActivity(new Intent(context, ConfirmReminderActivity.class).putExtra("up", true)));
         btnMore.setOnClickListener(view12 -> startActivity(new Intent(context, CalenderActivity.class)));
 
         if (AdsManager.getInstance().isFacebookInterstitalLoaded())
@@ -124,19 +133,42 @@ public class CompleteFragment extends Fragment {
         else
             AdsManager.getInstance().showInterstitialAd();
 
-        setDaysData();
+        setReminder(context);
+
+        setDaysData(view);
 
         new getUserRecords().execute();
 
         return view;
     }
 
-    private void setDaysData() {
+    public static void setReminder(Context context) {
+        int hour = SharedPrefHelper.readInteger(context, context.getString(R.string.hour));
+        int min = SharedPrefHelper.readInteger(context, context.getString(R.string.minute));
+        @SuppressLint("DefaultLocale") String time = String.format("%02d:%02d", hour, min);
+        tvTime.setText(time);
+    }
+
+    private void setDaysData(View view) {
+        RecyclerView rvHistory = view.findViewById(R.id.rv_days);
         DayAdapter mAdapter = new DayAdapter(titles, date);
         rvHistory.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         rvHistory.setAdapter(mAdapter);
     }
 
+    private String getPlanName() {
+        int i = playingExercise.currentPlan - 1;
+        switch (i) {
+            case 0:
+                return "Beginner";
+            case 1:
+                return "Intermediate";
+            case 2:
+                return "Advanced";
+            default:
+                return "";
+        }
+    }
 
     EditText edtWeight;
     EditText edtCm;
@@ -155,7 +187,7 @@ public class CompleteFragment extends Fragment {
     float bmi;
 
     @SuppressLint("SetTextI18n")
-    public void showDialog() {
+    private void showDialog() {
 
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .title("BMI Calculator")
@@ -269,6 +301,7 @@ public class CompleteFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            setRateAppDialog(context);
             super.onPostExecute(aVoid);
         }
 
@@ -304,11 +337,13 @@ public class CompleteFragment extends Fragment {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void initApp() {
         float weight = user.getWeight();
         float height = user.getHeight();
         float bmi = ((weight) / (height * height)) * 703;
-        tvBmi.setText(String.valueOf((int) bmi));
+        tvBmi.setText(String.valueOf((int) bmi) + bmiCategory((int) bmi));
+
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
         for (int i = 0; i < recordList.size(); i++) {
             series.appendData(new DataPoint(recordList.get(i).getId() + 1, recordList.get(i).getWeight()), true, 30, false);
@@ -316,14 +351,15 @@ public class CompleteFragment extends Fragment {
         series.setColor(Color.BLUE);
         graph.addSeries(series);
         graph.setCursorMode(true);
+
         updateUser = user;
         updateUser.setTotalExcercise(user.getTotalExcercise() + Integer.parseInt(tvExerciseNo.getText().toString()));
         updateUser.setTotalKcal(user.getTotalKcal() + Integer.parseInt(tvKcal.getText().toString()));
         updateUser.setTotalTime(user.getTotalTime() + Integer.parseInt(tvTotalTime.getText().toString()));
-        if (playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal() > 0) {
-            tvExerciseNo.setText(String.valueOf((playingExercise.totalExercisesPlayed + 1)));
-            new setUserRecord().execute();
-        }
+
+        tvExerciseNo.setText(String.valueOf((playingExercise.totalExercisesPlayed + 1)));
+        new setUserRecord().execute();
+
     }
 
     private String bmiCategory(int bmi) {
@@ -336,6 +372,33 @@ public class CompleteFragment extends Fragment {
         else if (bmi > 30)
             return " - Heavily Over Weight";
         else return null;
+    }
+
+    public void setRateAppDialog(Context context) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+        alertDialogBuilder.setTitle(context.getString(R.string.app_name));
+
+        alertDialogBuilder
+                .setMessage("Do you want to Rate us?")
+                .setCancelable(false)
+                .setPositiveButton("YES", (dialog, id) -> {
+                    dialog.cancel();
+                    onRateUs(context);
+                }).setNegativeButton("NO", (dialog, id) -> {
+            dialog.cancel();
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private void onRateUs(Context context) {
+        SharedPrefHelper.writeBoolean(context, "rate", true);
+        try {
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
+        } catch (ActivityNotFoundException anfe) {
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
+        }
     }
 
 }

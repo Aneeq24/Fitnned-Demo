@@ -31,9 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
-
-    </android.support.v7.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"/>
 
 
     <ImageView
@@ -73,16 +71,6 @@
         app:layout_constraintEnd_toEndOf="@+id/startButton"
         app:layout_constraintStart_toStartOf="@+id/startButton"
         app:layout_constraintTop_toTopOf="@+id/startButton" />
-
-    <!--<ImageView-->
-    <!--android:id="@+id/imageView"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="61dp"-->
-    <!--android:scaleType="fitXY"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent"-->
-    <!--app:srcCompat="@drawable/main_screen_headline_example_image_bar_bg" />-->
 
     <TextView
         android:id="@+id/textView9"

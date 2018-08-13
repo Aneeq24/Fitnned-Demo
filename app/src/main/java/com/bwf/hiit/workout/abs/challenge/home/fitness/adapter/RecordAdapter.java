@@ -31,10 +31,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MainMenuIt
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MainMenuItemHolder holder, final int position) {
-        holder.tvDate.setText(String.valueOf(recordList.get(position).getId() + 1));
-        holder.tvTitle.setText("Day " + String.valueOf(recordList.get(position).getId() + 1) + " - Intermediate");
+        holder.tvDay.setText(recordList.get(position).getDay());
+        holder.tvTitle.setText("Day " + String.valueOf(recordList.get(position).getId()) + " - " + recordList.get(position).getType());
         holder.tvWeight.setText(String.valueOf(recordList.get(position).getWeight()));
-
+        holder.tvDate.setText(recordList.get(position).getDate());
     }
 
     @Override
@@ -46,13 +46,15 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MainMenuIt
 
         TextView tvTitle;
         TextView tvWeight;
+        TextView tvDay;
         TextView tvDate;
 
         MainMenuItemHolder(View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tv_title);
             tvWeight = itemView.findViewById(R.id.tv_weight);
-            tvDate = itemView.findViewById(R.id.date);
+            tvDay = itemView.findViewById(R.id.tv_day);
+            tvDate = itemView.findViewById(R.id.tv_date);
         }
     }
 

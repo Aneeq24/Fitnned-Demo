@@ -71,6 +71,7 @@ public class PlayingExercise extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playing_exercise);
 
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         fragmentManager = getSupportFragmentManager();
@@ -95,13 +96,14 @@ public class PlayingExercise extends AppCompatActivity {
                 for (ExerciseDay day : exerciseDays) {
                     if (day.isStatus())
                         day.setStatus(false);
-                    totaTimeSpend = totaTimeSpend + day.getReps();
+                    totaTimeSpend = totaTimeSpend + day.getReps() + day.getDelay();
                 }
                 totaTimeSpend = totaTimeSpend * exerciseDays.get(0).getRounds();
 //                exerciseDays.get(0).setExerciseComplete(exerciseDays.get(0).getExerciseComplete());
 //                exerciseDays.get(0).setRoundCompleted(exerciseDays.get(0).getRoundCompleted());
                 exerciseDays.get(0).setExerciseComplete(0);
                 exerciseDays.get(0).setRoundCompleted(0);
+
                 new InsetData().execute();
 
                 totalExercisePerRound = exerciseDays.size();
@@ -177,9 +179,7 @@ public class PlayingExercise extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        //TODO Analytics
         AnalyticsManager.getInstance().sendAnalytics("Exercise Screen End", "Plan " + currentPlan + " Day " + currentDay + " Total Exercises " + totalExercises + " Total Exercises Done " + totalExercisesPlayed);
-
         resetStaticPauseValues();
     }
 
@@ -252,7 +252,7 @@ public class PlayingExercise extends AppCompatActivity {
                         if (currentRound != 3)
                             TTSManager.getInstance(getApplication()).play("This is end of Round " + currentRound +
                                     "You have" + (exerciseDays.get(0).getRounds() - currentRound) + "round remaining");
-                        AnalyticsManager.getInstance().sendAnalytics("round_complete" + currentRound, "plan " + currentPlan + "day " + currentDay);
+                        AnalyticsManager.getInstance().sendAnalytics("plan " + currentPlan + "day " + currentDay, "round_complete" + currentRound);
                     }
                 }.start();
 
@@ -283,7 +283,6 @@ public class PlayingExercise extends AppCompatActivity {
             exerciseDays.get(0).setRoundCompleted(currentRound);
             fragmentTransaction.add(R.id.fragment_container, completeFragment, null);
 
-            //TODO Analytics
             AnalyticsManager.getInstance().sendAnalytics("complete_all_exercises", "plan " + currentPlan + "day " + currentDay);
 
             iscomplete = true;

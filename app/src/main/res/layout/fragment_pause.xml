@@ -5,18 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".fragments.PauseFragment"
     android:background="@drawable/enter_you_numbers_bg"
-    >
-
-    <!-- TODO: Update blank fragment layout -->
-
+    tools:context=".fragments.PauseFragment">
 
     <ImageView
         android:id="@+id/pauseBgButtonPanel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginBottom="8dp"
         android:background="@drawable/pause_screen_image_bg"
         app:layout_constraintBottom_toTopOf="@+id/nextScreenBg"
@@ -116,9 +111,9 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="64dp"
         android:layout_marginStart="64dp"
-        android:visibility="gone"
         android:layout_marginTop="8dp"
         android:src="@drawable/pause_screen_forword_icon"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/pauseBgButtonPanel"
         app:layout_constraintStart_toStartOf="@+id/pauseBgButtonPanel"
         app:layout_constraintTop_toTopOf="@+id/pauseBgButtonPanel"
@@ -131,9 +126,9 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="64dp"
         android:layout_marginRight="64dp"
-        android:visibility="gone"
         android:layout_marginTop="8dp"
         android:src="@drawable/pause_screen_next_icon"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/pauseBgButtonPanel"
         app:layout_constraintEnd_toEndOf="@+id/pauseBgButtonPanel"
         app:layout_constraintTop_toTopOf="@+id/pauseBgButtonPanel" />

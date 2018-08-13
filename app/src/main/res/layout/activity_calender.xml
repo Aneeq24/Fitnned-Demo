@@ -21,7 +21,7 @@
             app:title="Record"
             app:titleTextColor="#ffff" />
 
-        <com.applandeo.materialcalendarview.CalendarView
+        <com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.CalendarView
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="330dp"
@@ -34,8 +34,9 @@
             app:pagesColor="#ffff"
             app:selectionColor="#00aeef"
             app:selectionLabelColor="#ffff"
+            android:clickable="false"
             app:todayLabelColor="#1afa0a"
-            app:type="many_days_picker"/>
+            app:type="one_day_picker" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_records"

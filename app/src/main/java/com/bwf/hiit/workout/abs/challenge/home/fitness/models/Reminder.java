@@ -10,6 +10,8 @@ public class Reminder implements Serializable {
 
     @PrimaryKey
     private int id;
+    private int hour;
+    private int min;
     private boolean isSunday;
     private boolean isMonday;
     private boolean isTuesday;
@@ -25,6 +27,22 @@ public class Reminder implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getHour() {
+        return hour;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public void setMin(int min) {
+        this.min = min;
     }
 
     public boolean isSunday() {

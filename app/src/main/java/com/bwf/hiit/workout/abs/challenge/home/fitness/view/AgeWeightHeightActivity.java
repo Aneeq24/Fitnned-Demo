@@ -9,7 +9,6 @@ import android.view.View;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets.MyWheelPicker;
 
@@ -31,20 +30,15 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
     MyWheelPicker numInches;
     @BindView(R.id.num_weight)
     MyWheelPicker numWeight;
-
     User user;
-    Record record;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_age_weight_height);
         ButterKnife.bind(this);
-
         user = new User();
-        record = new Record();
         user.setId(1);
-
         setNumbers();
     }
 
@@ -53,11 +47,9 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.nextButtonNumberScreen:
                 user.setAge(numAge.getValue());
-                record.setWeight(numWeight.getValue());
                 float height = (float) ((numFeet.getValue() * 12) + numInches.getValue());
                 user.setHeight(height);
                 user.setWeight((float) numWeight.getValue());
-                new setUserGender().execute();
                 startNewActivity();
                 break;
             case R.id.btn_skip:
@@ -86,6 +78,7 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
     }
 
     private void startNewActivity() {
+        new setUserGender().execute();
         startActivity(new Intent(getApplicationContext(), ReminderSetActivity.class));
         finish();
     }
@@ -99,13 +92,7 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-
-            AppDataBase appDataBase = AppDataBase.getInstance();
-
-            if (appDataBase != null)
-                appDataBase.userdao().updateUser(user);
-            if (appDataBase != null)
-                appDataBase.recorddao().insertAll(record);
+            AppDataBase.getInstance().userdao().updateUser(user);
             return null;
         }
 

@@ -121,32 +121,6 @@ public class Utils {
         }
     }
 
-    public static void setRateAppDialog(Context context) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-
-        alertDialogBuilder.setTitle(context.getString(R.string.app_name));
-
-        alertDialogBuilder
-                .setMessage("Do you want to Rate us?")
-                .setCancelable(false)
-                .setPositiveButton("YES", (dialog, id) -> {
-                    dialog.cancel();
-                    onRateUs(context);
-                }).setNegativeButton("NO", (dialog, id) -> {
-            dialog.cancel();
-        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
-
-    private static void onRateUs(Context context) {
-        SharedPrefHelper.writeBoolean(context, "rate", true);
-        try {
-            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
-        } catch (ActivityNotFoundException anfe) {
-            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
-        }
-    }
 
 
 }

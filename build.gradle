@@ -8,9 +8,6 @@ buildscript {
         mavenCentral()
         maven { url 'https://jitpack.io' }
         maven { url 'https://maven.fabric.io/public' }
-        maven {
-            url 'https://maven.fabric.io/public'
-        }
     }
     dependencies {
 
@@ -32,9 +29,6 @@ allprojects {
         mavenCentral()
         maven { url 'https://jitpack.io' }
         maven { url 'https://maven.google.com/' }
-        maven {
-            url 'https://maven.google.com/'
-        }
     }
 }
 task clean(type: Delete) {

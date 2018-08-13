@@ -24,7 +24,6 @@ import java.util.Objects;
 
 public class ScrollingActivity extends AppCompatActivity {
 
-
     int val = 0;
     int plan = 0;
     boolean paused;
@@ -182,8 +181,11 @@ public class ScrollingActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (paused)
+        if (paused) {
+            val = 0;
+            populateData();
             dayRecycleAdapter.resetAdapter(dataModelsWorkout);
+        }
     }
 
     private String getPlanName() {

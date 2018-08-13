@@ -22,7 +22,6 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.dinuscxj.progressbar.CircleProgressBar;
-import com.google.android.gms.ads.AdView;
 
 import java.util.Objects;
 
@@ -50,9 +49,6 @@ public class ExerciseFragment extends Fragment {
 
     ImageView soundButton_B;
 
-    AdView adView;
-
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,8 +68,10 @@ public class ExerciseFragment extends Fragment {
         exerciseName = rootView.findViewById(R.id.tv_exerciseName_Playing);
         soundButton_B = rootView.findViewById(R.id.ef_soundFragment);
         playingExerciseCircle = rootView.findViewById(R.id.playingExericseCircle);
-        playingExerciseCircle.setProgressFormatter((progress, max) -> progress + "\"");
+        com.google.android.gms.ads.AdView adView = rootView.findViewById(R.id.baner_Admob);
+        AdsManager.getInstance().showBanner(adView);
 
+        playingExerciseCircle.setProgressFormatter((progress, max) -> progress + "\"");
         playingExerciseCircle.setOnClickListener(view -> pause());
 
         soundButton_B.setOnClickListener(view -> soundButton());
@@ -88,7 +86,6 @@ public class ExerciseFragment extends Fragment {
 
     private void soundButton() {
 
-        AdsManager.getInstance().showBanner(adView);
 
         if (soundValue > 0) {
             soundValue = 0;
@@ -108,8 +105,6 @@ public class ExerciseFragment extends Fragment {
     }
 
     private void findRefrence() {
-
-        AdsManager.getInstance().showBanner(adView);
 
         if (soundValue > 0)
             soundButton_B.setImageResource(R.drawable.play_screen_sound_off_btn);

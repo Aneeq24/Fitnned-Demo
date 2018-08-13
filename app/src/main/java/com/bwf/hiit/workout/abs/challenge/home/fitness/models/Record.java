@@ -1,9 +1,12 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.models;
 
+import android.annotation.SuppressLint;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-import com.google.gson.annotations.SerializedName;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 public class Record {
@@ -12,6 +15,17 @@ public class Record {
     private int id;
 
     private int weight;
+
+    private String day;
+
+    private String date;
+
+    private String type;
+
+    public Record() {
+        setDay(getCurrentDay());
+        setDate(getCurrentDate());
+    }
 
     public int getId() {
         return id;
@@ -28,4 +42,41 @@ public class Record {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    private String getCurrentDate() {
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd - MMM - yy");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    private String getCurrentDay() {
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
 }

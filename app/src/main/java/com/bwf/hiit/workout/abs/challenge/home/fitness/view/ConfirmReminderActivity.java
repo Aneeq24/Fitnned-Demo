@@ -35,6 +35,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.CompleteFragment.setReminder;
+
 public class ConfirmReminderActivity extends AppCompatActivity {
 
     String[] day = {"Sun,", "Mon,", "Tue,", "Wed,", "Thu,", "Fri,", "Sat"};
@@ -71,7 +73,7 @@ public class ConfirmReminderActivity extends AppCompatActivity {
 
         int hour = SharedPrefHelper.readInteger(context, getString(R.string.hour));
         int min = SharedPrefHelper.readInteger(context, getString(R.string.minute));
-        @SuppressLint("DefaultLocale") String timeString = String.format("%02d:%02d",hour, min);
+        @SuppressLint("DefaultLocale") String timeString = String.format("%02d:%02d", hour, min);
         txtTime.setText(timeString);
 
         btnAddReminder.setOnCheckedChangeListener((compoundButton, b) -> {
@@ -81,10 +83,13 @@ public class ConfirmReminderActivity extends AppCompatActivity {
                 SharedPrefHelper.writeBoolean(context, "reminder", false);
         });
 
-        toolbar.setNavigationOnClickListener(view -> finish());
+        toolbar.setNavigationOnClickListener(view -> {
+            if (getIntent().hasExtra("up"))
+                setReminder(context);
+            finish();
+        });
 
         LinearLayout fbNative = findViewById(R.id.fbNative);
-
         AdsManager.getInstance().showFacebookNativeAd(Application.getContext(), fbNative, null);
 
     }
@@ -163,12 +168,12 @@ public class ConfirmReminderActivity extends AppCompatActivity {
     private void selectTime() {
         Calendar now = Calendar.getInstance();
         TimePickerDialog dialog = new TimePickerDialog(context, (timePicker, hour, min) -> {
-            @SuppressLint("DefaultLocale") String timeString = String.format("%02d:%02d",hour, min);
+            @SuppressLint("DefaultLocale") String timeString = String.format("%02d:%02d", hour, min);
             txtTime.setText(timeString);
             Calendar calNow = Calendar.getInstance();
             Calendar calSet = (Calendar) calNow.clone();
 
-            calSet.set(Calendar.HOUR_OF_DAY,hour);
+            calSet.set(Calendar.HOUR_OF_DAY, hour);
             calSet.set(Calendar.MINUTE, min);
             calSet.set(Calendar.SECOND, 0);
             calSet.set(Calendar.MILLISECOND, 0);

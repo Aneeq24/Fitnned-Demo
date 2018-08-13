@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class RecordActivity extends AppCompatActivity {
 
@@ -43,13 +42,12 @@ public class RecordActivity extends AppCompatActivity {
     Toolbar toolbar;
     Context context;
     GraphView graph;
-    RecyclerView rvHistory;
     TextView tvExerciseNo;
     TextView tvTotalTime;
     TextView tvKcal;
     TextView tvBmi;
     RelativeLayout btnEditBmi;
-
+    RelativeLayout btnMore;
     List<Record> recordList;
     User user;
 
@@ -63,12 +61,12 @@ public class RecordActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar10);
         graph = findViewById(R.id.graph);
-        rvHistory = findViewById(R.id.rv_days);
         tvExerciseNo = findViewById(R.id.cf_exerciseNo);
         tvTotalTime = findViewById(R.id.cf_totalTime);
         tvKcal = findViewById(R.id.textView17);
         tvBmi = findViewById(R.id.tv_bmi);
         btnEditBmi = findViewById(R.id.btn_edit_bmi);
+        btnMore = findViewById(R.id.btn_more);
 
         AnalyticsManager.getInstance().sendAnalytics("Recored_activity", "Recored_activity_started");
 
@@ -82,19 +80,16 @@ public class RecordActivity extends AppCompatActivity {
             AdsManager.getInstance().showInterstitialAd();
 
         btnEditBmi.setOnClickListener(view12 -> showDialog());
+        btnMore.setOnClickListener(view12 -> startActivity(new Intent(context, CalenderActivity.class)));
 
         new getUserRecords().execute();
     }
 
     private void setDaysData() {
+        RecyclerView rvHistory = findViewById(R.id.rv_days);
         DayAdapter mAdapter = new DayAdapter(titles, date);
         rvHistory.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         rvHistory.setAdapter(mAdapter);
-    }
-
-    @OnClick(R.id.btn_more)
-    public void onViewClicked() {
-        startActivity(new Intent(context, CalenderActivity.class));
     }
 
     EditText edtWeight;
@@ -114,7 +109,7 @@ public class RecordActivity extends AppCompatActivity {
     float bmi;
 
     @SuppressLint("SetTextI18n")
-    public void showDialog() {
+    private void showDialog() {
 
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .title("BMI Calculator")
@@ -259,12 +254,27 @@ public class RecordActivity extends AppCompatActivity {
         tvExerciseNo.setText(String.valueOf(user.getTotalExcercise()) + "\nExercise");
         tvKcal.setText(String.valueOf(user.getTotalKcal()) + "\nKcal");
         tvTotalTime.setText(String.valueOf(user.getTotalTime()) + "\nMins");
+
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
         for (int i = 0; i < recordList.size(); i++) {
             series.appendData(new DataPoint(recordList.get(i).getId() + 1, recordList.get(i).getWeight()), true, 30, false);
         }
+
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Days");
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Kcal");
+
+        // set manual Y bounds
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setMinY(150);
+        graph.getViewport().setMaxY(250);
+        // set manual X bounds
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setMinX(1);
+        graph.getViewport().setMaxX(30);
+
         series.setColor(Color.BLUE);
         graph.addSeries(series);
         graph.setCursorMode(true);
+
     }
 }

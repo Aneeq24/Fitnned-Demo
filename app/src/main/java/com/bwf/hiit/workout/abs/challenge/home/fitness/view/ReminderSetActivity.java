@@ -1,11 +1,14 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AlarmManager;
@@ -68,10 +71,6 @@ public class ReminderSetActivity extends AppCompatActivity {
                 calSet.set(Calendar.SECOND, 0);
                 calSet.set(Calendar.MILLISECOND, 0);
 
-//                if (calSet.compareTo(calNow) <= 0) {
-//                    // Today Set time passed, count to tomorrow
-////                    calSet.add(Calendar.DATE, 1);
-//                }
                 SharedPrefHelper.writeInteger(getApplicationContext(), getString(R.string.hour), numHour.getValue());
                 SharedPrefHelper.writeInteger(getApplicationContext(), getString(R.string.minute), numMin.getValue());
                 SharedPrefHelper.writeBoolean(getApplicationContext(), "reminder", true);
@@ -81,6 +80,29 @@ public class ReminderSetActivity extends AppCompatActivity {
             case R.id.btn_skip:
                 startNewActivity();
                 break;
+        }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private class setUserGender extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
         }
     }
 

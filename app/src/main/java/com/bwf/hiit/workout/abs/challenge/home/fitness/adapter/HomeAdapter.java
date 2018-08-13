@@ -60,7 +60,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MainMenuItemHo
         }
 
         holder.imgBackground.setOnClickListener(view -> setOnClick(view,position));
-
         holder.imgStart.setOnClickListener(view -> setOnClick(view,position));
 
     }

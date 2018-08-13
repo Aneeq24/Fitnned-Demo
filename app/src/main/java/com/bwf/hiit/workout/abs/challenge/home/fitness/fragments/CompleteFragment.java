@@ -348,6 +348,18 @@ public class CompleteFragment extends Fragment {
         for (int i = 0; i < recordList.size(); i++) {
             series.appendData(new DataPoint(recordList.get(i).getId() + 1, recordList.get(i).getWeight()), true, 30, false);
         }
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Days");
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Kcal");
+
+        // set manual Y bounds
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setMinY(150);
+        graph.getViewport().setMaxY(250);
+        // set manual X bounds
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setMinX(1);
+        graph.getViewport().setMaxX(30);
+
         series.setColor(Color.BLUE);
         graph.addSeries(series);
         graph.setCursorMode(true);

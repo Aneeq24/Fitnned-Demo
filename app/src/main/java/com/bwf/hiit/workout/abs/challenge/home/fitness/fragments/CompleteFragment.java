@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -318,7 +320,9 @@ public class CompleteFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            initApp();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                initApp();
+            }
             super.onPostExecute(aVoid);
         }
 
@@ -328,6 +332,7 @@ public class CompleteFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint("SetTextI18n")
     private void initApp() {
         float weight = user.getWeight();
@@ -339,16 +344,23 @@ public class CompleteFragment extends Fragment {
         for (int i = 0; i < recordList.size(); i++) {
             series.appendData(new DataPoint(recordList.get(i).getId() + 1, recordList.get(i).getWeight()), true, 30, false);
         }
-        graph.getGridLabelRenderer().setHorizontalAxisTitle("Month");
-        graph.getGridLabelRenderer().setVerticalAxisTitle("Pounds");
+
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("AUG");
+        graph.getGridLabelRenderer().setVerticalAxisTitle("lbs");
+        graph.getGridLabelRenderer().setPadding(1);
+        graph.getGridLabelRenderer().setGridColor(context.getColor(R.color.colorDarkGray));
+        graph.getGridLabelRenderer().setHorizontalLabelsColor(context.getColor(R.color.colorDarkGray));
+        graph.getGridLabelRenderer().setHorizontalAxisTitleColor(context.getColor(R.color.colorAccent));
+        graph.getGridLabelRenderer().setVerticalLabelsColor(context.getColor(R.color.colorDarkGray));
+        graph.getGridLabelRenderer().setVerticalAxisTitleColor(context.getColor(R.color.colorAccent));
 
         // set manual Y bounds
         graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setMinY(0);
-        graph.getViewport().setMaxY(250);
+        graph.getViewport().setMinY(150);
+        graph.getViewport().setMaxY(255);
         // set manual X bounds
         graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMinX(0);
+        graph.getViewport().setMinX(1);
         graph.getViewport().setMaxX(31);
 
         series.setColor(Color.BLUE);

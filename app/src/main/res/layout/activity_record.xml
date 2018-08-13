@@ -196,7 +196,9 @@
             android:layout_marginRight="8dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/days_screen_days_normal_bar"
-            android:paddingBottom="30dp">
+            android:paddingBottom="20dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -210,8 +212,9 @@
             <com.jjoe64.graphview.GraphView
                 android:id="@+id/graph"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_marginTop="40dp" />
+                android:layout_height="350dp"
+                android:layout_marginTop="40dp"
+                android:paddingBottom="10dp" />
 
         </RelativeLayout>
 

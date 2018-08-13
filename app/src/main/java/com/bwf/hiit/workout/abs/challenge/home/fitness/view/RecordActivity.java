@@ -265,22 +265,22 @@ public class RecordActivity extends AppCompatActivity {
             series.appendData(new DataPoint(recordList.get(i).getId() + 1, recordList.get(i).getWeight()), true, 5, false);
         }
 
-        graph.getGridLabelRenderer().setHorizontalAxisTitle("Aug");
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("AUG");
         graph.getGridLabelRenderer().setVerticalAxisTitle("lbs");
         graph.getGridLabelRenderer().setPadding(1);
         graph.getGridLabelRenderer().setGridColor(getColor(R.color.colorDarkGray));
         graph.getGridLabelRenderer().setHorizontalLabelsColor(getColor(R.color.colorDarkGray));
-        graph.getGridLabelRenderer().setHorizontalAxisTitleColor(getColor(R.color.colorDarkGray));
+        graph.getGridLabelRenderer().setHorizontalAxisTitleColor(getColor(R.color.colorAccent));
         graph.getGridLabelRenderer().setVerticalLabelsColor(getColor(R.color.colorDarkGray));
-        graph.getGridLabelRenderer().setVerticalAxisTitleColor(getColor(R.color.colorDarkGray));
+        graph.getGridLabelRenderer().setVerticalAxisTitleColor(getColor(R.color.colorAccent));
 
         // set manual Y bounds
         graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setMinY(0);
+        graph.getViewport().setMinY(150);
         graph.getViewport().setMaxY(255);
         // set manual X bounds
         graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMinX(0);
+        graph.getViewport().setMinX(1);
         graph.getViewport().setMaxX(31);
 
         series.setColor(Color.BLUE);

@@ -62,6 +62,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_home);
         context = this;
         paused = false;
+
+        if (AdsManager.getInstance().isFacebookInterstitalLoaded())
+            AdsManager.getInstance().showFacebookInterstitialAd();
+        else
+            AdsManager.getInstance().showInterstitialAd();
+
+        AnalyticsManager.getInstance().sendAnalytics("activity_started", "plan_screen_activity");
+
+
         workOut = findViewById(R.id.workout_record);
         reminder = findViewById(R.id.reminder);
         feedback = findViewById(R.id.feedback);
@@ -81,13 +90,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         consentInformation = ConsentInformation.getInstance(this);
         requestGoogleConsentForm(true);
-
-        if (AdsManager.getInstance().isFacebookInterstitalLoaded())
-            AdsManager.getInstance().showFacebookInterstitialAd();
-        else
-            AdsManager.getInstance().showInterstitialAd();
-
-        AnalyticsManager.getInstance().sendAnalytics("activity_started", "plan_screen_activity");
 
         try {
             initApp();

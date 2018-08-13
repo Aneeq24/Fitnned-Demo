@@ -133,7 +133,7 @@ public class NextFragment extends Fragment {
                 int id = getResources().getIdentifier("clock", "raw", context.getPackageName());
 
                 if (currentRestTime == 30)
-                    TTSManager.getInstance(playingExercise.getApplication()).play("You have 30 sec remaining");
+                    TTSManager.getInstance(playingExercise.getApplication()).play("You have 30 sec remaining If You Like Our Workout App Please Do Rate Us At The End Of This Workout");
 
                 if (currentRestTime > 3)
                     Utils.playAudio(context, id);

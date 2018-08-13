@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -235,7 +237,9 @@ public class RecordActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            initApp();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                initApp();
+            }
             super.onPostExecute(aVoid);
         }
 
@@ -245,6 +249,7 @@ public class RecordActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint("SetTextI18n")
     private void initApp() {
         float weight = user.getWeight();
@@ -257,20 +262,26 @@ public class RecordActivity extends AppCompatActivity {
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
         for (int i = 0; i < recordList.size(); i++) {
-            series.appendData(new DataPoint(recordList.get(i).getId() + 1, recordList.get(i).getWeight()), true, 30, false);
+            series.appendData(new DataPoint(recordList.get(i).getId() + 1, recordList.get(i).getWeight()), true, 5, false);
         }
 
-        graph.getGridLabelRenderer().setHorizontalAxisTitle("Days");
-        graph.getGridLabelRenderer().setVerticalAxisTitle("Kcal");
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Aug");
+        graph.getGridLabelRenderer().setVerticalAxisTitle("lbs");
+        graph.getGridLabelRenderer().setPadding(1);
+        graph.getGridLabelRenderer().setGridColor(getColor(R.color.colorDarkGray));
+        graph.getGridLabelRenderer().setHorizontalLabelsColor(getColor(R.color.colorDarkGray));
+        graph.getGridLabelRenderer().setHorizontalAxisTitleColor(getColor(R.color.colorDarkGray));
+        graph.getGridLabelRenderer().setVerticalLabelsColor(getColor(R.color.colorDarkGray));
+        graph.getGridLabelRenderer().setVerticalAxisTitleColor(getColor(R.color.colorDarkGray));
 
         // set manual Y bounds
         graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setMinY(150);
-        graph.getViewport().setMaxY(250);
+        graph.getViewport().setMinY(0);
+        graph.getViewport().setMaxY(255);
         // set manual X bounds
         graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMinX(1);
-        graph.getViewport().setMaxX(30);
+        graph.getViewport().setMinX(0);
+        graph.getViewport().setMaxX(31);
 
         series.setColor(Color.BLUE);
         graph.addSeries(series);

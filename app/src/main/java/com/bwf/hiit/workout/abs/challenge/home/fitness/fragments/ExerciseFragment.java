@@ -23,6 +23,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.dinuscxj.progressbar.CircleProgressBar;
 
+
 import java.util.Objects;
 
 
@@ -85,8 +86,6 @@ public class ExerciseFragment extends Fragment {
     }
 
     private void soundButton() {
-
-
         if (soundValue > 0) {
             soundValue = 0;
             soundButton_B.setImageResource(R.drawable.play_screen_sound_on_btn);

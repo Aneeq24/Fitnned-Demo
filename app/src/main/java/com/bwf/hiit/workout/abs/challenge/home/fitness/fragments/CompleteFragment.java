@@ -89,15 +89,6 @@ public class CompleteFragment extends Fragment {
         record = new Record();
         updateUser = new User();
 
-        if (!SharedPrefHelper.readBoolean(context, "rate")) {
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    TTSManager.getInstance(playingExercise.getApplication()).play("If You Like Our Workout App Please Do Rate Us At The End Of This Workout");
-                }
-            }, 5000);
-        }
-
         playingExercise = (PlayingExercise) getActivity();
         assert playingExercise != null;
 
@@ -348,17 +339,17 @@ public class CompleteFragment extends Fragment {
         for (int i = 0; i < recordList.size(); i++) {
             series.appendData(new DataPoint(recordList.get(i).getId() + 1, recordList.get(i).getWeight()), true, 30, false);
         }
-        graph.getGridLabelRenderer().setHorizontalAxisTitle("Days");
-        graph.getGridLabelRenderer().setVerticalAxisTitle("Kcal");
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Month");
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Pounds");
 
         // set manual Y bounds
         graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setMinY(150);
+        graph.getViewport().setMinY(0);
         graph.getViewport().setMaxY(250);
         // set manual X bounds
         graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMinX(1);
-        graph.getViewport().setMaxX(30);
+        graph.getViewport().setMinX(0);
+        graph.getViewport().setMaxX(31);
 
         series.setColor(Color.BLUE);
         graph.addSeries(series);

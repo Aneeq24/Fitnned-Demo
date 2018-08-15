@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,9 +7,8 @@
     android:background="#dedede"
     tools:context=".view.DailyExerciseInfo">
 
-
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar2"
+        android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
@@ -22,7 +19,7 @@
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/dailyExercise_RecyclerView"
+        android:id="@+id/rv_dailyExercise"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -31,46 +28,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"/>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
 
-    <ImageView
-        android:id="@+id/startButton1"
-        android:layout_width="0dp"
-        android:layout_height="61dp"
-        android:alpha="0"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/main_screen_headline_example_image_bar_bg" />
-
-    <ImageView
+    <Button
         android:id="@+id/startButton"
         android:layout_width="337dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/baner_Admob"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/btn" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:background="@drawable/btn"
         android:text="START"
         android:textColor="@android:color/background_light"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:fontFamily="@font/roboto_black"
-        app:layout_constraintBottom_toBottomOf="@+id/startButton"
-        app:layout_constraintEnd_toEndOf="@+id/startButton"
-        app:layout_constraintStart_toStartOf="@+id/startButton"
-        app:layout_constraintTop_toTopOf="@+id/startButton" />
+        app:layout_constraintBottom_toTopOf="@+id/baner_Admob"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView9"
@@ -81,10 +52,9 @@
         android:text="EXERCISE"
         android:textColor="@android:color/background_light"
         android:textSize="24sp"
-
         android:textStyle="bold"
         app:fontFamily="@font/roboto_bold"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -116,68 +86,56 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
-            android:layout_weight="1">
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:gravity="right">
 
             <TextView
-                android:id="@+id/ei_round"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:gravity="right"
                 android:text="Rounds"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/bgExercisePanel" />
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ei_roundTextView"
+                android:id="@+id/tv_round"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:gravity="right"
                 android:text="5"
                 android:textColor="@color/colorPrimary"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/bgExercisePanel" />
+                android:textStyle="bold" />
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/exercise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="right|center"
                 android:text="Exercise"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/bgExercisePanel" />
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ei_exerciseTextView"
+                android:id="@+id/tv_exercise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
+                android:layout_marginStart="10dp"
                 android:text="5"
                 android:textColor="@color/colorPrimary"
                 android:textSize="24sp"

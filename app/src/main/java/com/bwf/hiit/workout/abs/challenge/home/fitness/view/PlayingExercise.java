@@ -125,17 +125,17 @@ public class PlayingExercise extends AppCompatActivity {
                 currentReps = time;
                 currentReps *= 1000;
                 if (currentExercise < exerciseDays.size() - 1) {
-                    nextExerciseName = dataBase.exerciseDao().findById(exerciseDays.get(currentExercise + 1).getId()).getDisplay_name();
-                    nextExerciseImage = dataBase.exerciseDao().findById(exerciseDays.get(currentExercise + 1).getId()).getName();
+                    nextExerciseName = dataBase.exerciseDao().findByIdbg(exerciseDays.get(currentExercise + 1).getId()).getDisplay_name();
+                    nextExerciseImage = dataBase.exerciseDao().findByIdbg(exerciseDays.get(currentExercise + 1).getId()).getName();
                 } else {
-                    nextExerciseName = dataBase.exerciseDao().findById(exerciseDays.get(0).getId()).getDisplay_name();
-                    nextExerciseImage = dataBase.exerciseDao().findById(exerciseDays.get(0).getId()).getName();
+                    nextExerciseName = dataBase.exerciseDao().findByIdbg(exerciseDays.get(0).getId()).getDisplay_name();
+                    nextExerciseImage = dataBase.exerciseDao().findByIdbg(exerciseDays.get(0).getId()).getName();
                 }
 
                 int exerciseId = exerciseDays.get(currentExercise).getId();
-                exerciseName = dataBase.exerciseDao().findById(exerciseId).getName();
-                displayName = dataBase.exerciseDao().findById(exerciseId).getDisplay_name();
-                exerciseKcal = (int) dataBase.exerciseDao().findById(exerciseId).getCalories();
+                exerciseName = dataBase.exerciseDao().findByIdbg(exerciseId).getName();
+                displayName = dataBase.exerciseDao().findByIdbg(exerciseId).getDisplay_name();
+                exerciseKcal = (int) dataBase.exerciseDao().findByIdbg(exerciseId).getCalories();
                 LogHelper.logD("1994:Current round", "" + currentRound);
                 LogHelper.logD("1994:Currnet day", "" + currentDay);
                 LogHelper.logD("1994:Current Exercise", "" + currentExercise);
@@ -339,8 +339,8 @@ public class PlayingExercise extends AppCompatActivity {
                 currentExercise = cE;
 
                 int exerciseId = exerciseDays.get(currentExercise).getId();
-                exerciseName = dataBase.exerciseDao().findById(exerciseId).getName();
-                displayName = dataBase.exerciseDao().findById(exerciseId).getDisplay_name();
+                exerciseName = dataBase.exerciseDao().findByIdbg(exerciseId).getName();
+                displayName = dataBase.exerciseDao().findByIdbg(exerciseId).getDisplay_name();
                 int time = exerciseDays.get(currentExercise).getReps();
 
                 LogHelper.logD("1994:", "rest : " + restTime);
@@ -349,11 +349,11 @@ public class PlayingExercise extends AppCompatActivity {
                 currentReps *= 1000;
 
                 if (currentExercise < exerciseDays.size() - 1) {
-                    nextExerciseName = dataBase.exerciseDao().findById(exerciseDays.get(currentExercise + 1).getId()).getDisplay_name();
-                    nextExerciseImage = dataBase.exerciseDao().findById(exerciseDays.get(currentExercise + 1).getId()).getName();
+                    nextExerciseName = dataBase.exerciseDao().findByIdbg(exerciseDays.get(currentExercise + 1).getId()).getDisplay_name();
+                    nextExerciseImage = dataBase.exerciseDao().findByIdbg(exerciseDays.get(currentExercise + 1).getId()).getName();
                 } else {
-                    nextExerciseName = dataBase.exerciseDao().findById(exerciseDays.get(0).getId()).getDisplay_name();
-                    nextExerciseImage = dataBase.exerciseDao().findById(exerciseDays.get(0).getId()).getName();
+                    nextExerciseName = dataBase.exerciseDao().findByIdbg(exerciseDays.get(0).getId()).getDisplay_name();
+                    nextExerciseImage = dataBase.exerciseDao().findByIdbg(exerciseDays.get(0).getId()).getName();
                 }
 
                 LogHelper.logD("1994:Current round", "" + currentRound);
@@ -409,9 +409,7 @@ public class PlayingExercise extends AppCompatActivity {
                 .setPositiveButton("YES", (dialog, id) -> {
                     dialog.cancel();
                     finish();
-                }).setNegativeButton("NO", (dialog, id) -> {
-            dialog.cancel();
-        });
+                }).setNegativeButton("NO", (dialog, id) -> dialog.cancel());
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();

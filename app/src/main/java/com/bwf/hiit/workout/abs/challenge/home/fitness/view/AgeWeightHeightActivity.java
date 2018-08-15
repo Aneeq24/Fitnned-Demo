@@ -1,15 +1,14 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
-import android.annotation.SuppressLint;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.UserViewModel;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets.MyWheelPicker;
 
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import butterknife.OnClick;
 
 public class AgeWeightHeightActivity extends AppCompatActivity {
 
-
     @BindView(R.id.num_age)
     MyWheelPicker numAge;
     @BindView(R.id.num_feet)
@@ -30,6 +28,7 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
     MyWheelPicker numInches;
     @BindView(R.id.num_weight)
     MyWheelPicker numWeight;
+    UserViewModel mViewModel;
     User user;
 
     @Override
@@ -37,6 +36,8 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_age_weight_height);
         ButterKnife.bind(this);
+        mViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+
         user = new User();
         user.setId(1);
         setNumbers();
@@ -50,6 +51,8 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
                 float height = (float) ((numFeet.getValue() * 12) + numInches.getValue());
                 user.setHeight(height);
                 user.setWeight((float) numWeight.getValue());
+                float bmi = (((float) numWeight.getValue()) / (height * height)) * 703;
+                user.setBmi((int) bmi);
                 startNewActivity();
                 break;
             case R.id.btn_skip:
@@ -78,33 +81,9 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
     }
 
     private void startNewActivity() {
-        new setUserGender().execute();
+        mViewModel.update(user);
         startActivity(new Intent(getApplicationContext(), ReminderSetActivity.class));
         finish();
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private class setUserGender extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            AppDataBase.getInstance().userdao().updateUser(user);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
     }
 
 }

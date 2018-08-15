@@ -19,7 +19,7 @@ public interface ExerciseDayDao {
     int getCount();
 
     @Query("SELECT * FROM exerciseday WHERE pid = :pid LIMIT 1")
-    ExerciseDay findByPid(int pid);
+    LiveData<ExerciseDay> findByPid(int pid);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(ExerciseDay planDay);
@@ -38,10 +38,9 @@ public interface ExerciseDayDao {
     LiveData<List<ExerciseDay>> getIncompleteExerciseDays(int planId);
 
     @Query("SELECT * FROM exerciseday WHERE planId =:planId AND dayId = :dayId")
+    LiveData<List<ExerciseDay>> getLiveExerciseDays(int planId, int dayId);
+
+    @Query("SELECT * FROM exerciseday WHERE planId =:planId AND dayId = :dayId")
     List<ExerciseDay> getExerciseDays(int planId, int dayId);
-
-    @Query("UPDATE exerciseday SET status = 0 WHERE planId = :planId")
-    void resetExerciseDays(int planId);
-
 
 }

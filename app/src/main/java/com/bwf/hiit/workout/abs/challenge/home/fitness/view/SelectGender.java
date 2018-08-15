@@ -1,19 +1,19 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
-import android.annotation.SuppressLint;
+
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.LogHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.UserViewModel;
 import com.google.android.gms.ads.AdView;
 
 import butterknife.ButterKnife;
@@ -21,6 +21,7 @@ import butterknife.OnClick;
 
 public class SelectGender extends AppCompatActivity {
 
+    UserViewModel mViewModel;
     User user;
 
     @Override
@@ -28,6 +29,8 @@ public class SelectGender extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gender);
         ButterKnife.bind(this);
+
+        mViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         user = new User();
         user.setId(1);
         AnalyticsManager.getInstance().sendAnalytics("gender_screen_started", "activity_started");
@@ -36,20 +39,6 @@ public class SelectGender extends AppCompatActivity {
         AdsManager.getInstance().showBanner(adView);
     }
 
-
-    private void setGender(String gender, int sex) {
-        user.setGender(sex);
-        SharedPrefHelper.writeString(getApplicationContext(), "gender", gender);
-        AnalyticsManager.getInstance().sendAnalytics("gender_selected", gender);
-        LogHelper.logD("1994:", "" + gender);
-        new setUserGender().execute();
-        startNewActivity();
-    }
-
-    private void startNewActivity() {
-        startActivity(new Intent(getApplicationContext(), AgeWeightHeightActivity.class));
-        finish();
-    }
 
     @OnClick({R.id.rb_male, R.id.rb_female, R.id.btn_skip})
     public void onViewClicked(View view) {
@@ -66,31 +55,16 @@ public class SelectGender extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private class setUserGender extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+    private void setGender(String gender, int sex) {
+        user.setGender(sex);
+        AnalyticsManager.getInstance().sendAnalytics("gender_selected", gender);
+        LogHelper.logD("1994:", "" + gender);
+        mViewModel.update(user);
+        startNewActivity();
+    }
 
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            AppDataBase appDataBase = AppDataBase.getInstance();
-
-            if (appDataBase != null)
-                appDataBase.userdao().updateUser(user);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
+    private void startNewActivity() {
+        startActivity(new Intent(getApplicationContext(), AgeWeightHeightActivity.class));
+        finish();
     }
 }

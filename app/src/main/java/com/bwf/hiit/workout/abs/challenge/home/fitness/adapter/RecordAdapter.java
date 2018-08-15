@@ -17,7 +17,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MainMenuIt
 
     private List<Record> recordList;
 
-    public RecordAdapter(List<Record> recordList) {
+    public void setRecordList(List<Record> recordList) {
         this.recordList = recordList;
     }
 
@@ -39,7 +39,9 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MainMenuIt
 
     @Override
     public int getItemCount() {
-        return recordList.size();
+        if (recordList != null)
+            return recordList.size();
+        else return 0;
     }
 
     class MainMenuItemHolder extends RecyclerView.ViewHolder {

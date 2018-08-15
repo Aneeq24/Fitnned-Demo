@@ -1,6 +1,7 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.models;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
@@ -23,9 +24,17 @@ public class Exercise {
     private String name;
 
     @SerializedName("display")
-    private  String display_name;
+    private String display_name;
 
-    public Exercise(int id, int unit, int lang, float calories, String name , String display_name) {
+    @Ignore
+    public Exercise(int unit, int lang, String name, String display_name) {
+        this.unit = unit;
+        this.lang = lang;
+        this.name = name;
+        this.display_name = display_name;
+    }
+
+    public Exercise(int id, int unit, int lang, float calories, String name, String display_name) {
         this.id = id;
         this.unit = unit;
         this.lang = lang;

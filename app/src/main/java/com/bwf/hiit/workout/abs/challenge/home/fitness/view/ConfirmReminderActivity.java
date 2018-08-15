@@ -2,9 +2,9 @@ package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
 import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -21,11 +21,11 @@ import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AlarmManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Reminder;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.ReminderViewModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,19 +42,18 @@ public class ConfirmReminderActivity extends AppCompatActivity {
     String[] day = {"Sun,", "Mon,", "Tue,", "Wed,", "Thu,", "Fri,", "Sat"};
 
     List<String> titles;
+    Context context;
+    Reminder reminder;
+    ReminderViewModel mViewModel;
 
     @BindView(R.id.txt_time)
     TextView txtTime;
     @BindView(R.id.rv_days)
     RecyclerView rvDays;
-
-    Context context;
     @BindView(R.id.toolbar10)
     Toolbar toolbar;
     @BindView(R.id.btn_add_reminder)
     Switch btnAddReminder;
-
-    Reminder reminder;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -62,9 +61,13 @@ public class ConfirmReminderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_reminder);
         ButterKnife.bind(this);
-        context = this;
 
-        new getUserReminder().execute();
+        context = this;
+        mViewModel = ViewModelProviders.of(this).get(ReminderViewModel.class);
+
+        LinearLayout fbNative = findViewById(R.id.fbNative);
+        AdsManager.getInstance().showFacebookNativeAd(Application.getContext(), fbNative, null);
+
 
         if (SharedPrefHelper.readBoolean(context, "reminder"))
             btnAddReminder.setChecked(true);
@@ -89,27 +92,30 @@ public class ConfirmReminderActivity extends AppCompatActivity {
             finish();
         });
 
-        LinearLayout fbNative = findViewById(R.id.fbNative);
-        AdsManager.getInstance().showFacebookNativeAd(Application.getContext(), fbNative, null);
-
+        mViewModel.getReminder().observe(this, reminder -> {
+            if (reminder != null) {
+                this.reminder = reminder;
+                getDays(reminder);
+            }
+        });
     }
 
     @OnClick({R.id.lr_repeat, R.id.txt_repeat, R.id.txt_time})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lr_repeat:
-                setDays();
+                setReminderDays();
                 break;
             case R.id.txt_repeat:
-                setDays();
+                setReminderDays();
                 break;
             case R.id.txt_time:
-                selectTime();
+                setReminderTime();
                 break;
         }
     }
 
-    private void getDays() {
+    private void getDays(Reminder reminder) {
         titles = new ArrayList<>();
         if (reminder.isSunday())
             titles.add(day[0]);
@@ -125,15 +131,11 @@ public class ConfirmReminderActivity extends AppCompatActivity {
             titles.add(day[5]);
         if (reminder.isSatday())
             titles.add(day[6]);
-    }
-
-    private void setDaysData() {
-        getDays();
         rvDays.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         rvDays.setAdapter(new DayAdapter(titles));
     }
 
-    private void setDays() {
+    private void setReminderDays() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Choose Days");
 
@@ -159,13 +161,13 @@ public class ConfirmReminderActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Done", (dialogInterface, i) -> {
-            new setUserReminder().execute();
+            mViewModel.update(reminder);
             dialog.dismiss();
         });
         dialog.show();
     }
 
-    private void selectTime() {
+    private void setReminderTime() {
         Calendar now = Calendar.getInstance();
         TimePickerDialog dialog = new TimePickerDialog(context, (timePicker, hour, min) -> {
             @SuppressLint("DefaultLocale") String timeString = String.format("%02d:%02d", hour, min);
@@ -189,7 +191,7 @@ public class ConfirmReminderActivity extends AppCompatActivity {
 
         private List<String> tilte;
 
-        DayAdapter(List<String> tilte) {
+        private DayAdapter(List<String> tilte) {
             this.tilte = tilte;
         }
 
@@ -203,12 +205,14 @@ public class ConfirmReminderActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull MainMenuItemHolder holder, final int position) {
             holder.tvTitle.setText(tilte.get(position));
-            holder.itemView.setOnClickListener(view -> setDays());
+            holder.itemView.setOnClickListener(view -> setReminderDays());
         }
 
         @Override
         public int getItemCount() {
-            return tilte.size();
+            if (tilte != null)
+                return tilte.size();
+            else return 0;
         }
 
         class MainMenuItemHolder extends RecyclerView.ViewHolder {
@@ -221,55 +225,5 @@ public class ConfirmReminderActivity extends AppCompatActivity {
             }
         }
 
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private class getUserReminder extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            reminder = AppDataBase.getInstance().reminderDao().findById(1);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            setDaysData();
-            super.onPostExecute(aVoid);
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private class setUserReminder extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            AppDataBase.getInstance().reminderDao().updateReminder(reminder);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            setDaysData();
-            super.onPostExecute(aVoid);
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
     }
 }

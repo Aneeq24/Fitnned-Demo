@@ -271,6 +271,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void onRateUs() {
+        AnalyticsManager.getInstance().sendAnalytics("rate_us_clicked", "Rate_us");
         SharedPrefHelper.writeBoolean(context, "rate", true);
         try {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));

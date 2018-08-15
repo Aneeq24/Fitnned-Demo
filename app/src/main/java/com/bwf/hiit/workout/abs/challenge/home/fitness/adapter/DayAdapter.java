@@ -32,7 +32,6 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MainMenuItemHold
 
         holder.tvTitle.setText(tilte[position]);
         holder.tvDate.setText(String.valueOf(date[position]));
-
         holder.itemView.setOnClickListener(view -> {
 
         });
@@ -41,7 +40,9 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MainMenuItemHold
 
     @Override
     public int getItemCount() {
-        return tilte.length;
+        if (tilte != null)
+            return tilte.length;
+        else return 0;
     }
 
     class MainMenuItemHolder extends RecyclerView.ViewHolder {

@@ -189,31 +189,49 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/days_screen_days_normal_bar"
-            android:paddingBottom="30dp">
+            android:orientation="vertical"
+            android:paddingBottom="20dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_regular"
-                android:gravity="center_vertical"
-                android:padding="10dp"
-                android:text="Weight"
-                android:textSize="16sp" />
+            <com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.RelativeRadioGroup
+                android:id="@+id/rg_weight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp">
+
+                <RadioButton
+                    android:id="@+id/rb_kg"
+                    style="@style/radio_tab"
+                    android:background="@drawable/bg_weight_tab"
+                    android:checked="true"
+                    android:text="Weight" />
+
+                <RadioButton
+                    android:id="@+id/rb_lb"
+                    style="@style/radio_tab"
+                    android:layout_marginLeft="75dp"
+                    android:background="@drawable/bg_kcal_tab"
+                    android:text="Kcal" />
+            </com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.RelativeRadioGroup>
+
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/graph"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_marginTop="40dp" />
+                android:layout_height="350dp"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="10dp" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

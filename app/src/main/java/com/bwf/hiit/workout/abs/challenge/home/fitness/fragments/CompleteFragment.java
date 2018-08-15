@@ -4,11 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,14 +38,9 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.view.CalenderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.ConfirmReminderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.github.mikephil.charting.charts.LineChart;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class CompleteFragment extends Fragment {
@@ -94,7 +90,7 @@ public class CompleteFragment extends Fragment {
         assert playingExercise != null;
 
         TTSManager.getInstance(getActivity().getApplication()).play(" Well Done. This is end of day " + playingExercise.currentDay + "of your training");
-        AnalyticsManager.getInstance().sendAnalytics("day " + playingExercise.currentDay,"workout_complete");
+        AnalyticsManager.getInstance().sendAnalytics("day " + playingExercise.currentDay, "workout_complete");
 
         playingExercise.exerciseDays.get(playingExercise.currentExercise).setTotalKcal(SharedPrefHelper.readInteger(context, "kcal"));
         playingExercise.exerciseDays.get(playingExercise.currentExercise).setStatus(true);
@@ -312,14 +308,16 @@ public class CompleteFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            recordList = AppDataBase.getInstance().recorddao().getAllRecords();
-            user = AppDataBase.getInstance().userdao().findById(1);
+//            recordList = AppDataBase.getInstance().recorddao().getAllRecords();
+//            user = AppDataBase.getInstance().userdao().getUser(1);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            initApp();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                initApp();
+            }
             super.onPostExecute(aVoid);
         }
 
@@ -329,32 +327,13 @@ public class CompleteFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint("SetTextI18n")
     private void initApp() {
         float weight = user.getWeight();
         float height = user.getHeight();
         float bmi = ((weight) / (height * height)) * 703;
         tvBmi.setText(String.valueOf((int) bmi) + bmiCategory((int) bmi));
-
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
-        for (int i = 0; i < recordList.size(); i++) {
-            series.appendData(new DataPoint(recordList.get(i).getId() + 1, recordList.get(i).getWeight()), true, 30, false);
-        }
-//        graph.getGridLabelRenderer().setHorizontalAxisTitle("Month");
-//        graph.getGridLabelRenderer().setVerticalAxisTitle("Pounds");
-//
-//        // set manual Y bounds
-//        graph.getViewport().setYAxisBoundsManual(true);
-//        graph.getViewport().setMinY(0);
-//        graph.getViewport().setMaxY(250);
-//        // set manual X bounds
-//        graph.getViewport().setXAxisBoundsManual(true);
-//        graph.getViewport().setMinX(0);
-//        graph.getViewport().setMaxX(31);
-//
-//        series.setColor(Color.BLUE);
-//        graph.addSeries(series);
-//        graph.setCursorMode(true);
 
         updateUser = user;
         updateUser.setTotalExcercise(user.getTotalExcercise() + Integer.parseInt(tvExerciseNo.getText().toString()));
@@ -397,6 +376,7 @@ public class CompleteFragment extends Fragment {
     }
 
     private void onRateUs(Context context) {
+        AnalyticsManager.getInstance().sendAnalytics("rate_us_clicked", "Rate_us");
         SharedPrefHelper.writeBoolean(context, "rate", true);
         try {
             context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));

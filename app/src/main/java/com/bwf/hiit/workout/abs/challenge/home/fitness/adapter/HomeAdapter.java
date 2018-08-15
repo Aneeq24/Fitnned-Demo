@@ -17,6 +17,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.LogHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.repository.ExerciseDayRepo;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.ScrollingActivity;
 
 import java.util.ArrayList;
@@ -28,7 +29,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MainMenuItemHo
     private Bitmap[] images;
     private List<Integer> progress;
     private boolean isDataUp;
-
 
     public HomeAdapter(String[] tilte, Bitmap[] images) {
         this.tilte = tilte;
@@ -116,7 +116,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MainMenuItemHo
                 }
                 LogHelper.logD("1994: val", "" + val);
                 progress.add(val);
-
             }
             return null;
         }

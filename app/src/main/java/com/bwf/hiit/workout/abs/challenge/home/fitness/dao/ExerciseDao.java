@@ -1,5 +1,6 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -16,17 +17,18 @@ import java.util.List;
 @Dao
 public interface ExerciseDao {
 
+    @Transaction
     @Query("SELECT COUNT(*) FROM exercise")
     int getCount();
 
-    @Query("SELECT * FROM exercise WHERE lang = :language")
-    List<Exercise> getAll(int language);
-
-    @Query("SELECT * FROM exercise WHERE name LIKE :name LIMIT 1")
-    Exercise findByName(String name);
+    @Query("SELECT * FROM exercise")
+    LiveData<List<Exercise>> getAllExercise();
 
     @Query("SELECT * FROM exercise WHERE id LIKE :id LIMIT 1")
-    Exercise findById(int id);
+    LiveData<Exercise> findById(int id);
+
+    @Query("SELECT * FROM exercise WHERE id LIKE :id LIMIT 1")
+    Exercise findByIdbg(int id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(Exercise exercise);
@@ -39,13 +41,5 @@ public interface ExerciseDao {
 
     @Delete
     void delete(Exercise exercise);
-
-    @Transaction
-    @Query("SELECT * FROM exercise")
-    List<ExerciseDetail> getAllExercisesWithDetails();
-
-    @Transaction
-    @Query("SELECT * FROM exercise WHERE id IN (:ids)")
-    List<ExerciseDetail> getAllExercisesWithDetails(int[] ids);
 
 }

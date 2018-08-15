@@ -1,13 +1,14 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
-import android.os.Build;
+import android.graphics.DashPathEffect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,23 +23,23 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayAdapter;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.MyMarkerView;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.RecordViewModel;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.UserViewModel;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.ButterKnife;
 
@@ -55,7 +56,8 @@ public class RecordActivity extends AppCompatActivity {
     TextView tvBmi;
     RelativeLayout btnEditBmi;
     RelativeLayout btnMore;
-    List<Record> recordList;
+    RecordViewModel mRecordViewModel;
+    UserViewModel mUserViewModel;
     User user;
 
     @Override
@@ -63,8 +65,12 @@ public class RecordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
         ButterKnife.bind(this);
-        recordList = new ArrayList<>();
         context = this;
+
+        if (AdsManager.getInstance().isFacebookInterstitalLoaded())
+            AdsManager.getInstance().showFacebookInterstitialAd();
+        else
+            AdsManager.getInstance().showInterstitialAd();
 
         toolbar = findViewById(R.id.toolbar10);
         graph = findViewById(R.id.graph);
@@ -75,28 +81,23 @@ public class RecordActivity extends AppCompatActivity {
         btnEditBmi = findViewById(R.id.btn_edit_bmi);
         btnMore = findViewById(R.id.btn_more);
 
+        mUserViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        mRecordViewModel = ViewModelProviders.of(this).get(RecordViewModel.class);
+
         AnalyticsManager.getInstance().sendAnalytics("Recored_activity", "Recored_activity_started");
 
-        setDaysData();
-
         toolbar.setNavigationOnClickListener(view1 -> finish());
-
-        if (AdsManager.getInstance().isFacebookInterstitalLoaded())
-            AdsManager.getInstance().showFacebookInterstitialAd();
-        else
-            AdsManager.getInstance().showInterstitialAd();
-
         btnEditBmi.setOnClickListener(view12 -> showDialog());
         btnMore.setOnClickListener(view12 -> startActivity(new Intent(context, CalenderActivity.class)));
 
-        new getUserRecords().execute();
-    }
+        mUserViewModel.getUser().observe(this, user -> {
+            if (user != null) {
+                this.user = user;
+                initApp(user);
+            }
+        });
 
-    private void setDaysData() {
-        RecyclerView rvHistory = findViewById(R.id.rv_days);
-        DayAdapter mAdapter = new DayAdapter(titles, date);
-        rvHistory.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        rvHistory.setAdapter(mAdapter);
+        setDaysData();
     }
 
     EditText edtWeight;
@@ -117,7 +118,6 @@ public class RecordActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void showDialog() {
-
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .title("BMI Calculator")
                 .customView(R.layout.dialog_bmi, true)
@@ -135,11 +135,17 @@ public class RecordActivity extends AppCompatActivity {
 
                     if (!isKg)
                         bmi = ((weight) / (height * height)) * 703;
-                    else
+                    else {
                         bmi = (weight) / (height * height);
-
-                    SharedPrefHelper.writeInteger(context, "bmi", (int) bmi);
+                        weight = weight * 2.20462f;
+                    }
+                    if (isCm)
+                        height = height * 2.54f;
                     tvBmi.setText(String.valueOf((int) bmi) + bmiCategory((int) bmi));
+                    user.setWeight(weight);
+                    user.setHeight(height);
+                    user.setBmi((int) bmi);
+                    mUserViewModel.update(user);
                     dialog1.dismiss();
                 })
                 .negativeText("Cancel")
@@ -198,6 +204,100 @@ public class RecordActivity extends AppCompatActivity {
 
     }
 
+    private void setDaysData() {
+        RecyclerView rvHistory = findViewById(R.id.rv_days);
+        DayAdapter mAdapter = new DayAdapter(titles, date);
+        rvHistory.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        rvHistory.setAdapter(mAdapter);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void initApp(User user) {
+        tvBmi.setText(String.valueOf(user.getBmi()) + bmiCategory(user.getBmi()));
+        tvExerciseNo.setText(String.valueOf(user.getTotalExcercise()) + "\nExercise");
+        tvKcal.setText(String.valueOf(user.getTotalKcal()) + "\nKcal");
+        tvTotalTime.setText(String.valueOf(user.getTotalTime()) + "\nMins");
+        mRecordViewModel.getAllRecords().observe(this, records -> {
+            if (records != null) {
+                setupChart(records);
+            }
+        });
+    }
+
+    private void setupChart(List<Record> recordList) {
+        graph.setDrawGridBackground(false);
+        // no description text
+        graph.getDescription().setEnabled(false);
+        // enable touch gestures
+        graph.setTouchEnabled(true);
+        // enable scaling and dragging
+        graph.setDragEnabled(true);
+        graph.setScaleEnabled(true);
+        // if disabled, scaling can be done on x- and y-axis separately
+        graph.setPinchZoom(true);
+        // create a custom MarkerView (extend MarkerView) and specify the layout
+        // to use for it
+        MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
+        mv.setChartView(graph); // For bounds control
+        graph.setMarker(mv); // Set the marker to the chart
+        XAxis xAxis = graph.getXAxis();
+        xAxis.enableGridDashedLine(10f, 10f, 0f);
+        graph.getAxisRight().setEnabled(false);
+        // add data
+        setData(recordList);
+        graph.animateX(2500);
+        // // dont forget to refresh the drawing
+        graph.invalidate();
+    }
+
+    private void setData(List<Record> recordList) {
+        ArrayList<Entry> values = new ArrayList<>();
+        values.add(new Entry(0, user.getWeight(), getResources().getDrawable(R.drawable.star)));
+        if (recordList.size() > 0)
+            for (int i = 0; i < recordList.size(); i++)
+                values.add(new Entry(recordList.get(i).getId() + 1, recordList.get(i).getWeight(), getResources().getDrawable(R.drawable.star)));
+
+        LineDataSet set;
+        if (graph.getData() != null &&
+                graph.getData().getDataSetCount() > 0) {
+            set = (LineDataSet) graph.getData().getDataSetByIndex(0);
+            set.setValues(values);
+            graph.getData().notifyDataChanged();
+            graph.notifyDataSetChanged();
+        } else {
+            // create a dataset and give it a type
+            set = new LineDataSet(values, "lbs");
+            set.setDrawIcons(false);
+            // set the line to be drawn like this "- - - - - -"
+            set.enableDashedLine(10f, 0f, 0f);
+            set.enableDashedHighlightLine(10f, 0f, 0f);
+            set.setColor(Color.parseColor("#00aeef"));
+            set.setCircleColor(Color.parseColor("#00aeef"));
+            set.setLineWidth(1f);
+            set.setValueTextColor(Color.parseColor("#00aeef"));
+            set.setCircleRadius(3f);
+            set.setDrawCircleHole(false);
+            set.setValueTextSize(9f);
+            set.setDrawFilled(true);
+            set.setFormLineWidth(1f);
+            set.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+            set.setFormSize(15.f);
+            if (Utils.getSDKInt() >= 18) {
+                // fill drawable only supported on api level 18 and above
+                Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_green);
+                set.setFillDrawable(drawable);
+            } else {
+                set.setFillColor(Color.parseColor("#00aeef"));
+            }
+            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+            dataSets.add(set); // add the datasets
+            // create a data object with the datasets
+            LineData data = new LineData(dataSets);
+            // set data
+            graph.setData(data);
+        }
+    }
+
     private String bmiCategory(int bmi) {
         if (bmi > 0 && bmi < 19)
             return " - Under Weight";
@@ -226,87 +326,4 @@ public class RecordActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private class getUserRecords extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            recordList = AppDataBase.getInstance().recorddao().getAllRecords();
-            user = AppDataBase.getInstance().userdao().findById(1);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                initApp();
-            }
-            super.onPostExecute(aVoid);
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @SuppressLint("SetTextI18n")
-    private void initApp() {
-        float weight = user.getWeight();
-        float height = user.getHeight();
-        float bmi = ((weight) / (height * height)) * 703;
-        tvBmi.setText(String.valueOf((int) bmi) + bmiCategory((int) bmi));
-        tvExerciseNo.setText(String.valueOf(user.getTotalExcercise()) + "\nExercise");
-        tvKcal.setText(String.valueOf(user.getTotalKcal()) + "\nKcal");
-        tvTotalTime.setText(String.valueOf(user.getTotalTime()) + "\nMins");
-
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
-        for (int i = 0; i < recordList.size(); i++) {
-            series.appendData(new DataPoint(recordList.get(i).getId() + 1, recordList.get(i).getWeight()), true, 5, false);
-        }
-        List<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(2, 150));
-        entries.add(new Entry(3, 160));
-        for (int i = 0; i < recordList.size(); i++) {
-
-            // turn your data into Entry objects
-            entries.add(new Entry(recordList.get(i).getId() + 1, recordList.get(i).getWeight()));
-        }
-
-        LineDataSet dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
-        dataSet.setColor(Color.BLUE);
-        dataSet.setValueTextColor(Color.GRAY);
-
-        LineData lineData = new LineData(dataSet);
-        graph.setData(lineData);
-        graph.invalidate(); // refresh
-
-//        graph.getGridLabelRenderer().setHorizontalAxisTitle("Aug");
-//        graph.getGridLabelRenderer().setVerticalAxisTitle("lbs");
-//        graph.getGridLabelRenderer().setPadding(1);
-//        graph.getGridLabelRenderer().setGridColor(getColor(R.color.colorDarkGray));
-//        graph.getGridLabelRenderer().setHorizontalLabelsColor(getColor(R.color.colorDarkGray));
-//        graph.getGridLabelRenderer().setHorizontalAxisTitleColor(getColor(R.color.colorDarkGray));
-//        graph.getGridLabelRenderer().setVerticalLabelsColor(getColor(R.color.colorDarkGray));
-//        graph.getGridLabelRenderer().setVerticalAxisTitleColor(getColor(R.color.colorDarkGray));
-//
-//        // set manual Y bounds
-//        graph.getViewport().setYAxisBoundsManual(true);
-//        graph.getViewport().setMinY(0);
-//        graph.getViewport().setMaxY(255);
-//        // set manual X bounds
-//        graph.getViewport().setXAxisBoundsManual(true);
-//        graph.getViewport().setMinX(0);
-//        graph.getViewport().setMaxX(31);
-//
-//        series.setColor(Color.BLUE);
-//        graph.addSeries(series);
-//        graph.setCursorMode(true);
-
-    }
 }

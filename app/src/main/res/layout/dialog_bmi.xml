@@ -34,25 +34,25 @@
         </LinearLayout>
 
         <RadioGroup
-            android:id="@+id/rg_weight"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
+        android:id="@+id/rg_weight"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/rb_kg"
-                style="@style/radio_btn"
-                android:layout_marginRight="20dp"
-                android:checked="true"
-                android:text="KG" />
+        <RadioButton
+            android:id="@+id/rb_kg"
+            style="@style/radio_btn"
+            android:layout_marginRight="20dp"
+            android:checked="true"
+            android:text="KG" />
 
-            <RadioButton
-                android:id="@+id/rb_lb"
-                style="@style/radio_btn"
-                android:text="LB" />
-        </RadioGroup>
+        <RadioButton
+            android:id="@+id/rb_lb"
+            style="@style/radio_btn"
+            android:text="LB" />
+    </RadioGroup>
     </LinearLayout>
 
     <TextView

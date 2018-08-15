@@ -28,6 +28,8 @@ public class User implements Serializable {
 
     private int totalTime;
 
+    private int bmi;
+
     public int getId() {
         return id;
     }
@@ -90,5 +92,13 @@ public class User implements Serializable {
 
     public void setTotalTime(int totalTime) {
         this.totalTime = totalTime;
+    }
+
+    public int getBmi() {
+        return bmi;
+    }
+
+    public void setBmi(int bmi) {
+        this.bmi = bmi;
     }
 }

@@ -36,6 +36,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.CalenderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.ConfirmReminderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
+import com.github.mikephil.charting.charts.LineChart;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -62,7 +63,7 @@ public class CompleteFragment extends Fragment {
     RelativeLayout btnAddReminder;
     RelativeLayout btnMore;
     Context context;
-    GraphView graph;
+    LineChart graph;
     PlayingExercise playingExercise;
     Record record;
     List<Record> recordList;
@@ -339,21 +340,21 @@ public class CompleteFragment extends Fragment {
         for (int i = 0; i < recordList.size(); i++) {
             series.appendData(new DataPoint(recordList.get(i).getId() + 1, recordList.get(i).getWeight()), true, 30, false);
         }
-        graph.getGridLabelRenderer().setHorizontalAxisTitle("Month");
-        graph.getGridLabelRenderer().setVerticalAxisTitle("Pounds");
-
-        // set manual Y bounds
-        graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setMinY(0);
-        graph.getViewport().setMaxY(250);
-        // set manual X bounds
-        graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMinX(0);
-        graph.getViewport().setMaxX(31);
-
-        series.setColor(Color.BLUE);
-        graph.addSeries(series);
-        graph.setCursorMode(true);
+//        graph.getGridLabelRenderer().setHorizontalAxisTitle("Month");
+//        graph.getGridLabelRenderer().setVerticalAxisTitle("Pounds");
+//
+//        // set manual Y bounds
+//        graph.getViewport().setYAxisBoundsManual(true);
+//        graph.getViewport().setMinY(0);
+//        graph.getViewport().setMaxY(250);
+//        // set manual X bounds
+//        graph.getViewport().setXAxisBoundsManual(true);
+//        graph.getViewport().setMinX(0);
+//        graph.getViewport().setMaxX(31);
+//
+//        series.setColor(Color.BLUE);
+//        graph.addSeries(series);
+//        graph.setCursorMode(true);
 
         updateUser = user;
         updateUser.setTotalExcercise(user.getTotalExcercise() + Integer.parseInt(tvExerciseNo.getText().toString()));

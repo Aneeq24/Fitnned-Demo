@@ -28,12 +28,17 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 
@@ -43,7 +48,7 @@ public class RecordActivity extends AppCompatActivity {
     int[] date = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
     Toolbar toolbar;
     Context context;
-    GraphView graph;
+    LineChart graph;
     TextView tvExerciseNo;
     TextView tvTotalTime;
     TextView tvKcal;
@@ -264,28 +269,44 @@ public class RecordActivity extends AppCompatActivity {
         for (int i = 0; i < recordList.size(); i++) {
             series.appendData(new DataPoint(recordList.get(i).getId() + 1, recordList.get(i).getWeight()), true, 5, false);
         }
+        List<Entry> entries = new ArrayList<>();
+        entries.add(new Entry(2, 150));
+        entries.add(new Entry(3, 160));
+        for (int i = 0; i < recordList.size(); i++) {
 
-        graph.getGridLabelRenderer().setHorizontalAxisTitle("Aug");
-        graph.getGridLabelRenderer().setVerticalAxisTitle("lbs");
-        graph.getGridLabelRenderer().setPadding(1);
-        graph.getGridLabelRenderer().setGridColor(getColor(R.color.colorDarkGray));
-        graph.getGridLabelRenderer().setHorizontalLabelsColor(getColor(R.color.colorDarkGray));
-        graph.getGridLabelRenderer().setHorizontalAxisTitleColor(getColor(R.color.colorDarkGray));
-        graph.getGridLabelRenderer().setVerticalLabelsColor(getColor(R.color.colorDarkGray));
-        graph.getGridLabelRenderer().setVerticalAxisTitleColor(getColor(R.color.colorDarkGray));
+            // turn your data into Entry objects
+            entries.add(new Entry(recordList.get(i).getId() + 1, recordList.get(i).getWeight()));
+        }
 
-        // set manual Y bounds
-        graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setMinY(0);
-        graph.getViewport().setMaxY(255);
-        // set manual X bounds
-        graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMinX(0);
-        graph.getViewport().setMaxX(31);
+        LineDataSet dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
+        dataSet.setColor(Color.BLUE);
+        dataSet.setValueTextColor(Color.GRAY);
 
-        series.setColor(Color.BLUE);
-        graph.addSeries(series);
-        graph.setCursorMode(true);
+        LineData lineData = new LineData(dataSet);
+        graph.setData(lineData);
+        graph.invalidate(); // refresh
+
+//        graph.getGridLabelRenderer().setHorizontalAxisTitle("Aug");
+//        graph.getGridLabelRenderer().setVerticalAxisTitle("lbs");
+//        graph.getGridLabelRenderer().setPadding(1);
+//        graph.getGridLabelRenderer().setGridColor(getColor(R.color.colorDarkGray));
+//        graph.getGridLabelRenderer().setHorizontalLabelsColor(getColor(R.color.colorDarkGray));
+//        graph.getGridLabelRenderer().setHorizontalAxisTitleColor(getColor(R.color.colorDarkGray));
+//        graph.getGridLabelRenderer().setVerticalLabelsColor(getColor(R.color.colorDarkGray));
+//        graph.getGridLabelRenderer().setVerticalAxisTitleColor(getColor(R.color.colorDarkGray));
+//
+//        // set manual Y bounds
+//        graph.getViewport().setYAxisBoundsManual(true);
+//        graph.getViewport().setMinY(0);
+//        graph.getViewport().setMaxY(255);
+//        // set manual X bounds
+//        graph.getViewport().setXAxisBoundsManual(true);
+//        graph.getViewport().setMinX(0);
+//        graph.getViewport().setMaxX(31);
+//
+//        series.setColor(Color.BLUE);
+//        graph.addSeries(series);
+//        graph.setCursorMode(true);
 
     }
 }

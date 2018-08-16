@@ -280,7 +280,7 @@ public class RecordActivity extends AppCompatActivity {
 
         LineDataSet set;
         // create a dataset and give it a type
-        set = new LineDataSet(values, "lbs");
+        set = new LineDataSet(values, "kcal");
         set.setDrawIcons(false);
         // set the line to be drawn like this "- - - - - -"
         set.enableDashedLine(10f, 0f, 0f);
@@ -320,7 +320,7 @@ public class RecordActivity extends AppCompatActivity {
 
         LineDataSet set;
         // create a dataset and give it a type
-        set = new LineDataSet(values, "kg");
+        set = new LineDataSet(values, "lbs");
         set.setDrawIcons(false);
         // set the line to be drawn like this "- - - - - -"
         set.enableDashedLine(10f, 0f, 0f);

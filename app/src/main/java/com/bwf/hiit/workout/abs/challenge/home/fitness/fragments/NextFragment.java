@@ -168,9 +168,7 @@ public class NextFragment extends Fragment {
             pauseTimer += 5;
             mCustomCircleBar.setMax(pauseTimer);
             mCustomCircleBar.setProgress(pauseTimer);
-
         }
-
     }
 
     @Override
@@ -178,6 +176,5 @@ public class NextFragment extends Fragment {
         super.onDestroyView();
         countDownTimer.cancel();
     }
-
 
 }

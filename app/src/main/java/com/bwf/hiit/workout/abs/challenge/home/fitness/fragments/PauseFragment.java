@@ -28,8 +28,7 @@ public class PauseFragment extends Fragment {
     PlayingExercise playingExercise;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_pause, container, false);
 
@@ -42,7 +41,6 @@ public class PauseFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void findReferences() {
-
         playingExercise = (PlayingExercise) getActivity();
         btnResume = rootView.findViewById(R.id.pauseResume);
         nextExerciseName = rootView.findViewById(R.id.tv_pauseHeadline);
@@ -57,7 +55,6 @@ public class PauseFragment extends Fragment {
         String path = "android.resource://" + rootView.getContext().getPackageName() + "/" + id;
 
         Glide.with(this).load(path).into(imgAnimate);
-
         btnResume.setOnClickListener(view -> onResumeExercise());
 
         if (playingExercise.currentRound <= (playingExercise.totalRounds - 1))

@@ -1,4 +1,4 @@
-package com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets;
+package com.bwf.hiit.workout.abs.challenge.home.fitness.wheel;
 
 
 public interface IMyWheelPicker {

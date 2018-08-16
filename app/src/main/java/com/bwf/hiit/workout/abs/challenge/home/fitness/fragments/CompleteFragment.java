@@ -1,16 +1,18 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.fragments;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.DashPathEffect;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,7 +29,8 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayAdapter;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.MyMarkerView;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.RelativeRadioGroup;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
@@ -37,10 +40,21 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.CalenderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.ConfirmReminderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.RecordViewModel;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.UserViewModel;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class CompleteFragment extends Fragment {
@@ -48,6 +62,7 @@ public class CompleteFragment extends Fragment {
     String[] titles = {"S", "M", "T", "W", "T", "F", "S", "S", "M", "T", "W", "T", "F", "S"};
     int[] date = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
 
+    @SuppressLint("StaticFieldLeak")
     private static TextView tvTime;
 
     Toolbar toolbar;
@@ -63,13 +78,17 @@ public class CompleteFragment extends Fragment {
     PlayingExercise playingExercise;
     Record record;
     List<Record> recordList;
-    User user, updateUser;
+    User user;
+    RelativeRadioGroup rgGraph;
+    RecordViewModel mRecordViewModel;
+    UserViewModel mUserViewModel;
 
     @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_complete, container, false);
+
         recordList = new ArrayList<>();
         toolbar = view.findViewById(R.id.toolbar10);
         tvExerciseNo = view.findViewById(R.id.cf_exerciseNo);
@@ -81,10 +100,13 @@ public class CompleteFragment extends Fragment {
         btnAddReminder = view.findViewById(R.id.btn_add_reminder);
         btnMore = view.findViewById(R.id.btn_more);
         tvTime = view.findViewById(R.id.tv_reminder);
+        rgGraph = view.findViewById(R.id.rg_graph);
 
         context = getContext();
         record = new Record();
-        updateUser = new User();
+
+        mUserViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        mRecordViewModel = ViewModelProviders.of(this).get(RecordViewModel.class);
 
         playingExercise = (PlayingExercise) getActivity();
         assert playingExercise != null;
@@ -93,17 +115,12 @@ public class CompleteFragment extends Fragment {
         AnalyticsManager.getInstance().sendAnalytics("day " + playingExercise.currentDay, "workout_complete");
 
         playingExercise.exerciseDays.get(playingExercise.currentExercise).setTotalKcal(SharedPrefHelper.readInteger(context, "kcal"));
-        playingExercise.exerciseDays.get(playingExercise.currentExercise).setStatus(true);
 
         int minutes = (playingExercise.totaTimeSpend % 3600) / 60;
         @SuppressLint("DefaultLocale") String timeString = String.format("%02d", minutes);
-        tvTotalTime.setText(timeString);
 
         record.setWeight(playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
         record.setType(getPlanName());
-
-        tvKcal.setText(String.valueOf(playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal()));
-        SharedPrefHelper.writeInteger(context, "kcal", 0);
 
         toolbar.setNavigationOnClickListener(view1 -> {
             if (getActivity() != null) {
@@ -111,7 +128,6 @@ public class CompleteFragment extends Fragment {
                 getActivity().finish();
             }
         });
-
         btnEditBmi.setOnClickListener(view12 -> showDialog());
         btnAddReminder.setOnClickListener(view12 -> startActivity(new Intent(context, ConfirmReminderActivity.class).putExtra("up", true)));
         btnMore.setOnClickListener(view12 -> startActivity(new Intent(context, CalenderActivity.class)));
@@ -125,8 +141,41 @@ public class CompleteFragment extends Fragment {
 
         setDaysData(view);
 
-        new getUserRecords().execute();
+        mRecordViewModel.insert(record);
 
+        tvKcal.setText(String.valueOf(playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal()));
+        tvExerciseNo.setText(String.valueOf(playingExercise.totalExercisesPlayed + 1));
+        tvTotalTime.setText(String.valueOf(timeString));
+
+        rgGraph.setOnCheckedChangeListener((radioGroup, i) -> {
+            if (i == R.id.rb_lb_graph) {
+                initApp(user);
+            } else if (i == R.id.rb_kg_graph) {
+                setWeight();
+                graph.invalidate();
+            }
+        });
+
+        mUserViewModel.getUser().observe(this, user -> {
+            if (user != null) {
+                this.user = user;
+                initApp(user);
+            }
+        });
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (user!=null){
+                    user.setTotalKcal(user.getTotalKcal() + playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
+                    user.setTotalExcercise(user.getTotalExcercise() + playingExercise.totalExercisesPlayed + 1);
+                    user.setTotalTime(user.getTotalTime() + convertIntoInteger(timeString));
+                    mUserViewModel.update(user);
+                }
+            }
+        },1000);
+        SharedPrefHelper.writeInteger(context, "kcal", 0);
+        setRateAppDialog();
         return view;
     }
 
@@ -144,20 +193,6 @@ public class CompleteFragment extends Fragment {
         rvHistory.setAdapter(mAdapter);
     }
 
-    private String getPlanName() {
-        int i = playingExercise.currentPlan - 1;
-        switch (i) {
-            case 0:
-                return "Beginner";
-            case 1:
-                return "Intermediate";
-            case 2:
-                return "Advanced";
-            default:
-                return "";
-        }
-    }
-
     EditText edtWeight;
     EditText edtCm;
     EditText edtFt;
@@ -169,23 +204,21 @@ public class CompleteFragment extends Fragment {
     RadioButton rbKg;
     RadioButton rbLbs;
 
-    float weight, height, inches, feet;
+    float weight, height, inches, feet, bmi;
     boolean isKg = true;
     boolean isCm = true;
-    float bmi;
 
     @SuppressLint("SetTextI18n")
     private void showDialog() {
-
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .title("BMI Calculator")
                 .customView(R.layout.dialog_bmi, true)
                 .positiveText("Save")
                 .onPositive((dialog1, which) -> {
-                    weight = convertIntoInteger(edtWeight.getText().toString().trim());
+                    weight = convertIntoFloat(edtWeight.getText().toString().trim());
 
                     if (isCm)
-                        height = (float) convertIntoInteger(edtCm.getText().toString().trim()) / 100;
+                        height = convertIntoFloat(edtCm.getText().toString().trim()) / 100;
                     else {
                         inches = convertIntoFloat(edtIn.getText().toString().trim());
                         feet = convertIntoFloat(edtFt.getText().toString().trim());
@@ -194,11 +227,17 @@ public class CompleteFragment extends Fragment {
 
                     if (!isKg)
                         bmi = ((weight) / (height * height)) * 703;
-                    else
+                    else {
                         bmi = (weight) / (height * height);
-
-                    SharedPrefHelper.writeInteger(context, "bmi", (int) bmi);
-                    tvBmi.setText(String.valueOf((int) bmi) + bmiCategory((int) bmi));
+                        weight = weight * 2.20462f;
+                    }
+                    if (isCm)
+                        height = height * 39.3701f;
+                    tvBmi.setText(String.valueOf(bmi) + bmiCategory((int) bmi));
+                    user.setWeight((int) weight);
+                    user.setHeight((int) height);
+                    user.setBmi((int) bmi);
+                    mUserViewModel.update(user);
                     dialog1.dismiss();
                 })
                 .negativeText("Cancel")
@@ -248,21 +287,13 @@ public class CompleteFragment extends Fragment {
                 edtIn.setVisibility(View.VISIBLE);
                 edtCm.setVisibility(View.GONE);
                 isCm = false;
-                edtWeight.setText(String.valueOf((int) user.getWeight()));
-                edtFt.setText(String.valueOf((int) (user.getHeight() / 12)));
-                edtIn.setText(String.valueOf((int) (user.getHeight() % 12)));
+                edtWeight.setText(String.valueOf(user.getWeight()));
+                edtFt.setText(String.valueOf(user.getHeight() / 12));
+                edtIn.setText(String.valueOf(user.getHeight() % 12));
                 rbLbs.setChecked(true);
             }
         });
 
-    }
-
-    private int convertIntoInteger(String xVal) {
-        try {
-            return Integer.parseInt(xVal);
-        } catch (Exception ex) {
-            return 0;
-        }
     }
 
     private float convertIntoFloat(String xVal) {
@@ -273,76 +304,140 @@ public class CompleteFragment extends Fragment {
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private class setUserRecord extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            AppDataBase.getInstance().recorddao().insertAll(record);
-            AppDataBase.getInstance().userdao().updateUser(updateUser);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            setRateAppDialog(context);
-            super.onPostExecute(aVoid);
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
+    private int convertIntoInteger(String xVal) {
+        try {
+            return Integer.parseInt(xVal);
+        } catch (Exception ex) {
+            return 0;
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private class getUserRecords extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-//            recordList = AppDataBase.getInstance().recorddao().getAllRecords();
-//            user = AppDataBase.getInstance().userdao().getUser(1);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                initApp();
-            }
-            super.onPostExecute(aVoid);
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint("SetTextI18n")
-    private void initApp() {
-        float weight = user.getWeight();
-        float height = user.getHeight();
-        float bmi = ((weight) / (height * height)) * 703;
-        tvBmi.setText(String.valueOf((int) bmi) + bmiCategory((int) bmi));
+    private void initApp(User user) {
+        tvBmi.setText(String.valueOf(user.getBmi()) + bmiCategory(user.getBmi()));
+        mRecordViewModel.getAllRecords().observe(this, records -> {
+            if (records != null) {
+                setupChart(records);
+            }
+        });
+//        setRateAppDialog();
+    }
 
-        updateUser = user;
-        updateUser.setTotalExcercise(user.getTotalExcercise() + Integer.parseInt(tvExerciseNo.getText().toString()));
-        updateUser.setTotalKcal(user.getTotalKcal() + Integer.parseInt(tvKcal.getText().toString()));
-        updateUser.setTotalTime(user.getTotalTime() + Integer.parseInt(tvTotalTime.getText().toString()));
+    private void setupChart(List<Record> recordList) {
+        graph.setDrawGridBackground(false);
+        // no description text
+        graph.getDescription().setEnabled(false);
+        // enable touch gestures
+        graph.setTouchEnabled(true);
+        // enable scaling and dragging
+        graph.setDragEnabled(true);
+        graph.setScaleEnabled(true);
+        // if disabled, scaling can be done on x- and y-axis separately
+        graph.setPinchZoom(true);
+        // create a custom MarkerView (extend MarkerView) and specify the layout
+        // to use for it
+        YAxis leftAxis = graph.getAxisLeft();
+        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
+        leftAxis.setAxisMaximum(250f);
+        leftAxis.setAxisMinimum(50f);
+        MyMarkerView mv = new MyMarkerView(context, R.layout.custom_marker_view);
+        mv.setChartView(graph); // For bounds control
+        graph.setMarker(mv); // Set the marker to the chart
+        XAxis xAxis = graph.getXAxis();
+        xAxis.setAxisMaximum(30f);
+        xAxis.setAxisMinimum(1f);
+        xAxis.enableGridDashedLine(10f, 10f, 0f);
+        graph.getAxisRight().setEnabled(false);
+        // add data
+        setData(recordList);
+        graph.animateX(500);
+        // // dont forget to refresh the drawing
+        graph.invalidate();
+    }
 
-        tvExerciseNo.setText(String.valueOf((playingExercise.totalExercisesPlayed + 1)));
-        new setUserRecord().execute();
+    private void setData(List<Record> recordList) {
 
+        ArrayList<Entry> values = new ArrayList<>();
+        if (recordList.size() == 0)
+            values.add(new Entry(1, 1, getResources().getDrawable(R.drawable.star)));
+        else {
+            for (int i = 0; i < recordList.size(); i++)
+                values.add(new Entry(recordList.get(i).getId() + 1, recordList.get(i).getWeight(), getResources().getDrawable(R.drawable.star)));
+        }
+
+        LineDataSet set;
+        // create a dataset and give it a type
+        set = new LineDataSet(values, "lbs");
+        set.setDrawIcons(false);
+        // set the line to be drawn like this "- - - - - -"
+        set.enableDashedLine(10f, 0f, 0f);
+        set.enableDashedHighlightLine(10f, 0f, 0f);
+        set.setColor(Color.parseColor("#00aeef"));
+        set.setCircleColor(Color.parseColor("#00aeef"));
+        set.setLineWidth(1f);
+        set.setValueTextColor(Color.parseColor("#00aeef"));
+        set.setCircleRadius(3f);
+        set.setDrawCircleHole(false);
+        set.setValueTextSize(9f);
+        set.setDrawFilled(true);
+        set.setFormLineWidth(1f);
+        set.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+        set.setFormSize(15.f);
+        if (Utils.getSDKInt() >= 18) {
+            // fill drawable only supported on api level 18 and above
+            Drawable drawable = ContextCompat.getDrawable(context, R.drawable.fade_green);
+            set.setFillDrawable(drawable);
+        } else {
+            set.setFillColor(Color.parseColor("#00aeef"));
+        }
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set); // add the datasets
+        // create a data object with the datasets
+        LineData data = new LineData(dataSets);
+        // set data
+        graph.setData(data);
+        graph.getData().notifyDataChanged();
+        graph.notifyDataSetChanged();
+
+    }
+
+    private void setWeight() {
+        ArrayList<Entry> values = new ArrayList<>();
+        values.add(new Entry(1, user.getWeight(), getResources().getDrawable(R.drawable.star)));
+
+        LineDataSet set;
+        // create a dataset and give it a type
+        set = new LineDataSet(values, "kg");
+        set.setDrawIcons(false);
+        // set the line to be drawn like this "- - - - - -"
+        set.enableDashedLine(10f, 0f, 0f);
+        set.enableDashedHighlightLine(10f, 0f, 0f);
+        set.setColor(Color.parseColor("#00aeef"));
+        set.setCircleColor(Color.parseColor("#00aeef"));
+        set.setLineWidth(1f);
+        set.setValueTextColor(Color.parseColor("#00aeef"));
+        set.setCircleRadius(3f);
+        set.setDrawCircleHole(false);
+        set.setValueTextSize(9f);
+        set.setDrawFilled(true);
+        set.setFormLineWidth(1f);
+        set.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+        set.setFormSize(15.f);
+        if (Utils.getSDKInt() >= 18) {
+            // fill drawable only supported on api level 18 and above
+            Drawable drawable = ContextCompat.getDrawable(context, R.drawable.fade_green);
+            set.setFillDrawable(drawable);
+        } else {
+            set.setFillColor(Color.parseColor("#00aeef"));
+        }
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set); // add the datasets
+        // create a data object with the datasets
+        LineData data = new LineData(dataSets);
+        // set data
+        graph.setData(data);
+        graph.getData().notifyDataChanged();
+        graph.notifyDataSetChanged();
     }
 
     private String bmiCategory(int bmi) {
@@ -354,10 +449,24 @@ public class CompleteFragment extends Fragment {
             return " - Over Weight";
         else if (bmi > 30)
             return " - Heavily Over Weight";
-        else return null;
+        else return "";
     }
 
-    public void setRateAppDialog(Context context) {
+    private String getPlanName() {
+        int i = playingExercise.currentPlan - 1;
+        switch (i) {
+            case 0:
+                return "Beginner";
+            case 1:
+                return "Intermediate";
+            case 2:
+                return "Advanced";
+            default:
+                return "";
+        }
+    }
+
+    public void setRateAppDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
         alertDialogBuilder.setTitle(context.getString(R.string.app_name));
@@ -368,9 +477,7 @@ public class CompleteFragment extends Fragment {
                 .setPositiveButton("YES", (dialog, id) -> {
                     dialog.cancel();
                     onRateUs(context);
-                }).setNegativeButton("NO", (dialog, id) -> {
-            dialog.cancel();
-        });
+                }).setNegativeButton("NO", (dialog, id) -> dialog.cancel());
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }

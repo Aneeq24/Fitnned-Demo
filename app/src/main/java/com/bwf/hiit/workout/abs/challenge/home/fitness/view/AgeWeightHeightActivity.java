@@ -9,7 +9,7 @@ import android.view.View;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.UserViewModel;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets.MyWheelPicker;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.MyWheelPicker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,9 +48,9 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.nextButtonNumberScreen:
                 user.setAge(numAge.getValue());
-                float height = (float) ((numFeet.getValue() * 12) + numInches.getValue());
+                int height = ((numFeet.getValue() * 12) + numInches.getValue());
                 user.setHeight(height);
-                user.setWeight((float) numWeight.getValue());
+                user.setWeight(numWeight.getValue());
                 float bmi = (((float) numWeight.getValue()) / (height * height)) * 703;
                 user.setBmi((int) bmi);
                 startNewActivity();

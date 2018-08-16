@@ -21,6 +21,7 @@ import com.dinuscxj.progressbar.CircleProgressBar;
 
 public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.DayItemHolder> {
 
+    String[] titles = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
     private DataModelWorkout dataModelWorkout;
     private int currentPlan;
     private ScrollingActivity ac;
@@ -82,7 +83,7 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
         holder.circleProgressBar.setProgress((int) (progress * 100));
 
         holder.itemView.setOnClickListener(view -> {
-                goToNewActivity(view.getContext(), position);
+            goToNewActivity(view.getContext(), position);
         });
     }
 
@@ -117,7 +118,7 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
         Intent i = new Intent(ac, DailyExerciseInfo.class);
         i.putExtra(context.getString(R.string.day_selected), position + 1);
         i.putExtra(context.getString(R.string.plan), currentPlan);
-        AnalyticsManager.getInstance().sendAnalytics("day_selected", "day  " + (position + 1) + "of_plan:" + currentPlan);
+        AnalyticsManager.getInstance().sendAnalytics("day  " + (position + 1) + "of_plan:" + titles[currentPlan - 1], "day_selected_" + (position + 1));
         context.startActivity(i);
     }
 

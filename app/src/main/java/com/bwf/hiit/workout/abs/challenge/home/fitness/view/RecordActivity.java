@@ -24,6 +24,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayAdapter;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.MyMarkerView;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.RelativeRadioGroup;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
@@ -32,6 +33,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.RecordViewModel
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.UserViewModel;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -56,6 +58,7 @@ public class RecordActivity extends AppCompatActivity {
     TextView tvBmi;
     RelativeLayout btnEditBmi;
     RelativeLayout btnMore;
+    RelativeRadioGroup rgGraph;
     RecordViewModel mRecordViewModel;
     UserViewModel mUserViewModel;
     User user;
@@ -80,6 +83,7 @@ public class RecordActivity extends AppCompatActivity {
         tvBmi = findViewById(R.id.tv_bmi);
         btnEditBmi = findViewById(R.id.btn_edit_bmi);
         btnMore = findViewById(R.id.btn_more);
+        rgGraph = findViewById(R.id.rg_graph);
 
         mUserViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         mRecordViewModel = ViewModelProviders.of(this).get(RecordViewModel.class);
@@ -89,6 +93,15 @@ public class RecordActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(view1 -> finish());
         btnEditBmi.setOnClickListener(view12 -> showDialog());
         btnMore.setOnClickListener(view12 -> startActivity(new Intent(context, CalenderActivity.class)));
+
+        rgGraph.setOnCheckedChangeListener((radioGroup, i) -> {
+            if (i == R.id.rb_lb_graph) {
+                initApp(user);
+            } else if (i == R.id.rb_kg_graph) {
+                setWeight();
+                graph.invalidate();
+            }
+        });
 
         mUserViewModel.getUser().observe(this, user -> {
             if (user != null) {
@@ -111,10 +124,9 @@ public class RecordActivity extends AppCompatActivity {
     RadioButton rbKg;
     RadioButton rbLbs;
 
-    float weight, height, inches, feet;
+    float weight, height, inches, feet, bmi;
     boolean isKg = true;
     boolean isCm = true;
-    float bmi;
 
     @SuppressLint("SetTextI18n")
     private void showDialog() {
@@ -123,10 +135,10 @@ public class RecordActivity extends AppCompatActivity {
                 .customView(R.layout.dialog_bmi, true)
                 .positiveText("Save")
                 .onPositive((dialog1, which) -> {
-                    weight = convertIntoInteger(edtWeight.getText().toString().trim());
+                    weight = convertIntoFloat(edtWeight.getText().toString().trim());
 
                     if (isCm)
-                        height = (float) convertIntoInteger(edtCm.getText().toString().trim()) / 100;
+                        height = convertIntoFloat(edtCm.getText().toString().trim()) / 100;
                     else {
                         inches = convertIntoFloat(edtIn.getText().toString().trim());
                         feet = convertIntoFloat(edtFt.getText().toString().trim());
@@ -140,10 +152,10 @@ public class RecordActivity extends AppCompatActivity {
                         weight = weight * 2.20462f;
                     }
                     if (isCm)
-                        height = height * 2.54f;
-                    tvBmi.setText(String.valueOf((int) bmi) + bmiCategory((int) bmi));
-                    user.setWeight(weight);
-                    user.setHeight(height);
+                        height = height * 39.3701f;
+                    tvBmi.setText(String.valueOf(bmi) + bmiCategory((int) bmi));
+                    user.setWeight((int) weight);
+                    user.setHeight((int) height);
                     user.setBmi((int) bmi);
                     mUserViewModel.update(user);
                     dialog1.dismiss();
@@ -195,9 +207,9 @@ public class RecordActivity extends AppCompatActivity {
                 edtIn.setVisibility(View.VISIBLE);
                 edtCm.setVisibility(View.GONE);
                 isCm = false;
-                edtWeight.setText(String.valueOf((int) user.getWeight()));
-                edtFt.setText(String.valueOf((int) (user.getHeight() / 12)));
-                edtIn.setText(String.valueOf((int) (user.getHeight() % 12)));
+                edtWeight.setText(String.valueOf(user.getWeight()));
+                edtFt.setText(String.valueOf(user.getHeight() / 12));
+                edtIn.setText(String.valueOf(user.getHeight() % 12));
                 rbLbs.setChecked(true);
             }
         });
@@ -237,65 +249,108 @@ public class RecordActivity extends AppCompatActivity {
         graph.setPinchZoom(true);
         // create a custom MarkerView (extend MarkerView) and specify the layout
         // to use for it
+        YAxis leftAxis = graph.getAxisLeft();
+        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
+        leftAxis.setAxisMaximum(250f);
+        leftAxis.setAxisMinimum(50f);
         MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
         mv.setChartView(graph); // For bounds control
         graph.setMarker(mv); // Set the marker to the chart
         XAxis xAxis = graph.getXAxis();
+        xAxis.setAxisMaximum(30f);
+        xAxis.setAxisMinimum(1f);
         xAxis.enableGridDashedLine(10f, 10f, 0f);
         graph.getAxisRight().setEnabled(false);
         // add data
         setData(recordList);
-        graph.animateX(2500);
+        graph.animateX(500);
         // // dont forget to refresh the drawing
         graph.invalidate();
     }
 
     private void setData(List<Record> recordList) {
+
         ArrayList<Entry> values = new ArrayList<>();
-        values.add(new Entry(0, user.getWeight(), getResources().getDrawable(R.drawable.star)));
-        if (recordList.size() > 0)
+        if (recordList.size() == 0)
+            values.add(new Entry(1, 1, getResources().getDrawable(R.drawable.star)));
+        else {
             for (int i = 0; i < recordList.size(); i++)
                 values.add(new Entry(recordList.get(i).getId() + 1, recordList.get(i).getWeight(), getResources().getDrawable(R.drawable.star)));
+        }
 
         LineDataSet set;
-        if (graph.getData() != null &&
-                graph.getData().getDataSetCount() > 0) {
-            set = (LineDataSet) graph.getData().getDataSetByIndex(0);
-            set.setValues(values);
-            graph.getData().notifyDataChanged();
-            graph.notifyDataSetChanged();
+        // create a dataset and give it a type
+        set = new LineDataSet(values, "lbs");
+        set.setDrawIcons(false);
+        // set the line to be drawn like this "- - - - - -"
+        set.enableDashedLine(10f, 0f, 0f);
+        set.enableDashedHighlightLine(10f, 0f, 0f);
+        set.setColor(Color.parseColor("#00aeef"));
+        set.setCircleColor(Color.parseColor("#00aeef"));
+        set.setLineWidth(1f);
+        set.setValueTextColor(Color.parseColor("#00aeef"));
+        set.setCircleRadius(3f);
+        set.setDrawCircleHole(false);
+        set.setValueTextSize(9f);
+        set.setDrawFilled(true);
+        set.setFormLineWidth(1f);
+        set.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+        set.setFormSize(15.f);
+        if (Utils.getSDKInt() >= 18) {
+            // fill drawable only supported on api level 18 and above
+            Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_green);
+            set.setFillDrawable(drawable);
         } else {
-            // create a dataset and give it a type
-            set = new LineDataSet(values, "lbs");
-            set.setDrawIcons(false);
-            // set the line to be drawn like this "- - - - - -"
-            set.enableDashedLine(10f, 0f, 0f);
-            set.enableDashedHighlightLine(10f, 0f, 0f);
-            set.setColor(Color.parseColor("#00aeef"));
-            set.setCircleColor(Color.parseColor("#00aeef"));
-            set.setLineWidth(1f);
-            set.setValueTextColor(Color.parseColor("#00aeef"));
-            set.setCircleRadius(3f);
-            set.setDrawCircleHole(false);
-            set.setValueTextSize(9f);
-            set.setDrawFilled(true);
-            set.setFormLineWidth(1f);
-            set.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-            set.setFormSize(15.f);
-            if (Utils.getSDKInt() >= 18) {
-                // fill drawable only supported on api level 18 and above
-                Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_green);
-                set.setFillDrawable(drawable);
-            } else {
-                set.setFillColor(Color.parseColor("#00aeef"));
-            }
-            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-            dataSets.add(set); // add the datasets
-            // create a data object with the datasets
-            LineData data = new LineData(dataSets);
-            // set data
-            graph.setData(data);
+            set.setFillColor(Color.parseColor("#00aeef"));
         }
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set); // add the datasets
+        // create a data object with the datasets
+        LineData data = new LineData(dataSets);
+        // set data
+        graph.setData(data);
+        graph.getData().notifyDataChanged();
+        graph.notifyDataSetChanged();
+
+    }
+
+    private void setWeight() {
+        ArrayList<Entry> values = new ArrayList<>();
+        values.add(new Entry(1, user.getWeight(), getResources().getDrawable(R.drawable.star)));
+
+        LineDataSet set;
+        // create a dataset and give it a type
+        set = new LineDataSet(values, "kg");
+        set.setDrawIcons(false);
+        // set the line to be drawn like this "- - - - - -"
+        set.enableDashedLine(10f, 0f, 0f);
+        set.enableDashedHighlightLine(10f, 0f, 0f);
+        set.setColor(Color.parseColor("#00aeef"));
+        set.setCircleColor(Color.parseColor("#00aeef"));
+        set.setLineWidth(1f);
+        set.setValueTextColor(Color.parseColor("#00aeef"));
+        set.setCircleRadius(3f);
+        set.setDrawCircleHole(false);
+        set.setValueTextSize(9f);
+        set.setDrawFilled(true);
+        set.setFormLineWidth(1f);
+        set.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+        set.setFormSize(15.f);
+        if (Utils.getSDKInt() >= 18) {
+            // fill drawable only supported on api level 18 and above
+            Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_green);
+            set.setFillDrawable(drawable);
+        } else {
+            set.setFillColor(Color.parseColor("#00aeef"));
+        }
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set); // add the datasets
+        // create a data object with the datasets
+        LineData data = new LineData(dataSets);
+        // set data
+        graph.setData(data);
+        graph.getData().notifyDataChanged();
+        graph.notifyDataSetChanged();
     }
 
     private String bmiCategory(int bmi) {
@@ -307,15 +362,7 @@ public class RecordActivity extends AppCompatActivity {
             return " - Over Weight";
         else if (bmi > 30)
             return " - Heavily Over Weight";
-        else return null;
-    }
-
-    private int convertIntoInteger(String xVal) {
-        try {
-            return Integer.parseInt(xVal);
-        } catch (Exception ex) {
-            return 0;
-        }
+        else return "";
     }
 
     private float convertIntoFloat(String xVal) {

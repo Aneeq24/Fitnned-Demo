@@ -35,6 +35,7 @@ public class Application extends android.app.Application {
         Fabric.with(fabric);
 
         MobileAds.initialize(context, context.getString(R.string.app_id));
+        MobileAds.initialize(context, context.getString(R.string.app_id));
         if (BuildConfig.DEBUG) {
             AdSettings.addTestDevice("728E481201E977FE91F3F915B469D33D");
             AdsManager.getInstance();

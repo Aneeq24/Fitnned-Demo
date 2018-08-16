@@ -203,23 +203,23 @@
             android:paddingTop="5dp">
 
             <com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.RelativeRadioGroup
-                android:id="@+id/rg_weight"
+                android:id="@+id/rg_graph"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="5dp">
 
                 <RadioButton
-                    android:id="@+id/rb_kg"
+                    android:id="@+id/rb_kg_graph"
                     style="@style/radio_tab"
                     android:background="@drawable/bg_weight_tab"
-                    android:checked="true"
                     android:text="Weight" />
 
                 <RadioButton
-                    android:id="@+id/rb_lb"
+                    android:id="@+id/rb_lb_graph"
                     style="@style/radio_tab"
                     android:layout_marginLeft="75dp"
                     android:background="@drawable/bg_kcal_tab"
+                    android:checked="true"
                     android:text="Kcal" />
             </com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.RelativeRadioGroup>
 
@@ -229,7 +229,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:layout_marginTop="10dp"
-                android:paddingBottom="10dp" />
+                android:padding="5dp" />
 
         </LinearLayout>
 

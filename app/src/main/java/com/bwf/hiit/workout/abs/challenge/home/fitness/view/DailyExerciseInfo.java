@@ -25,6 +25,8 @@ import com.google.android.gms.ads.AdView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,7 +39,9 @@ public class DailyExerciseInfo extends AppCompatActivity {
     List<Exercise> mEXList;
     int plan;
     int planday;
-
+    int totalRounds;
+    float kcal = 0;
+    List<ExerciseDay> mList;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.rv_dailyExercise)
@@ -46,6 +50,10 @@ public class DailyExerciseInfo extends AppCompatActivity {
     TextView tvRound;
     @BindView(R.id.tv_exercise)
     TextView tvExercise;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
+    @BindView(R.id.tv_kcal)
+    TextView tvKcal;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -100,7 +108,15 @@ public class DailyExerciseInfo extends AppCompatActivity {
 //                    exerciseDays.get(0).setExerciseComplete(0);
 //                    exerciseDays.get(0).setRoundCompleted(0);
 //                }
-                int totalRounds = exerciseDayList.get(0).getRounds();
+                mList = exerciseDayList;
+                int totaTimeSpend = 0;
+                for (ExerciseDay day : exerciseDayList) {
+                    if (day.isStatus())
+                        day.setStatus(false);
+                    totaTimeSpend = totaTimeSpend + day.getReps() + day.getDelay();
+                }
+                totaTimeSpend = totaTimeSpend * exerciseDayList.get(0).getRounds();
+                totalRounds = exerciseDayList.get(0).getRounds();
                 int totalExercisePerRound = exerciseDayList.size();
 //                int roundsCleared = exerciseDayList.get(0).getRoundCompleted();
 //                int cE = 0;
@@ -108,12 +124,20 @@ public class DailyExerciseInfo extends AppCompatActivity {
 //                    if (day.isStatus())
 //                        cE++;
 //                }
-
-                tvRound.setText(String.valueOf(totalRounds));
+                tvRound.setText(String.valueOf(totalRounds) + "x");
                 tvExercise.setText(String.valueOf(totalExercisePerRound));
-                new getExerciseTask(exerciseDayList).execute();
+                int minutes = (totaTimeSpend % 3600) / 60;
+                tvTime.setText(String.valueOf(minutes));
             }
         });
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                new getExerciseTask(mList).execute();
+            }
+        },1000);
+
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -125,11 +149,12 @@ public class DailyExerciseInfo extends AppCompatActivity {
         }
 
         @Override
-        protected final Void doInBackground( Void... params) {
+        protected final Void doInBackground(Void... params) {
             for (ExerciseDay day : mList) {
                 Exercise exercise = AppDataBase.getInstance().exerciseDao().findByIdbg(day.getId());
                 if (exercise != null) {
-                    mEXList.add(new Exercise(day.getReps(),day.getDelay(),exercise.getName(),exercise.getDisplay_name()));
+                    mEXList.add(new Exercise(day.getReps(), day.getDelay(), exercise.getName(), exercise.getDisplay_name()));
+                    kcal = kcal + exercise.getCalories();
                 }
             }
             return null;
@@ -138,6 +163,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            tvKcal.setText(String.valueOf((int) kcal * totalRounds));
             mAdapter.setList(mEXList);
         }
     }

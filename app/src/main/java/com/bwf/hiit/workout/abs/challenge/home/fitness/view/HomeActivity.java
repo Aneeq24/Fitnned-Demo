@@ -39,7 +39,6 @@ import java.net.URL;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     String[] titles = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
-
     Bitmap[] image;
 
     Context context;

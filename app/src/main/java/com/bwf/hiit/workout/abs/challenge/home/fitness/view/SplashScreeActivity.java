@@ -69,11 +69,10 @@ public class SplashScreeActivity extends AppCompatActivity {
             reminder.setSatday(true);
             reminder.setSunday(true);
 
-            if (!SharedPrefHelper.readBoolean(context, getString(R.string.is_first_run)))
+            if (!SharedPrefHelper.readBoolean(context, getString(R.string.is_first_run))) {
                 appDataBase.userdao().insertAll(user);
-
-            if (!SharedPrefHelper.readBoolean(context, getString(R.string.is_first_run)))
                 appDataBase.reminderDao().insertAll(reminder);
+            }
 
             if (appDataBase != null) {
                 // insert plans

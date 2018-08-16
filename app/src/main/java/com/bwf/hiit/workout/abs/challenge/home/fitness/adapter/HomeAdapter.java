@@ -15,9 +15,7 @@ import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.LogHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.repository.ExerciseDayRepo;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.ScrollingActivity;
 
 import java.util.ArrayList;
@@ -59,8 +57,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MainMenuItemHo
             holder.tvPercentage.setText(progress.get(position) + "%");
         }
 
-        holder.imgBackground.setOnClickListener(view -> setOnClick(view,position));
-        holder.imgStart.setOnClickListener(view -> setOnClick(view,position));
+        holder.imgBackground.setOnClickListener(view -> setOnClick(view, position));
+        holder.imgStart.setOnClickListener(view -> setOnClick(view, position));
 
     }
 
@@ -107,14 +105,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MainMenuItemHo
                             i + 1).get(0).getExerciseComplete();
                     int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan,
                             i + 1).get(0).getTotalExercise();
-
                     float v = (float) totalComplete / (float) totalExercises;
-
                     if (v >= 1) {
                         val++;
                     }
                 }
-                LogHelper.logD("1994: val", "" + val);
                 progress.add(val);
             }
             return null;
@@ -123,19 +118,20 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MainMenuItemHo
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if (isCancelled())
-                return;
-
-            isDataUp = true;
-            notifyDataSetChanged();
+            setDataUp();
         }
     }
 
-    private void setOnClick(View view,int position){
+    private void setDataUp() {
+        isDataUp = true;
+        this.notifyDataSetChanged();
+    }
+
+    private void setOnClick(View view, int position) {
         Intent i = new Intent(view.getContext(), ScrollingActivity.class);
         i.putExtra(view.getContext().getString(R.string.plan), (position + 1));
         view.getContext().startActivity(i);
-        AnalyticsManager.getInstance().sendAnalytics("plan_selected", "value " + (position + 1));
+        AnalyticsManager.getInstance().sendAnalytics("plan_selected" + tilte[position], "plan_selected _" + tilte[position]);
     }
 
 }

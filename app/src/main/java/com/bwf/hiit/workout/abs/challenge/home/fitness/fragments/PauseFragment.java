@@ -8,14 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
+import com.google.android.gms.ads.AdView;
 
 
 public class PauseFragment extends Fragment {
@@ -34,9 +33,8 @@ public class PauseFragment extends Fragment {
 
         rootView = inflater.inflate(R.layout.fragment_pause, container, false);
 
-        LinearLayout fbNative = rootView.findViewById(R.id.fbNative);
-
-        AdsManager.getInstance().showFacebookNativeAd(Application.getContext(), fbNative, null);
+        AdView adView = rootView.findViewById(R.id.baner_Admob);
+        AdsManager.getInstance().showBanner(adView);
 
         findReferences();
         return rootView;

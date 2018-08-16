@@ -1,9 +1,10 @@
-package com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets;
+package com.bwf.hiit.workout.abs.challenge.home.fitness.wheel;
 
 import android.content.Context;
 
 import android.util.AttributeSet;
 
+import com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.IMyWheelPicker;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.WheelPicker;
 
 import java.util.ArrayList;

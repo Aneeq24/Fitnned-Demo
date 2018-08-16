@@ -8,11 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AlarmManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.widgets.MyWheelPicker;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.MyWheelPicker;
 import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;

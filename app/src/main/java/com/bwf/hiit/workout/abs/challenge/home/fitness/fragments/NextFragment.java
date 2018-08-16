@@ -14,13 +14,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.dinuscxj.progressbar.CircleProgressBar;
+import com.google.android.gms.ads.AdView;
 
 public class NextFragment extends Fragment {
 
@@ -63,7 +63,9 @@ public class NextFragment extends Fragment {
 
         context = getContext();
 
-        AdsManager.getInstance().showFacebookNativeAd(Application.getContext(), linearLayout, null);
+        AdView adView = rootView.findViewById(R.id.baner_Admob);
+        AdsManager.getInstance().showBanner(adView);
+
         playingExercise = (PlayingExercise) getActivity();
 
         mCustomCircleBar.setProgressFormatter((progress, max) -> progress + "s");
@@ -117,7 +119,7 @@ public class NextFragment extends Fragment {
         if (playingExercise.currentRound == 3) {
             aimationImage.setVisibility(View.GONE);
             nextSreenExerciseName.setVisibility(View.GONE);
-            TTSManager.getInstance(playingExercise.getApplication()).play("This is the end of the last round. Take 60 sec break to end today's workout");
+            TTSManager.getInstance(playingExercise.getApplication()).play("This is the end of the last round. Take 60 sec break to end today's workout If You Like Our Workout App Please Do Rate Us At The End Of This Workout");
         }else
             TTSManager.getInstance(playingExercise.getApplication()).play("Take a Rest for " + playingExercise.restTime + "seconds" + "The Next Exercise is " + playingExercise.nextExerciseName);
     }
@@ -133,7 +135,7 @@ public class NextFragment extends Fragment {
                 int id = getResources().getIdentifier("clock", "raw", context.getPackageName());
 
                 if (currentRestTime == 30)
-                    TTSManager.getInstance(playingExercise.getApplication()).play("You have 30 sec remaining If You Like Our Workout App Please Do Rate Us At The End Of This Workout");
+                    TTSManager.getInstance(playingExercise.getApplication()).play("You have 30 sec remaining");
 
                 if (currentRestTime > 3)
                     Utils.playAudio(context, id);

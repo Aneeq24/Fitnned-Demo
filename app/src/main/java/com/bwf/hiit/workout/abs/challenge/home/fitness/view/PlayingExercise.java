@@ -277,13 +277,13 @@ public class PlayingExercise extends AppCompatActivity {
 
             LogHelper.logD("1994:Current Round", "" + currentRound + "Get Rounds" + (exerciseDays.get(0).getRounds() - 1));
 
-            AnalyticsManager.getInstance().sendAnalytics("round_complete" + currentRound, "plan " + currentPlan + "day " + currentDay);
+            AnalyticsManager.getInstance().sendAnalytics("plan " + currentPlan + "day " + currentDay, "round_complete" + currentRound);
 
             exerciseDays.get(0).setExerciseComplete(exerciseDays.get(0).getTotalExercise());
             exerciseDays.get(0).setRoundCompleted(currentRound);
             fragmentTransaction.add(R.id.fragment_container, completeFragment, null);
 
-            AnalyticsManager.getInstance().sendAnalytics("complete_all_exercises", "plan " + currentPlan + "day " + currentDay);
+            AnalyticsManager.getInstance().sendAnalytics( "plan " + currentPlan + "day " + currentDay,"complete_all_exercises");
 
             iscomplete = true;
             new InsetData().execute();

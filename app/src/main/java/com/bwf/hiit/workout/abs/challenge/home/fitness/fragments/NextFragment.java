@@ -107,11 +107,11 @@ public class NextFragment extends Fragment {
         int id = getResources().getIdentifier(str, "drawable", context.getPackageName());
         String path = "android.resource://" + context.getPackageName() + "/" + id;
         Glide.with(this).load(path).into(aimationImage);
-        if (playingExercise.currentRound == 3) {
+        if (playingExercise.currentRound == playingExercise.totalRounds) {
             aimationImage.setVisibility(View.GONE);
             nextSreenExerciseName.setVisibility(View.GONE);
             TTSManager.getInstance(playingExercise.getApplication()).play("This is the end of the last round. Take 60 sec break to end today's workout If You Like Our Workout App Please Do Rate Us At The End Of This Workout");
-        }else
+        } else
             TTSManager.getInstance(playingExercise.getApplication()).play("Take a Rest for " + playingExercise.restTime + "seconds" + "The Next Exercise is " + playingExercise.nextExerciseName);
     }
 
@@ -126,7 +126,7 @@ public class NextFragment extends Fragment {
                 int id = getResources().getIdentifier("clock", "raw", context.getPackageName());
 
                 if (currentRestTime == 30)
-                    TTSManager.getInstance(playingExercise.getApplication()).play("You have 30 sec remaining");
+                    TTSManager.getInstance(playingExercise.getApplication()).play("You have " + currentRestTime + " sec remaining");
 
                 if (currentRestTime > 3)
                     Utils.playAudio(context, id);

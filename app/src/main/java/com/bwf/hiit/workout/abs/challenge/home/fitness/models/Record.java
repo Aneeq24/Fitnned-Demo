@@ -16,6 +16,10 @@ public class Record {
 
     private int weight;
 
+    private int exDay;
+
+    private int duration;
+
     private String day;
 
     private String date;
@@ -65,6 +69,22 @@ public class Record {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getExDay() {
+        return exDay;
+    }
+
+    public void setExDay(int exDay) {
+        this.exDay = exDay;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     private String getCurrentDate() {

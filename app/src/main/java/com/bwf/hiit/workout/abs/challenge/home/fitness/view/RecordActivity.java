@@ -285,8 +285,8 @@ public class RecordActivity extends AppCompatActivity {
     private void setKcalYAxis() {
         YAxis leftAxis = graph.getAxisLeft();
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
-        leftAxis.setAxisMaximum(250f);
-        leftAxis.setAxisMinimum(150f);
+        leftAxis.setAxisMaximum(300f);
+        leftAxis.setAxisMinimum(100f);
     }
 
     private void setWeightYAxis() {
@@ -303,7 +303,7 @@ public class RecordActivity extends AppCompatActivity {
             values.add(new Entry(1, 1, getResources().getDrawable(R.drawable.star)));
         else {
             for (int i = 0; i < recordList.size(); i++)
-                values.add(new Entry(recordList.get(i).getId() + 1, recordList.get(i).getWeight(), getResources().getDrawable(R.drawable.star)));
+                values.add(new Entry(Integer.parseInt(recordList.get(i).getDay()), recordList.get(i).getWeight(), getResources().getDrawable(R.drawable.star)));
         }
 
         LineDataSet set;
@@ -344,7 +344,7 @@ public class RecordActivity extends AppCompatActivity {
 
     private void setWeight() {
         ArrayList<Entry> values = new ArrayList<>();
-        values.add(new Entry(1, user.getWeight(), getResources().getDrawable(R.drawable.star)));
+        values.add(new Entry(getCurrentDay(), user.getWeight(), getResources().getDrawable(R.drawable.star)));
 
         LineDataSet set;
         // create a dataset and give it a type
@@ -379,6 +379,12 @@ public class RecordActivity extends AppCompatActivity {
         graph.setData(data);
         graph.getData().notifyDataChanged();
         graph.notifyDataSetChanged();
+    }
+
+    private int getCurrentDay() {
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd");
+        Date date = new Date();
+        return Integer.parseInt(dateFormat.format(date));
     }
 
     private String bmiCategory(int bmi) {

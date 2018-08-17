@@ -31,7 +31,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MainMenuItemHo
     public HomeAdapter(String[] tilte, Bitmap[] images) {
         this.tilte = tilte;
         this.images = images;
-        progress = new ArrayList<>();
         new GetDataFromDb().execute();
     }
 
@@ -97,6 +96,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MainMenuItemHo
         @Override
         protected Void doInBackground(Void... voids) {
             AppDataBase dataBase = AppDataBase.getInstance();
+            progress = new ArrayList<>();
             isDataUp = false;
             for (int plan = 1; plan < 4; plan++) {
                 int val = 0;

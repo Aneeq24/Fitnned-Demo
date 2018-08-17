@@ -241,7 +241,7 @@ public class PlayingExercise extends AppCompatActivity {
             currentExercise++;
         } else {
             if (currentRound < exerciseDays.get(0).getRounds()) {
-                new CountDownTimer(4000, 1000) {
+                new CountDownTimer(5000, 1000) {
                     @Override
                     public void onTick(long l) {
 
@@ -249,7 +249,7 @@ public class PlayingExercise extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
-                        if (currentRound != 3)
+                        if (currentRound > totalRounds)
                             TTSManager.getInstance(getApplication()).play("This is end of Round " + currentRound +
                                     "You have" + (exerciseDays.get(0).getRounds() - currentRound) + "round remaining");
                         AnalyticsManager.getInstance().sendAnalytics("plan " + currentPlan + "day " + currentDay, "round_complete" + currentRound);

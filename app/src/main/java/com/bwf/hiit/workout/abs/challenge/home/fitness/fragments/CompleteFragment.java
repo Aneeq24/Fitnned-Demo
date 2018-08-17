@@ -127,7 +127,9 @@ public class CompleteFragment extends Fragment {
         int minutes = (playingExercise.totaTimeSpend % 3600) / 60;
         @SuppressLint("DefaultLocale") String timeString = String.format("%02d", minutes);
 
+        record.setExDay(playingExercise.currentDay);
         record.setWeight(playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
+        record.setDuration(minutes);
         record.setType(getPlanName());
 
         toolbar.setNavigationOnClickListener(view1 -> {
@@ -365,6 +367,7 @@ public class CompleteFragment extends Fragment {
         XAxis xAxis = graph.getXAxis();
         xAxis.setAxisMaximum(30f);
         xAxis.setAxisMinimum(1f);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.enableGridDashedLine(10f, 10f, 0f);
         graph.getAxisRight().setEnabled(false);
         // add data
@@ -377,8 +380,8 @@ public class CompleteFragment extends Fragment {
     private void setKcalYAxis() {
         YAxis leftAxis = graph.getAxisLeft();
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
-        leftAxis.setAxisMaximum(250f);
-        leftAxis.setAxisMinimum(150f);
+        leftAxis.setAxisMaximum(300f);
+        leftAxis.setAxisMinimum(100f);
     }
 
     private void setWeightYAxis() {
@@ -395,7 +398,7 @@ public class CompleteFragment extends Fragment {
             values.add(new Entry(1, 1, getResources().getDrawable(R.drawable.star)));
         else {
             for (int i = 0; i < recordList.size(); i++)
-                values.add(new Entry(recordList.get(i).getId() + 1, recordList.get(i).getWeight(), getResources().getDrawable(R.drawable.star)));
+                values.add(new Entry(Integer.parseInt(recordList.get(i).getDay()), recordList.get(i).getWeight(), getResources().getDrawable(R.drawable.star)));
         }
 
         LineDataSet set;
@@ -436,7 +439,7 @@ public class CompleteFragment extends Fragment {
 
     private void setWeight() {
         ArrayList<Entry> values = new ArrayList<>();
-        values.add(new Entry(1, user.getWeight(), getResources().getDrawable(R.drawable.star)));
+        values.add(new Entry(getCurrentDay(), user.getWeight(), getResources().getDrawable(R.drawable.star)));
 
         LineDataSet set;
         // create a dataset and give it a type
@@ -497,6 +500,12 @@ public class CompleteFragment extends Fragment {
             default:
                 return "";
         }
+    }
+
+    private int getCurrentDay() {
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd");
+        Date date = new Date();
+        return Integer.parseInt(dateFormat.format(date));
     }
 
     public void setRateAppDialog() {

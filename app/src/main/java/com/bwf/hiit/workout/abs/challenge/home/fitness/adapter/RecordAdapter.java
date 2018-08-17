@@ -33,8 +33,9 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MainMenuIt
     @Override
     public void onBindViewHolder(@NonNull MainMenuItemHolder holder, final int position) {
         holder.tvDay.setText(recordList.get(position).getDay());
-        holder.tvTitle.setText("Day " + String.valueOf(recordList.get(position).getId()) + " - " + recordList.get(position).getType());
+        holder.tvTitle.setText("Day " + String.valueOf(recordList.get(position).getExDay()) + " - " + recordList.get(position).getType());
         holder.tvWeight.setText(String.valueOf(recordList.get(position).getWeight()));
+        holder.tvDuration.setText(String.valueOf(recordList.get(position).getDuration()));
         holder.tvDate.setText(recordList.get(position).getDate());
     }
 
@@ -51,6 +52,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MainMenuIt
         TextView tvWeight;
         TextView tvDay;
         TextView tvDate;
+        TextView tvDuration;
 
         MainMenuItemHolder(View itemView) {
             super(itemView);
@@ -58,6 +60,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MainMenuIt
             tvWeight = itemView.findViewById(R.id.tv_weight);
             tvDay = itemView.findViewById(R.id.tv_day);
             tvDate = itemView.findViewById(R.id.tv_date);
+            tvDuration = itemView.findViewById(R.id.tv_duration);
         }
     }
 

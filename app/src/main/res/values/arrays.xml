@@ -5,15 +5,6 @@
         <item>@string/title</item>
         <item>@string/explanation</item>
     </string-array>
-    <string-array name="WheelArrayWeek">
-        <item>Monday</item>
-        <item>Tuesday</item>
-        <item>Wednesday</item>
-        <item>Thursday</item>
-        <item>Friday</item>
-        <item>Saturday</item>
-        <item>Sunday</item>
-    </string-array>
 
     <string-array name="WheelArrayDefault">
         <item>0</item>

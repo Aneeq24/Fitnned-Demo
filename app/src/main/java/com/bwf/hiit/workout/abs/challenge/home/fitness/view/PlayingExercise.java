@@ -249,7 +249,7 @@ public class PlayingExercise extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
-                        if (currentRound > totalRounds)
+                        if (currentRound < totalRounds)
                             TTSManager.getInstance(getApplication()).play("This is end of Round " + currentRound +
                                     "You have" + (exerciseDays.get(0).getRounds() - currentRound) + "round remaining");
                         AnalyticsManager.getInstance().sendAnalytics("plan " + currentPlan + "day " + currentDay, "round_complete" + currentRound);

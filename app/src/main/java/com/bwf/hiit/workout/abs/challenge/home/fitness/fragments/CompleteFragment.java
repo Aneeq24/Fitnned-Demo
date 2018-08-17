@@ -82,7 +82,7 @@ public class CompleteFragment extends Fragment {
     Context context;
     LineChart graph;
     PlayingExercise playingExercise;
-    Record record;
+    Record record, record1;
     List<Record> recordList;
     User user;
     RelativeRadioGroup rgGraph;
@@ -127,22 +127,9 @@ public class CompleteFragment extends Fragment {
         int minutes = (playingExercise.totaTimeSpend % 3600) / 60;
         @SuppressLint("DefaultLocale") String timeString = String.format("%02d", minutes);
         mRecordViewModel.getRecord(playingExercise.currentDay).observe(this, record -> {
-            if (record != null) {
-                this.record = record;
-                this.record.setExDay(playingExercise.currentDay);
-                this.record.setWeight(record.getWeight() + playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
-                this.record.setDuration(minutes);
-                this.record.setType(getPlanName());
-                mRecordViewModel.insert(this.record);
-            } else {
-                this.record.setExDay(playingExercise.currentDay);
-                this.record.setWeight(playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
-                this.record.setDuration(minutes);
-                this.record.setType(getPlanName());
-                mRecordViewModel.insert(this.record);
-            }
+            if (record != null)
+                this.record1 = record;
         });
-
 
         toolbar.setNavigationOnClickListener(view1 -> {
             if (getActivity() != null) {
@@ -197,6 +184,20 @@ public class CompleteFragment extends Fragment {
                     user.setTotalExcercise(user.getTotalExcercise() + playingExercise.totalExercisesPlayed + 1);
                     user.setTotalTime(user.getTotalTime() + convertIntoInteger(timeString));
                     mUserViewModel.update(user);
+                }
+                if (record1 != null) {
+                    record1 = record;
+                    record1.setExDay(playingExercise.currentDay);
+                    record1.setWeight(record1.getWeight() + playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
+                    record1.setDuration(minutes);
+                    record1.setType(getPlanName());
+                    mRecordViewModel.insert(record1);
+                } else {
+                    record.setExDay(playingExercise.currentDay);
+                    record.setWeight(playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
+                    record.setDuration(minutes);
+                    record.setType(getPlanName());
+                    mRecordViewModel.insert(record);
                 }
             }
         }, 1000);

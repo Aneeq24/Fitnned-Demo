@@ -9,7 +9,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
@@ -23,12 +22,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 
 public class Utils {
@@ -44,59 +38,18 @@ public class Utils {
         return false;
     }
 
-    public static String formatNumber(float number) {
-        DecimalFormat format = new DecimalFormat(".##");
-        return format.format(number);
-    }
-
-    public static String formatName(String name) {
-        if (TextUtils.isEmpty(name))
-            return "";
-        else {
-            StringBuilder stringBuilder = new StringBuilder();
-            String[] parts;
-            if (name.contains("_")) {
-                parts = name.split("_");
-                for (String part : parts) {
-                    stringBuilder.append(Character.toUpperCase(part.charAt(0))).append(part.substring(1, part.length())).append(" ");
-                }
-            } else {
-                stringBuilder.append(Character.toUpperCase(name.charAt(0))).append(name.substring(1, name.length()));
-            }
-            return stringBuilder.toString();
-        }
-    }
-
     public static void playAudio(Context context, int resourceId) {
 
-
         try {
-
             int i = SharedPrefHelper.readInteger(context, "sound");
             if (i > 0)
                 return;
-
             MediaPlayer mediaPlayer = MediaPlayer.create(context, resourceId);
             mediaPlayer.setOnCompletionListener(MediaPlayer -> mediaPlayer.release());
             mediaPlayer.start();
         } catch (Exception e) {
             Log.e(TAG, "playAudio: " + e.getLocalizedMessage());
         }
-    }
-
-    public static long getCurrentDateInMillis() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        long currentDateInMillis = -1;
-        try {
-            currentDateInMillis = dateFormat.parse(dateFormat.format(new Date())).getTime();
-        } catch (ParseException e) {
-            Log.e(TAG, "exception in getting current date in millis: " + e.getLocalizedMessage());
-        }
-        return currentDateInMillis;
-    }
-
-    public static String convertLongDateToString(long date) {
-        return new SimpleDateFormat("d MMM", Locale.getDefault()).format(new Date(date));
     }
 
     public static void exportDB(Context context) {

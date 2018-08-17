@@ -59,7 +59,6 @@ public class AdsManager {
     private final String TAG = AdsManager.class.getName();
     private com.facebook.ads.InterstitialAd fbInterstitialAd;
 
-
     private AdsManager() {
         Context context = Application.getContext();
         interstitialAd = new InterstitialAd(context);
@@ -394,7 +393,6 @@ public class AdsManager {
         }
     }
 
-    //1994 Facebook ad  checking
     public boolean isFacebookInterstitalLoaded() {
         return fbInterstitialAd.isAdLoaded();
     }

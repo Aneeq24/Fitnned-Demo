@@ -1,5 +1,6 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.wheel;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Camera;
@@ -9,7 +10,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Region;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable {
+public class WheelPicker extends View implements  IWheelPicker, Runnable {
 
     public static final int SCROLL_STATE_IDLE = 0, SCROLL_STATE_DRAGGING = 1,
             SCROLL_STATE_SCROLLING = 2;
@@ -77,8 +77,7 @@ public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable 
     private boolean isCurved;
     private boolean isClick;
     private boolean isForceFinishScroll;
-    private String fontPath;
-    private boolean isDebug;
+    boolean isDebug;
 
     public WheelPicker(Context context) {
         this(context, null);
@@ -114,7 +113,7 @@ public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable 
         hasAtmospheric = a.getBoolean(R.styleable.WheelPicker_wheel_atmospheric, false);
         isCurved = a.getBoolean(R.styleable.WheelPicker_wheel_curved, false);
         mItemAlign = a.getInt(R.styleable.WheelPicker_wheel_item_align, ALIGN_CENTER);
-        fontPath = a.getString(R.styleable.WheelPicker_wheel_font_path);
+        String fontPath = a.getString(R.styleable.WheelPicker_wheel_font_path);
         a.recycle();
         updateVisibleItemCount();
 
@@ -471,6 +470,7 @@ public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable 
         return (int) (mHalfWheelHeight - Math.cos(Math.toRadians(degree)) * mHalfWheelHeight);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
@@ -513,10 +513,7 @@ public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable 
                 if (isClick && !isForceFinishScroll) break;
                 mTracker.addMovement(event);
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT)
-                    mTracker.computeCurrentVelocity(1000, mMaximumVelocity);
-                else
-                    mTracker.computeCurrentVelocity(1000);
+                mTracker.computeCurrentVelocity(1000, mMaximumVelocity);
 
                 // 根据速度判断是该滚动还是滑动
                 // Judges the WheelPicker is scroll or fling base on current velocity
@@ -589,11 +586,6 @@ public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable 
             postInvalidate();
             mHandler.postDelayed(this, 16);
         }
-    }
-
-    @Override
-    public void setDebug(boolean isDebug) {
-        this.isDebug = isDebug;
     }
 
     @Override

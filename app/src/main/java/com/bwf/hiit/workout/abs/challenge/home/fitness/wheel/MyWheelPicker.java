@@ -4,9 +4,6 @@ import android.content.Context;
 
 import android.util.AttributeSet;
 
-import com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.IMyWheelPicker;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.WheelPicker;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -37,11 +34,6 @@ public class MyWheelPicker extends WheelPicker implements IMyWheelPicker {
     @Override
     public void setData(List data) {
         super.setData(data);
-    }
-
-    @Override
-    public int getSelected() {
-        return mSelectedMonth;
     }
 
     @Override

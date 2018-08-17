@@ -67,6 +67,7 @@ public class CalendarView extends LinearLayout {
         mCalendarProperties = calendarProperties;
 
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
         inflater.inflate(R.layout.calendar_view, this);
 
         initUiElements();
@@ -79,6 +80,7 @@ public class CalendarView extends LinearLayout {
         mCalendarProperties = new CalendarProperties(context);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
         inflater.inflate(R.layout.calendar_view, this);
 
         initUiElements();

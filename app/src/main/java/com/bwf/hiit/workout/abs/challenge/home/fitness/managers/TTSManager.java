@@ -40,15 +40,11 @@ public class TTSManager implements TextToSpeech.OnInitListener {
     @SuppressLint("StaticFieldLeak")
     private static TTSManager INSTANCE;
     private final TextToSpeech textToSpeech;
-
-    public  static  boolean isPlaying = false;
-
-
     private final Application application;
 
     private final Application.ActivityLifecycleCallbacks callbacks;
-    private final LinkedHashMap<String, String> samples = new LinkedHashMap<String, String>();
-    private final ArrayList<String> unwantedPhrases = new ArrayList<String>();
+    private final LinkedHashMap<String, String> samples = new LinkedHashMap<>();
+    private final ArrayList<String> unwantedPhrases = new ArrayList<>();
     private AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         public void onAudioFocusChange(int focusChange) {
             switch (focusChange) {
@@ -66,9 +62,9 @@ public class TTSManager implements TextToSpeech.OnInitListener {
     private boolean muted = false;
     private String playOnInit = null;
     private int queueMode = TextToSpeech.QUEUE_FLUSH;
-    private HashMap<String, Runnable> onStartRunnables = new HashMap<String, Runnable>();
-    private HashMap<String, Runnable> onDoneRunnables = new HashMap<String, Runnable>();
-    private HashMap<String, Runnable> onErrorRunnables = new HashMap<String, Runnable>();
+    private HashMap<String, Runnable> onStartRunnables = new HashMap<>();
+    private HashMap<String, Runnable> onDoneRunnables = new HashMap<>();
+    private HashMap<String, Runnable> onErrorRunnables = new HashMap<>();
 
     private TTSManager(final Application application) {
         this.application = application;
@@ -287,12 +283,14 @@ public class TTSManager implements TextToSpeech.OnInitListener {
 
     public void requestAudioFocus() {
         final AudioManager am = (AudioManager) application.getSystemService(Context.AUDIO_SERVICE);
+        assert am != null;
         am.requestAudioFocus(audioFocusChangeListener, AudioManager.STREAM_MUSIC,
                 AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
     }
 
     public void abandonAudioFocus() {
         AudioManager am = (AudioManager) application.getSystemService(Context.AUDIO_SERVICE);
+        assert am != null;
         am.abandonAudioFocus(audioFocusChangeListener);
     }
 

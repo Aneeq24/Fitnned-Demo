@@ -13,7 +13,6 @@ import java.util.Calendar;
 
 public class RebootReceiver extends BroadcastReceiver {
     Calendar reminderDateTime = Calendar.getInstance();
-
     @Override
     public void onReceive(Context context, Intent intent) {
         if (SharedPrefHelper.readBoolean(context, context.getString(R.string.alarm)))

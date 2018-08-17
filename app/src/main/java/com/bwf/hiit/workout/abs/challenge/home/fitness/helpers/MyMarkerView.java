@@ -12,6 +12,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;
 
+@SuppressLint("ViewConstructor")
 public class MyMarkerView extends MarkerView {
 
     private TextView tvContent;
@@ -22,8 +23,6 @@ public class MyMarkerView extends MarkerView {
         tvContent = findViewById(R.id.tvContent);
     }
 
-    // callbacks everytime the MarkerView is redrawn, can be used to update the
-    // content (user-interface)
     @SuppressLint("SetTextI18n")
     @Override
     public void refreshContent(Entry e, Highlight highlight) {

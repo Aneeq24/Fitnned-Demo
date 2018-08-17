@@ -8,7 +8,6 @@ import com.annimon.stream.Stream;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.interfaces.OnCalendarPageChangeListener;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.interfaces.OnDayClickListener;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.interfaces.OnSelectDateListener;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.interfaces.OnSelectionAbilityListener;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.EventDay;
 
@@ -17,9 +16,9 @@ import java.util.Calendar;
 import java.util.List;
 
 public class CalendarProperties {
-    private int mCalendarType, mHeaderColor, mHeaderLabelColor, mSelectionColor, mTodayLabelColor,
-            mDialogButtonsColor, mItemLayoutResource, mDisabledDaysLabelsColor, mPagesColor,
-            mAbbreviationsBarColor, mAbbreviationsLabelsColor, mDaysLabelsColor, mSelectionLabelColor,
+    private int mCalendarType, mHeaderColor, mHeaderLabelColor, mSelectionColor, mTodayLabelColor
+            , mItemLayoutResource, mDisabledDaysLabelsColor, mPagesColor, mAbbreviationsBarColor,
+            mAbbreviationsLabelsColor, mDaysLabelsColor, mSelectionLabelColor,
             mAnotherMonthsDaysLabelsColor;
 
     private Drawable mPreviousButtonSrc, mForwardButtonSrc;
@@ -29,7 +28,6 @@ public class CalendarProperties {
     private Calendar mCalendar, mMinimumDate, mMaximumDate;
 
     private OnDayClickListener mOnDayClickListener;
-    private OnSelectDateListener mOnSelectDateListener;
     private OnSelectionAbilityListener mOnSelectionAbilityListener;
     private OnCalendarPageChangeListener mOnPreviousPageChangeListener;
     private OnCalendarPageChangeListener mOnForwardPageChangeListener;
@@ -57,14 +55,6 @@ public class CalendarProperties {
 
     public void setCalendar(Calendar calendar) {
         mCalendar = calendar;
-    }
-
-    public OnSelectDateListener getOnSelectDateListener() {
-        return mOnSelectDateListener;
-    }
-
-    public void setOnSelectDateListener(OnSelectDateListener onSelectDateListener) {
-        mOnSelectDateListener = onSelectDateListener;
     }
 
     public int getHeaderColor() {
@@ -131,14 +121,6 @@ public class CalendarProperties {
         mTodayLabelColor = todayLabelColor;
     }
 
-    public int getDialogButtonsColor() {
-        return mDialogButtonsColor;
-    }
-
-    public void setDialogButtonsColor(int dialogButtonsColor) {
-        mDialogButtonsColor = dialogButtonsColor;
-    }
-
     public Calendar getMinimumDate() {
         return mMinimumDate;
     }
@@ -157,10 +139,6 @@ public class CalendarProperties {
 
     public OnSelectionAbilityListener getOnSelectionAbilityListener() {
         return mOnSelectionAbilityListener;
-    }
-
-    public void setOnSelectionAbilityListener(OnSelectionAbilityListener onSelectionAbilityListener) {
-        mOnSelectionAbilityListener = onSelectionAbilityListener;
     }
 
     public int getItemLayoutResource() {
@@ -292,5 +270,9 @@ public class CalendarProperties {
 
     public void setAnotherMonthsDaysLabelsColor(int anotherMonthsDaysLabelsColor) {
         mAnotherMonthsDaysLabelsColor = anotherMonthsDaysLabelsColor;
+    }
+
+    public void setmOnSelectionAbilityListener(OnSelectionAbilityListener mOnSelectionAbilityListener) {
+        this.mOnSelectionAbilityListener = mOnSelectionAbilityListener;
     }
 }

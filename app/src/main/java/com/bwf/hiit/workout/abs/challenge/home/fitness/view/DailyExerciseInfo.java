@@ -19,6 +19,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.ExerciseDayViewModel;
 import com.google.android.gms.ads.AdView;
 
@@ -40,6 +41,8 @@ public class DailyExerciseInfo extends AppCompatActivity {
     int plan;
     int planday;
     int totalRounds;
+    int completeRounds;
+    int completeExercise;
     float kcal = 0;
     List<ExerciseDay> mList;
     @BindView(R.id.toolbar)
@@ -124,6 +127,8 @@ public class DailyExerciseInfo extends AppCompatActivity {
 //                    if (day.isStatus())
 //                        cE++;
 //                }
+                completeExercise = exerciseDayList.get(0).getExerciseComplete();
+                completeRounds = exerciseDayList.get(0).getRoundCompleted();
                 tvRound.setText(String.valueOf(totalRounds) + "x");
                 tvExercise.setText(String.valueOf(totalExercisePerRound));
                 int minutes = (totaTimeSpend % 3600) / 60;
@@ -136,7 +141,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
             public void run() {
                 new getExerciseTask(mList).execute();
             }
-        },1000);
+        }, 1000);
 
     }
 
@@ -165,14 +170,14 @@ public class DailyExerciseInfo extends AppCompatActivity {
             super.onPostExecute(aVoid);
             tvKcal.setText(String.valueOf((int) kcal * totalRounds));
             mAdapter.setList(mEXList);
+            mAdapter.setData(completeRounds,completeExercise);
         }
     }
 
     @OnClick(R.id.startButton)
     public void onViewClicked() {
-        Intent i = new Intent(context, PlayingExercise.class);
-        i.putExtra(context.getString(R.string.day_selected), planday);
-        i.putExtra(context.getString(R.string.plan), plan);
-        startActivity(i);
+        if (completeRounds > 0 || completeExercise > 0)
+            Utils.setCheckBox(context, planday, plan);
+        else Utils.setScreen(context, planday, plan);
     }
 }

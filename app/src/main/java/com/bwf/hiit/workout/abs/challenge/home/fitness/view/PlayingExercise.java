@@ -94,15 +94,15 @@ public class PlayingExercise extends AppCompatActivity {
                 exerciseDays = dataBase.exerciseDayDao().getExerciseDays(currentPlan, currentDay);
 
                 for (ExerciseDay day : exerciseDays) {
-                    if (day.isStatus())
-                        day.setStatus(false);
+//                    if (day.isStatus())
+//                        day.setStatus(false);
                     totaTimeSpend = totaTimeSpend + day.getReps() + day.getDelay();
                 }
                 totaTimeSpend = totaTimeSpend * exerciseDays.get(0).getRounds();
-//                exerciseDays.get(0).setExerciseComplete(exerciseDays.get(0).getExerciseComplete());
-//                exerciseDays.get(0).setRoundCompleted(exerciseDays.get(0).getRoundCompleted());
-                exerciseDays.get(0).setExerciseComplete(0);
-                exerciseDays.get(0).setRoundCompleted(0);
+                exerciseDays.get(0).setExerciseComplete(exerciseDays.get(0).getExerciseComplete());
+                exerciseDays.get(0).setRoundCompleted(exerciseDays.get(0).getRoundCompleted());
+//                exerciseDays.get(0).setExerciseComplete(0);
+//                exerciseDays.get(0).setRoundCompleted(0);
 
                 new InsetData().execute();
 
@@ -283,7 +283,7 @@ public class PlayingExercise extends AppCompatActivity {
             exerciseDays.get(0).setRoundCompleted(currentRound);
             fragmentTransaction.add(R.id.fragment_container, completeFragment, null);
 
-            AnalyticsManager.getInstance().sendAnalytics( "plan " + currentPlan + "day " + currentDay,"complete_all_exercises");
+            AnalyticsManager.getInstance().sendAnalytics("plan " + currentPlan + "day " + currentDay, "complete_all_exercises");
 
             iscomplete = true;
             new InsetData().execute();
@@ -414,4 +414,5 @@ public class PlayingExercise extends AppCompatActivity {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
+
 }

@@ -19,6 +19,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MainMenuIt
 
     public void setRecordList(List<Record> recordList) {
         this.recordList = recordList;
+        this.notifyDataSetChanged();
     }
 
     @NonNull

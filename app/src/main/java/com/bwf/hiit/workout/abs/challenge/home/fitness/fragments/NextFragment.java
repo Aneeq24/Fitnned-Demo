@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -31,12 +30,9 @@ public class NextFragment extends Fragment {
     TextView nextSreenExerciseName;
     int pauseTimer = 0;
     public boolean pause = false;
-
     TextView textView;
     TextView exerciseTextView;
-
     CircleProgressBar mCustomCircleBar;
-
     ImageView pauseResumeImage;
     CountDownTimer countDownTimer;
     int currentRestTime = 0;
@@ -44,12 +40,13 @@ public class NextFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_next, container, false);
 
-        LinearLayout linearLayout = rootView.findViewById(R.id.fbNative);
+        AdView adView = rootView.findViewById(R.id.baner_Admob);
+        AdsManager.getInstance().showBanner(adView);
+
         pauseResumeImage = rootView.findViewById(R.id.nf_pauseTimerImageView);
         mCustomCircleBar = rootView.findViewById(R.id.restTimer);
         textView = rootView.findViewById(R.id.cf_roundText);
@@ -60,14 +57,8 @@ public class NextFragment extends Fragment {
         nextSreenExerciseName = rootView.findViewById(R.id.tv_nextHeadline);
 
         pause = false;
-
         context = getContext();
-
-        AdView adView = rootView.findViewById(R.id.baner_Admob);
-        AdsManager.getInstance().showBanner(adView);
-
         playingExercise = (PlayingExercise) getActivity();
-
         mCustomCircleBar.setProgressFormatter((progress, max) -> progress + "s");
 
         assert playingExercise != null;

@@ -23,7 +23,6 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.dinuscxj.progressbar.CircleProgressBar;
 
-
 import java.util.Objects;
 
 
@@ -88,10 +87,10 @@ public class ExerciseFragment extends Fragment {
     private void soundButton() {
         if (soundValue > 0) {
             soundValue = 0;
-            soundButton_B.setImageResource(R.drawable.play_screen_sound_on_btn);
+            soundButton_B.setImageResource(R.drawable.play_screen_sound_off_btn);
         } else {
             soundValue = 1;
-            soundButton_B.setImageResource(R.drawable.play_screen_sound_off_btn);
+            soundButton_B.setImageResource(R.drawable.play_screen_sound_on_btn);
         }
 
         SharedPrefHelper.writeInteger(context, "sound", soundValue);
@@ -106,9 +105,9 @@ public class ExerciseFragment extends Fragment {
     private void findRefrence() {
 
         if (soundValue > 0)
-            soundButton_B.setImageResource(R.drawable.play_screen_sound_off_btn);
-        else
             soundButton_B.setImageResource(R.drawable.play_screen_sound_on_btn);
+        else
+            soundButton_B.setImageResource(R.drawable.play_screen_sound_off_btn);
 
         soundValue = SharedPrefHelper.readInteger(context, "sound");
 

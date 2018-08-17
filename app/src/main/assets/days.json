@@ -4,89 +4,85 @@
     "days": [
       {
         "day_id": 1,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 20,
-             "rounds": 3,
-            "delay" : 10,
+            "rounds": 3,
+            "delay": 10,
             "status": false
           },
           {
             "id": 12,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 2,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
-
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
-
+            "delay": 10,
             "status": false
           },
           {
-            "id":6,
+            "id": 6,
             "reps": 20,
             "rounds": 3,
-            "delay" : 60,
-
+            "delay": 60,
             "status": false
           }
         ]
       },
       {
         "day_id": 2,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
-
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 20,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 3,
             "status": false
           }
@@ -94,76 +90,70 @@
       },
       {
         "day_id": 3,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 2,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 10,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 4,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 11,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 24,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 12,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 20,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 13,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           }
@@ -171,477 +161,470 @@
       },
       {
         "day_id": 4,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 2,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 26,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 6,
             "reps": 20,
             "rounds": 3,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
         ]
       },
       {
         "day_id": 5,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 11,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 25,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 15,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 22,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 28,
             "reps": 20,
             "rounds": 3,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 6,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 27,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 21,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 23,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 14,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 3,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 28,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 25,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 5,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
         ]
-
       },
       {
         "day_id": 7,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 27,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 19,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 8,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 12,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 6,
             "reps": 20,
             "rounds": 3,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 9,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 20,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
             "rounds": 3,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 10,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 2,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 10,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 4,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 11,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 24,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 12,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 20,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 11,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 2,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 26,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 6,
             "reps": 20,
             "rounds": 3,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
         ]
       },
       {
         "day_id": 12,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 11,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 25,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 15,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 22,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 28,
             "reps": 20,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 3,
             "status": false
           }
@@ -649,1002 +632,986 @@
       },
       {
         "day_id": 13,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 27,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 21,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 23,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 14,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 3,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 28,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 25,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 5,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 14,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 27,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 19,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 3,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 15,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 12,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 2,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 6,
             "reps": 20,
             "rounds": 3,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
         ]
       },
       {
         "day_id": 16,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
-            "reps":20,
+            "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
-            "reps":20,
+            "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 17,
-            "reps":20,
+            "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 20,
-            "reps":20,
+            "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
-            "reps":20,
+            "reps": 20,
             "rounds": 3,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 17,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 2,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 10,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 4,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 11,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
-            "id":24,
+            "id": 24,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 12,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 20,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 13,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 18,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 2,
             "reps": 20,
-            "delay" :10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
-            "delay" :10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
-            "id":18,
+            "id": 18,
             "reps": 20,
-            "delay" :10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
-            "id":4,
+            "id": 4,
             "reps": 20,
-            "delay" :10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 26,
             "reps": 20,
-            "delay" :10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 6,
             "reps": 20,
-            "delay" :60,
+            "delay": 60,
             "rounds": 3,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 19,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 11,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 25,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 15,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 22,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 28,
             "reps": 20,
             "rounds": 3,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 20,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 27,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 21,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 23,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 14,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 3,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 28,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 25,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 5,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 21,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 27,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 19,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 3,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 3,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 22,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 12,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 2,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
-            "id":6,
+            "id": 6,
             "reps": 20,
             "rounds": 3,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 23,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
-            "id":13,
+            "id": 13,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 20,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
             "rounds": 3,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 24,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 2,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 10,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 4,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 11,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 24,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 12,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 20,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 13,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 25,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 2,
             "reps": 20,
-            "rounds":3,
-            "delay" : 10,
+            "rounds": 3,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
-            "rounds":3,
-            "delay" : 10,
+            "rounds": 3,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
-            "rounds":3,
-            "delay" : 10,
+            "rounds": 3,
+            "delay": 10,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
-            "rounds":3,
-            "delay" : 10,
+            "rounds": 3,
+            "delay": 10,
             "status": false
           },
           {
             "id": 26,
             "reps": 20,
-            "rounds":3,
-            "delay" : 10,
+            "rounds": 3,
+            "delay": 10,
             "status": false
           },
           {
             "id": 2,
             "reps": 20,
-            "rounds":3,
-            "delay" : 60,
+            "rounds": 3,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 26,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 11,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 25,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 15,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 22,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
-            "id":28,
+            "id": 28,
             "reps": 20,
             "rounds": 3,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 27,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 27,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 21,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 23,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 14,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 3,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 28,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 25,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 5,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
-
         ]
       },
       {
         "day_id": 28,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 27,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
-            "status": false
-          },
-          {
-            "id":17,
-            "reps": 20,
-            "rounds": 3,
-            "delay" : 10,
-            "status": false
-          },
-          {
-            "id": 19,
-            "reps": 20,
-            "rounds": 3,
-            "delay" : 10,
-            "status": false
-          },
-          {
-            "id": 9,
-            "reps": 20,
-            "rounds": 3,
-            "delay" : 60,
-            "status": false
-          }
-
-
-        ]
-      },
-      {
-        "day_id": 29,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
-        "exercises": [
-          {
-            "id": 7,
-            "reps": 20,
-            "rounds": 3,
-            "delay" : 10,
-            "status": false
-          },
-          {
-            "id": 12,
-            "reps": 20,
-            "rounds": 3,
-            "delay" : 10,
-            "status": false
-          },
-          {
-            "id": 2,
-            "reps": 20,
-            "rounds": 3,
-            "delay" : 10,
-            "status": false
-          },
-          {
-            "id": 5,
-            "reps": 20,
-            "rounds": 3,
-            "delay" : 10,
-            "status": false
-          },
-          {
-            "id": 6,
-            "reps": 20,
-            "rounds": 3,
-            "delay" : 60,
-            "status": false
-          }
-
-        ]
-      },
-      {
-        "day_id": 30,
-        "round_completed" :0,
-"total_exercise" :0,
-"exercise_complete":0,
-        "exercises": [
-          {
-            "id": 9,
-            "reps": 20,
-            "rounds": 3,
-            "delay" : 10,
-            "status": false
-          },
-          {
-            "id": 13,
-            "reps": 20,
-            "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
+            "status": false
+          },
+          {
+            "id": 19,
+            "reps": 20,
+            "rounds": 3,
+            "delay": 10,
+            "status": false
+          },
+          {
+            "id": 9,
+            "reps": 20,
+            "rounds": 3,
+            "delay": 60,
+            "status": false
+          }
+        ]
+      },
+      {
+        "day_id": 29,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
+        "exercises": [
+          {
+            "id": 7,
+            "reps": 20,
+            "rounds": 3,
+            "delay": 10,
+            "status": false
+          },
+          {
+            "id": 12,
+            "reps": 20,
+            "rounds": 3,
+            "delay": 10,
+            "status": false
+          },
+          {
+            "id": 2,
+            "reps": 20,
+            "rounds": 3,
+            "delay": 10,
+            "status": false
+          },
+          {
+            "id": 5,
+            "reps": 20,
+            "rounds": 3,
+            "delay": 10,
+            "status": false
+          },
+          {
+            "id": 6,
+            "reps": 20,
+            "rounds": 3,
+            "delay": 60,
+            "status": false
+          }
+        ]
+      },
+      {
+        "day_id": 30,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
+        "exercises": [
+          {
+            "id": 9,
+            "reps": 20,
+            "rounds": 3,
+            "delay": 10,
+            "status": false
+          },
+          {
+            "id": 13,
+            "reps": 20,
+            "rounds": 3,
+            "delay": 10,
+            "status": false
+          },
+          {
+            "id": 17,
+            "reps": 20,
+            "rounds": 3,
+            "delay": 10,
             "status": false
           },
           {
             "id": 20,
             "reps": 20,
             "rounds": 3,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
             "rounds": 3,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       }
     ]
@@ -1654,90 +1621,85 @@
     "days": [
       {
         "day_id": 1,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 12,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
-
+            "delay": 10,
             "status": false
           },
           {
             "id": 2,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
-
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
-
+            "delay": 10,
             "status": false
           },
           {
-            "id":6,
+            "id": 6,
             "reps": 20,
             "rounds": 4,
-            "delay" : 60,
-
+            "delay": 60,
             "status": false
           }
         ]
       },
       {
         "day_id": 2,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 4,
-
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
-            "delay" : 10,
-            "rounds":4,
+            "delay": 10,
+            "rounds": 4,
             "status": false
           },
           {
             "id": 20,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 4,
             "status": false
           }
@@ -1745,76 +1707,70 @@
       },
       {
         "day_id": 3,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 2,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 10,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 4,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 11,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 24,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 12,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 20,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 13,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           }
@@ -1822,477 +1778,470 @@
       },
       {
         "day_id": 4,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 2,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 26,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 6,
             "reps": 20,
             "rounds": 4,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
         ]
       },
       {
         "day_id": 5,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 11,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 25,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 15,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 22,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 28,
             "reps": 20,
             "rounds": 4,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 6,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 27,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 21,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 23,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 14,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 3,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 28,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 25,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 5,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
         ]
-
       },
       {
         "day_id": 7,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 27,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 19,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 8,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 12,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 6,
             "reps": 20,
             "rounds": 4,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 9,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 20,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
             "rounds": 4,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 10,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 2,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 10,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 4,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 11,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 24,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 12,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 20,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 11,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 2,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 26,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 6,
             "reps": 20,
             "rounds": 4,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
         ]
       },
       {
         "day_id": 12,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 11,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 25,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 15,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 22,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 28,
             "reps": 20,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 4,
             "status": false
           }
@@ -2300,1096 +2249,1074 @@
       },
       {
         "day_id": 13,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 27,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 21,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 23,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 14,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 3,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 28,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 25,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 5,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 14,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 27,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 19,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 4,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 15,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 12,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 2,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 6,
             "reps": 20,
             "rounds": 4,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
         ]
       },
       {
         "day_id": 16,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
-            "reps":20,
+            "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
-            "reps":20,
+            "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 17,
-            "reps":20,
+            "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 20,
-            "reps":20,
+            "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
-            "reps":20,
+            "reps": 20,
             "rounds": 4,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 17,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 2,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 10,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 4,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 11,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
-            "id":24,
+            "id": 24,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 12,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 20,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 13,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 18,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 2,
             "reps": 20,
-            "delay" :10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
-            "delay" :10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
-            "id":18,
+            "id": 18,
             "reps": 20,
-            "delay" :10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
-            "id":4,
+            "id": 4,
             "reps": 20,
-            "delay" :10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 26,
             "reps": 20,
-            "delay" :10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 6,
             "reps": 20,
-            "delay" :60,
+            "delay": 60,
             "rounds": 4,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 19,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 11,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 25,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 15,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 22,
             "reps": 20,
-            "rounds":4,
-            "delay" : 10,
+            "rounds": 4,
+            "delay": 10,
             "status": false
           },
           {
             "id": 28,
             "reps": 20,
             "rounds": 4,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 20,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 27,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 21,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 23,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 14,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 3,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 28,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 25,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 5,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 21,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 27,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 19,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 4,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 4,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 22,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 20,
-            "rounds":4,
-            "delay" : 10,
+            "rounds": 4,
+            "delay": 10,
             "status": false
           },
           {
             "id": 12,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 2,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
-            "id":6,
+            "id": 6,
             "reps": 20,
             "rounds": 4,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 23,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
-            "id":13,
+            "id": 13,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 20,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
             "rounds": 4,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 24,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 2,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 10,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 4,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 11,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 24,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 12,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 20,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 13,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 25,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 2,
             "reps": 20,
-            "rounds":4,
-            "delay" : 10,
+            "rounds": 4,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
-            "rounds":4,
-            "delay" : 10,
+            "rounds": 4,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
-            "rounds":4,
-            "delay" : 10,
+            "rounds": 4,
+            "delay": 10,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
-            "rounds":4,
-            "delay" : 10,
+            "rounds": 4,
+            "delay": 10,
             "status": false
           },
           {
             "id": 26,
             "reps": 20,
-            "rounds":4,
-            "delay" : 10,
+            "rounds": 4,
+            "delay": 10,
             "status": false
           },
           {
             "id": 2,
             "reps": 20,
-            "rounds":4,
-            "delay" : 60,
+            "rounds": 4,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 26,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 11,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 25,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 15,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 22,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
-            "id":28,
+            "id": 28,
             "reps": 20,
             "rounds": 4,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 27,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 27,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 21,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 23,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 14,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 3,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 28,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 25,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 5,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
-
         ]
       },
       {
         "day_id": 28,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 27,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
-            "status": false
-          },
-          {
-            "id":17,
-            "reps": 20,
-            "rounds": 4,
-            "delay" : 10,
-            "status": false
-          },
-          {
-            "id": 19,
-            "reps": 20,
-            "rounds": 4,
-            "delay" : 10,
-            "status": false
-          },
-          {
-            "id": 9,
-            "reps": 20,
-            "rounds": 4,
-            "delay" : 60,
-            "status": false
-          }
-
-
-        ]
-      },
-      {
-        "day_id": 29,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
-        "exercises": [
-          {
-            "id": 7,
-            "reps": 20,
-            "rounds": 4,
-            "delay" : 10,
-            "status": false
-          },
-          {
-            "id": 12,
-            "reps": 20,
-            "rounds": 4,
-            "delay" : 10,
-            "status": false
-          },
-          {
-            "id": 2,
-            "reps": 20,
-            "rounds": 4,
-            "delay" : 10,
-            "status": false
-          },
-          {
-            "id": 5,
-            "reps": 20,
-            "rounds": 4,
-            "delay" : 10,
-            "status": false
-          },
-          {
-            "id": 6,
-            "reps": 20,
-            "rounds": 4,
-            "delay" : 60,
-            "status": false
-          }
-
-        ]
-      },
-      {
-        "day_id": 30,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
-        "exercises": [
-          {
-            "id": 9,
-            "reps": 20,
-            "rounds": 4,
-            "delay" : 10,
-            "status": false
-          },
-          {
-            "id": 13,
-            "reps": 20,
-            "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
+            "status": false
+          },
+          {
+            "id": 19,
+            "reps": 20,
+            "rounds": 4,
+            "delay": 10,
+            "status": false
+          },
+          {
+            "id": 9,
+            "reps": 20,
+            "rounds": 4,
+            "delay": 60,
+            "status": false
+          }
+        ]
+      },
+      {
+        "day_id": 29,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
+        "exercises": [
+          {
+            "id": 7,
+            "reps": 20,
+            "rounds": 4,
+            "delay": 10,
+            "status": false
+          },
+          {
+            "id": 12,
+            "reps": 20,
+            "rounds": 4,
+            "delay": 10,
+            "status": false
+          },
+          {
+            "id": 2,
+            "reps": 20,
+            "rounds": 4,
+            "delay": 10,
+            "status": false
+          },
+          {
+            "id": 5,
+            "reps": 20,
+            "rounds": 4,
+            "delay": 10,
+            "status": false
+          },
+          {
+            "id": 6,
+            "reps": 20,
+            "rounds": 4,
+            "delay": 60,
+            "status": false
+          }
+        ]
+      },
+      {
+        "day_id": 30,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
+        "exercises": [
+          {
+            "id": 9,
+            "reps": 20,
+            "rounds": 4,
+            "delay": 10,
+            "status": false
+          },
+          {
+            "id": 13,
+            "reps": 20,
+            "rounds": 4,
+            "delay": 10,
+            "status": false
+          },
+          {
+            "id": 17,
+            "reps": 20,
+            "rounds": 4,
+            "delay": 10,
             "status": false
           },
           {
             "id": 20,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
             "rounds": 4,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       }
     ]
   },
   {
     "plan_id": 3,
-
     "days": [
       {
         "day_id": 1,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 12,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
-
+            "delay": 10,
             "status": false
           },
           {
             "id": 2,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
-
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
-
+            "delay": 10,
             "status": false
           },
           {
-            "id":6,
+            "id": 6,
             "reps": 20,
             "rounds": 5,
-            "delay" : 60,
-
+            "delay": 60,
             "status": false
           }
         ]
       },
       {
         "day_id": 2,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 5,
-
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
-            "delay" : 10,
-            "rounds":5,
+            "delay": 10,
+            "rounds": 5,
             "status": false
           },
           {
             "id": 20,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 5,
             "status": false
           }
@@ -3397,76 +3324,70 @@
       },
       {
         "day_id": 3,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 2,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 10,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 4,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 11,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 24,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 12,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 20,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 13,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           }
@@ -3474,477 +3395,470 @@
       },
       {
         "day_id": 4,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 2,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 26,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 6,
             "reps": 20,
             "rounds": 5,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
         ]
       },
       {
         "day_id": 5,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 11,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 25,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 15,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 22,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 28,
             "reps": 20,
             "rounds": 5,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 6,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
-
             "status": false
           },
           {
             "id": 27,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 21,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 23,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 14,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 3,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 28,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 25,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 5,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
         ]
-
       },
       {
         "day_id": 7,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 27,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 19,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 8,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 12,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 6,
             "reps": 20,
             "rounds": 5,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 9,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 20,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
             "rounds": 5,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 10,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 2,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 10,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 4,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 11,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 24,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 12,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 20,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 11,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 2,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 26,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 6,
             "reps": 20,
             "rounds": 5,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
         ]
       },
       {
         "day_id": 12,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 11,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 25,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 15,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 22,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 28,
             "reps": 20,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 5,
             "status": false
           }
@@ -3952,1002 +3866,986 @@
       },
       {
         "day_id": 13,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 27,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 21,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 23,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 14,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 3,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 28,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 25,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 5,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 14,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 27,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 19,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 5,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 15,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 12,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 2,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 6,
             "reps": 20,
             "rounds": 5,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
         ]
       },
       {
         "day_id": 16,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
-            "reps":20,
+            "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
-            "reps":20,
+            "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 17,
-            "reps":20,
+            "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 20,
-            "reps":20,
+            "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
-            "reps":20,
+            "reps": 20,
             "rounds": 5,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 17,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 2,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 10,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 4,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 11,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
-            "id":24,
+            "id": 24,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 12,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 20,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 13,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 18,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 2,
             "reps": 20,
-            "delay" :10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
-            "delay" :10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
-            "id":18,
+            "id": 18,
             "reps": 20,
-            "delay" :10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
-            "id":4,
+            "id": 4,
             "reps": 20,
-            "delay" :10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 26,
             "reps": 20,
-            "delay" :10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 6,
             "reps": 20,
-            "delay" :60,
+            "delay": 60,
             "rounds": 5,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 19,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 11,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 25,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 15,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 22,
             "reps": 20,
-            "rounds":5,
-            "delay" : 10,
+            "rounds": 5,
+            "delay": 10,
             "status": false
           },
           {
             "id": 28,
             "reps": 20,
             "rounds": 5,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 20,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 27,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 21,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 23,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 14,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 3,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 28,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 25,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 5,
             "reps": 60,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 21,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 27,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 19,
             "reps": 20,
-            "delay" : 10,
+            "delay": 10,
             "rounds": 5,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
-            "delay" : 60,
+            "delay": 60,
             "rounds": 5,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 22,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 20,
-            "rounds":5,
-            "delay" : 10,
+            "rounds": 5,
+            "delay": 10,
             "status": false
           },
           {
             "id": 12,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 2,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
-            "id":6,
+            "id": 6,
             "reps": 20,
             "rounds": 5,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 23,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
-            "id":13,
+            "id": 13,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 20,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
             "rounds": 5,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 24,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 2,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 10,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 4,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 11,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 24,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 12,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 20,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           },
           {
             "id": 13,
-            "reps":60,
-            "delay" : 60,
+            "reps": 60,
+            "delay": 60,
             "rounds": 1,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 25,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 2,
             "reps": 20,
-            "rounds":5,
-            "delay" : 10,
+            "rounds": 5,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
-            "rounds":5,
-            "delay" : 10,
+            "rounds": 5,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
-            "rounds":5,
-            "delay" : 10,
+            "rounds": 5,
+            "delay": 10,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
-            "rounds":5,
-            "delay" : 10,
+            "rounds": 5,
+            "delay": 10,
             "status": false
           },
           {
             "id": 26,
             "reps": 20,
-            "rounds":5,
-            "delay" : 10,
+            "rounds": 5,
+            "delay": 10,
             "status": false
           },
           {
             "id": 2,
             "reps": 20,
-            "rounds":5,
-            "delay" : 60,
+            "rounds": 5,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 26,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 11,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 25,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 1,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 15,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 22,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
-            "id":28,
+            "id": 28,
             "reps": 20,
             "rounds": 5,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 27,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 27,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 21,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 23,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 14,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 3,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 28,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 25,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           },
           {
             "id": 5,
             "reps": 60,
             "rounds": 1,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
-
         ]
       },
       {
         "day_id": 28,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 4,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 27,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
-            "id":17,
+            "id": 17,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 19,
             "reps": 20,
             "rounds": 4,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 9,
             "reps": 20,
             "rounds": 5,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
-
         ]
       },
       {
         "day_id": 29,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 7,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 12,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 2,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 5,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 6,
             "reps": 20,
             "rounds": 5,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       },
       {
         "day_id": 30,
-        "round_completed" :0,
-        "total_exercise" :0,
-        "exercise_complete":0,
+        "round_completed": 0,
+        "total_exercise": 0,
+        "exercise_complete": 0,
         "exercises": [
           {
             "id": 9,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 13,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 17,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 20,
             "reps": 20,
             "rounds": 5,
-            "delay" : 10,
+            "delay": 10,
             "status": false
           },
           {
             "id": 18,
             "reps": 20,
             "rounds": 5,
-            "delay" : 60,
+            "delay": 60,
             "status": false
           }
-
         ]
       }
     ]

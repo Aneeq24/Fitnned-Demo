@@ -1,22 +1,23 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.utils;
 
-import android.app.Dialog;
-import android.content.ActivityNotFoundException;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.NumberPicker;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,8 +27,8 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class Utils {
@@ -121,6 +122,54 @@ public class Utils {
         }
     }
 
+    public static void setCheckBox(Context context, int currentDay, int currentPlan) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        alertDialogBuilder.setTitle(context.getString(R.string.app_name));
+        alertDialogBuilder
+                .setMessage("You have Play it previously.Do you want to resume?")
+                .setCancelable(false)
+                .setNegativeButton("Reset", (dialog, id) -> {
+                    dialog.cancel();
+                    AnalyticsManager.getInstance().sendAnalytics("playing_exercise_reset", "Reset");
+                    resetData(context, currentDay, currentPlan);
+                }).setPositiveButton("Resume", (dialog, id) -> {
+            AnalyticsManager.getInstance().sendAnalytics("playing_exercise_resume", "Resume");
+            setScreen(context, currentDay, currentPlan);
+            dialog.cancel();
+        });
 
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
 
+    @SuppressLint("StaticFieldLeak")
+    private static void resetData(Context context, int currentDay, int currentPlan) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                List<ExerciseDay> exerciseDays = AppDataBase.getInstance().exerciseDayDao().getExerciseDays(currentPlan, currentDay);
+                for (ExerciseDay day : exerciseDays) {
+                    if (day.isStatus())
+                        day.setStatus(false);
+                }
+                exerciseDays.get(0).setExerciseComplete(0);
+                exerciseDays.get(0).setRoundCompleted(0);
+                AppDataBase.getInstance().exerciseDayDao().insertAll(exerciseDays);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                setScreen(context, currentDay, currentPlan);
+            }
+        }.execute();
+    }
+
+    public static void setScreen(Context context, int currentDay, int currentPlan) {
+        Intent i = new Intent(context, PlayingExercise.class);
+        i.putExtra(context.getString(R.string.day_selected), currentDay);
+        i.putExtra(context.getString(R.string.plan), currentPlan);
+        context.startActivity(i);
+    }
 }

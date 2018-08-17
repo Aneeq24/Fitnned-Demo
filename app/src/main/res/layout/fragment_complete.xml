@@ -219,18 +219,31 @@
                         android:padding="5dp">
 
                         <RadioButton
-                            android:id="@+id/rb_kg_graph"
-                            style="@style/radio_tab"
-                            android:background="@drawable/bg_weight_tab"
-                            android:text="Weight" />
-
-                        <RadioButton
                             android:id="@+id/rb_lb_graph"
                             style="@style/radio_tab"
-                            android:layout_marginLeft="75dp"
-                            android:background="@drawable/bg_kcal_tab"
+                            android:background="@drawable/bg_weight_tab"
                             android:checked="true"
                             android:text="Kcal" />
+
+                        <RadioButton
+                            android:id="@+id/rb_kg_graph"
+                            style="@style/radio_tab"
+                            android:layout_marginLeft="75dp"
+                            android:layout_marginStart="75dp"
+                            android:background="@drawable/bg_kcal_tab"
+                            android:text="Weight" />
+
+                        <ImageView
+                            android:id="@+id/btn_add_weight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_margin="10dp"
+                            android:src="@drawable/completed_screen_edit_icon"
+                            android:visibility="gone" />
+
                     </com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.RelativeRadioGroup>
 
 
@@ -241,7 +254,16 @@
                         android:layout_marginTop="10dp"
                         android:padding="5dp" />
 
+                    <TextView
+                        android:id="@+id/tv_mon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Mon"
+                        android:textSize="12sp" />
                 </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout

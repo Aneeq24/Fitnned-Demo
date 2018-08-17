@@ -26,6 +26,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AlarmManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Reminder;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.ReminderViewModel;
+import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,9 +66,8 @@ public class ConfirmReminderActivity extends AppCompatActivity {
         context = this;
         mViewModel = ViewModelProviders.of(this).get(ReminderViewModel.class);
 
-        LinearLayout fbNative = findViewById(R.id.fbNative);
-        AdsManager.getInstance().showFacebookNativeAd(Application.getContext(), fbNative, null);
-
+        AdView adView = findViewById(R.id.baner_Admob);
+        AdsManager.getInstance().showBanner(adView);
 
         if (SharedPrefHelper.readBoolean(context, "reminder"))
             btnAddReminder.setChecked(true);

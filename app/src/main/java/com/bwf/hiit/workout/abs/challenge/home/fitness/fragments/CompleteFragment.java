@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -51,7 +52,10 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -70,8 +74,10 @@ public class CompleteFragment extends Fragment {
     TextView tvTotalTime;
     TextView tvKcal;
     TextView tvBmi;
+    TextView tvMon;
     RelativeLayout btnEditBmi;
     RelativeLayout btnAddReminder;
+    ImageView btnAddWeight;
     RelativeLayout btnMore;
     Context context;
     LineChart graph;
@@ -101,6 +107,8 @@ public class CompleteFragment extends Fragment {
         btnMore = view.findViewById(R.id.btn_more);
         tvTime = view.findViewById(R.id.tv_reminder);
         rgGraph = view.findViewById(R.id.rg_graph);
+        tvMon = view.findViewById(R.id.tv_mon);
+        btnAddWeight = view.findViewById(R.id.btn_add_weight);
 
         context = getContext();
         record = new Record();
@@ -129,6 +137,7 @@ public class CompleteFragment extends Fragment {
             }
         });
         btnEditBmi.setOnClickListener(view12 -> showDialog());
+        btnAddWeight.setOnClickListener(view12 -> showDialog());
         btnAddReminder.setOnClickListener(view12 -> startActivity(new Intent(context, ConfirmReminderActivity.class).putExtra("up", true)));
         btnMore.setOnClickListener(view12 -> startActivity(new Intent(context, CalenderActivity.class)));
 
@@ -149,9 +158,13 @@ public class CompleteFragment extends Fragment {
 
         rgGraph.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.rb_lb_graph) {
+                btnAddWeight.setVisibility(View.GONE);
                 initApp(user);
+                setKcalYAxis();
             } else if (i == R.id.rb_kg_graph) {
                 setWeight();
+                setWeightYAxis();
+                btnAddWeight.setVisibility(View.VISIBLE);
                 graph.invalidate();
             }
         });
@@ -166,14 +179,14 @@ public class CompleteFragment extends Fragment {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                if (user!=null){
+                if (user != null) {
                     user.setTotalKcal(user.getTotalKcal() + playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
                     user.setTotalExcercise(user.getTotalExcercise() + playingExercise.totalExercisesPlayed + 1);
                     user.setTotalTime(user.getTotalTime() + convertIntoInteger(timeString));
                     mUserViewModel.update(user);
                 }
             }
-        },1000);
+        }, 1000);
         SharedPrefHelper.writeInteger(context, "kcal", 0);
         setRateAppDialog();
         return view;
@@ -191,6 +204,10 @@ public class CompleteFragment extends Fragment {
         DayAdapter mAdapter = new DayAdapter(titles, date);
         rvHistory.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         rvHistory.setAdapter(mAdapter);
+
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("MMM");
+        Date date = new Date();
+        tvMon.setText(dateFormat.format(date));
     }
 
     EditText edtWeight;
@@ -232,10 +249,10 @@ public class CompleteFragment extends Fragment {
                         weight = weight * 2.20462f;
                     }
                     if (isCm)
-                        height = height * 39.3701f;
-                    tvBmi.setText(String.valueOf(bmi) + bmiCategory((int) bmi));
-                    user.setWeight((int) weight);
-                    user.setHeight((int) height);
+                        height = height * 100 * 0.393701f;
+                    tvBmi.setText(String.valueOf(math(bmi)) + bmiCategory(math(bmi)));
+                    user.setWeight(weight);
+                    user.setHeight(height);
                     user.setBmi((int) bmi);
                     mUserViewModel.update(user);
                     dialog1.dismiss();
@@ -258,8 +275,8 @@ public class CompleteFragment extends Fragment {
         rbKg = view.findViewById(R.id.rb_kg);
         rbLbs = view.findViewById(R.id.rb_lb);
 
-        edtWeight.setText(String.valueOf((int) (user.getWeight() * 0.453592)));
-        edtCm.setText(String.valueOf((int) (user.getHeight() * 2.54)));
+        edtWeight.setText(String.valueOf(math(user.getWeight() * 0.453592f)));
+        edtCm.setText(String.valueOf(math(user.getHeight() * 2.54f)));
 
         rgWeight.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.rb_lb) {
@@ -279,21 +296,20 @@ public class CompleteFragment extends Fragment {
                 edtFt.setVisibility(View.GONE);
                 edtIn.setVisibility(View.GONE);
                 isCm = true;
-                edtWeight.setText(String.valueOf((int) (user.getWeight() * 0.453592)));
-                edtCm.setText(String.valueOf((int) (user.getHeight() * 2.54)));
+                edtWeight.setText(String.valueOf(math(user.getWeight() * 0.453592f)));
+                edtCm.setText(String.valueOf(math(user.getHeight() * 2.54f)));
                 rbKg.setChecked(true);
             } else if (i == R.id.rb_in) {
                 edtFt.setVisibility(View.VISIBLE);
                 edtIn.setVisibility(View.VISIBLE);
                 edtCm.setVisibility(View.GONE);
                 isCm = false;
-                edtWeight.setText(String.valueOf(user.getWeight()));
-                edtFt.setText(String.valueOf(user.getHeight() / 12));
-                edtIn.setText(String.valueOf(user.getHeight() % 12));
+                edtWeight.setText(String.valueOf(math(user.getWeight())));
+                edtFt.setText(String.valueOf(math(user.getHeight() / 12)));
+                edtIn.setText(String.valueOf(math(user.getHeight() % 12)));
                 rbLbs.setChecked(true);
             }
         });
-
     }
 
     private float convertIntoFloat(String xVal) {
@@ -310,6 +326,12 @@ public class CompleteFragment extends Fragment {
         } catch (Exception ex) {
             return 0;
         }
+    }
+
+    public int math(float f) {
+        int c = (int) ((f) + 0.5f);
+        float n = f + 0.5f;
+        return (n - c) % 2 == 0 ? (int) f : c;
     }
 
     @SuppressLint("SetTextI18n")
@@ -336,10 +358,7 @@ public class CompleteFragment extends Fragment {
         graph.setPinchZoom(true);
         // create a custom MarkerView (extend MarkerView) and specify the layout
         // to use for it
-        YAxis leftAxis = graph.getAxisLeft();
-        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
-        leftAxis.setAxisMaximum(250f);
-        leftAxis.setAxisMinimum(50f);
+        setKcalYAxis();
         MyMarkerView mv = new MyMarkerView(context, R.layout.custom_marker_view);
         mv.setChartView(graph); // For bounds control
         graph.setMarker(mv); // Set the marker to the chart
@@ -353,6 +372,20 @@ public class CompleteFragment extends Fragment {
         graph.animateX(500);
         // // dont forget to refresh the drawing
         graph.invalidate();
+    }
+
+    private void setKcalYAxis() {
+        YAxis leftAxis = graph.getAxisLeft();
+        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
+        leftAxis.setAxisMaximum(250f);
+        leftAxis.setAxisMinimum(150f);
+    }
+
+    private void setWeightYAxis() {
+        YAxis leftAxis = graph.getAxisLeft();
+        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
+        leftAxis.setAxisMaximum(user.getWeight() + 50f);
+        leftAxis.setAxisMinimum(user.getWeight() - 50f);
     }
 
     private void setData(List<Record> recordList) {
@@ -475,15 +508,19 @@ public class CompleteFragment extends Fragment {
                 .setMessage("Do you want to Rate us?")
                 .setCancelable(false)
                 .setPositiveButton("YES", (dialog, id) -> {
+                    AnalyticsManager.getInstance().sendAnalytics("rate_us_clicked_yes", "Rate_us");
                     dialog.cancel();
                     onRateUs(context);
-                }).setNegativeButton("NO", (dialog, id) -> dialog.cancel());
+                }).setNegativeButton("NO", (dialog, id) -> {
+            dialog.cancel();
+            AnalyticsManager.getInstance().sendAnalytics("rate_us_clicked_no", "Rate_us");
+        });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
 
     private void onRateUs(Context context) {
-        AnalyticsManager.getInstance().sendAnalytics("rate_us_clicked", "Rate_us");
+        AnalyticsManager.getInstance().sendAnalytics("rate_us_clicked_done", "Rate_us");
         SharedPrefHelper.writeBoolean(context, "rate", true);
         try {
             context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));

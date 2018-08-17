@@ -15,6 +15,7 @@ import android.widget.VideoView;
 import com.bumptech.glide.Glide;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 
 import java.util.List;
@@ -26,6 +27,8 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
     private Activity info;
     private int day;
     private int plan;
+    private int completeRounds;
+    private int completeExercise;
 
     public DailyExerciseAdapter(Activity obj) {
         info = obj;
@@ -57,10 +60,9 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
         Glide.with(info).load(id).into(holder.imgeOfExercise);
 
         holder.itemView.setOnClickListener(view -> {
-            Intent i = new Intent(view.getContext(), PlayingExercise.class);
-            i.putExtra(view.getContext().getString(R.string.day_selected), day);
-            i.putExtra(view.getContext().getString(R.string.plan), plan);
-            view.getContext().startActivity(i);
+            if (completeRounds > 0 || completeExercise > 0)
+                Utils.setCheckBox(info, day, plan);
+            else Utils.setScreen(info, day, plan);
         });
     }
 
@@ -80,6 +82,11 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
     public void setDayPlan(int day, int plan) {
         this.day = day;
         this.plan = plan;
+    }
+
+    public void setData(int completeRounds, int completeExercise) {
+        this.completeRounds = completeRounds;
+        this.completeExercise = completeExercise;
     }
 
     class DailyExerciseDataHolder extends RecyclerView.ViewHolder {

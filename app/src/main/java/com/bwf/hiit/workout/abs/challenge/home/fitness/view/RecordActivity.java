@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -40,7 +41,10 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -55,6 +59,8 @@ public class RecordActivity extends AppCompatActivity {
     TextView tvExerciseNo;
     TextView tvTotalTime;
     TextView tvKcal;
+    TextView tvMon;
+    ImageView btnAddWeight;
     TextView tvBmi;
     RelativeLayout btnEditBmi;
     RelativeLayout btnMore;
@@ -84,6 +90,8 @@ public class RecordActivity extends AppCompatActivity {
         btnEditBmi = findViewById(R.id.btn_edit_bmi);
         btnMore = findViewById(R.id.btn_more);
         rgGraph = findViewById(R.id.rg_graph);
+        tvMon = findViewById(R.id.tv_mon);
+        btnAddWeight = findViewById(R.id.btn_add_weight);
 
         mUserViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         mRecordViewModel = ViewModelProviders.of(this).get(RecordViewModel.class);
@@ -92,13 +100,18 @@ public class RecordActivity extends AppCompatActivity {
 
         toolbar.setNavigationOnClickListener(view1 -> finish());
         btnEditBmi.setOnClickListener(view12 -> showDialog());
+        btnAddWeight.setOnClickListener(view12 -> showDialog());
         btnMore.setOnClickListener(view12 -> startActivity(new Intent(context, CalenderActivity.class)));
 
         rgGraph.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.rb_lb_graph) {
+                btnAddWeight.setVisibility(View.GONE);
                 initApp(user);
+                setKcalYAxis();
             } else if (i == R.id.rb_kg_graph) {
                 setWeight();
+                setWeightYAxis();
+                btnAddWeight.setVisibility(View.VISIBLE);
                 graph.invalidate();
             }
         });
@@ -152,10 +165,10 @@ public class RecordActivity extends AppCompatActivity {
                         weight = weight * 2.20462f;
                     }
                     if (isCm)
-                        height = height * 39.3701f;
-                    tvBmi.setText(String.valueOf(bmi) + bmiCategory((int) bmi));
-                    user.setWeight((int) weight);
-                    user.setHeight((int) height);
+                        height = height * 100 * 0.393701f;
+                    tvBmi.setText(String.valueOf(math(bmi)) + bmiCategory(math(bmi)));
+                    user.setWeight(weight);
+                    user.setHeight(height);
                     user.setBmi((int) bmi);
                     mUserViewModel.update(user);
                     dialog1.dismiss();
@@ -178,8 +191,8 @@ public class RecordActivity extends AppCompatActivity {
         rbKg = view.findViewById(R.id.rb_kg);
         rbLbs = view.findViewById(R.id.rb_lb);
 
-        edtWeight.setText(String.valueOf((int) (user.getWeight() * 0.453592)));
-        edtCm.setText(String.valueOf((int) (user.getHeight() * 2.54)));
+        edtWeight.setText(String.valueOf(math(user.getWeight() * 0.453592f)));
+        edtCm.setText(String.valueOf(math(user.getHeight() * 2.54f)));
 
         rgWeight.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.rb_lb) {
@@ -199,21 +212,20 @@ public class RecordActivity extends AppCompatActivity {
                 edtFt.setVisibility(View.GONE);
                 edtIn.setVisibility(View.GONE);
                 isCm = true;
-                edtWeight.setText(String.valueOf((int) (user.getWeight() * 0.453592)));
-                edtCm.setText(String.valueOf((int) (user.getHeight() * 2.54)));
+                edtWeight.setText(String.valueOf(math(user.getWeight() * 0.453592f)));
+                edtCm.setText(String.valueOf(math(user.getHeight() * 2.54f)));
                 rbKg.setChecked(true);
             } else if (i == R.id.rb_in) {
                 edtFt.setVisibility(View.VISIBLE);
                 edtIn.setVisibility(View.VISIBLE);
                 edtCm.setVisibility(View.GONE);
                 isCm = false;
-                edtWeight.setText(String.valueOf(user.getWeight()));
-                edtFt.setText(String.valueOf(user.getHeight() / 12));
-                edtIn.setText(String.valueOf(user.getHeight() % 12));
+                edtWeight.setText(String.valueOf(math(user.getWeight())));
+                edtFt.setText(String.valueOf(math(user.getHeight() / 12)));
+                edtIn.setText(String.valueOf(math(user.getHeight() % 12)));
                 rbLbs.setChecked(true);
             }
         });
-
     }
 
     private void setDaysData() {
@@ -221,6 +233,10 @@ public class RecordActivity extends AppCompatActivity {
         DayAdapter mAdapter = new DayAdapter(titles, date);
         rvHistory.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         rvHistory.setAdapter(mAdapter);
+
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("MMM");
+        Date date = new Date();
+        tvMon.setText(dateFormat.format(date));
     }
 
     @SuppressLint("SetTextI18n")
@@ -249,16 +265,14 @@ public class RecordActivity extends AppCompatActivity {
         graph.setPinchZoom(true);
         // create a custom MarkerView (extend MarkerView) and specify the layout
         // to use for it
-        YAxis leftAxis = graph.getAxisLeft();
-        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
-        leftAxis.setAxisMaximum(250f);
-        leftAxis.setAxisMinimum(50f);
+        setKcalYAxis();
         MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
         mv.setChartView(graph); // For bounds control
         graph.setMarker(mv); // Set the marker to the chart
         XAxis xAxis = graph.getXAxis();
         xAxis.setAxisMaximum(30f);
         xAxis.setAxisMinimum(1f);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.enableGridDashedLine(10f, 10f, 0f);
         graph.getAxisRight().setEnabled(false);
         // add data
@@ -266,6 +280,20 @@ public class RecordActivity extends AppCompatActivity {
         graph.animateX(500);
         // // dont forget to refresh the drawing
         graph.invalidate();
+    }
+
+    private void setKcalYAxis() {
+        YAxis leftAxis = graph.getAxisLeft();
+        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
+        leftAxis.setAxisMaximum(250f);
+        leftAxis.setAxisMinimum(150f);
+    }
+
+    private void setWeightYAxis() {
+        YAxis leftAxis = graph.getAxisLeft();
+        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
+        leftAxis.setAxisMaximum(user.getWeight() + 50f);
+        leftAxis.setAxisMinimum(user.getWeight() - 50f);
     }
 
     private void setData(List<Record> recordList) {
@@ -371,6 +399,12 @@ public class RecordActivity extends AppCompatActivity {
         } catch (Exception ex) {
             return 0;
         }
+    }
+
+    public int math(float f) {
+        int c = (int) ((f) + 0.5f);
+        float n = f + 0.5f;
+        return (n - c) % 2 == 0 ? (int) f : c;
     }
 
 }

@@ -18,9 +18,9 @@ public class User implements Serializable {
 
     private int age;
 
-    private int height;
+    private float height;
 
-    private int weight;
+    private float weight;
 
     private int totalExcercise;
 
@@ -54,19 +54,19 @@ public class User implements Serializable {
         this.age = age;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(float height) {
         this.height = height;
     }
 
-    public int getWeight() {
+    public float getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(float weight) {
         this.weight = weight;
     }
 

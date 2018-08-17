@@ -63,12 +63,10 @@ import java.util.TimerTask;
 
 public class CompleteFragment extends Fragment {
 
-    String[] titles = {"S", "M", "T", "W", "T", "F", "S", "S", "M", "T", "W", "T", "F", "S"};
-    int[] date = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
-
     @SuppressLint("StaticFieldLeak")
     private static TextView tvTime;
-
+    String[] titles = {"S", "M", "T", "W", "T", "F", "S", "S", "M", "T", "W", "T", "F", "S"};
+    int[] date = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
     Toolbar toolbar;
     TextView tvExerciseNo;
     TextView tvTotalTime;
@@ -88,6 +86,26 @@ public class CompleteFragment extends Fragment {
     RelativeRadioGroup rgGraph;
     RecordViewModel mRecordViewModel;
     UserViewModel mUserViewModel;
+    EditText edtWeight;
+    EditText edtCm;
+    EditText edtFt;
+    EditText edtIn;
+    RadioGroup rgWeight;
+    RadioGroup rgHeight;
+    RadioButton rbCm;
+    RadioButton rbIn;
+    RadioButton rbKg;
+    RadioButton rbLbs;
+    float weight, height, inches, feet, bmi;
+    boolean isKg = true;
+    boolean isCm = true;
+
+    public static void setReminder(Context context) {
+        int hour = SharedPrefHelper.readInteger(context, context.getString(R.string.hour));
+        int min = SharedPrefHelper.readInteger(context, context.getString(R.string.minute));
+        @SuppressLint("DefaultLocale") String time = String.format("%02d:%02d", hour, min);
+        tvTime.setText(time);
+    }
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -189,7 +207,7 @@ public class CompleteFragment extends Fragment {
                     record1 = record;
                     record1.setExDay(playingExercise.currentDay);
                     record1.setWeight(record1.getWeight() + playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
-                    record1.setDuration(minutes);
+                    record1.setDuration(record1.getDuration() + minutes);
                     record1.setType(getPlanName());
                     mRecordViewModel.insert(record1);
                 } else {
@@ -206,13 +224,6 @@ public class CompleteFragment extends Fragment {
         return view;
     }
 
-    public static void setReminder(Context context) {
-        int hour = SharedPrefHelper.readInteger(context, context.getString(R.string.hour));
-        int min = SharedPrefHelper.readInteger(context, context.getString(R.string.minute));
-        @SuppressLint("DefaultLocale") String time = String.format("%02d:%02d", hour, min);
-        tvTime.setText(time);
-    }
-
     private void setDaysData(View view) {
         RecyclerView rvHistory = view.findViewById(R.id.rv_days);
         DayAdapter mAdapter = new DayAdapter(titles, date);
@@ -223,21 +234,6 @@ public class CompleteFragment extends Fragment {
         Date date = new Date();
         tvMon.setText(dateFormat.format(date));
     }
-
-    EditText edtWeight;
-    EditText edtCm;
-    EditText edtFt;
-    EditText edtIn;
-    RadioGroup rgWeight;
-    RadioGroup rgHeight;
-    RadioButton rbCm;
-    RadioButton rbIn;
-    RadioButton rbKg;
-    RadioButton rbLbs;
-
-    float weight, height, inches, feet, bmi;
-    boolean isKg = true;
-    boolean isCm = true;
 
     @SuppressLint("SetTextI18n")
     private void showDialog() {

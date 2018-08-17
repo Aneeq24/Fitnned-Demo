@@ -53,12 +53,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MainMenuItemHo
             holder.progressBar.setProgress(progress.get(position));
             int i = 30 - progress.get(position);
             holder.tvDayLeft.setText(i + "");
-            holder.tvPercentage.setText(progress.get(position) + "%");
+            holder.tvPercentage.setText((int)(progress.get(position) / 0.3) + "%");
         }
-
         holder.imgBackground.setOnClickListener(view -> setOnClick(view, position));
         holder.imgStart.setOnClickListener(view -> setOnClick(view, position));
-
     }
 
     public void updateRecycleView() {

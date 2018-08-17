@@ -21,6 +21,9 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.dinuscxj.progressbar.CircleProgressBar;
 import com.google.android.gms.ads.AdView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class NextFragment extends Fragment {
 
     PlayingExercise playingExercise;
@@ -110,7 +113,9 @@ public class NextFragment extends Fragment {
         if (playingExercise.currentRound == playingExercise.totalRounds) {
             aimationImage.setVisibility(View.GONE);
             nextSreenExerciseName.setVisibility(View.GONE);
-            TTSManager.getInstance(playingExercise.getApplication()).play("This is the end of the last round. Take 60 sec break to end today's workout If You Like Our Workout App Please Do Rate Us At The End Of This Workout");
+            TTSManager.getInstance(playingExercise.getApplication()).play("This is the end of the last round. Take 60 sec break to end today's workout" +
+                    "                       " +
+                    "If You Like Our Workout App Please Do Rate Us At The End Of This Workout");
         } else
             TTSManager.getInstance(playingExercise.getApplication()).play("Take a Rest for " + playingExercise.restTime + "seconds" + "The Next Exercise is " + playingExercise.nextExerciseName);
     }
@@ -125,7 +130,7 @@ public class NextFragment extends Fragment {
                 mCustomCircleBar.setProgress(currentRestTime);
                 int id = getResources().getIdentifier("clock", "raw", context.getPackageName());
 
-                if (currentRestTime == 30)
+                if (currentRestTime == (totalSkipTime / 1000) / 2)
                     TTSManager.getInstance(playingExercise.getApplication()).play("You have " + currentRestTime + " sec remaining");
 
                 if (currentRestTime > 3)

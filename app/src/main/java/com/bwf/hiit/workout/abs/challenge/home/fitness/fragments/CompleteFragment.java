@@ -126,11 +126,23 @@ public class CompleteFragment extends Fragment {
 
         int minutes = (playingExercise.totaTimeSpend % 3600) / 60;
         @SuppressLint("DefaultLocale") String timeString = String.format("%02d", minutes);
+        mRecordViewModel.getRecord(playingExercise.currentDay).observe(this, record -> {
+            if (record != null) {
+                this.record = record;
+                this.record.setExDay(playingExercise.currentDay);
+                this.record.setWeight(record.getWeight() + playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
+                this.record.setDuration(minutes);
+                this.record.setType(getPlanName());
+                mRecordViewModel.insert(this.record);
+            } else {
+                this.record.setExDay(playingExercise.currentDay);
+                this.record.setWeight(playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
+                this.record.setDuration(minutes);
+                this.record.setType(getPlanName());
+                mRecordViewModel.insert(this.record);
+            }
+        });
 
-        record.setExDay(playingExercise.currentDay);
-        record.setWeight(playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
-        record.setDuration(minutes);
-        record.setType(getPlanName());
 
         toolbar.setNavigationOnClickListener(view1 -> {
             if (getActivity() != null) {
@@ -152,7 +164,6 @@ public class CompleteFragment extends Fragment {
 
         setDaysData(view);
 
-        mRecordViewModel.insert(record);
 
         tvKcal.setText(String.valueOf(playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal()));
         tvExerciseNo.setText(String.valueOf(playingExercise.totalExercisesPlayed + 1));

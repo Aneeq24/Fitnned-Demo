@@ -122,7 +122,7 @@ public class CompleteFragment extends Fragment {
         TTSManager.getInstance(getActivity().getApplication()).play(" Well Done. This is end of day " + playingExercise.currentDay + "of your training");
         AnalyticsManager.getInstance().sendAnalytics("day " + playingExercise.currentDay, "workout_complete");
 
-        playingExercise.exerciseDays.get(playingExercise.currentExercise).setTotalKcal(SharedPrefHelper.readInteger(context, "kcal"));
+        playingExercise.mListExDays.get(playingExercise.currentExercise).setTotalKcal(SharedPrefHelper.readInteger(context, "kcal"));
 
         int minutes = (playingExercise.totaTimeSpend % 3600) / 60;
         @SuppressLint("DefaultLocale") String timeString = String.format("%02d", minutes);
@@ -152,7 +152,7 @@ public class CompleteFragment extends Fragment {
         setDaysData(view);
 
 
-        tvKcal.setText(String.valueOf(playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal()));
+        tvKcal.setText(String.valueOf(playingExercise.mListExDays.get(playingExercise.currentExercise).getTotalKcal()));
         tvExerciseNo.setText(String.valueOf(playingExercise.totalExercisesPlayed + 1));
         tvTotalTime.setText(String.valueOf(timeString));
 
@@ -180,7 +180,7 @@ public class CompleteFragment extends Fragment {
             @Override
             public void run() {
                 if (user != null) {
-                    user.setTotalKcal(user.getTotalKcal() + playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
+                    user.setTotalKcal(user.getTotalKcal() + playingExercise.mListExDays.get(playingExercise.currentExercise).getTotalKcal());
                     user.setTotalExcercise(user.getTotalExcercise() + playingExercise.totalExercisesPlayed + 1);
                     user.setTotalTime(user.getTotalTime() + convertIntoInteger(timeString));
                     mUserViewModel.update(user);
@@ -188,13 +188,13 @@ public class CompleteFragment extends Fragment {
                 if (record1 != null) {
                     record1 = record;
                     record1.setExDay(playingExercise.currentDay);
-                    record1.setWeight(record1.getWeight() + playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
+                    record1.setWeight(record1.getWeight() + playingExercise.mListExDays.get(playingExercise.currentExercise).getTotalKcal());
                     record1.setDuration(minutes);
                     record1.setType(getPlanName());
                     mRecordViewModel.insert(record1);
                 } else {
                     record.setExDay(playingExercise.currentDay);
-                    record.setWeight(playingExercise.exerciseDays.get(playingExercise.currentExercise).getTotalKcal());
+                    record.setWeight(playingExercise.mListExDays.get(playingExercise.currentExercise).getTotalKcal());
                     record.setDuration(minutes);
                     record.setType(getPlanName());
                     mRecordViewModel.insert(record);

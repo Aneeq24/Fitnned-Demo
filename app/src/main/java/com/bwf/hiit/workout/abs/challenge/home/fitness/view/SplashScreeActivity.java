@@ -48,10 +48,6 @@ public class SplashScreeActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     private class AppDbCheckingTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -68,6 +64,10 @@ public class SplashScreeActivity extends AppCompatActivity {
             reminder.setFriday(true);
             reminder.setSatday(true);
             reminder.setSunday(true);
+            reminder.setMonday(true);
+            reminder.setTuesday(true);
+            reminder.setWednesday(true);
+            reminder.setThursday(true);
 
             if (!SharedPrefHelper.readBoolean(context, getString(R.string.is_first_run))) {
                 appDataBase.userdao().insertAll(user);
@@ -169,18 +169,10 @@ public class SplashScreeActivity extends AppCompatActivity {
             new Handler().postDelayed(() -> {
                 if (backPresed)
                     return;
-                if (SharedPrefHelper.readBoolean(context, getString(R.string.is_first_run))) {
+                if (!SharedPrefHelper.readBoolean(context, getString(R.string.is_first_run))) {
                     setDefaultPreferences();
                 } else {
-                    SharedPrefHelper.writeInteger(context, getString(R.string.hour), 15);
-                    SharedPrefHelper.writeInteger(context, getString(R.string.minute), 5);
-                    SharedPrefHelper.writeInteger(context, getString(R.string.language), 0);
-                    SharedPrefHelper.writeInteger(context, "kcal", 0);
-                    SharedPrefHelper.writeBoolean(context, "rate", false);
-                    SharedPrefHelper.writeBoolean(context, "reminder", false);
-                    SharedPrefHelper.writeBoolean(context, getString(R.string.alarm), true);
-                    SharedPrefHelper.writeBoolean(context, getString(R.string.is_first_run), true);
-                    startActivity(new Intent(context, SelectGender.class));
+                    startActivity(new Intent(context, HomeActivity.class));
                     finish();
                 }
 
@@ -188,14 +180,18 @@ public class SplashScreeActivity extends AppCompatActivity {
             }, 1000);
         }
 
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
     }
 
     private void setDefaultPreferences() {
-        startActivity(new Intent(context, HomeActivity.class));
+        SharedPrefHelper.writeInteger(context, getString(R.string.hour), 19);
+        SharedPrefHelper.writeInteger(context, getString(R.string.minute), 0);
+        SharedPrefHelper.writeInteger(context, getString(R.string.language), 0);
+        SharedPrefHelper.writeInteger(context, "kcal", 0);
+        SharedPrefHelper.writeBoolean(context, "rate", false);
+        SharedPrefHelper.writeBoolean(context, "reminder", true);
+        SharedPrefHelper.writeBoolean(context, getString(R.string.alarm), true);
+        SharedPrefHelper.writeBoolean(context, getString(R.string.is_first_run), true);
+        startActivity(new Intent(context, SelectGender.class));
         finish();
     }
 

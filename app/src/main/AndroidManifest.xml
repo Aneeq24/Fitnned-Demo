@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bwf.hiit.workout.abs.challenge.home.fitness">
 
+    <uses-permission android:name="com.android.vending.BILLING" />
+
+
     <application
         android:name=".Application"
         android:allowBackup="true"

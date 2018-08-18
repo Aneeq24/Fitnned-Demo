@@ -3,10 +3,7 @@ package com.bwf.hiit.workout.abs.challenge.home.fitness.managers;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-
 import com.bwf.hiit.workout.abs.challenge.home.fitness.receiver.AlarmReceiver;
-
-
 import java.util.Calendar;
 
 
@@ -30,7 +27,8 @@ public class AlarmManager {
         }
     }
 
-    public void setAlarm(Context context,Calendar alarmTime) {
+    public void setAlarm(Context context, Calendar alarmTime) {
+
         android.app.AlarmManager alarmManager = (android.app.AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             Intent alarmIntent = new Intent(context, AlarmReceiver.class);
@@ -45,4 +43,5 @@ public class AlarmManager {
             }
         }
     }
+
 }

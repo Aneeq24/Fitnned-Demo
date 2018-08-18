@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
@@ -31,11 +30,9 @@ public class SkipFragment extends Fragment {
     View rootView;
     TextView headingNameExercise;
     PlayingExercise playingExercise;
-    TextView skipTimerText;
     TextView skipTimerButton;
     ImageView skipImg;
     CountDownTimer countDownTimer;
-    VideoView skipExerciseVideoView;
     ImageView soundButton_B;
 
     int pauseTimer = 0;
@@ -45,14 +42,15 @@ public class SkipFragment extends Fragment {
     Context context;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_skip, container, false);
         context = getContext();
         pauseResumeImage = rootView.findViewById(R.id.sf_pauseTimerImageView);
+
         com.google.android.gms.ads.AdView adView = rootView.findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
+
         skipCircleprogressBar = rootView.findViewById(R.id.skipExerciseTimeCircle);
         findReferences();
         return rootView;
@@ -68,14 +66,13 @@ public class SkipFragment extends Fragment {
         } else {
             pauseTimer += 1;
             pauseTimer *= 1000;
-            startSkipTimer(pauseTimer, skipTimerText);
+            startSkipTimer(pauseTimer);
             pauseResumeImage.setImageResource(R.drawable.play_screen_pause_btn);
         }
 
     }
 
-    void soundButton() {
-
+    private void soundButton() {
         if (soundValue > 0) {
             soundValue = 0;
             soundButton_B.setImageResource(R.drawable.play_screen_sound_off_btn);
@@ -88,12 +85,10 @@ public class SkipFragment extends Fragment {
 
     }
 
-    void findReferences() {
+    private void findReferences() {
         playingExercise = (PlayingExercise) getActivity();
-        skipTimerText = rootView.findViewById(R.id.timerSkipText);
         skipTimerButton = rootView.findViewById(R.id.skipButton);
         skipImg = rootView.findViewById(R.id.skipLayoutImag);
-        skipExerciseVideoView = rootView.findViewById(R.id.sf_exerciseVideoView);
         headingNameExercise = rootView.findViewById(R.id.tv_exercise_name_skipScreen);
 
         headingNameExercise.setText(playingExercise.displayName);
@@ -101,7 +96,7 @@ public class SkipFragment extends Fragment {
         skipTimerButton.setOnClickListener(view -> startPlayingButton());
 
 
-        startSkipTimer(11000, skipTimerText);
+        startSkipTimer(11000);
 
         skipCircleprogressBar.setProgressFormatter((progress, max) -> progress + "\"");
 
@@ -129,13 +124,12 @@ public class SkipFragment extends Fragment {
 
     }
 
-    void startSkipTimer(int totalSkipTime, final TextView timer) {
+    private void startSkipTimer(int totalSkipTime) {
 
         countDownTimer = new CountDownTimer(totalSkipTime, 1000) {
 
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
-                timer.setText("" + millisUntilFinished / 1000 + "\"");
                 int value = (int) (millisUntilFinished / 1000);
                 pauseTimer = value;
                 skipCircleprogressBar.setProgress(value);
@@ -163,11 +157,9 @@ public class SkipFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         countDownTimer.cancel();
-        //  skipExerciseVideoView.setAlpha(0);
-        //  videoStartTimer.cancel();
     }
 
-    void startPlayingButton() {
+    private void startPlayingButton() {
         countDownTimer.cancel();
         Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().remove(SkipFragment.this).commit();
         playingExercise.StartPlayingFragment();

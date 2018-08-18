@@ -100,7 +100,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
         mExerciseDayViewModel.getExerciseDays(plan, planday).observe(this, exerciseDayList -> {
             if (exerciseDayList != null) {
-//                if (exerciseDays.get(0).getExerciseComplete() >= exerciseDays.get(0).getTotalExercise()) {
+//                if (mListExDays.get(0).getExerciseComplete() >= mListExDays.get(0).getTotalExercise()) {
 //                    exerciseDays.get(0).setRoundCompleted(0);
 //
 //                    for (ExerciseDay day : exerciseDays) {

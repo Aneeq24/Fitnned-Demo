@@ -21,6 +21,9 @@ public interface ReminderDao {
     @Query("SELECT * FROM reminder WHERE id = :id")
     LiveData<Reminder> findById(int id);
 
+    @Query("SELECT * FROM reminder WHERE id = :id")
+    Reminder findByIdbg(int id);
+
     @Insert
     void insertAll(Reminder... reminder);
 

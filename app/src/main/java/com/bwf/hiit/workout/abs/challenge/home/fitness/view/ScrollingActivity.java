@@ -59,10 +59,10 @@ public class ScrollingActivity extends AppCompatActivity {
 
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "day_selection_activity");
 
-        if (getIntent() != null && intent.hasExtra(getString(R.string.plan))) {
+        if (getIntent() != null && intent.hasExtra(getString(R.string.plan)))
             plan = getIntent().getIntExtra(getString(R.string.plan), 0);
-        }
 
+//        toolbar.setTitle(getPlanName());
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

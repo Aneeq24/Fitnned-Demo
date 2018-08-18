@@ -18,8 +18,8 @@ public class ReminderRepo {
         reminderDao = db.reminderDao();
     }
 
-    public LiveData<Reminder> getReminder(int cid){
-        return reminderDao.findById(cid);
+    public LiveData<Reminder> getReminder(){
+        return reminderDao.findById(1);
     }
 
     public void insert (Reminder reminder) {

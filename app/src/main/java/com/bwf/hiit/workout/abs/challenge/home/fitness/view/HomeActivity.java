@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.HomeAdapter;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.inapp.MyBilling;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.google.ads.consent.ConsentForm;
@@ -37,6 +39,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+
+    MyBilling mBilling;
 
     String[] titles = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
     Bitmap[] image;
@@ -54,6 +58,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     TextView feedback;
     TextView moreApps;
     TextView privacyPolicy;
+    TextView noAds;
+    FloatingActionButton fabNoAds;
+    FloatingActionButton fabRateUs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +69,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         context = this;
         paused = false;
 
+        mBilling = new MyBilling(this);
+        mBilling.onCreate();
+
         if (AdsManager.getInstance().isFacebookInterstitalLoaded())
             AdsManager.getInstance().showFacebookInterstitialAd();
         else
@@ -69,18 +79,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "plan_screen_activity");
 
-
+        fabNoAds = findViewById(R.id.fab_no_ads);
+        fabRateUs = findViewById(R.id.fab_rate_us);
         workOut = findViewById(R.id.workout_record);
         reminder = findViewById(R.id.reminder);
         feedback = findViewById(R.id.feedback);
         moreApps = findViewById(R.id.more_apps);
         privacyPolicy = findViewById(R.id.privacy_policy);
+        noAds = findViewById(R.id.no_ads);
 
         workOut.setOnClickListener(this);
         reminder.setOnClickListener(this);
         feedback.setOnClickListener(this);
         moreApps.setOnClickListener(this);
         privacyPolicy.setOnClickListener(this);
+        noAds.setOnClickListener(this);
 
         image = new Bitmap[]{BitmapFactory.decodeResource(getResources(), R.drawable.main_screen_beginner_image),
                 BitmapFactory.decodeResource(getResources(), R.drawable.main_screen_intermediate_image),
@@ -107,6 +120,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        fabNoAds.setOnClickListener(view -> mBilling.purchaseRemoveAds());
+        fabRateUs.setOnClickListener(view -> onRateUs());
     }
 
     private void initApp() {
@@ -294,10 +310,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.more_apps:
                 onMoreAppsClicked();
                 break;
+            case R.id.no_ads:
+                mBilling.purchaseRemoveAds();
+                break;
             case R.id.privacy_policy:
                 onPrivacyPolicyClicked();
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mBilling.onActivityResult(requestCode, resultCode, data);
     }
 }
 

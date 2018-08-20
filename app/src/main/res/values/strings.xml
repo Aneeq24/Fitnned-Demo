@@ -124,7 +124,7 @@
     <string name="channel_description" translatable="false">Description</string>
     <string name="publisher_id" translatable="false">pub-6412217023250030</string>
     <string name="house_ads" translatable="false">https://s3-us-west-2.amazonaws.com/thetaapps/houseAds/House+Ads.json</string>
-    <string name="privacy_policy_url" translatable="false">https://s3-us-west-2.amazonaws.com/thetaapps/PrivacyPolicy.htm</string>
+    <string name="privacy_policy_url" translatable="false">https://docs.google.com/document/d/1-ZDXRqZfKHd_sWjgrmyLAqoBbGHzGFEYY4OEKhEA6hA/edit</string>
 
     <string name="app_id" translatable="false">ca-app-pub-2972677223588085~8301994603</string>
     <string name="native_ad_unit" translatable="false">ca-app-pub-6412217023250030/9137922994</string>

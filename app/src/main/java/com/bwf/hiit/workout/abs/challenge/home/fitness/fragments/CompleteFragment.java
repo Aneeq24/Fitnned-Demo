@@ -186,7 +186,7 @@ public class CompleteFragment extends Fragment {
         });
 
         assert getArguments() != null;
-        if (getArguments().containsKey("repeat")) {
+        if (getArguments().containsKey("repeat") && getArguments().getBoolean("repeat")) {
             mRecordViewModel.getRecord(getCurrentDay()).observe(this, record -> {
                 if (record != null) {
                     this.record = record;

@@ -6,20 +6,14 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Transaction;
 import android.arch.persistence.room.Update;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDetail;
 
 import java.util.List;
 
 @Dao
 public interface ExerciseDao {
-
-    @Transaction
-    @Query("SELECT COUNT(*) FROM exercise")
-    int getCount();
 
     @Query("SELECT * FROM exercise")
     LiveData<List<Exercise>> getAllExercise();

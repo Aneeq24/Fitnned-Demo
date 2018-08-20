@@ -1,8 +1,6 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -79,29 +77,6 @@ public class ReminderSetActivity extends AppCompatActivity {
             case R.id.btn_skip:
                 startNewActivity();
                 break;
-        }
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private class setUserGender extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
         }
     }
 

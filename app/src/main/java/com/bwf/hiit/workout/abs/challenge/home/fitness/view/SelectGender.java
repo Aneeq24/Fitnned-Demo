@@ -9,7 +9,6 @@ import android.view.View;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.LogHelper;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
@@ -29,11 +28,11 @@ public class SelectGender extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gender);
         ButterKnife.bind(this);
+        AnalyticsManager.getInstance().sendAnalytics("gender_screen_started", "activity_started");
 
         mViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
-        user = new User();
-        user.setId(1);
-        AnalyticsManager.getInstance().sendAnalytics("gender_screen_started", "activity_started");
+        mViewModel.getUser().observe(this,user ->
+        this.user = user);
 
         AdView adView = findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);

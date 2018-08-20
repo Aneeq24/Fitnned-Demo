@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Entity
 public class User implements Serializable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     private int gender;

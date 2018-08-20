@@ -37,9 +37,9 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
         setContentView(R.layout.activity_age_weight_height);
         ButterKnife.bind(this);
         mViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        mViewModel.getUser().observe(this,user ->
+                this.user = user);
 
-        user = new User();
-        user.setId(1);
         setNumbers();
     }
 

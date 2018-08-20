@@ -285,8 +285,8 @@ public class RecordActivity extends AppCompatActivity {
     private void setKcalYAxis() {
         YAxis leftAxis = graph.getAxisLeft();
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
-        leftAxis.setAxisMaximum(300f);
-        leftAxis.setAxisMinimum(100f);
+        leftAxis.setAxisMaximum(700f);
+        leftAxis.setAxisMinimum(150f);
     }
 
     private void setWeightYAxis() {
@@ -303,7 +303,7 @@ public class RecordActivity extends AppCompatActivity {
             values.add(new Entry(1, 1, getResources().getDrawable(R.drawable.star)));
         else {
             for (int i = 0; i < recordList.size(); i++)
-                values.add(new Entry(Integer.parseInt(recordList.get(i).getDay()), recordList.get(i).getWeight(), getResources().getDrawable(R.drawable.star)));
+                values.add(new Entry(Integer.parseInt(recordList.get(i).getDay()), recordList.get(i).getKcal(), getResources().getDrawable(R.drawable.star)));
         }
 
         LineDataSet set;

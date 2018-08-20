@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.SplashScreeActivity;
 
 
@@ -142,6 +143,7 @@ public class MyBilling {
 
             try {
                 mHelper.launchPurchaseFlow(activity, SKU_REMOVE_ADS, RC_REQUEST, mPurchaseFinishedListener, payload);
+                AnalyticsManager.getInstance().sendAnalytics("purchaseRemoveAds_selected", "purchaseRemoveAds");
             } catch (IabHelper.IabAsyncInProgressException e) {
                 e.printStackTrace();
             }

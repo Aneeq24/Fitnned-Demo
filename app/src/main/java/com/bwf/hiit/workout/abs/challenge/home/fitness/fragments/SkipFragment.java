@@ -25,102 +25,87 @@ import java.util.Objects;
 
 public class SkipFragment extends Fragment {
 
-
-    CircleProgressBar skipCircleprogressBar;
     View rootView;
-    TextView headingNameExercise;
     PlayingExercise playingExercise;
-    TextView skipTimerButton;
-    ImageView skipImg;
+    CircleProgressBar progressBar;
     CountDownTimer countDownTimer;
-    ImageView soundButton_B;
-
+    TextView tvExName;
+    TextView btnSkip;
+    ImageView imgAnim;
+    ImageView btnSound;
+    ImageView btnPause;
     int pauseTimer = 0;
-    public boolean pause = false;
-    ImageView pauseResumeImage;
     int soundValue;
     Context context;
+    public boolean pause = false;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_skip, container, false);
         context = getContext();
-        pauseResumeImage = rootView.findViewById(R.id.sf_pauseTimerImageView);
+        btnPause = rootView.findViewById(R.id.btn_pause_play);
+        progressBar = rootView.findViewById(R.id.skipExerciseTimeCircle);
 
         com.google.android.gms.ads.AdView adView = rootView.findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
 
-        skipCircleprogressBar = rootView.findViewById(R.id.skipExerciseTimeCircle);
         findReferences();
-        return rootView;
 
+        return rootView;
     }
 
     public void pauseOrRenume() {
         pause = !pause;
-
         if (pause) {
-            pauseResumeImage.setImageResource(R.drawable.play_screen_play_icon);
+            btnPause.setImageResource(R.drawable.play_screen_play_icon);
             countDownTimer.cancel();
         } else {
             pauseTimer += 1;
             pauseTimer *= 1000;
             startSkipTimer(pauseTimer);
-            pauseResumeImage.setImageResource(R.drawable.play_screen_pause_btn);
+            btnPause.setImageResource(R.drawable.play_screen_pause_btn);
         }
-
     }
 
     private void soundButton() {
         if (soundValue > 0) {
             soundValue = 0;
-            soundButton_B.setImageResource(R.drawable.play_screen_sound_off_btn);
+            btnSound.setImageResource(R.drawable.play_screen_sound_off_btn);
         } else {
             soundValue = 1;
-            soundButton_B.setImageResource(R.drawable.play_screen_sound_on_btn);
+            btnSound.setImageResource(R.drawable.play_screen_sound_on_btn);
         }
-
         SharedPrefHelper.writeInteger(context, "sound", soundValue);
-
     }
 
     private void findReferences() {
         playingExercise = (PlayingExercise) getActivity();
-        skipTimerButton = rootView.findViewById(R.id.skipButton);
-        skipImg = rootView.findViewById(R.id.skipLayoutImag);
-        headingNameExercise = rootView.findViewById(R.id.tv_exercise_name_skipScreen);
-
-        headingNameExercise.setText(playingExercise.displayName);
-
-        skipTimerButton.setOnClickListener(view -> startPlayingButton());
-
+        btnSkip = rootView.findViewById(R.id.skipButton);
+        imgAnim = rootView.findViewById(R.id.skipLayoutImag);
+        tvExName = rootView.findViewById(R.id.tv_exercise_name_skipScreen);
+        tvExName.setText(playingExercise.displayName);
+        btnSound = rootView.findViewById(R.id.sf_soundFragment);
 
         startSkipTimer(11000);
 
-        skipCircleprogressBar.setProgressFormatter((progress, max) -> progress + "\"");
-
-        skipCircleprogressBar.setMax(15);
-
-        skipCircleprogressBar.setOnClickListener(view -> pauseOrRenume());
-        soundButton_B = rootView.findViewById(R.id.sf_soundFragment);
+        progressBar.setProgressFormatter((progress, max) -> progress + "\"");
+        progressBar.setMax(15);
         soundValue = SharedPrefHelper.readInteger(context, "sound");
 
-        if (soundValue > 0) {
-            soundButton_B.setImageResource(R.drawable.play_screen_sound_on_btn);
-        } else {
-            soundButton_B.setImageResource(R.drawable.play_screen_sound_off_btn);
-        }
+        if (soundValue > 0)
+            btnSound.setImageResource(R.drawable.play_screen_sound_on_btn);
+         else
+            btnSound.setImageResource(R.drawable.play_screen_sound_off_btn);
 
-        soundButton_B.setOnClickListener(view -> soundButton());
-
+        btnSkip.setOnClickListener(view -> startPlayingButton());
+        progressBar.setOnClickListener(view -> pauseOrRenume());
+        btnSound.setOnClickListener(view -> soundButton());
 
         String str = playingExercise.exerciseName;
         int id = getResources().getIdentifier(str, "drawable", rootView.getContext().getPackageName());
-
         String path = "android.resource://" + rootView.getContext().getPackageName() + "/" + id;
-
-        Glide.with(this).load(path).into(skipImg);
+        Glide.with(this).load(path).into(imgAnim);
 
     }
 
@@ -132,7 +117,7 @@ public class SkipFragment extends Fragment {
             public void onTick(long millisUntilFinished) {
                 int value = (int) (millisUntilFinished / 1000);
                 pauseTimer = value;
-                skipCircleprogressBar.setProgress(value);
+                progressBar.setProgress(value);
                 int id = getResources().getIdentifier("clock", "raw", rootView.getContext().getPackageName());
                 if (value > 3)
                     Utils.playAudio(rootView.getContext(), id);
@@ -141,8 +126,6 @@ public class SkipFragment extends Fragment {
             }
 
             public void onFinish() {
-                //skipCircleprogressBar.setProgress(0);
-
                 int id = getResources().getIdentifier("ding", "raw", rootView.getContext().getPackageName());
                 Utils.playAudio(rootView.getContext(), id);
 

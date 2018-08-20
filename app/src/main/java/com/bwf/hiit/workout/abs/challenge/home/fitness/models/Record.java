@@ -14,7 +14,7 @@ public class Record {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    private int weight;
+    private int kcal;
 
     private int exDay;
 
@@ -39,12 +39,12 @@ public class Record {
         this.id = id;
     }
 
-    public int getWeight() {
-        return weight;
+    public int getKcal() {
+        return kcal;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
+    public void setKcal(int kcal) {
+        this.kcal = kcal;
     }
 
     public String getDay() {

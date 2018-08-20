@@ -35,8 +35,7 @@ public class PlayingExercise extends AppCompatActivity {
 
     public MyBilling mBilling;
     FragmentManager fragmentManager;
-
-    public AppDataBase dataBase;
+    AppDataBase dataBase;
     PauseFragment pauseFragment = new PauseFragment();
     ExerciseFragment exerciseFragment = new ExerciseFragment();
     SkipFragment skipFragment = new SkipFragment();
@@ -158,7 +157,6 @@ public class PlayingExercise extends AppCompatActivity {
                 int i = currentRound + 1;
                 TTSManager.getInstance(getApplication()).play("This is start of round" + i + "  next exercise is  " + displayName);
             }
-
         }.execute();
     }
 
@@ -179,8 +177,12 @@ public class PlayingExercise extends AppCompatActivity {
     public void StartPlayingFragment() {
         if (!iscomplete)
             fragmentManager.beginTransaction().replace(R.id.fragment_container, exerciseFragment, null).commit();
-        else
+        else {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("repeat", true);
+            completeFragment.setArguments(bundle);
             fragmentManager.beginTransaction().replace(R.id.fragment_container, completeFragment, null).commit();
+        }
     }
 
     public void PauseFragment(int remaingTime) {
@@ -320,25 +322,13 @@ public class PlayingExercise extends AppCompatActivity {
 
             dataBase.exerciseDayDao().insertAll(mListExDays);
 
-            int roundsCleared = mListExDays.get(0).getRoundCompleted();
+            currentRound = mListExDays.get(0).getRoundCompleted();
             totalExercisesPlayed = mListExDays.get(0).getExerciseComplete();
-//            int cE = 0;
-
-//            for (ExerciseDay day : mListExDays)
-//                if (day.isStatus())
-//                    cE++;
-
-            currentRound = roundsCleared;
-//            currentEx = cE;
 
             int exerciseId = mListExDays.get(currentEx).getId();
             exerciseName = dataBase.exerciseDao().findByIdbg(exerciseId).getName();
             displayName = dataBase.exerciseDao().findByIdbg(exerciseId).getDisplay_name();
-            int time = mListExDays.get(currentEx).getReps();
-
-            LogHelper.logD("1994:", "rest : " + restTime);
-
-            currentReps = time;
+            currentReps = mListExDays.get(currentEx).getReps();
             currentReps *= 1000;
 
             if (currentEx < mListExDays.size() - 1) {
@@ -348,9 +338,6 @@ public class PlayingExercise extends AppCompatActivity {
                 nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getDisplay_name();
                 nextExerciseImage = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getName();
             }
-            LogHelper.logD("1994:Current round", "" + currentRound);
-            LogHelper.logD("1994:Currnet day", "" + currentDay);
-            LogHelper.logD("1994:Current Exercise", "" + currentEx);
             return null;
         }
     }

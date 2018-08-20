@@ -285,8 +285,8 @@ public class RecordActivity extends AppCompatActivity {
     private void setKcalYAxis() {
         YAxis leftAxis = graph.getAxisLeft();
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
-        leftAxis.setAxisMaximum(300f);
-        leftAxis.setAxisMinimum(100f);
+        leftAxis.setAxisMaximum(700f);
+        leftAxis.setAxisMinimum(150f);
     }
 
     private void setWeightYAxis() {

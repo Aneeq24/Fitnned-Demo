@@ -78,11 +78,12 @@ public class CalenderActivity extends AppCompatActivity {
         for (int i = 0; i < records.size(); i++) {
             Calendar calSet = DateUtils.getCalendar();
             int day = calSet.get(Calendar.DAY_OF_MONTH);
-
-            if (day > Integer.parseInt(records.get(i).getDay()))
+            if (day < Integer.parseInt(records.get(i).getDay()))
                 calSet.add(Calendar.DAY_OF_MONTH, (day - Integer.parseInt(records.get(i).getDay())));
-            else
-                calSet.add(Calendar.DAY_OF_MONTH, (day - Integer.parseInt(records.get(i).getDay())));
+            else {
+                int sel = (-Integer.parseInt(records.get(i).getDay()) + day) * -1;
+                calSet.add(Calendar.DAY_OF_MONTH, sel);
+            }
             events.add(new SelectedDay(calSet));
         }
 

@@ -67,6 +67,10 @@ public class CompleteFragment extends Fragment {
     private static TextView tvTime;
     String[] titles = {"S", "M", "T", "W", "T", "F", "S", "S", "M", "T", "W", "T", "F", "S"};
     int[] date = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
+
+    RecordViewModel mRecordViewModel;
+    UserViewModel mUserViewModel;
+    EditText edtWeight;
     Toolbar toolbar;
     TextView tvExerciseNo;
     TextView tvTotalTime;
@@ -84,9 +88,6 @@ public class CompleteFragment extends Fragment {
     List<Record> recordList;
     User user;
     RelativeRadioGroup rgGraph;
-    RecordViewModel mRecordViewModel;
-    UserViewModel mUserViewModel;
-    EditText edtWeight;
     EditText edtCm;
     EditText edtFt;
     EditText edtIn;
@@ -184,22 +185,31 @@ public class CompleteFragment extends Fragment {
             }
         });
 
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                user.setTotalKcal(user.getTotalKcal() + (int) playingExercise.totalKcal);
-                user.setTotalExcercise(user.getTotalExcercise() + playingExercise.totalExercisesPlayed);
-                user.setTotalTime(user.getTotalTime() + convertIntoInteger(timeString));
-                mUserViewModel.update(user);
-            }
-        }, 1500);
+        assert getArguments() != null;
+        if (getArguments().containsKey("repeat")) {
+            mRecordViewModel.getRecord(getCurrentDay()).observe(this, record -> {
+                if (record != null) {
+                    this.record = record;
+                }
+            });
 
-        record.setExDay(playingExercise.currentDay);
-        record.setKcal(record.getKcal() + (int) playingExercise.totalKcal);
-        record.setDuration(record.getDuration() + minutes);
-        record.setType(getPlanName());
-        mRecordViewModel.insert(record);
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    user.setTotalKcal(user.getTotalKcal() + (int) playingExercise.totalKcal);
+                    user.setTotalExcercise(user.getTotalExcercise() + playingExercise.totalExercisesPlayed);
+                    user.setTotalTime(user.getTotalTime() + convertIntoInteger(timeString));
+                    mUserViewModel.update(user);
 
+                    record.setExDay(playingExercise.currentDay);
+                    record.setKcal(record.getKcal() + (int) playingExercise.totalKcal);
+                    record.setDuration(record.getDuration() + minutes);
+                    record.setType(getPlanName());
+                    mRecordViewModel.insert(record);
+
+                }
+            }, 1500);
+        }
         return view;
     }
 
@@ -366,8 +376,8 @@ public class CompleteFragment extends Fragment {
     private void setKcalYAxis() {
         YAxis leftAxis = graph.getAxisLeft();
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
-        leftAxis.setAxisMaximum(300f);
-        leftAxis.setAxisMinimum(100f);
+        leftAxis.setAxisMaximum(700f);
+        leftAxis.setAxisMinimum(150f);
     }
 
     private void setWeightYAxis() {
@@ -378,18 +388,12 @@ public class CompleteFragment extends Fragment {
     }
 
     private void setData(List<Record> recordList) {
-
         ArrayList<Entry> values = new ArrayList<>();
         if (recordList.size() == 0)
             values.add(new Entry(1, 1, getResources().getDrawable(R.drawable.star)));
         else {
             for (int i = 0; i < recordList.size(); i++) {
-                int point = 0;
-                if (Integer.parseInt(recordList.get(i).getDay()) == getCurrentDay()) {
-                    point = point + recordList.get(i).getKcal();
-                    values.add(new Entry(Integer.parseInt(recordList.get(i).getDay()), point, getResources().getDrawable(R.drawable.star)));
-                } else
-                    values.add(new Entry(Integer.parseInt(recordList.get(i).getDay()), recordList.get(i).getKcal(), getResources().getDrawable(R.drawable.star)));
+                values.add(new Entry(Integer.parseInt(recordList.get(i).getDay()), recordList.get(i).getKcal(), getResources().getDrawable(R.drawable.star)));
             }
         }
 
@@ -426,7 +430,6 @@ public class CompleteFragment extends Fragment {
         graph.setData(data);
         graph.getData().notifyDataChanged();
         graph.notifyDataSetChanged();
-
     }
 
     private void setWeight() {

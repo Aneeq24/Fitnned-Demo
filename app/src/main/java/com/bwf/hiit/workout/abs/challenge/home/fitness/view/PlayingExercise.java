@@ -150,6 +150,9 @@ public class PlayingExercise extends AppCompatActivity {
                 if (isCancelled())
                     return;
                 if (mListExDays.get(0).getExerciseComplete() >= mListExDays.get(0).getTotalExercise()) {
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean("repeat", true);
+                    completeFragment.setArguments(bundle);
                     fragmentManager.beginTransaction().add(R.id.fragment_container, completeFragment, null).commit();
                 } else
                     StartSkipFragment();

@@ -29,8 +29,7 @@
                 android:layout_gravity="bottom"
                 android:background="@drawable/days_screen_days_finished_bar"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="5dp">
+                android:orientation="horizontal">
 
 
                 <com.dinuscxj.progressbar.CircleProgressBar
@@ -87,7 +86,6 @@
                     app:fontFamily="@font/roboto_bold" />
 
             </LinearLayout>
-
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

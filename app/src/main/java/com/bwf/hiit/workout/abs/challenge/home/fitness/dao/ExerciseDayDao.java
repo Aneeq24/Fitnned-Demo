@@ -15,9 +15,6 @@ import java.util.List;
 @Dao
 public interface ExerciseDayDao {
 
-    @Query("SELECT COUNT(*) FROM exerciseday")
-    int getCount();
-
     @Query("SELECT * FROM exerciseday WHERE pid = :pid LIMIT 1")
     LiveData<ExerciseDay> findByPid(int pid);
 

@@ -49,29 +49,23 @@ public class SplashScreeActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-
-            SharedPrefHelper.writeInteger(context, "sound", 0);
-
             Gson gson = new Gson();
             AppDataBase appDataBase = AppDataBase.getInstance();
 
-            if (!SharedPrefHelper.readBoolean(context, getString(R.string.is_first_run))) {
-                User user = new User();
-                Reminder reminder = new Reminder();
-                reminder.setFriday(true);
-                reminder.setSatday(true);
-                reminder.setSunday(true);
-                reminder.setMonday(true);
-                reminder.setTuesday(true);
-                reminder.setWednesday(true);
-                reminder.setThursday(true);
-                appDataBase.userdao().insertAll(user);
-                appDataBase.reminderDao().insertAll(reminder);
-            }
-
             if (appDataBase != null) {
-                // insert exercises
-                if (appDataBase.exerciseDao().getCount() == 0) {
+                if (!SharedPrefHelper.readBoolean(context, getString(R.string.is_first_run))) {
+                    User user = new User();
+                    Reminder reminder = new Reminder();
+                    reminder.setFriday(true);
+                    reminder.setSatday(true);
+                    reminder.setSunday(true);
+                    reminder.setMonday(true);
+                    reminder.setTuesday(true);
+                    reminder.setWednesday(true);
+                    reminder.setThursday(true);
+                    appDataBase.userdao().insertAll(user);
+                    appDataBase.reminderDao().insertAll(reminder);
+                    // insert exercises
                     try {
                         String json = JsonUtils.readJsonFromAssets(context, "exercises.json");
                         List<Exercise> exercises = gson.fromJson(json, new TypeToken<List<Exercise>>() {
@@ -81,10 +75,7 @@ public class SplashScreeActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         Log.e(TAG, "exercises: " + e.getLocalizedMessage());
                     }
-                }
-                // insert exercises days
-
-                if (appDataBase.exerciseDayDao().getCount() == 0) {
+                    // insert exercises days
                     try {
                         String json = JsonUtils.readJsonFromAssets(context, "days.json");
                         List<PlanDays> planDays = gson.fromJson(json, new TypeToken<List<PlanDays>>() {
@@ -137,6 +128,7 @@ public class SplashScreeActivity extends AppCompatActivity {
         SharedPrefHelper.writeInteger(context, getString(R.string.minute), 0);
         SharedPrefHelper.writeInteger(context, getString(R.string.language), 0);
         SharedPrefHelper.writeBoolean(context, "rate", false);
+        SharedPrefHelper.writeInteger(context, "sound", 0);
         SharedPrefHelper.writeBoolean(context, "reminder", true);
         SharedPrefHelper.writeBoolean(context, getString(R.string.alarm), true);
         SharedPrefHelper.writeBoolean(context, getString(R.string.is_first_run), true);

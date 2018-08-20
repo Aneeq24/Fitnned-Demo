@@ -15,8 +15,6 @@ import java.util.List;
 @Dao
 public interface ReminderDao {
 
-    @Query("SELECT * FROM reminder")
-    LiveData<List<Reminder>> getAllReminders();
 
     @Query("SELECT * FROM reminder WHERE id = :id")
     LiveData<Reminder> findById(int id);

@@ -31,6 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@android:color/holo_red_dark"
         app:srcCompat="@drawable/no_ads_icon" />
 
     <android.support.design.widget.FloatingActionButton
@@ -39,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@android:color/holo_green_dark"
         app:srcCompat="@drawable/rate_us_icon" />
 
 </android.support.design.widget.CoordinatorLayout>

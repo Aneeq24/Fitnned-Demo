@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,8 +46,8 @@ public class ExerciseFragment extends Fragment {
     ImageView btnSound;
     ImageView btnPrevious;
     ImageView btnNext;
-    FloatingActionButton fabNoAds;
-    FloatingActionButton fabRateUs;
+    ImageView btnNoAds;
+    ImageView btnRateUs;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,22 +70,18 @@ public class ExerciseFragment extends Fragment {
         tvExName = rootView.findViewById(R.id.tv_exerciseName_Playing);
         btnSound = rootView.findViewById(R.id.btn_sound);
         progressTimer = rootView.findViewById(R.id.prog_timer);
-        fabNoAds = rootView.findViewById(R.id.fab_no_ads);
-        fabRateUs = rootView.findViewById(R.id.fab_rate_us);
+        btnNoAds = rootView.findViewById(R.id.fab_no_ads);
+        btnRateUs = rootView.findViewById(R.id.fab_rate_us);
 
         progressTimer.setProgressFormatter((progress, max) -> progress + "\"");
         progressTimer.setOnClickListener(view -> pause());
         btnSound.setOnClickListener(view -> soundButton());
         btnPause.setOnClickListener(view -> pause());
         btnHelp.setOnClickListener(view -> helpButtonClick());
-        fabNoAds.setOnClickListener(view -> mActivity.mBilling.purchaseRemoveAds());
-        fabRateUs.setOnClickListener(view -> onRateUs());
-        btnPrevious.setOnClickListener(view -> {
-
-        });
-        btnNext.setOnClickListener(view -> {
-            mActivity.NextFragment();
-        });
+        btnNoAds.setOnClickListener(view -> mActivity.mBilling.purchaseRemoveAds());
+        btnRateUs.setOnClickListener(view -> onRateUs());
+        btnPrevious.setOnClickListener(view -> onExerciseComplete(false));
+        btnNext.setOnClickListener(view -> onExerciseComplete(true));
 
         findRefrence();
         return rootView;
@@ -108,12 +103,12 @@ public class ExerciseFragment extends Fragment {
         String path = "android.resource://" + context.getPackageName() + "/" + id;
         Glide.with(context).load(path).into(imgExercise);
 
-        if (!PlayingExercise.is_Paused) {
+        if (!PlayingExercise.isPaused) {
             value = mActivity.getCurrentReps();
             TTSManager.getInstance(mActivity.getApplication()).play("Do " + mActivity.displayName + " for " + value / 1000 + " seconds");
             startPlayingExercise(value);
         } else {
-            PlayingExercise.is_Paused = false;
+            PlayingExercise.isPaused = false;
             int val = PlayingExercise.pauseTimer;
             PlayingExercise.pauseTimer = 0;
             val = (val) * 1000;
@@ -135,7 +130,7 @@ public class ExerciseFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     private void assignTopUi() {
         tvRound.setText((mActivity.currentRound + 1) + " of " + mActivity.totalRounds);
-        tvExercise.setText((mActivity.currentExercise + 1) + " of " + mActivity.totalExercisePerRound);
+        tvExercise.setText((mActivity.currentEx + 1) + " of " + mActivity.totalExercisePerRound);
     }
 
     private void startPlayingExercise(int totalSkipTime) {
@@ -160,17 +155,14 @@ public class ExerciseFragment extends Fragment {
             public void onFinish() {
                 int id = getResources().getIdentifier("ding", "raw", Objects.requireNonNull(getContext()).getPackageName());
                 Utils.playAudio(getContext(), id);
-                onExerciseComplete();
+                onExerciseComplete(true);
             }
         }.start();
 
     }
 
-    private void onExerciseComplete() {
-        float prevKcal = SharedPrefHelper.readInteger(context, "kcal");
-        int currentKcal = (int) (mActivity.exerciseKcal + prevKcal);
-        SharedPrefHelper.writeInteger(context, "kcal", currentKcal);
-        mActivity.NextFragment();
+    private void onExerciseComplete(boolean isNext) {
+        mActivity.NextFragment(isNext);
     }
 
     public void pause() {
@@ -194,7 +186,6 @@ public class ExerciseFragment extends Fragment {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
         }
     }
-
 
     @Override
     public void onDestroy() {

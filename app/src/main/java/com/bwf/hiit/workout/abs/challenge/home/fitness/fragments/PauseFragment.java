@@ -19,10 +19,10 @@ import com.google.android.gms.ads.AdView;
 
 public class PauseFragment extends Fragment {
 
-    TextView nextExerciseName;
+    View rootView;
+    TextView tvExName;
     TextView tvRound;
     TextView tvExercise;
-    View rootView;
     ImageView btnResume;
     ImageView imgAnimate;
     PlayingExercise playingExercise;
@@ -43,12 +43,12 @@ public class PauseFragment extends Fragment {
     private void findReferences() {
         playingExercise = (PlayingExercise) getActivity();
         btnResume = rootView.findViewById(R.id.pauseResume);
-        nextExerciseName = rootView.findViewById(R.id.tv_pauseHeadline);
+        tvExName = rootView.findViewById(R.id.tv_pauseHeadline);
         imgAnimate = rootView.findViewById(R.id.pf_exerciseImage);
         tvRound = rootView.findViewById(R.id.pf_roundText);
         tvExercise = rootView.findViewById(R.id.pf_exerciseText);
 
-        nextExerciseName.setText(playingExercise.nextExerciseName);
+        tvExName.setText(playingExercise.nextExerciseName);
 
         String str = playingExercise.nextExerciseImage;
         int id = getResources().getIdentifier(str, "drawable", rootView.getContext().getPackageName());
@@ -61,8 +61,8 @@ public class PauseFragment extends Fragment {
             tvRound.setText("Round " + (playingExercise.currentRound + 1) + " of " + playingExercise.totalRounds);
         else
             tvRound.setText("Round " + playingExercise.totalRounds + " of " + playingExercise.totalRounds);
-        if (playingExercise.currentExercise <= (playingExercise.totalExercises - 1))
-            tvExercise.setText("Exercise " + (playingExercise.currentExercise + 1) + " of " + playingExercise.totalExercisePerRound);
+        if (playingExercise.currentEx <= (playingExercise.totalExercises - 1))
+            tvExercise.setText("Exercise " + (playingExercise.currentEx + 1) + " of " + playingExercise.totalExercisePerRound);
         else
             tvExercise.setText("Exercise " + playingExercise.totalExercisePerRound + " of " + playingExercise.totalExercisePerRound);
     }

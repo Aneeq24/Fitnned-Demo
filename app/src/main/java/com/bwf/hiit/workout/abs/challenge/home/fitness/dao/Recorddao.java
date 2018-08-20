@@ -20,7 +20,7 @@ public interface Recorddao {
     @Query("SELECT * FROM record")
     LiveData<List<Record>> getAllRecords();
 
-    @Query("SELECT * FROM record WHERE exDay = :id")
+    @Query("SELECT * FROM record WHERE date = :id")
     LiveData<Record> findById(int id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

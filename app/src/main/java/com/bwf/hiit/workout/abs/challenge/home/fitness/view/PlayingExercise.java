@@ -6,11 +6,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
@@ -25,6 +25,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.inapp.MyBilling;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
 
 import java.util.ArrayList;
@@ -33,11 +34,9 @@ import java.util.List;
 public class PlayingExercise extends AppCompatActivity {
 
     public MyBilling mBilling;
+    FragmentManager fragmentManager;
 
-    public static FragmentManager fragmentManager;
-
-    public static boolean is_Paused = false;
-    public static int pauseTimer = 0;
+    public AppDataBase dataBase;
     PauseFragment pauseFragment = new PauseFragment();
     ExerciseFragment exerciseFragment = new ExerciseFragment();
     SkipFragment skipFragment = new SkipFragment();
@@ -45,31 +44,29 @@ public class PlayingExercise extends AppCompatActivity {
     HelpFragment helpFragment = new HelpFragment();
     CompleteFragment completeFragment = new CompleteFragment();
 
-    FragmentTransaction fragmentTransaction;
-
+    public int restTime;
     public int currentReps;
+    public int currentDay = 0;
+    public static int pauseTimer = 0;
+    public int currentPlan = 0;
     public int totalExercises = 0;
     public int totalExercisePerRound = 0;
-    public int currentPlan = 0;
-    public int currentDay = 0;
-    public int restTime;
-    public String exerciseName;
     public String displayName;
+    public String exerciseName;
     public String nextExerciseName;
     public String nextExerciseImage;
-    public List<ExerciseDay> mListExDays ;
-    public int currentRound = 0;
-    public int currentExercise = 0;
+    public List<ExerciseDay> mListExDays;
+    public int currentEx = 0;
     public int totalRounds = 0;
+    public int currentRound = 0;
     public int totaTimeSpend = 0;
-    AppDataBase dataBase;
+    public float totalKcal = 0;
     public int totalExercisesPlayed;
-    public int exerciseKcal;
-    boolean iscomplete;
+    public boolean iscomplete;
+    public static boolean isPaused = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playing_exercise);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -83,30 +80,32 @@ public class PlayingExercise extends AppCompatActivity {
         mBilling = new MyBilling(this);
         mBilling.onCreate();
         mListExDays = new ArrayList<>();
+        dataBase = AppDataBase.getInstance();
 
-        downLoaddbData();
+        setInitailData();
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void downLoaddbData() {
+    private void setInitailData() {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                dataBase = AppDataBase.getInstance();
+
                 mListExDays = dataBase.exerciseDayDao().getExerciseDays(currentPlan, currentDay);
 
                 for (ExerciseDay day : mListExDays) {
-//                    if (day.isStatus())
-//                        day.setStatus(false);
                     totaTimeSpend = totaTimeSpend + day.getReps() + day.getDelay();
+                    Exercise exercise = AppDataBase.getInstance().exerciseDao().findByIdbg(day.getId());
+                    if (exercise != null) {
+                        totalKcal = totalKcal + exercise.getCalories();
+                    }
                 }
+
                 totaTimeSpend = totaTimeSpend * mListExDays.get(0).getRounds();
+                totalKcal = totalKcal * mListExDays.get(0).getRounds();
+
                 mListExDays.get(0).setExerciseComplete(mListExDays.get(0).getExerciseComplete());
                 mListExDays.get(0).setRoundCompleted(mListExDays.get(0).getRoundCompleted());
-//                mListExDays.get(0).setExerciseComplete(0);
-//                mListExDays.get(0).setRoundCompleted(0);
-
-                new InsetData().execute();
 
                 totalExercisePerRound = mListExDays.size();
                 totalRounds = mListExDays.get(0).getRounds();
@@ -119,28 +118,28 @@ public class PlayingExercise extends AppCompatActivity {
                         cE++;
                 }
                 currentRound = roundsCleared;
-                currentExercise = cE;
-                int time = mListExDays.get(currentExercise).getReps();
-                restTime = mListExDays.get(currentExercise).getDelay();
+                currentEx = cE;
+                int time = mListExDays.get(currentEx).getReps();
+                restTime = mListExDays.get(currentEx).getDelay();
 
                 LogHelper.logD("1994:", "rest : " + restTime);
                 currentReps = time;
                 currentReps *= 1000;
-                if (currentExercise < mListExDays.size() - 1) {
-                    nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentExercise + 1).getId()).getDisplay_name();
-                    nextExerciseImage = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentExercise + 1).getId()).getName();
+                if (currentEx < mListExDays.size() - 1) {
+                    nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentEx + 1).getId()).getDisplay_name();
+                    nextExerciseImage = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentEx + 1).getId()).getName();
                 } else {
                     nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getDisplay_name();
                     nextExerciseImage = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getName();
                 }
 
-                int exerciseId = mListExDays.get(currentExercise).getId();
+                int exerciseId = mListExDays.get(currentEx).getId();
                 exerciseName = dataBase.exerciseDao().findByIdbg(exerciseId).getName();
                 displayName = dataBase.exerciseDao().findByIdbg(exerciseId).getDisplay_name();
-                exerciseKcal = (int) dataBase.exerciseDao().findByIdbg(exerciseId).getCalories();
+
                 LogHelper.logD("1994:Current round", "" + currentRound);
                 LogHelper.logD("1994:Currnet day", "" + currentDay);
-                LogHelper.logD("1994:Current Exercise", "" + currentExercise);
+                LogHelper.logD("1994:Current Exercise", "" + currentEx);
                 LogHelper.logD("1994:Total Round", "" + mListExDays.get(0).getRounds());
 
                 return null;
@@ -151,54 +150,28 @@ public class PlayingExercise extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 if (isCancelled())
                     return;
-
                 if (mListExDays.get(0).getExerciseComplete() >= mListExDays.get(0).getTotalExercise()) {
-                    fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.add(R.id.fragment_container, completeFragment, null);
-                    fragmentTransaction.commit();
+                    fragmentManager.beginTransaction().add(R.id.fragment_container, completeFragment, null).commit();
                 } else
                     StartSkipFragment();
 
                 int i = currentRound + 1;
-
                 TTSManager.getInstance(getApplication()).play("This is start of round" + i + "  next exercise is  " + displayName);
             }
 
-            @Override
-            protected void onProgressUpdate(Void... values) {
-                super.onProgressUpdate(values);
-            }
-
         }.execute();
-
     }
 
     public int getCurrentReps() {
         return currentReps;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        AnalyticsManager.getInstance().sendAnalytics("Exercise Screen End", "Plan " + currentPlan + " Day " + currentDay + " Total Exercises " + totalExercises + " Total Exercises Done " + totalExercisesPlayed);
-        resetStaticPauseValues();
-    }
-
-    public static void resetStaticPauseValues() {
-        pauseTimer = 0;
-        is_Paused = false;
-    }
-
     public void StartSkipFragment() {
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container, skipFragment, null);
-        fragmentTransaction.commit();
-
+        fragmentManager.beginTransaction().add(R.id.fragment_container, skipFragment, null).commit();
     }
 
     public void helpFragmentFun(int remaingTimer) {
-        is_Paused = true;
+        isPaused = true;
         pauseTimer = remaingTimer;
         fragmentManager.beginTransaction().replace(R.id.fragment_container, helpFragment, null).commit();
     }
@@ -211,22 +184,20 @@ public class PlayingExercise extends AppCompatActivity {
     }
 
     public void PauseFragment(int remaingTime) {
-
         if (AdsManager.getInstance().isFacebookInterstitalLoaded()) {
             AdsManager.getInstance().showFacebookInterstitialAd();
         } else {
             AdsManager.getInstance().showInterstitialAd();
         }
 
-        is_Paused = true;
+        isPaused = true;
         pauseTimer = remaingTime;
-
         fragmentManager.beginTransaction().replace(R.id.fragment_container, pauseFragment, null).commit();
     }
 
-    public void NextFragment() {
-        restTime = mListExDays.get(currentExercise).getDelay();
-        onCompleteCheckingNext();
+    public void NextFragment(boolean isNext) {
+        restTime = mListExDays.get(currentEx).getDelay();
+        onCompleteCheckingNext(isNext);
         fragmentManager.beginTransaction().replace(R.id.fragment_container, nextFragment, null).commit();
     }
 
@@ -234,39 +205,40 @@ public class PlayingExercise extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.fragment_container, exerciseFragment, null).commit();
     }
 
-    @SuppressLint("StaticFieldLeak")
-    public void onCompleteCheckingNext() {
-        mListExDays.get(currentExercise).setStatus(true);
+    public void onCompleteCheckingNext(boolean isNext) {
+        mListExDays.get(currentEx).setStatus(true);
         totalExercises = mListExDays.size();
-        if (currentExercise < totalExercises - 1) {
-            Log.i("1994:Current exercise", "current exercise less than total" + currentExercise + "Tot" + totalExercises);
-            currentExercise++;
-        } else {
-            if (currentRound < mListExDays.get(0).getRounds()) {
-                new CountDownTimer(5000, 1000) {
-                    @Override
-                    public void onTick(long l) {
+        if (!isNext) {
+            if (currentEx > 0) {
+                Log.i("1994:Current exercise", "current exercise greater than zera" + currentEx + "Total" + totalExercises);
+                currentEx--;
+            } else
+                Toast.makeText(this, "No more previous Exercise", Toast.LENGTH_SHORT).show();
+        } else if (currentEx < totalExercises - 1) {
+            Log.i("1994:Current exercise", "current exercise less than total" + currentEx + "Total" + totalExercises);
+            currentEx++;
+        } else if (currentRound < mListExDays.get(0).getRounds()) {
+            new CountDownTimer(5000, 1000) {
+                @Override
+                public void onTick(long l) {
 
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        if (currentRound < totalRounds)
-                            TTSManager.getInstance(getApplication()).play("This is end of Round " + currentRound +
-                                    "You have" + (mListExDays.get(0).getRounds() - currentRound) + "round remaining");
-                        AnalyticsManager.getInstance().sendAnalytics("plan " + currentPlan + "day " + currentDay, "round_complete" + currentRound);
-                    }
-                }.start();
-
-                for (ExerciseDay exerciseDay : mListExDays) {
-                    exerciseDay.setStatus(false);
                 }
-                currentExercise = 0;
-                currentRound++;
 
-                Log.i("1994:Current exercise", "current rounds less than total");
+                @Override
+                public void onFinish() {
+                    if (currentRound < totalRounds)
+                        TTSManager.getInstance(getApplication()).play("This is end of Round " + currentRound +
+                                "You have" + (mListExDays.get(0).getRounds() - currentRound) + "round remaining");
+                    AnalyticsManager.getInstance().sendAnalytics("plan " + currentPlan + "day " + currentDay, "round_complete" + currentRound);
+                }
+            }.start();
+
+            for (ExerciseDay exerciseDay : mListExDays) {
+                exerciseDay.setStatus(false);
             }
-
+            currentEx = 0;
+            currentRound++;
+            Log.i("1994:Current exercise", "current rounds less than total");
         }
 
         if ((currentRound < mListExDays.get(0).getRounds())) {
@@ -280,16 +252,14 @@ public class PlayingExercise extends AppCompatActivity {
             AnalyticsManager.getInstance().sendAnalytics("plan " + currentPlan + "day " + currentDay, "complete_all_exercises");
             mListExDays.get(0).setExerciseComplete(mListExDays.get(0).getTotalExercise());
             mListExDays.get(0).setRoundCompleted(currentRound);
-            fragmentTransaction.add(R.id.fragment_container, completeFragment, null);
-            iscomplete = true;
-            new InsetData().execute();
-            return;
+            this.iscomplete = true;
         }
-        new InsetData().execute();
+
+        new updateData().execute();
         //Your Workout Today will consist of [5] different exercises completed in [3] rounds. You will do each exercise in short intense intervals followed by a rest of few seconds. You will get a rest of [60] seconds at the end of each round.
         LogHelper.logD("1994:Current round", "" + currentRound);
         LogHelper.logD("1994:Currnet day", "" + currentDay);
-        LogHelper.logD("1994:Current Exercise", "" + currentExercise);
+        LogHelper.logD("1994:Current Exercise", "" + currentEx);
     }
 
     @Override
@@ -304,89 +274,6 @@ public class PlayingExercise extends AppCompatActivity {
         } else if (nextFragment != null && nextFragment.isVisible()) {
             if (!nextFragment.pause)
                 nextFragment.pauseOrRenume();
-        }
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private void dbLoadData() {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                dataBase = AppDataBase.getInstance();
-                mListExDays = dataBase.exerciseDayDao().getExerciseDays(currentPlan, currentDay);
-
-                totalRounds = mListExDays.get(0).getRounds();
-                totalExercises = mListExDays.get(0).getTotalExercise();
-
-                totalExercisePerRound = mListExDays.size();
-
-                int roundsCleared = mListExDays.get(0).getRoundCompleted();
-                totalExercisesPlayed = mListExDays.get(0).getExerciseComplete();
-                int cE = 0;
-
-                for (ExerciseDay day : mListExDays) {
-                    if (day.isStatus())
-                        cE++;
-                }
-
-                currentRound = roundsCleared;
-                currentExercise = cE;
-
-                int exerciseId = mListExDays.get(currentExercise).getId();
-                exerciseName = dataBase.exerciseDao().findByIdbg(exerciseId).getName();
-                displayName = dataBase.exerciseDao().findByIdbg(exerciseId).getDisplay_name();
-                int time = mListExDays.get(currentExercise).getReps();
-
-                LogHelper.logD("1994:", "rest : " + restTime);
-
-                currentReps = time;
-                currentReps *= 1000;
-
-                if (currentExercise < mListExDays.size() - 1) {
-                    nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentExercise + 1).getId()).getDisplay_name();
-                    nextExerciseImage = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentExercise + 1).getId()).getName();
-                } else {
-                    nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getDisplay_name();
-                    nextExerciseImage = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getName();
-                }
-
-                LogHelper.logD("1994:Current round", "" + currentRound);
-                LogHelper.logD("1994:Currnet day", "" + currentDay);
-                LogHelper.logD("1994:Current Exercise", "" + currentExercise);
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-            }
-
-            @Override
-            protected void onProgressUpdate(Void... values) {
-                super.onProgressUpdate(values);
-            }
-
-        }.execute();
-
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    public class InsetData extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            dataBase.exerciseDayDao().insertAll(mListExDays);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            if (isCancelled())
-                return;
-            if (!iscomplete)
-                dbLoadData();
         }
     }
 
@@ -408,9 +295,63 @@ public class PlayingExercise extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AnalyticsManager.getInstance().sendAnalytics("Exercise Screen End", "Plan " + currentPlan + " Day " + currentDay + " Total Exercises " + totalExercises + " Total Exercises Done " + totalExercisesPlayed);
+        resetStaticPauseValues();
+    }
+
+    public void resetStaticPauseValues() {
+        pauseTimer = 0;
+        isPaused = false;
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mBilling.onActivityResult(requestCode, resultCode, data);
     }
 
+    @SuppressLint("StaticFieldLeak")
+    public class updateData extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            dataBase.exerciseDayDao().insertAll(mListExDays);
+
+            int roundsCleared = mListExDays.get(0).getRoundCompleted();
+            totalExercisesPlayed = mListExDays.get(0).getExerciseComplete();
+//            int cE = 0;
+
+//            for (ExerciseDay day : mListExDays)
+//                if (day.isStatus())
+//                    cE++;
+
+            currentRound = roundsCleared;
+//            currentEx = cE;
+
+            int exerciseId = mListExDays.get(currentEx).getId();
+            exerciseName = dataBase.exerciseDao().findByIdbg(exerciseId).getName();
+            displayName = dataBase.exerciseDao().findByIdbg(exerciseId).getDisplay_name();
+            int time = mListExDays.get(currentEx).getReps();
+
+            LogHelper.logD("1994:", "rest : " + restTime);
+
+            currentReps = time;
+            currentReps *= 1000;
+
+            if (currentEx < mListExDays.size() - 1) {
+                nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentEx + 1).getId()).getDisplay_name();
+                nextExerciseImage = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentEx + 1).getId()).getName();
+            } else {
+                nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getDisplay_name();
+                nextExerciseImage = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getName();
+            }
+            LogHelper.logD("1994:Current round", "" + currentRound);
+            LogHelper.logD("1994:Currnet day", "" + currentDay);
+            LogHelper.logD("1994:Current Exercise", "" + currentEx);
+            return null;
+        }
+    }
 }

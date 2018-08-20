@@ -80,7 +80,7 @@ public class CompleteFragment extends Fragment {
     Context context;
     LineChart graph;
     PlayingExercise playingExercise;
-    Record record, record1;
+    Record record;
     List<Record> recordList;
     User user;
     RelativeRadioGroup rgGraph;
@@ -112,12 +112,21 @@ public class CompleteFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_complete, container, false);
+        context = getContext();
 
+        if (AdsManager.getInstance().isFacebookInterstitalLoaded())
+            AdsManager.getInstance().showFacebookInterstitialAd();
+        else
+            AdsManager.getInstance().showInterstitialAd();
+
+        if (SharedPrefHelper.readBoolean(context, "rate"))
+            setRateAppDialog();
+        record = new Record();
         recordList = new ArrayList<>();
-        toolbar = view.findViewById(R.id.toolbar10);
+        toolbar = view.findViewById(R.id.toolbar);
         tvExerciseNo = view.findViewById(R.id.cf_exerciseNo);
         tvTotalTime = view.findViewById(R.id.cf_totalTime);
-        tvKcal = view.findViewById(R.id.textView17);
+        tvKcal = view.findViewById(R.id.tv_kcal);
         tvBmi = view.findViewById(R.id.tv_bmi);
         btnEditBmi = view.findViewById(R.id.btn_edit_bmi);
         graph = view.findViewById(R.id.graph);
@@ -128,9 +137,6 @@ public class CompleteFragment extends Fragment {
         tvMon = view.findViewById(R.id.tv_mon);
         btnAddWeight = view.findViewById(R.id.btn_add_weight);
 
-        context = getContext();
-        record = new Record();
-
         mUserViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         mRecordViewModel = ViewModelProviders.of(this).get(RecordViewModel.class);
 
@@ -140,39 +146,23 @@ public class CompleteFragment extends Fragment {
         TTSManager.getInstance(getActivity().getApplication()).play(" Well Done. This is end of day " + playingExercise.currentDay + "of your training");
         AnalyticsManager.getInstance().sendAnalytics("day " + playingExercise.currentDay, "workout_complete");
 
-        playingExercise.mListExDays.get(playingExercise.currentExercise).setTotalKcal(SharedPrefHelper.readInteger(context, "kcal"));
-
         int minutes = (playingExercise.totaTimeSpend % 3600) / 60;
         @SuppressLint("DefaultLocale") String timeString = String.format("%02d", minutes);
-        mRecordViewModel.getRecord(playingExercise.currentDay).observe(this, record -> {
-            if (record != null)
-                this.record1 = record;
-        });
 
         toolbar.setNavigationOnClickListener(view1 -> {
-            if (getActivity() != null) {
-                getActivity().getSupportFragmentManager().beginTransaction().remove(CompleteFragment.this).commit();
-                getActivity().finish();
-            }
+            playingExercise.getSupportFragmentManager().beginTransaction().remove(CompleteFragment.this).commit();
+            playingExercise.finish();
         });
         btnEditBmi.setOnClickListener(view12 -> showDialog());
         btnAddWeight.setOnClickListener(view12 -> showDialog());
         btnAddReminder.setOnClickListener(view12 -> startActivity(new Intent(context, ConfirmReminderActivity.class).putExtra("up", true)));
         btnMore.setOnClickListener(view12 -> startActivity(new Intent(context, CalenderActivity.class)));
 
-        if (AdsManager.getInstance().isFacebookInterstitalLoaded())
-            AdsManager.getInstance().showFacebookInterstitialAd();
-        else
-            AdsManager.getInstance().showInterstitialAd();
-
         setReminder(context);
-
         setDaysData(view);
-
-
-        tvKcal.setText(String.valueOf(playingExercise.mListExDays.get(playingExercise.currentExercise).getTotalKcal()));
-        tvExerciseNo.setText(String.valueOf(playingExercise.totalExercisesPlayed + 1));
         tvTotalTime.setText(String.valueOf(timeString));
+        tvKcal.setText(String.valueOf((int) playingExercise.totalKcal));
+        tvExerciseNo.setText(String.valueOf(playingExercise.totalExercisesPlayed));
 
         rgGraph.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.rb_lb_graph) {
@@ -197,31 +187,19 @@ public class CompleteFragment extends Fragment {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                if (user != null) {
-                    user.setTotalKcal(user.getTotalKcal() + playingExercise.mListExDays.get(playingExercise.currentExercise).getTotalKcal());
-                    user.setTotalExcercise(user.getTotalExcercise() + playingExercise.totalExercisesPlayed + 1);
-                    user.setTotalTime(user.getTotalTime() + convertIntoInteger(timeString));
-                    mUserViewModel.update(user);
-                }
-                if (record1 != null) {
-                    record1 = record;
-                    record1.setExDay(playingExercise.currentDay);
-                    record1.setWeight(record1.getWeight() + playingExercise.mListExDays.get(playingExercise.currentExercise).getTotalKcal());
-                    record1.setDuration(minutes);
-                    record1.setDuration(record1.getDuration() + minutes);
-                    record1.setType(getPlanName());
-                    mRecordViewModel.insert(record1);
-                } else {
-                    record.setExDay(playingExercise.currentDay);
-                    record.setWeight(playingExercise.mListExDays.get(playingExercise.currentExercise).getTotalKcal());
-                    record.setDuration(minutes);
-                    record.setType(getPlanName());
-                    mRecordViewModel.insert(record);
-                }
+                user.setTotalKcal(user.getTotalKcal() + (int) playingExercise.totalKcal);
+                user.setTotalExcercise(user.getTotalExcercise() + playingExercise.totalExercisesPlayed);
+                user.setTotalTime(user.getTotalTime() + convertIntoInteger(timeString));
+                mUserViewModel.update(user);
             }
-        }, 1000);
-        SharedPrefHelper.writeInteger(context, "kcal", 0);
-        setRateAppDialog();
+        }, 1500);
+
+        record.setExDay(playingExercise.currentDay);
+        record.setKcal(record.getKcal() + (int) playingExercise.totalKcal);
+        record.setDuration(record.getDuration() + minutes);
+        record.setType(getPlanName());
+        mRecordViewModel.insert(record);
+
         return view;
     }
 
@@ -353,7 +331,6 @@ public class CompleteFragment extends Fragment {
                 setupChart(records);
             }
         });
-//        setRateAppDialog();
     }
 
     private void setupChart(List<Record> recordList) {
@@ -406,8 +383,14 @@ public class CompleteFragment extends Fragment {
         if (recordList.size() == 0)
             values.add(new Entry(1, 1, getResources().getDrawable(R.drawable.star)));
         else {
-            for (int i = 0; i < recordList.size(); i++)
-                values.add(new Entry(Integer.parseInt(recordList.get(i).getDay()), recordList.get(i).getWeight(), getResources().getDrawable(R.drawable.star)));
+            for (int i = 0; i < recordList.size(); i++) {
+                int point = 0;
+                if (Integer.parseInt(recordList.get(i).getDay()) == getCurrentDay()) {
+                    point = point + recordList.get(i).getKcal();
+                    values.add(new Entry(Integer.parseInt(recordList.get(i).getDay()), point, getResources().getDrawable(R.drawable.star)));
+                } else
+                    values.add(new Entry(Integer.parseInt(recordList.get(i).getDay()), recordList.get(i).getKcal(), getResources().getDrawable(R.drawable.star)));
+            }
         }
 
         LineDataSet set;

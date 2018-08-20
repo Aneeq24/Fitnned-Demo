@@ -10,7 +10,6 @@ import android.arch.persistence.room.Transaction;
 import android.arch.persistence.room.Update;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDetail;
 
 import java.util.List;
 

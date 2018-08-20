@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Entity
 public class Reminder implements Serializable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private int hour;
     private int min;
@@ -21,7 +21,6 @@ public class Reminder implements Serializable {
     private boolean isSatday;
 
     public int getId() {
-
         return id;
     }
 

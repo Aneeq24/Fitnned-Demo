@@ -100,17 +100,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
         mExerciseDayViewModel.getExerciseDays(plan, planday).observe(this, exerciseDayList -> {
             if (exerciseDayList != null) {
-//                if (mListExDays.get(0).getExerciseComplete() >= mListExDays.get(0).getTotalExercise()) {
-//                    exerciseDays.get(0).setRoundCompleted(0);
-//
-//                    for (ExerciseDay day : exerciseDays) {
-//                        if (day.isStatus())
-//                            day.setStatus(false);
-//
-//                    }
-//                    exerciseDays.get(0).setExerciseComplete(0);
-//                    exerciseDays.get(0).setRoundCompleted(0);
-//                }
+
                 mList = exerciseDayList;
                 int totaTimeSpend = 0;
                 for (ExerciseDay day : exerciseDayList) {
@@ -121,12 +111,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
                 totaTimeSpend = totaTimeSpend * exerciseDayList.get(0).getRounds();
                 totalRounds = exerciseDayList.get(0).getRounds();
                 int totalExercisePerRound = exerciseDayList.size();
-//                int roundsCleared = exerciseDayList.get(0).getRoundCompleted();
-//                int cE = 0;
-//                for (ExerciseDay day : exerciseDayList) {
-//                    if (day.isStatus())
-//                        cE++;
-//                }
+
                 completeExercise = exerciseDayList.get(0).getExerciseComplete();
                 completeRounds = exerciseDayList.get(0).getRoundCompleted();
                 tvRound.setText(String.valueOf(totalRounds) + "x");

@@ -7,8 +7,6 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.dao.Userdao;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 
-import java.util.List;
-
 public class UserRepo {
 
     private Userdao userdao;
@@ -18,27 +16,8 @@ public class UserRepo {
         userdao = db.userdao();
     }
 
-    public LiveData<User> getUser(int id) {
-        return userdao.findById(id);
-    }
-
-    public void insert (User user) {
-        new insertAsyncTask(userdao).execute(user);
-    }
-
-    private static class insertAsyncTask extends AsyncTask<User, Void, Void> {
-
-        private Userdao mAsyncTaskDao;
-
-        insertAsyncTask(Userdao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final User... params) {
-            mAsyncTaskDao.insertAll(params[0]);
-            return null;
-        }
+    public LiveData<User> getUser() {
+        return userdao.findById(1);
     }
 
     public void update (User user) {

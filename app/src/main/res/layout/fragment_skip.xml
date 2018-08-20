@@ -52,15 +52,13 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
-        android:paddingLeft="0dp"
         android:text="HEADING EXAMPLE"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/sf_soundFragment"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:paddingTop="0dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ImageView
@@ -99,7 +97,7 @@
         app:style="solid_line" />
 
     <ImageView
-        android:id="@+id/sf_pauseTimerImageView"
+        android:id="@+id/btn_pause_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"

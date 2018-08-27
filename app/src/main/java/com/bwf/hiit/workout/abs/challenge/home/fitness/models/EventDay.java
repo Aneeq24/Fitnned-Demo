@@ -1,9 +1,6 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.models;
 
 import android.support.annotation.RestrictTo;
-
-import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.DateUtils;
-
 import java.util.Calendar;
 
 public class EventDay {
@@ -13,7 +10,6 @@ public class EventDay {
     public EventDay(Calendar day) {
         mDay = day;
     }
-
 
     public Calendar getCalendar() {
         return mDay;

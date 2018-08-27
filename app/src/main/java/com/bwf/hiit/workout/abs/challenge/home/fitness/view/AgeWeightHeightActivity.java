@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.UserViewModel;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.MyWheelPicker;
@@ -56,6 +57,7 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
                 startNewActivity();
                 break;
             case R.id.btn_skip:
+                AnalyticsManager.getInstance().sendAnalytics("skip_age_weight", "skip_age_weight");
                 startNewActivity();
                 break;
         }

@@ -95,7 +95,7 @@ public class AdsManager {
     }
 
     public void showBanner(final AdView banner) {
-        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(),  AppStateManager.IS_ADS_DISABLED)) {
+        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
             if (banner != null) {
                 banner.loadAd(prepareAdRequest());
                 banner.setAdListener(new AdListener() {
@@ -120,7 +120,7 @@ public class AdsManager {
     }
 
     private void loadInterstitialAd() {
-        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(),  AppStateManager.IS_ADS_DISABLED)) {
+        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
 
             interstitialAd.loadAd(prepareAdRequest());
             interstitialAd.setAdListener(new AdListener() {
@@ -148,15 +148,17 @@ public class AdsManager {
     }
 
     public void showInterstitialAd() {
-        if (interstitialAd.isLoaded()) {
-            interstitialAd.show();
-        } else {
-            loadInterstitialAd();
+        if (!SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
+            if (interstitialAd.isLoaded()) {
+                interstitialAd.show();
+            } else {
+                loadInterstitialAd();
+            }
         }
     }
 
     private void loadRewardedVideo(final Context context, final RewardedVideoListener listener) {
-        if (Utils.isNetworkAvailable(context) && !SharedPrefHelper.readBoolean(Application.getContext(),  AppStateManager.IS_ADS_DISABLED)) {
+        if (Utils.isNetworkAvailable(context) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
             rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(context);
 
             rewardedVideoAd.loadAd(context.getString(R.string.rewarded_ad_unit), prepareAdRequest());
@@ -216,7 +218,7 @@ public class AdsManager {
 
     @SuppressLint("InflateParams")
     public void loadNativeAppInstall(final Context context, final FrameLayout nativeAppInstall, NativeAdType nativeAdType) {
-        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(),  AppStateManager.IS_ADS_DISABLED)) {
+        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
             AdLoader adLoader = new AdLoader.Builder(context, context.getString(R.string.native_ad_unit))
                     .forUnifiedNativeAd(unifiedNativeAd -> {
                         Log.d(TAG, "onNativeAppInstallAdLoaded");
@@ -367,7 +369,7 @@ public class AdsManager {
     }
 
     private void loadFacebookInterstitialAd() {
-        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(),  AppStateManager.IS_ADS_DISABLED)) {
+        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
             fbInterstitialAd.setAdListener(new AbstractAdListener() {
                 @Override
                 public void onError(Ad ad, AdError adError) {
@@ -397,7 +399,7 @@ public class AdsManager {
     }
 
     public boolean isFacebookInterstitalLoaded() {
-        return fbInterstitialAd.isAdLoaded();
+        return !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED) && fbInterstitialAd.isAdLoaded();
     }
 
     public void showFacebookInterstitialAd() {

@@ -21,7 +21,7 @@ import com.dinuscxj.progressbar.CircleProgressBar;
 
 public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.DayItemHolder> {
 
-    String[] titles = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
+    private String[] titles = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
     private DataModelWorkout dataModelWorkout;
     private int currentPlan;
     private ScrollingActivity ac;
@@ -73,18 +73,13 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
     @Override
     public void onBindViewHolder(@NonNull final DayItemHolder holder, final int position) {
         String nameOfApp = dataModelWorkout.dayName[position];
-
         float progress = 0;
-        if (dataModelWorkout.progress.size() > position) {
+        if (dataModelWorkout.progress.size() > position)
             progress = dataModelWorkout.progress.get(position);
-        }
 
         holder.tvDayName.setText(nameOfApp);
         holder.circleProgressBar.setProgress((int) (progress * 100));
-
-        holder.itemView.setOnClickListener(view -> {
-            goToNewActivity(view.getContext(), position);
-        });
+        holder.itemView.setOnClickListener(view -> goToNewActivity(view.getContext(), position));
     }
 
     @Override

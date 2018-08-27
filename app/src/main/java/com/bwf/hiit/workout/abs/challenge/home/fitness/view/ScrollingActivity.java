@@ -69,7 +69,6 @@ public class ScrollingActivity extends AppCompatActivity {
 
         dataModelsWorkout = new DataModelWorkout();
         populateData();
-        initView();
 
         TTSManager.getInstance(getApplication()).play("You have selected plan " + getPlanName() + "  Mode of 30 Day Ab Challenge");
 
@@ -77,32 +76,26 @@ public class ScrollingActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     private void populateData() {
-
         dataModelsWorkout.curretPlan = plan;
-
         switch (plan - 1) {
             case 0:
                 dataModelsWorkout.dayName = getResources().getStringArray(R.array.days_list);  //new String[]
-
                 for (int i = 0; i < 30; i++)
                     dataModelsWorkout.progress.add(i, (float) 0);
 
                 break;
             case 1:
                 dataModelsWorkout.dayName = getResources().getStringArray(R.array.days_list);//new String[]
-
                 for (int i = 0; i < 30; i++)
                     dataModelsWorkout.progress.add(i, (float) 0);
 
                 break;
             case 2:
                 dataModelsWorkout.dayName = getResources().getStringArray(R.array.days_list);
-
                 for (int i = 0; i < 30; i++)
                     dataModelsWorkout.progress.add(i, (float) 0);
                 break;
             default:
-
         }
 
         new AsyncTask<Void, Void, String>() {
@@ -128,7 +121,6 @@ public class ScrollingActivity extends AppCompatActivity {
                 }
 
                 int dayLeft = 30 - val;
-
                 return String.valueOf(dayLeft);
             }
 
@@ -138,6 +130,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 if (isCancelled()) {
                     return;
                 }
+                initView();
                 circleProgressBarLeft.setMax(30);
                 circleProgressBarLeft.setProgress(Integer.parseInt(dayLeft));
                 LogHelper.logD("1993", "Day left" + (dayLeft));

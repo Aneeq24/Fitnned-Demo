@@ -26,8 +26,6 @@ import com.google.android.gms.ads.AdView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,7 +42,6 @@ public class DailyExerciseInfo extends AppCompatActivity {
     int completeRounds;
     int completeExercise;
     float kcal = 0;
-    List<ExerciseDay> mList;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.rv_dailyExercise)
@@ -100,8 +97,6 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
         mExerciseDayViewModel.getExerciseDays(plan, planday).observe(this, exerciseDayList -> {
             if (exerciseDayList != null) {
-
-                mList = exerciseDayList;
                 int totaTimeSpend = 0;
                 for (ExerciseDay day : exerciseDayList) {
                     if (day.isStatus())
@@ -121,25 +116,15 @@ public class DailyExerciseInfo extends AppCompatActivity {
             }
         });
 
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                new getExerciseTask(mList).execute();
-            }
-        }, 1000);
-
+        new getExerciseTask().execute();
     }
 
     @SuppressLint("StaticFieldLeak")
     private class getExerciseTask extends AsyncTask<Void, Void, Void> {
-        private List<ExerciseDay> mList;
-
-        getExerciseTask(List<ExerciseDay> mList) {
-            this.mList = mList;
-        }
 
         @Override
         protected final Void doInBackground(Void... params) {
+            List<ExerciseDay> mList = AppDataBase.getInstance().exerciseDayDao().getExerciseDays(plan, planday);
             for (ExerciseDay day : mList) {
                 Exercise exercise = AppDataBase.getInstance().exerciseDao().findByIdbg(day.getId());
                 if (exercise != null) {
@@ -155,7 +140,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
             super.onPostExecute(aVoid);
             tvKcal.setText(String.valueOf((int) kcal * totalRounds));
             mAdapter.setList(mEXList);
-            mAdapter.setData(completeRounds,completeExercise);
+            mAdapter.setData(completeRounds, completeExercise);
         }
     }
 

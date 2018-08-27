@@ -9,6 +9,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AlarmManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.MyWheelPicker;
 import com.google.android.gms.ads.AdView;
 
@@ -75,6 +76,7 @@ public class ReminderSetActivity extends AppCompatActivity {
                 startNewActivity();
                 break;
             case R.id.btn_skip:
+                AnalyticsManager.getInstance().sendAnalytics("skip_set_reminder", "skip_set_reminder");
                 startNewActivity();
                 break;
         }

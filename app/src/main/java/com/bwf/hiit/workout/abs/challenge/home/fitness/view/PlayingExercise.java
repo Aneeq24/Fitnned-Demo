@@ -153,9 +153,9 @@ public class PlayingExercise extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putBoolean("repeat", true);
                     completeFragment.setArguments(bundle);
-                    fragmentManager.beginTransaction().add(R.id.fragment_container, completeFragment, null).commit();
+                    fragmentManager.beginTransaction().add(R.id.fragment_container, completeFragment, null).commitAllowingStateLoss();
                 } else
-                    StartSkipFragment();
+                    fragmentManager.beginTransaction().add(R.id.fragment_container, skipFragment, null).commitAllowingStateLoss();
 
                 int i = currentRound + 1;
                 TTSManager.getInstance(getApplication()).play("This is start of round" + i + "  next exercise is  " + displayName);
@@ -165,10 +165,6 @@ public class PlayingExercise extends AppCompatActivity {
 
     public int getCurrentReps() {
         return currentReps;
-    }
-
-    public void StartSkipFragment() {
-        fragmentManager.beginTransaction().add(R.id.fragment_container, skipFragment, null).commit();
     }
 
     public void helpFragmentFun(int remaingTimer) {

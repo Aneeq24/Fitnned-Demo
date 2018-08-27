@@ -196,19 +196,22 @@ public class CompleteFragment extends Fragment {
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    user.setTotalKcal(user.getTotalKcal() + (int) playingExercise.totalKcal);
-                    user.setTotalExcercise(user.getTotalExcercise() + playingExercise.totalExercisesPlayed);
-                    user.setTotalTime(user.getTotalTime() + convertIntoInteger(timeString));
-                    mUserViewModel.update(user);
-
-                    record.setExDay(playingExercise.currentDay);
-                    record.setKcal(record.getKcal() + (int) playingExercise.totalKcal);
-                    record.setDuration(record.getDuration() + minutes);
-                    record.setType(getPlanName());
-                    mRecordViewModel.insert(record);
+                    if (user != null) {
+                        user.setTotalKcal(user.getTotalKcal() + (int) playingExercise.totalKcal);
+                        user.setTotalExcercise(user.getTotalExcercise() + playingExercise.totalExercisesPlayed);
+                        user.setTotalTime(user.getTotalTime() + convertIntoInteger(timeString));
+                        mUserViewModel.update(user);
+                    }
+                    if (record != null) {
+                        record.setExDay(playingExercise.currentDay);
+                        record.setKcal(record.getKcal() + (int) playingExercise.totalKcal);
+                        record.setDuration(record.getDuration() + minutes);
+                        record.setType(getPlanName());
+                        mRecordViewModel.insert(record);
+                    }
 
                 }
-            }, 1500);
+            }, 2000);
         }
         return view;
     }

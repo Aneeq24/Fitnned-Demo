@@ -49,6 +49,7 @@ public class SelectGender extends AppCompatActivity {
                 setGender("FEMALE", 0);
                 break;
             case R.id.btn_skip:
+                AnalyticsManager.getInstance().sendAnalytics("skip_gender", "skip_gender");
                 startNewActivity();
                 break;
         }

@@ -2,7 +2,6 @@ package com.bwf.hiit.workout.abs.challenge.home.fitness.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 
 import java.util.List;
 

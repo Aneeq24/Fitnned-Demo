@@ -5,6 +5,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.bwf.hiit.workout.abs.challenge.home.fitness.AppStateManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.SplashScreeActivity;
@@ -73,17 +74,17 @@ public class MyBilling {
             // Item already owned/purchased
             if (result.mResponse == BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED) {
                 showMessage("Already purchased");
-                SharedPrefHelper.writeBoolean(activity,"IS_ADS_DISABLED", true);
+                SharedPrefHelper.writeBoolean(activity, AppStateManager.IS_ADS_DISABLED, true);
             }
             // Signature verification failed
             else if (result.mResponse == IABHELPER_VERIFICATION_FAILED) {
                 showMessage("Signature verification failed");
             } else if (result.isFailure()) {
-                showMessage("Error purchasing: " + result);
+//                showMessage("Error purchasing: " + result);
             } else if (result.mResponse == BILLING_RESPONSE_RESULT_OK && purchase.getSku().equals(SKU_REMOVE_ADS)) {
                 Log.d(TAG, "Purchase successful.");
-                SharedPrefHelper.writeBoolean(activity,"IS_ADS_DISABLED", true);
-                Log.d(TAG, "onIabPurchaseFinished: " + SharedPrefHelper.readBoolean(activity,"IS_ADS_DISABLED"));
+                SharedPrefHelper.writeBoolean(activity, AppStateManager.IS_ADS_DISABLED, true);
+                Log.d(TAG, "onIabPurchaseFinished: " + SharedPrefHelper.readBoolean(activity, AppStateManager.IS_ADS_DISABLED));
                 Intent intent = new Intent(activity, SplashScreeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 activity.startActivity(intent);
@@ -151,22 +152,20 @@ public class MyBilling {
         });
     }
 
-    public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
         if (mHelper == null)
-            return true;
+            return;
 
         // Pass on the activity result to the helper for handling
         if (!mHelper.handleActivityResult(requestCode, resultCode, data)) {
             // not handled, so handle it ourselves (here's where you'd
             // perform any handling of activity results not related to in-app
             // billing...
-            return false;
         } else {
 
             Log.d(TAG, "onActivityResult handled by IABUtil.");
 
-            return true;
         }
 
     }

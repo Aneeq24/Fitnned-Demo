@@ -14,6 +14,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.AppStateManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.BuildConfig;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
@@ -47,8 +48,6 @@ import java.util.List;
 
 public class AdsManager {
 
-    String IS_ADS_DISABLED = "IS_ADS_DISABLED";
-
     public enum NativeAdType {
         REGULAR_TYPE,
         BANNER_TYPE
@@ -62,7 +61,7 @@ public class AdsManager {
     private com.facebook.ads.InterstitialAd fbInterstitialAd;
 
     private AdsManager() {
-        if (!SharedPrefHelper.readBoolean(Application.getContext(), IS_ADS_DISABLED)) {
+        if (!SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
             Context context = Application.getContext();
             interstitialAd = new InterstitialAd(context);
             interstitialAd.setAdUnitId(context.getString(R.string.interstitial_ad_unit));
@@ -96,7 +95,7 @@ public class AdsManager {
     }
 
     public void showBanner(final AdView banner) {
-        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), IS_ADS_DISABLED)) {
+        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(),  AppStateManager.IS_ADS_DISABLED)) {
             if (banner != null) {
                 banner.loadAd(prepareAdRequest());
                 banner.setAdListener(new AdListener() {
@@ -121,7 +120,7 @@ public class AdsManager {
     }
 
     private void loadInterstitialAd() {
-        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), IS_ADS_DISABLED)) {
+        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(),  AppStateManager.IS_ADS_DISABLED)) {
 
             interstitialAd.loadAd(prepareAdRequest());
             interstitialAd.setAdListener(new AdListener() {
@@ -157,7 +156,7 @@ public class AdsManager {
     }
 
     private void loadRewardedVideo(final Context context, final RewardedVideoListener listener) {
-        if (Utils.isNetworkAvailable(context) && !SharedPrefHelper.readBoolean(Application.getContext(), IS_ADS_DISABLED)) {
+        if (Utils.isNetworkAvailable(context) && !SharedPrefHelper.readBoolean(Application.getContext(),  AppStateManager.IS_ADS_DISABLED)) {
             rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(context);
 
             rewardedVideoAd.loadAd(context.getString(R.string.rewarded_ad_unit), prepareAdRequest());
@@ -217,7 +216,7 @@ public class AdsManager {
 
     @SuppressLint("InflateParams")
     public void loadNativeAppInstall(final Context context, final FrameLayout nativeAppInstall, NativeAdType nativeAdType) {
-        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), IS_ADS_DISABLED)) {
+        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(),  AppStateManager.IS_ADS_DISABLED)) {
             AdLoader adLoader = new AdLoader.Builder(context, context.getString(R.string.native_ad_unit))
                     .forUnifiedNativeAd(unifiedNativeAd -> {
                         Log.d(TAG, "onNativeAppInstallAdLoaded");
@@ -368,7 +367,7 @@ public class AdsManager {
     }
 
     private void loadFacebookInterstitialAd() {
-        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), IS_ADS_DISABLED)) {
+        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(),  AppStateManager.IS_ADS_DISABLED)) {
             fbInterstitialAd.setAdListener(new AbstractAdListener() {
                 @Override
                 public void onError(Ad ad, AdError adError) {

@@ -40,8 +40,7 @@ public class NotificationManager {
                     .setContentText(text)
                     .setContentTitle(title)
                     .setContentIntent(pendingIntent)
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setBadgeIconType(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.mipmap.ic_launcher_round)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_round));
 

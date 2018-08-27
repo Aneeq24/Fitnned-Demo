@@ -20,11 +20,15 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.models.PlanDays;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Reminder;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.JsonUtils;
+import com.crashlytics.android.Crashlytics;
+import com.facebook.stetho.Stetho;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.fabric.sdk.android.Fabric;
 
 public class SplashScreeActivity extends AppCompatActivity {
 
@@ -38,8 +42,12 @@ public class SplashScreeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_scree);
         context = this;
         AnalyticsManager.getInstance().sendAnalytics("splash_screen_started", "activity_started");
-//        Stetho.initializeWithDefaults(this);
-
+        Stetho.initializeWithDefaults(this);
+        Fabric fabric = new Fabric.Builder(this)
+                .kits(new Crashlytics())
+                .debuggable(true)           // Enables Crashlytics debugger
+                .build();
+        Fabric.with(fabric);
         new AppDbCheckingTask().execute();
     }
 
@@ -52,7 +60,7 @@ public class SplashScreeActivity extends AppCompatActivity {
             AppDataBase appDataBase = AppDataBase.getInstance();
 
             if (appDataBase != null) {
-                if (!SharedPrefHelper.readBoolean(context, getString(R.string.is_first_run))) {
+                if (appDataBase.userdao().getUser() == 0) {
                     User user = new User();
                     Reminder reminder = new Reminder();
                     reminder.setFriday(true);

@@ -10,8 +10,8 @@ import java.util.Map;
  * An Inventory is returned by such methods as {@link IabHelper#queryInventory}.
  */
 public class Inventory {
-    Map<String,SkuDetails> mSkuMap = new HashMap<>();
-    Map<String,Purchase> mPurchaseMap = new HashMap<>();
+    private Map<String,SkuDetails> mSkuMap = new HashMap<>();
+    private Map<String,Purchase> mPurchaseMap = new HashMap<>();
 
     Inventory() { }
 
@@ -49,7 +49,7 @@ public class Inventory {
 
     /** Returns a list of all owned product IDs. */
     List<String> getAllOwnedSkus() {
-        return new ArrayList<String>(mPurchaseMap.keySet());
+        return new ArrayList<>(mPurchaseMap.keySet());
     }
 
     /** Returns a list of all owned product IDs of a given type */

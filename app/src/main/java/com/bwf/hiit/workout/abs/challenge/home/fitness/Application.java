@@ -6,11 +6,8 @@ import android.support.multidex.MultiDex;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
-import com.crashlytics.android.Crashlytics;
 import com.facebook.ads.AdSettings;
 import com.google.android.gms.ads.MobileAds;
-
-import io.fabric.sdk.android.Fabric;
 
 public class Application extends android.app.Application {
 
@@ -27,12 +24,6 @@ public class Application extends android.app.Application {
         super.onCreate();
         context = getApplicationContext();
         AdsManager.getInstance();
-
-        Fabric fabric = new Fabric.Builder(this)
-                .kits(new Crashlytics())
-                .debuggable(true)           // Enables Crashlytics debugger
-                .build();
-        Fabric.with(fabric);
 
         MobileAds.initialize(context, context.getString(R.string.app_id));
         MobileAds.initialize(context, context.getString(R.string.app_id));

@@ -399,7 +399,7 @@ public class AdsManager {
     }
 
     public boolean isFacebookInterstitalLoaded() {
-        return !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED) && fbInterstitialAd.isAdLoaded();
+        return Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED) && fbInterstitialAd.isAdLoaded();
     }
 
     public void showFacebookInterstitialAd() {

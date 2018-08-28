@@ -16,7 +16,6 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.DataModelWorkout;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.DailyExerciseInfo;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.view.ScrollingActivity;
 import com.dinuscxj.progressbar.CircleProgressBar;
 
 public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.DayItemHolder> {
@@ -24,7 +23,6 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
     private String[] titles = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
     private DataModelWorkout dataModelWorkout;
     private int currentPlan;
-    private ScrollingActivity ac;
 
     @SuppressLint("StaticFieldLeak")
     private class GetDataFromDb extends AsyncTask<Void, Void, Void> {
@@ -41,7 +39,6 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
 
                 float v = (float) totalComplete / (float) totalExercises;
                 dataModelWorkout.progress.add(i, v);
-
             }
             return null;
         }
@@ -53,12 +50,10 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
                 return;
             notifyDataSetChanged();
         }
-
     }
 
-    public DayRecycleAdapter(ScrollingActivity activity, DataModelWorkout dataModelWorkout) {
+    public DayRecycleAdapter(DataModelWorkout dataModelWorkout) {
         this.dataModelWorkout = dataModelWorkout;
-        ac = activity;
         currentPlan = dataModelWorkout.curretPlan;
         new GetDataFromDb().execute();
     }
@@ -99,7 +94,6 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
             super(itemView);
             tvDayName = itemView.findViewById(R.id.dayNameId);
             circleProgressBar = itemView.findViewById(R.id.line_progress_left);
-
         }
     }
 
@@ -108,9 +102,8 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
         new GetDataFromDb().execute();
     }
 
-
     private void goToNewActivity(Context context, int position) {
-        Intent i = new Intent(ac, DailyExerciseInfo.class);
+        Intent i = new Intent(context, DailyExerciseInfo.class);
         i.putExtra(context.getString(R.string.day_selected), position + 1);
         i.putExtra(context.getString(R.string.plan), currentPlan);
         AnalyticsManager.getInstance().sendAnalytics("day  " + (position + 1) + "of_plan:" + titles[currentPlan - 1], "day_selected_" + (position + 1));

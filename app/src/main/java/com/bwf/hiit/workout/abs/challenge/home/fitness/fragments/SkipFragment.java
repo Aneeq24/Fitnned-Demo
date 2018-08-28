@@ -132,8 +132,6 @@ public class SkipFragment extends Fragment {
                 startPlayingButton();
             }
         }.start();
-
-
     }
 
     @Override

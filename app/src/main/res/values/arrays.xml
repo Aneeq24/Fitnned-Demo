@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="plans">
-        <item>@string/title</item>
-        <item>@string/explanation</item>
-    </string-array>
-
     <string-array name="WheelArrayDefault">
         <item>0</item>
         <item>1</item>

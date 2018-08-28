@@ -125,7 +125,6 @@ public class SplashScreeActivity extends AppCompatActivity {
     private void setDefaultPreferences() {
         SharedPrefHelper.writeInteger(context, getString(R.string.hour), 19);
         SharedPrefHelper.writeInteger(context, getString(R.string.minute), 0);
-        SharedPrefHelper.writeInteger(context, getString(R.string.language), 0);
         SharedPrefHelper.writeBoolean(context, "rate", false);
         SharedPrefHelper.writeInteger(context, "sound", 0);
         SharedPrefHelper.writeBoolean(context, "reminder", true);

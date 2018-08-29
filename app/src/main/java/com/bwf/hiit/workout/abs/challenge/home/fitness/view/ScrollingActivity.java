@@ -70,7 +70,7 @@ public class ScrollingActivity extends AppCompatActivity {
         dataModelsWorkout = new DataModelWorkout();
         populateData();
 
-        TTSManager.getInstance(getApplication()).play("You have selected plan " + getPlanName() + "  Mode of 30 Day Ab Challenge");
+//        TTSManager.getInstance(getApplication()).play("You have selected plan " + getPlanName() + "  Mode of 30 Day Ab Challenge");
 
     }
 

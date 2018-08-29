@@ -21,11 +21,10 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.interfaces.RewardedVideoListener;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
-import com.facebook.ads.AbstractAdListener;
 import com.facebook.ads.Ad;
-import com.facebook.ads.AdChoicesView;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdSize;
+import com.facebook.ads.InterstitialAdListener;
 import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
@@ -42,9 +41,7 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
-import java.util.ArrayList;
 import java.util.List;
-
 
 public class AdsManager {
 
@@ -56,7 +53,7 @@ public class AdsManager {
     private static AdsManager manager;
     private InterstitialAd interstitialAd;
     private RewardedVideoAd rewardedVideoAd;
-    private com.facebook.ads.NativeAd nativeAd;
+//  private com.facebook.ads.NativeAd nativeAd;
     private final String TAG = AdsManager.class.getName();
     private com.facebook.ads.InterstitialAd fbInterstitialAd;
 
@@ -370,28 +367,43 @@ public class AdsManager {
 
     private void loadFacebookInterstitialAd() {
         if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
-            fbInterstitialAd.setAdListener(new AbstractAdListener() {
-                @Override
-                public void onError(Ad ad, AdError adError) {
-                    super.onError(ad, adError);
-                    Log.d(TAG, "Facebook InterstitialAd -> onError: " + adError.getErrorMessage());
-                }
-
-                @Override
-                public void onAdLoaded(Ad ad) {
-                    super.onAdLoaded(ad);
-                    Log.d(TAG, "Facebook InterstitialAd -> onAdLoaded");
-                }
-
+            fbInterstitialAd.setAdListener(new InterstitialAdListener() {
                 @Override
                 public void onInterstitialDisplayed(Ad ad) {
-                    super.onInterstitialDisplayed(ad);
+                    // Interstitial ad displayed callback
+                    Log.e(TAG, "Interstitial ad displayed.");
                 }
 
                 @Override
                 public void onInterstitialDismissed(Ad ad) {
-                    super.onInterstitialDismissed(ad);
+                    // Interstitial dismissed callback
+                    Log.e(TAG, "Interstitial ad dismissed.");
                     loadFacebookInterstitialAd();
+                }
+
+                @Override
+                public void onError(Ad ad, AdError adError) {
+                    // Ad error callback
+                    Log.e(TAG, "Interstitial ad failed to load: " + adError.getErrorMessage());
+                }
+
+                @Override
+                public void onAdLoaded(Ad ad) {
+                    // Interstitial ad is loaded and ready to be displayed
+                    Log.d(TAG, "Interstitial ad is loaded and ready to be displayed!");
+                    // Show the ad
+                }
+
+                @Override
+                public void onAdClicked(Ad ad) {
+                    // Ad clicked callback
+                    Log.d(TAG, "Interstitial ad clicked!");
+                }
+
+                @Override
+                public void onLoggingImpression(Ad ad) {
+                    // Ad impression logged callback
+                    Log.d(TAG, "Interstitial ad impression logged!");
                 }
             });
             fbInterstitialAd.loadAd();
@@ -399,7 +411,8 @@ public class AdsManager {
     }
 
     public boolean isFacebookInterstitalLoaded() {
-        return !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED) && fbInterstitialAd.isAdLoaded();
+        loadFacebookInterstitialAd();
+        return Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED) && fbInterstitialAd.isAdLoaded();
     }
 
     public void showFacebookInterstitialAd() {
@@ -410,95 +423,95 @@ public class AdsManager {
         }
     }
 
-    public void showFacebookNativeAd(final Context context, final LinearLayout nativeAdContainer, final AdView adView) {
-//        if(BuildConfig.DEBUG){
-//            nativeAd = new com.facebook.ads.NativeAd(context, "YOUR_PLACEMENT_ID");
-//        }else{
-        nativeAd = new com.facebook.ads.NativeAd(context, context.getString(R.string.native_facebook));
-//        }
-        nativeAd.setAdListener(new com.facebook.ads.AdListener() {
-            @Override
-            public void onError(Ad ad, AdError adError) {
-                Log.d(TAG, "FacebookNativeAd -> onError: " + adError.getErrorMessage());
-                if (adView != null) {
-                    // facebook has failed to load so load AdMob ad
-                    AdRequest adRequest = new AdRequest.Builder().build();
-                    adView.loadAd(adRequest);
-                    adView.setAdListener(new com.google.android.gms.ads.AdListener() {
-                        @Override
-                        public void onAdFailedToLoad(int i) {
-                            super.onAdFailedToLoad(i);
-                            Log.d(TAG, "FacebookNativeAd AdMob BannerAd -> onAdFailedToLoad");
-                        }
-
-                        @Override
-                        public void onAdLoaded() {
-                            super.onAdLoaded();
-                            Log.d(TAG, "FacebookNativeAd AdMob BannerAd -> onAdLoaded");
-                            if (adView.getVisibility() == View.GONE) {
-                                adView.setVisibility(View.VISIBLE);
-                            }
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onAdLoaded(Ad ad) {
-
-                Log.d(TAG, "FacebookNativeAd -> onAdLoaded");
-
-                if (nativeAd != null) {
-                    nativeAd.unregisterView();
-                }
-
-                // Add the Ad view into the ad container.
-                LayoutInflater inflater = LayoutInflater.from(context);
-                // Inflate the Ad view.  The layout referenced should be the one you created in the last step.
-                @SuppressLint("InflateParams") LinearLayout adView = (LinearLayout) inflater.inflate(R.layout.layout_fb_native_ad, null);
-                nativeAdContainer.addView(adView);
-
-                // Create native UI using the ad metadata.
-                ImageView nativeAdIcon = adView.findViewById(R.id.native_ad_icon);
-                TextView nativeAdTitle = adView.findViewById(R.id.native_ad_title);
-                com.facebook.ads.MediaView nativeAdMedia = adView.findViewById(R.id.native_ad_media);
-                TextView nativeAdSocialContext = adView.findViewById(R.id.native_ad_social_context);
-                TextView nativeAdBody = adView.findViewById(R.id.native_ad_body);
-                Button nativeAdCallToAction = adView.findViewById(R.id.native_ad_call_to_action);
-
-                // Set the Text.
-                nativeAdTitle.setText(nativeAd.getAdTitle());
-                nativeAdSocialContext.setText(nativeAd.getAdSocialContext());
-                nativeAdBody.setText(nativeAd.getAdBody());
-                nativeAdCallToAction.setText(nativeAd.getAdCallToAction());
-
-                // Download and display the ad icon.
-                com.facebook.ads.NativeAd.Image adIcon = nativeAd.getAdIcon();
-                com.facebook.ads.NativeAd.downloadAndDisplayImage(adIcon, nativeAdIcon);
-
-                // Download and display the cover image.
-                nativeAdMedia.setNativeAd(nativeAd);
-
-                // Add the AdChoices icon
-                LinearLayout adChoicesContainer = adView.findViewById(R.id.ad_choices_container);
-                AdChoicesView adChoicesView = new AdChoicesView(context, nativeAd, true);
-                adChoicesContainer.addView(adChoicesView);
-
-                // Register the Title and CTA button to listen for clicks.
-                List<View> clickableViews = new ArrayList<>();
-                clickableViews.add(nativeAdTitle);
-                clickableViews.add(nativeAdCallToAction);
-                nativeAd.registerViewForInteraction(nativeAdContainer, clickableViews);
-            }
-
-            @Override
-            public void onAdClicked(Ad ad) {
-            }
-
-            @Override
-            public void onLoggingImpression(Ad ad) {
-            }
-        });
-        nativeAd.loadAd();
-    }
+//    public void showFacebookNativeAd(final Context context, final LinearLayout nativeAdContainer, final AdView adView) {
+////        if(BuildConfig.DEBUG){
+////            nativeAd = new com.facebook.ads.NativeAd(context, "YOUR_PLACEMENT_ID");
+////        }else{
+//        nativeAd = new com.facebook.ads.NativeAd(context, context.getString(R.string.native_facebook));
+////        }
+//        nativeAd.setAdListener(new com.facebook.ads.AdListener() {
+//            @Override
+//            public void onError(Ad ad, AdError adError) {
+//                Log.d(TAG, "FacebookNativeAd -> onError: " + adError.getErrorMessage());
+//                if (adView != null) {
+//                    // facebook has failed to load so load AdMob ad
+//                    AdRequest adRequest = new AdRequest.Builder().build();
+//                    adView.loadAd(adRequest);
+//                    adView.setAdListener(new com.google.android.gms.ads.AdListener() {
+//                        @Override
+//                        public void onAdFailedToLoad(int i) {
+//                            super.onAdFailedToLoad(i);
+//                            Log.d(TAG, "FacebookNativeAd AdMob BannerAd -> onAdFailedToLoad");
+//                        }
+//
+//                        @Override
+//                        public void onAdLoaded() {
+//                            super.onAdLoaded();
+//                            Log.d(TAG, "FacebookNativeAd AdMob BannerAd -> onAdLoaded");
+//                            if (adView.getVisibility() == View.GONE) {
+//                                adView.setVisibility(View.VISIBLE);
+//                            }
+//                        }
+//                    });
+//                }
+//            }
+//
+//            @Override
+//            public void onAdLoaded(Ad ad) {
+//
+//                Log.d(TAG, "FacebookNativeAd -> onAdLoaded");
+//
+//                if (nativeAd != null) {
+//                    nativeAd.unregisterView();
+//                }
+//
+//                // Add the Ad view into the ad container.
+//                LayoutInflater inflater = LayoutInflater.from(context);
+//                // Inflate the Ad view.  The layout referenced should be the one you created in the last step.
+//                @SuppressLint("InflateParams") LinearLayout adView = (LinearLayout) inflater.inflate(R.layout.layout_fb_native_ad, null);
+//                nativeAdContainer.addView(adView);
+//
+//                // Create native UI using the ad metadata.
+//                ImageView nativeAdIcon = adView.findViewById(R.id.native_ad_icon);
+//                TextView nativeAdTitle = adView.findViewById(R.id.native_ad_title);
+//                com.facebook.ads.MediaView nativeAdMedia = adView.findViewById(R.id.native_ad_media);
+//                TextView nativeAdSocialContext = adView.findViewById(R.id.native_ad_social_context);
+//                TextView nativeAdBody = adView.findViewById(R.id.native_ad_body);
+//                Button nativeAdCallToAction = adView.findViewById(R.id.native_ad_call_to_action);
+//
+//                // Set the Text.
+//                nativeAdTitle.setText(nativeAd.getAdTitle());
+//                nativeAdSocialContext.setText(nativeAd.getAdSocialContext());
+//                nativeAdBody.setText(nativeAd.getAdBody());
+//                nativeAdCallToAction.setText(nativeAd.getAdCallToAction());
+//
+//                // Download and display the ad icon.
+//                com.facebook.ads.NativeAd.Image adIcon = nativeAd.getAdIcon();
+//                com.facebook.ads.NativeAd.downloadAndDisplayImage(adIcon, nativeAdIcon);
+//
+//                // Download and display the cover image.
+//                nativeAdMedia.setNativeAd(nativeAd);
+//
+//                // Add the AdChoices icon
+//                LinearLayout adChoicesContainer = adView.findViewById(R.id.ad_choices_container);
+//                AdChoicesView adChoicesView = new AdChoicesView(context, nativeAd, true);
+//                adChoicesContainer.addView(adChoicesView);
+//
+//                // Register the Title and CTA button to listen for clicks.
+//                List<View> clickableViews = new ArrayList<>();
+//                clickableViews.add(nativeAdTitle);
+//                clickableViews.add(nativeAdCallToAction);
+//                nativeAd.registerViewForInteraction(nativeAdContainer, clickableViews);
+//            }
+//
+//            @Override
+//            public void onAdClicked(Ad ad) {
+//            }
+//
+//            @Override
+//            public void onLoggingImpression(Ad ad) {
+//            }
+//        });
+//        nativeAd.loadAd();
+//    }
 }

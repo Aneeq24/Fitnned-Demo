@@ -24,7 +24,6 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayAdapter;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.MyMarkerView;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.RelativeRadioGroup;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
@@ -122,7 +121,6 @@ public class RecordActivity extends AppCompatActivity {
                 initApp(user);
             }
         });
-
         setDaysData();
     }
 
@@ -221,7 +219,7 @@ public class RecordActivity extends AppCompatActivity {
                 edtCm.setVisibility(View.GONE);
                 isCm = false;
                 edtWeight.setText(String.valueOf(math(user.getWeight())));
-                edtFt.setText(String.valueOf(math(user.getHeight() / 12)));
+                edtFt.setText(String.valueOf((math(user.getHeight() / 12)-1)));
                 edtIn.setText(String.valueOf(math(user.getHeight() % 12)));
                 rbLbs.setChecked(true);
             }
@@ -257,23 +255,23 @@ public class RecordActivity extends AppCompatActivity {
         // no description text
         graph.getDescription().setEnabled(false);
         // enable touch gestures
-        graph.setTouchEnabled(true);
+        graph.setTouchEnabled(false);
         // enable scaling and dragging
-        graph.setDragEnabled(true);
-        graph.setScaleEnabled(true);
+        graph.setDragEnabled(false);
+        graph.setScaleEnabled(false);
         // if disabled, scaling can be done on x- and y-axis separately
-        graph.setPinchZoom(true);
+        graph.setPinchZoom(false);
         // create a custom MarkerView (extend MarkerView) and specify the layout
         // to use for it
         setKcalYAxis();
-        MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
-        mv.setChartView(graph); // For bounds control
-        graph.setMarker(mv); // Set the marker to the chart
+//        MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
+//        mv.setChartView(graph); // For bounds control
+//        graph.setMarker(mv); // Set the marker to the chart
         XAxis xAxis = graph.getXAxis();
-        xAxis.setAxisMaximum(30f);
-        xAxis.setAxisMinimum(1f);
+        xAxis.setAxisMaximum(getCurrentDay()+15);
+        xAxis.setAxisMinimum(getCurrentDay()-15);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.enableGridDashedLine(10f, 10f, 0f);
+        xAxis.setGridColor(Color.TRANSPARENT);
         graph.getAxisRight().setEnabled(false);
         // add data
         setData(recordList);
@@ -299,11 +297,20 @@ public class RecordActivity extends AppCompatActivity {
     private void setData(List<Record> recordList) {
 
         ArrayList<Entry> values = new ArrayList<>();
+        List<Record> mList = new ArrayList<>();
         if (recordList.size() == 0)
-            values.add(new Entry(1, 1, getResources().getDrawable(R.drawable.star)));
+            values.add(new Entry(1, 1));
         else {
-            for (int i = 0; i < recordList.size(); i++)
-                values.add(new Entry(Integer.parseInt(recordList.get(i).getDay()), recordList.get(i).getKcal(), getResources().getDrawable(R.drawable.star)));
+            for (int i = 0; i < recordList.size(); i++) {
+                if (getCurrentDay() == Integer.parseInt(recordList.get(i).getDay()))
+                    mList.add(recordList.get(i));
+                else values.add(new Entry(Integer.parseInt(recordList.get(i).getDay()), recordList.get(i).getKcal()));
+            }
+            float sum = 0;
+            for (int i =0; i<mList.size();i++){
+                sum= sum+mList.get(i).getKcal();
+            }
+            values.add(new Entry(getCurrentDay(), sum));
         }
 
         LineDataSet set;
@@ -344,7 +351,7 @@ public class RecordActivity extends AppCompatActivity {
 
     private void setWeight() {
         ArrayList<Entry> values = new ArrayList<>();
-        values.add(new Entry(getCurrentDay(), user.getWeight(), getResources().getDrawable(R.drawable.star)));
+        values.add(new Entry(getCurrentDay(), user.getWeight()));
 
         LineDataSet set;
         // create a dataset and give it a type

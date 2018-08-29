@@ -9,8 +9,8 @@ android {
         minSdkVersion 15
         targetSdkVersion 28
         multiDexEnabled true
-        versionCode 12
-        versionName '12.0'
+        versionCode 15
+        versionName '15.0'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
@@ -23,6 +23,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+    }
 }
 
 dependencies {
@@ -34,18 +36,18 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:27.1.1'
     //noinspection GradleCompatible
-    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:25.3.1'
     //noinspection GradleCompatible
     implementation 'com.android.support:support-v4:27.1.1'
     //noinspection GradleCompatible
     implementation 'com.android.support:design:27.1.1'
     implementation 'android.arch.persistence.room:runtime:1.1.1'
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
-//    implementation 'com.facebook.stetho:stetho:1.5.0'
+    //    implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-    implementation 'com.facebook.android:audience-network-sdk:4.28.1'
+    implementation 'com.facebook.android:audience-network-sdk:4.99.3'
     implementation 'com.google.android.gms:play-services-ads:15.0.1'
-//    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
     implementation 'com.google.firebase:firebase-core:16.0.3'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     implementation 'com.annimon:stream:1.1.7'

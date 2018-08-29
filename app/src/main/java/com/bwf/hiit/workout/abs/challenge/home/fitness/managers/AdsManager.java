@@ -416,7 +416,7 @@ public class AdsManager {
     }
 
     public void showFacebookInterstitialAd() {
-        if (fbInterstitialAd.isAdLoaded()) {
+        if (fbInterstitialAd.isAdLoaded() ) {
             fbInterstitialAd.show();
         } else {
             loadFacebookInterstitialAd();

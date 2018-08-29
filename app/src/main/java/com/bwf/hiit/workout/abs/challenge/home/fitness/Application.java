@@ -22,14 +22,15 @@ public class Application extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         context = getApplicationContext();
         AdsManager.getInstance();
         MobileAds.initialize(context, context.getString(R.string.app_id));
+
         if (BuildConfig.DEBUG) {
             AdSettings.addTestDevice("77E8217B3B70EA3BEB6347C1EBE4CDCC");
             AdSettings.setTestAdType(AdSettings.TestAdType.VIDEO_HD_9_16_39S_LINK);
             AdsManager.getInstance();
-            AnalyticsManager.getInstance().sendAnalytics(TAG, "application_opened");
         }
     }
 

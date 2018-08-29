@@ -1,52 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#dedede">
-
-    <ImageView
-        android:id="@+id/bgForDailyPerformance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/days_screen_days_normal_bar" />
+    android:layout_height="90dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp"
+    android:background="@drawable/days_screen_days_normal_bar"
+    android:clickable="true"
+    android:elevation="5dp"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    tools:ignore="UnusedAttribute">
 
     <TextView
         android:id="@+id/dayNameId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:text="DAY  1"
         android:textColor="@color/colorPrimary"
         android:textSize="22sp"
-        app:fontFamily="@font/roboto_bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/bgForDailyPerformance"
-        app:layout_constraintTop_toTopOf="@+id/bgForDailyPerformance" />
+        app:fontFamily="@font/roboto_bold" />
 
 
     <com.dinuscxj.progressbar.CircleProgressBar
         android:id="@+id/line_progress_left"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        app:style="solid_line"
-        app:progress_stroke_width="4dp"
-        app:line_width="4dp"
         app:line_count="30"
-        app:progress_start_color="@color/colorPrimary"
+        app:line_width="4dp"
         app:progress_end_color="@color/colorPrimary"
+        app:progress_start_color="@color/colorPrimary"
+        app:progress_stroke_width="4dp"
         app:progress_text_color="@color/colorPrimary"
         app:progress_text_size="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/bgForDailyPerformance"
-        app:layout_constraintEnd_toEndOf="@+id/bgForDailyPerformance"
-        app:layout_constraintTop_toTopOf="@+id/bgForDailyPerformance" />
+        app:style="solid_line" />
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

@@ -219,10 +219,7 @@ public class RecordActivity extends AppCompatActivity {
                 edtCm.setVisibility(View.GONE);
                 isCm = false;
                 edtWeight.setText(String.valueOf(math(user.getWeight())));
-                if (((int) user.getHeight()) % 12==0)
-                    edtFt.setText(String.valueOf(math(user.getHeight() / 12)));
-                else
-                    edtFt.setText(String.valueOf((math(user.getHeight() / 12)-1)));
+                edtFt.setText(String.valueOf(math(user.getHeight() / 12)));
                 edtIn.setText(String.valueOf(math(user.getHeight() % 12)));
                 rbLbs.setChecked(true);
             }
@@ -271,8 +268,8 @@ public class RecordActivity extends AppCompatActivity {
 //        mv.setChartView(graph); // For bounds control
 //        graph.setMarker(mv); // Set the marker to the chart
         XAxis xAxis = graph.getXAxis();
-        xAxis.setAxisMaximum(getCurrentDay()+15);
-        xAxis.setAxisMinimum(getCurrentDay()-15);
+        xAxis.setAxisMaximum(getCurrentDay() + 15);
+        xAxis.setAxisMinimum(getCurrentDay() - 15);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGridColor(Color.TRANSPARENT);
         graph.getAxisRight().setEnabled(false);
@@ -307,11 +304,12 @@ public class RecordActivity extends AppCompatActivity {
             for (int i = 0; i < recordList.size(); i++) {
                 if (getCurrentDay() == Integer.parseInt(recordList.get(i).getDay()))
                     mList.add(recordList.get(i));
-                else values.add(new Entry(Integer.parseInt(recordList.get(i).getDay()), recordList.get(i).getKcal()));
+                else
+                    values.add(new Entry(Integer.parseInt(recordList.get(i).getDay()), recordList.get(i).getKcal()));
             }
             float sum = 0;
-            for (int i =0; i<mList.size();i++){
-                sum= sum+mList.get(i).getKcal();
+            for (int i = 0; i < mList.size(); i++) {
+                sum = sum + mList.get(i).getKcal();
             }
             values.add(new Entry(getCurrentDay(), sum));
         }

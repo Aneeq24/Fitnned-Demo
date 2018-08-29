@@ -185,7 +185,7 @@ public class CompleteFragment extends Fragment {
         });
 
         assert getArguments() != null;
-        if (getArguments().containsKey("repeat") && getArguments().getBoolean("repeat")) {
+        if (getArguments().containsKey("repeat") && !getArguments().getBoolean("repeat")) {
 //            mRecordViewModel.getRecord(getCurrentDay()).observe(this, record -> {
 //                if (record != null) {
 //                    this.record = record;
@@ -306,11 +306,7 @@ public class CompleteFragment extends Fragment {
                 edtCm.setVisibility(View.GONE);
                 isCm = false;
                 edtWeight.setText(String.valueOf(math(user.getWeight())));
-
-                if (((int) user.getHeight()) % 12==0)
-                    edtFt.setText(String.valueOf(math(user.getHeight() / 12)));
-                else
-                    edtFt.setText(String.valueOf((math(user.getHeight() / 12)-1)));
+                edtFt.setText(String.valueOf(math(user.getHeight() / 12)));
                 edtIn.setText(String.valueOf(math(user.getHeight() % 12)));
                 rbLbs.setChecked(true);
             }

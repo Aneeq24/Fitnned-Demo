@@ -178,7 +178,7 @@ public class PlayingExercise extends AppCompatActivity {
             fragmentManager.beginTransaction().replace(R.id.fragment_container, exerciseFragment, null).commit();
         else {
             Bundle bundle = new Bundle();
-            bundle.putBoolean("repeat", true);
+            bundle.putBoolean("repeat", false);
             completeFragment.setArguments(bundle);
             fragmentManager.beginTransaction().replace(R.id.fragment_container, completeFragment, null).commit();
         }

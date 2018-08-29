@@ -90,7 +90,6 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
     class DailyExerciseDataHolder extends RecyclerView.ViewHolder {
         ImageView imgeOfExercise;
         TextView nameOfExercise;
-        ImageView bgImage;
         TextView textColor;
         VideoView viewVideo;
         TextView exerciseTime;
@@ -100,7 +99,6 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
             super(itemView);
             imgeOfExercise = itemView.findViewById(R.id.exerciseInfo_Icon);
             nameOfExercise = itemView.findViewById(R.id.exerciseInfo_ExerciseName);
-            bgImage = itemView.findViewById(R.id.bgForDailyPerformance);
             textColor = itemView.findViewById(R.id.dayNameId);
             viewVideo = itemView.findViewById(R.id.vdExerciseVideo);
             exerciseTime = itemView.findViewById(R.id.edi_exerciseTime);

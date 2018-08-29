@@ -1,5 +1,6 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bwf.hiit.workout.abs.challenge.home.fitness.BuildConfig;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.HomeAdapter;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
@@ -59,9 +61,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     TextView moreApps;
     TextView privacyPolicy;
     TextView noAds;
+    TextView tvVersionName;
     FloatingActionButton fabNoAds;
     FloatingActionButton fabRateUs;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +91,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         moreApps = findViewById(R.id.more_apps);
         privacyPolicy = findViewById(R.id.privacy_policy);
         noAds = findViewById(R.id.no_ads);
+        tvVersionName = findViewById(R.id.txt_version);
+        tvVersionName.setText("V" + BuildConfig.VERSION_NAME);
 
         workOut.setOnClickListener(this);
         reminder.setOnClickListener(this);

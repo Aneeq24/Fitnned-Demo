@@ -6,7 +6,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.bwf.hiit.workout.abs.challenge.home.fitness"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         multiDexEnabled true
         versionCode 15

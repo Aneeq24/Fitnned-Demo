@@ -56,6 +56,7 @@ public class AdsManager {
     //  private com.facebook.ads.NativeAd nativeAd;
     private final String TAG = AdsManager.class.getName();
     private com.facebook.ads.InterstitialAd fbInterstitialAd;
+    private boolean isFbCallSent = false;
 
     private AdsManager() {
         if (!SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
@@ -377,23 +378,25 @@ public class AdsManager {
                 @Override
                 public void onInterstitialDismissed(Ad ad) {
                     // Interstitial dismissed callback
-                    Log.e(TAG, "Interstitial ad dismissed.");
-                    if (fbInterstitialAd != null)
+                    if (fbInterstitialAd != null && !isFbCallSent ){
                         fbInterstitialAd.loadAd();
-                    else
-                        loadFacebookInterstitialAd();
+                        isFbCallSent = true;
+                    }
+                    Log.e(TAG, "Interstitial ad dismissed.");
                 }
 
                 @Override
                 public void onError(Ad ad, AdError adError) {
                     // Ad error callback
                     Log.e(TAG, "Interstitial ad failed to load: " + adError.getErrorMessage());
+                    isFbCallSent = false;
                 }
 
                 @Override
                 public void onAdLoaded(Ad ad) {
                     // Interstitial ad is loaded and ready to be displayed
                     Log.d(TAG, "Interstitial ad is loaded and ready to be displayed!");
+                    isFbCallSent = false;
                     // Show the ad
                 }
 
@@ -410,15 +413,17 @@ public class AdsManager {
                 }
             });
             fbInterstitialAd.loadAd();
+            isFbCallSent = true;
         }
     }
 
     public boolean isFacebookInterstitalLoaded() {
-        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED) && !fbInterstitialAd.isAdLoaded())
-            if (fbInterstitialAd != null)
+        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED) && !fbInterstitialAd.isAdLoaded()) {
+            if (fbInterstitialAd != null && !isFbCallSent ) {
                 fbInterstitialAd.loadAd();
-            else
-                loadFacebookInterstitialAd();
+                isFbCallSent = true;
+            }
+        }
         return Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED) && fbInterstitialAd.isAdLoaded();
     }
 
@@ -426,10 +431,10 @@ public class AdsManager {
         if (fbInterstitialAd.isAdLoaded()) {
             fbInterstitialAd.show();
         } else {
-            if (fbInterstitialAd != null)
+            if (fbInterstitialAd != null && !isFbCallSent ) {
                 fbInterstitialAd.loadAd();
-            else
-                loadFacebookInterstitialAd();
+                isFbCallSent = true;
+            }
         }
     }
 

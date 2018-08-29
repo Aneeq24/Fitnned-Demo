@@ -24,14 +24,13 @@ public class Application extends android.app.Application {
         super.onCreate();
 
         context = getApplicationContext();
-        AdsManager.getInstance();
         MobileAds.initialize(context, context.getString(R.string.app_id));
 
         if (BuildConfig.DEBUG) {
-            AdSettings.addTestDevice("77E8217B3B70EA3BEB6347C1EBE4CDCC");
-            AdSettings.setTestAdType(AdSettings.TestAdType.VIDEO_HD_9_16_39S_LINK);
+            AdSettings.addTestDevice("EE78FA08C9A4B2CD1C07DE12DB2BFD16");
             AdsManager.getInstance();
-        }
+        } else
+            AdsManager.getInstance();
     }
 
     @Override

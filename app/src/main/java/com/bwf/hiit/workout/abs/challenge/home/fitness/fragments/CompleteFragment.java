@@ -306,7 +306,11 @@ public class CompleteFragment extends Fragment {
                 edtCm.setVisibility(View.GONE);
                 isCm = false;
                 edtWeight.setText(String.valueOf(math(user.getWeight())));
-                edtFt.setText(String.valueOf(math(user.getHeight() / 12)));
+
+                if (((int) user.getHeight()) % 12==0)
+                    edtFt.setText(String.valueOf(math(user.getHeight() / 12)));
+                else
+                    edtFt.setText(String.valueOf((math(user.getHeight() / 12)-1)));
                 edtIn.setText(String.valueOf(math(user.getHeight() % 12)));
                 rbLbs.setChecked(true);
             }

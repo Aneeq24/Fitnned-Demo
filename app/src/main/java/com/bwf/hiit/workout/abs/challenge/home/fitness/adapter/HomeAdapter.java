@@ -26,7 +26,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MainMenuItemHo
     private String[] tilte;
     private Bitmap[] images;
     private List<Integer> progress;
-    private boolean isDataUp;
+    private boolean isDataUp = false;
 
     public HomeAdapter(String[] tilte, Bitmap[] images) {
         this.tilte = tilte;

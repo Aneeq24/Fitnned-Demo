@@ -14,6 +14,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.AppStateManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.BuildConfig;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
@@ -24,6 +25,7 @@ import com.facebook.ads.AbstractAdListener;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdSize;
+import com.facebook.ads.InterstitialAdListener;
 import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
@@ -53,20 +55,21 @@ public class AdsManager {
     private static AdsManager manager;
     private InterstitialAd interstitialAd;
     private RewardedVideoAd rewardedVideoAd;
-//    private com.facebook.ads.NativeAd nativeAd;
+    //    private com.facebook.ads.NativeAd nativeAd;
     private final String TAG = AdsManager.class.getName();
     private com.facebook.ads.InterstitialAd fbInterstitialAd;
 
-
     private AdsManager() {
-        Context context = Application.getContext();
-        interstitialAd = new InterstitialAd(context);
-        interstitialAd.setAdUnitId(context.getString(R.string.interstitial_ad_unit));
-        fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, context.getString(R.string.interstitial_facebook));
-        //fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, "YOUR_PLACEMENT_ID");
-        // load the ads and cache them for later use
-        loadInterstitialAd();
-        loadFacebookInterstitialAd();
+        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
+            Context context = Application.getContext();
+            interstitialAd = new InterstitialAd(context);
+            interstitialAd.setAdUnitId(context.getString(R.string.interstitial_ad_unit));
+            fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, context.getString(R.string.interstitial_facebook));
+            //fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, "YOUR_PLACEMENT_ID");
+            // load the ads and cache them for later use
+            loadInterstitialAd();
+            loadFacebookInterstitialAd();
+        }
     }
 
     public static AdsManager getInstance() {
@@ -79,7 +82,7 @@ public class AdsManager {
     private AdRequest prepareAdRequest() {
         AdRequest adRequest;
         Context context = Application.getContext();
-        if (SharedPrefHelper.readBoolean(context,context.getString(R.string.npa))) {
+        if (SharedPrefHelper.readBoolean(context, context.getString(R.string.npa))) {
             Bundle bundle = new Bundle();
             bundle.putString(context.getString(R.string.npa), "1");
             Log.d(TAG, "consent status: npa");
@@ -92,7 +95,7 @@ public class AdsManager {
     }
 
     public void showBanner(final AdView banner) {
-        if (Utils.isNetworkAvailable(Application.getContext())) {
+        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
             if (banner != null) {
                 if (BuildConfig.DEBUG) {
                     banner.loadAd(new AdRequest.Builder().addTestDevice("8F14986600C19D5CB98F0125581FBBF4").build());
@@ -121,7 +124,7 @@ public class AdsManager {
     }
 
     private void loadInterstitialAd() {
-        if (Utils.isNetworkAvailable(Application.getContext())) {
+        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
             if (BuildConfig.DEBUG) {
                 interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("8F14986600C19D5CB98F0125581FBBF4").build());
             } else {
@@ -378,18 +381,21 @@ public class AdsManager {
     }
 
     private void loadFacebookInterstitialAd() {
-        if (Utils.isNetworkAvailable(Application.getContext())) {
+        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
             fbInterstitialAd.setAdListener(new AbstractAdListener() {
+
                 @Override
                 public void onError(Ad ad, AdError adError) {
-                    super.onError(ad, adError);
-                    Log.d(TAG, "Facebook InterstitialAd -> onError: " + adError.getErrorMessage());
+                    // Ad error callback
+                    Log.e(TAG, "Interstitial ad failed to load: " + adError.getErrorMessage());
                 }
 
                 @Override
                 public void onAdLoaded(Ad ad) {
                     super.onAdLoaded(ad);
                     Log.d(TAG, "Facebook InterstitialAd -> onAdLoaded");
+                    // Interstitial ad is loaded and ready to be displayed
+                    // Show the ad
                 }
 
                 @Override
@@ -407,8 +413,9 @@ public class AdsManager {
         }
     }
 
+
     public void showFacebookInterstitialAd() {
-        if (fbInterstitialAd.isAdLoaded()) {
+        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED) && fbInterstitialAd.isAdLoaded()) {
             fbInterstitialAd.show();
         } else {
             loadFacebookInterstitialAd();

@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -45,7 +43,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     MyBilling mBilling;
 
     String[] titles = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
-    Bitmap[] image;
+    int[] image;
 
     Context context;
     HomeAdapter mAdapter;
@@ -76,11 +74,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         mBilling = new MyBilling(this);
         mBilling.onCreate();
 
-        if (AdsManager.getInstance().isFacebookInterstitalLoaded())
-            AdsManager.getInstance().showFacebookInterstitialAd();
-        else
-            AdsManager.getInstance().showInterstitialAd();
-
+        AdsManager.getInstance().showFacebookInterstitialAd();
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "plan_screen_activity");
 
         fabNoAds = findViewById(R.id.fab_no_ads);
@@ -101,10 +95,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         privacyPolicy.setOnClickListener(this);
         noAds.setOnClickListener(this);
 
-        image = new Bitmap[]{BitmapFactory.decodeResource(getResources(), R.drawable.main_screen_beginner_image),
-                BitmapFactory.decodeResource(getResources(), R.drawable.main_screen_intermediate_image),
-                BitmapFactory.decodeResource(getResources(), R.drawable.main_screen_advanced_image)
-        };
+        image = new int[]{ R.drawable.main_screen_beginner_image, R.drawable.main_screen_intermediate_image,
+           R.drawable.main_screen_advanced_image};
 
         consentInformation = ConsentInformation.getInstance(this);
         requestGoogleConsentForm(true);

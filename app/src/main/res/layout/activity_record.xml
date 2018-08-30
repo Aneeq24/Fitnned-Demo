@@ -24,7 +24,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
@@ -59,17 +59,18 @@
         <RelativeLayout
             android:id="@+id/btn_edit_bmi"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
+            android:background="@drawable/days_screen_days_normal_bar"
             android:layout_marginTop="8dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/days_screen_days_normal_bar"
                 android:drawableLeft="@drawable/completed_screen_bmi_icon"
                 android:drawablePadding="15dp"
+                android:layout_centerVertical="true"
                 android:drawableStart="@drawable/completed_screen_bmi_icon"
                 android:gravity="center_vertical"
                 android:padding="10dp"

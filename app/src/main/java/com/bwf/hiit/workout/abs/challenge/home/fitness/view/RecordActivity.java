@@ -75,10 +75,7 @@ public class RecordActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         context = this;
 
-        if (AdsManager.getInstance().isFacebookInterstitalLoaded())
-            AdsManager.getInstance().showFacebookInterstitialAd();
-        else
-            AdsManager.getInstance().showInterstitialAd();
+        AdsManager.getInstance().showFacebookInterstitialAd();
 
         toolbar = findViewById(R.id.toolbar10);
         graph = findViewById(R.id.graph);
@@ -268,8 +265,8 @@ public class RecordActivity extends AppCompatActivity {
 //        mv.setChartView(graph); // For bounds control
 //        graph.setMarker(mv); // Set the marker to the chart
         XAxis xAxis = graph.getXAxis();
-        xAxis.setAxisMaximum(getCurrentDay() + 15);
-        xAxis.setAxisMinimum(getCurrentDay() - 15);
+        xAxis.setAxisMinimum(1);
+        xAxis.setAxisMaximum(31);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGridColor(Color.TRANSPARENT);
         graph.getAxisRight().setEnabled(false);
@@ -416,9 +413,7 @@ public class RecordActivity extends AppCompatActivity {
     }
 
     public int math(float f) {
-        int c = (int) ((f) + 0.5f);
-        float n = f + 0.5f;
-        return (n - c) % 2 == 0 ? (int) f : c;
+        return (int) Math.floor(f);
     }
 
 }

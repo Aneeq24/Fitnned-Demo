@@ -1,205 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/enter_you_numbers_bg"
+    android:orientation="vertical"
     tools:context=".fragments.NextFragment">
 
-    <ImageView
-        android:id="@+id/nextBgButtonPanel"
-        android:layout_width="wrap_content"
-        android:layout_height="234dp"
-        android:layout_marginBottom="8dp"
-        android:src="@drawable/pause_screen_image_bg"
-        app:layout_constraintBottom_toTopOf="@+id/nextScreenBg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/baner_Admob"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        ads:adSize="MEDIUM_RECTANGLE"
-        ads:adUnitId="@string/banner_rect_ad_unit"
-        ads:layout_constraintBottom_toTopOf="@+id/restTimer"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintStart_toStartOf="parent"
-        ads:layout_constraintTop_toTopOf="parent"
-        ads:layout_constraintVertical_bias="0.0" />
-
-
-    <ImageView
-        android:id="@+id/nextScreenBg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/days_screen_days_normal_bar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/nextScreenSkipHeading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="NEXT"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/nextScreenBg"
-        app:layout_constraintTop_toTopOf="@+id/nextScreenBg" />
-
-    <ImageView
-        android:id="@+id/nf_exerciseImage"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="@+id/nextScreenBg"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintEnd_toEndOf="@+id/nextScreenBg"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_nextHeadline"
-        app:layout_constraintTop_toTopOf="@+id/nextScreenBg" />
+        android:layout_weight="1"
+        android:gravity="center">
 
-    <TextView
-        android:id="@+id/tv_nextHeadline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="HEADLINE EXAMPLE"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/nextScreenBg"
-        app:layout_constraintTop_toBottomOf="@+id/nextScreenSkipHeading" />
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/baner_Admob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ads:adSize="MEDIUM_RECTANGLE"
+            ads:adUnitId="@string/banner_rect_ad_unit" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight=".8"
+        android:background="@drawable/pause_screen_image_bg">
 
 
-    <com.dinuscxj.progressbar.CircleProgressBar
-        android:id="@+id/restTimer"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/pause_screen_play_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/nextBgButtonPanel"
-        app:layout_constraintEnd_toEndOf="@+id/nextBgButtonPanel"
-        app:layout_constraintStart_toStartOf="@+id/nextBgButtonPanel"
-        app:layout_constraintTop_toTopOf="@+id/nextBgButtonPanel"
-        app:line_count="30"
-        app:line_width="7dp"
-        app:progress_background_color="@color/bgColor"
-        app:progress_end_color="@color/colorPrimary"
-        app:progress_start_color="@color/colorPrimary"
-        app:progress_stroke_cap="round"
-        app:progress_stroke_width="7dp"
-        app:progress_text_color="@color/colorPrimary"
-        app:progress_text_size="20dp"
-        app:style="solid_line" />
+        <ImageView
+            android:id="@+id/addRestTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            android:src="@drawable/pause_screen_pluse_time_icon" />
 
-    <ImageView
-        android:id="@+id/nf_pauseTimerImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:src="@drawable/play_screen_pause_btn"
-        app:layout_constraintBottom_toBottomOf="@+id/restTimer"
-        app:layout_constraintEnd_toEndOf="@+id/restTimer"
-        app:layout_constraintStart_toStartOf="@+id/restTimer" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
 
+            <com.dinuscxj.progressbar.CircleProgressBar
+                android:id="@+id/restTimer"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:line_count="30"
+                app:line_width="7dp"
+                app:progress_background_color="@color/bgColor"
+                app:progress_end_color="@color/colorPrimary"
+                app:progress_start_color="@color/colorPrimary"
+                app:progress_stroke_cap="round"
+                app:progress_stroke_width="7dp"
+                app:progress_text_color="@color/colorPrimary"
+                app:progress_text_size="20dp"
+                app:style="solid_line" />
 
-    <ImageView
-        android:id="@+id/addRestTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/pause_screen_pluse_time_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/nextBgButtonPanel"
-        app:layout_constraintEnd_toStartOf="@+id/restTimer"
-        app:layout_constraintTop_toTopOf="@+id/nextBgButtonPanel"
-        app:layout_constraintVertical_bias="0.494" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:text="CAPTION EXAMPLE"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/nextScreenBg"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nextHeadline" />
+            <ImageView
+                android:id="@+id/nf_pauseTimerImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/play_screen_pause_btn" />
+        </RelativeLayout>
 
 
-    <ImageView
-        android:id="@+id/iv_timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/pause_screen_skip_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/nextBgButtonPanel"
-        app:layout_constraintStart_toEndOf="@+id/restTimer"
-        app:layout_constraintTop_toTopOf="@+id/nextBgButtonPanel"
-        app:layout_constraintVertical_bias="0.489" />
+        <ImageView
+            android:id="@+id/iv_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:src="@drawable/pause_screen_skip_icon" />
 
-    <TextView
-        android:id="@+id/cf_roundText"
-        style="@style/Base.TextAppearance.AppCompat.Large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Round 1/5 "
-        android:textColor="@android:color/background_light"
-        app:layout_constraintStart_toStartOf="@+id/nextBgButtonPanel"
-        app:layout_constraintTop_toTopOf="@+id/nextBgButtonPanel" />
+        <TextView
+            android:id="@+id/cf_roundText"
+            style="@style/Base.TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="Round 1/5 "
+            android:textColor="@android:color/background_light"
+            app:fontFamily="@font/roboto_bold" />
 
-    <TextView
-        android:id="@+id/nf_exerciseText"
-        style="@style/Base.TextAppearance.AppCompat.Large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Exercise 1/5 "
-        android:textColor="@android:color/background_light"
-        app:layout_constraintEnd_toEndOf="@+id/nextBgButtonPanel"
-        app:layout_constraintTop_toTopOf="@+id/nextBgButtonPanel" />
+        <TextView
+            android:id="@+id/nf_exerciseText"
+            style="@style/Base.TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="16dp"
+            android:text="Exercise 1/5 "
+            android:textColor="@android:color/background_light"
+            app:fontFamily="@font/roboto_bold" />
 
+    </RelativeLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:layout_weight=".4"
+        android:background="@drawable/days_screen_days_normal_bar"
+        android:paddingLeft="16sp"
+        android:paddingStart="16sp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="NEXT"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_nextHeadline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="HEADLINE EXAMPLE"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/nf_exerciseImage"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:scaleType="centerCrop" />
+
+    </RelativeLayout>
+
+</LinearLayout>

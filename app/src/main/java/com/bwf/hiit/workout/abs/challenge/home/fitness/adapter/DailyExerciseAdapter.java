@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
@@ -47,7 +46,6 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull DailyExerciseDataHolder holder, final int position) {
-
 
         holder.nameOfExercise.setText(exerciseList.get(position).getDisplay_name());
         holder.exerciseTime.setText(exerciseList.get(position).getUnit() + "s");
@@ -91,7 +89,6 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
         ImageView imgeOfExercise;
         TextView nameOfExercise;
         TextView textColor;
-        VideoView viewVideo;
         TextView exerciseTime;
         TextView restTime;
 
@@ -100,7 +97,6 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
             imgeOfExercise = itemView.findViewById(R.id.exerciseInfo_Icon);
             nameOfExercise = itemView.findViewById(R.id.exerciseInfo_ExerciseName);
             textColor = itemView.findViewById(R.id.dayNameId);
-            viewVideo = itemView.findViewById(R.id.vdExerciseVideo);
             exerciseTime = itemView.findViewById(R.id.edi_exerciseTime);
             restTime = itemView.findViewById(R.id.edi_exerciseRestTime);
 

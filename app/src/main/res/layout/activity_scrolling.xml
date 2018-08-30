@@ -31,7 +31,6 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-
                 <com.dinuscxj.progressbar.CircleProgressBar
                     android:id="@+id/line_progress_left"
                     android:layout_width="50dp"
@@ -48,11 +47,12 @@
                     app:style="solid_line" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
                     android:alpha="0.5"
+                    android:layout_weight="1"
                     android:text="DAYS LEFT"
                     android:textColor="@android:color/background_dark"
                     android:textSize="18sp"
@@ -74,12 +74,12 @@
                     app:style="solid_line" />
 
                 <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
                     android:alpha="0.5"
+                    android:layout_weight="1"
                     android:text="FINISHED"
                     android:textColor="@color/colorAccent"
                     android:textSize="18sp"
@@ -105,13 +105,8 @@
 
         <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/baner_Admob"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:visibility="visible"
             ads:adSize="BANNER"
             ads:adUnitId="@string/banner_ad_unit"
             ads:layout_constraintBottom_toBottomOf="parent"

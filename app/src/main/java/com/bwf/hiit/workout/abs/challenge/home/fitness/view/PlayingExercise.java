@@ -154,6 +154,7 @@ public class PlayingExercise extends AppCompatActivity {
                     bundle.putBoolean("repeat", true);
                     completeFragment.setArguments(bundle);
                     fragmentManager.beginTransaction().add(R.id.fragment_container, completeFragment, null).commitAllowingStateLoss();
+                    iscomplete = true;
                 } else
                     fragmentManager.beginTransaction().add(R.id.fragment_container, skipFragment, null).commitAllowingStateLoss();
 
@@ -185,11 +186,8 @@ public class PlayingExercise extends AppCompatActivity {
     }
 
     public void PauseFragment(int remaingTime) {
-        if (AdsManager.getInstance().isFacebookInterstitalLoaded()) {
-            AdsManager.getInstance().showFacebookInterstitialAd();
-        } else {
-            AdsManager.getInstance().showInterstitialAd();
-        }
+
+        AdsManager.getInstance().showFacebookInterstitialAd();
 
         isPaused = true;
         pauseTimer = remaingTime;
@@ -246,7 +244,7 @@ public class PlayingExercise extends AppCompatActivity {
             Log.i("1994:Current round", "Day not updated");
             mListExDays.get(0).setExerciseComplete(mListExDays.get(0).getExerciseComplete() + 1);
             mListExDays.get(0).setRoundCompleted(currentRound);
-            AnalyticsManager.getInstance().sendAnalytics("plan " + currentPlan + "day " + currentDay, "round_complete" + currentRound);
+            AnalyticsManager.getInstance().sendAnalytics("plan " + currentPlan + "day " + currentDay, "exercise_complete" + currentEx);
         } else {
             Log.i("1994:currentDay", "Day Upgraded");
             LogHelper.logD("1994:Current Round", "" + currentRound + "Get Rounds" + (mListExDays.get(0).getRounds() - 1));
@@ -280,19 +278,21 @@ public class PlayingExercise extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AnalyticsManager.getInstance().sendAnalytics("playing_exercise", "close at" + "plan " + currentPlan + "day " + currentDay);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle(getString(R.string.app_name));
-        alertDialogBuilder
-                .setMessage("Do you want to exit workout ?")
-                .setCancelable(false)
-                .setPositiveButton("YES", (dialog, id) -> {
-                    dialog.cancel();
-                    finish();
-                }).setNegativeButton("NO", (dialog, id) -> dialog.cancel());
+        if (!iscomplete) {
+            AnalyticsManager.getInstance().sendAnalytics("playing_exercise", "close at" + "plan " + currentPlan + "day " + currentDay);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle(getString(R.string.app_name));
+            alertDialogBuilder
+                    .setMessage("Do you want to exit workout ?")
+                    .setCancelable(false)
+                    .setPositiveButton("YES", (dialog, id) -> {
+                        dialog.cancel();
+                        finish();
+                    }).setNegativeButton("NO", (dialog, id) -> dialog.cancel());
 
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }else super.onBackPressed();
     }
 
     @Override

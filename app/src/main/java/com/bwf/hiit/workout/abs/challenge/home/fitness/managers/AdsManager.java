@@ -14,17 +14,16 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.AppStateManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.BuildConfig;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.interfaces.RewardedVideoListener;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
+import com.facebook.ads.AbstractAdListener;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdSize;
-import com.facebook.ads.InterstitialAdListener;
 import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
@@ -43,9 +42,10 @@ import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 import java.util.List;
 
+
 public class AdsManager {
 
-    public enum NativeAdType {
+    private enum NativeAdType {
         REGULAR_TYPE,
         BANNER_TYPE
     }
@@ -53,21 +53,20 @@ public class AdsManager {
     private static AdsManager manager;
     private InterstitialAd interstitialAd;
     private RewardedVideoAd rewardedVideoAd;
-    //  private com.facebook.ads.NativeAd nativeAd;
+//    private com.facebook.ads.NativeAd nativeAd;
     private final String TAG = AdsManager.class.getName();
     private com.facebook.ads.InterstitialAd fbInterstitialAd;
-    private boolean isFbCallSent = false;
+
 
     private AdsManager() {
-        if (!SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
-            Context context = Application.getContext();
-            interstitialAd = new InterstitialAd(context);
-            interstitialAd.setAdUnitId(context.getString(R.string.interstitial_ad_unit));
-            fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, context.getString(R.string.interstitial_facebook));
-            // load the ads and cache them for later use
-            loadInterstitialAd();
-            loadFacebookInterstitialAd();
-        }
+        Context context = Application.getContext();
+        interstitialAd = new InterstitialAd(context);
+        interstitialAd.setAdUnitId(context.getString(R.string.interstitial_ad_unit));
+        fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, context.getString(R.string.interstitial_facebook));
+        //fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, "YOUR_PLACEMENT_ID");
+        // load the ads and cache them for later use
+        loadInterstitialAd();
+        loadFacebookInterstitialAd();
     }
 
     public static AdsManager getInstance() {
@@ -80,7 +79,7 @@ public class AdsManager {
     private AdRequest prepareAdRequest() {
         AdRequest adRequest;
         Context context = Application.getContext();
-        if (SharedPrefHelper.readBoolean(context, context.getString(R.string.npa))) {
+        if (SharedPrefHelper.readBoolean(context,context.getString(R.string.npa))) {
             Bundle bundle = new Bundle();
             bundle.putString(context.getString(R.string.npa), "1");
             Log.d(TAG, "consent status: npa");
@@ -93,9 +92,13 @@ public class AdsManager {
     }
 
     public void showBanner(final AdView banner) {
-        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
+        if (Utils.isNetworkAvailable(Application.getContext())) {
             if (banner != null) {
-                banner.loadAd(prepareAdRequest());
+                if (BuildConfig.DEBUG) {
+                    banner.loadAd(new AdRequest.Builder().addTestDevice("8F14986600C19D5CB98F0125581FBBF4").build());
+                } else {
+                    banner.loadAd(prepareAdRequest());
+                }
                 banner.setAdListener(new AdListener() {
 
                     @Override
@@ -118,9 +121,12 @@ public class AdsManager {
     }
 
     private void loadInterstitialAd() {
-        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
-
-            interstitialAd.loadAd(prepareAdRequest());
+        if (Utils.isNetworkAvailable(Application.getContext())) {
+            if (BuildConfig.DEBUG) {
+                interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("8F14986600C19D5CB98F0125581FBBF4").build());
+            } else {
+                interstitialAd.loadAd(prepareAdRequest());
+            }
             interstitialAd.setAdListener(new AdListener() {
 
                 @Override
@@ -145,21 +151,22 @@ public class AdsManager {
         }
     }
 
-    public void showInterstitialAd() {
-        if (!SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
-            if (interstitialAd.isLoaded()) {
-                interstitialAd.show();
-            } else {
-                loadInterstitialAd();
-            }
+    private void showInterstitialAd() {
+        if (interstitialAd.isLoaded()) {
+            interstitialAd.show();
+        } else {
+            loadInterstitialAd();
         }
     }
 
-    private void loadRewardedVideo(final Context context, final RewardedVideoListener listener) {
-        if (Utils.isNetworkAvailable(context) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
+    private void loadRewardedVideo(Context context, RewardedVideoListener listener) {
+        if (Utils.isNetworkAvailable(context)) {
             rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(context);
-
-            rewardedVideoAd.loadAd(context.getString(R.string.rewarded_ad_unit), prepareAdRequest());
+            if (BuildConfig.DEBUG) {
+                rewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917", new AdRequest.Builder().addTestDevice("8F14986600C19D5CB98F0125581FBBF4").build());
+            } else {
+                rewardedVideoAd.loadAd(context.getString(R.string.rewarded_ad_unit), prepareAdRequest());
+            }
             rewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
                 @Override
                 public void onRewardedVideoAdLoaded() {
@@ -216,7 +223,7 @@ public class AdsManager {
 
     @SuppressLint("InflateParams")
     public void loadNativeAppInstall(final Context context, final FrameLayout nativeAppInstall, NativeAdType nativeAdType) {
-        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
+        if (Utils.isNetworkAvailable(Application.getContext())) {
             AdLoader adLoader = new AdLoader.Builder(context, context.getString(R.string.native_ad_unit))
                     .forUnifiedNativeAd(unifiedNativeAd -> {
                         Log.d(TAG, "onNativeAppInstallAdLoaded");
@@ -287,8 +294,16 @@ public class AdsManager {
                 ((Button) adView.getCallToActionView()).setText(nativeAppInstallAd.getCallToAction());
                 // ((ImageView) adView.getIconView()).setImageDrawable(nativeAppInstallAd.getIcon().getDrawable());
 
-                Glide.with(adView.getContext()).load(nativeAppInstallAd.getIcon().getUri())
-                        .into(((ImageView) adView.getIconView()));
+                if (nativeAppInstallAd.getIcon() != null && nativeAppInstallAd.getIcon().getUri() != null) {
+                    Glide.with(Application.getContext()).load(nativeAppInstallAd.getIcon().getUri())
+                            .into(((ImageView) adView.getIconView()));
+                    Log.d(TAG, "getIcon() -> getUri()");
+                } else {
+                    Glide.with(Application.getContext())
+                            .load(nativeAppInstallAd.getImages().get(0).getUri())
+                            .into(((ImageView) adView.getIconView()));
+                    Log.d(TAG, "getImages() -> getUri()");
+                }
 
                 MediaView mediaView = adView.findViewById(R.id.appinstall_media);
                 ImageView mainImageView = adView.findViewById(R.id.appinstall_image);
@@ -306,7 +321,7 @@ public class AdsManager {
                     // At least one image is guaranteed.
                     List<NativeAd.Image> images = nativeAppInstallAd.getImages();
                     if (images.size() > 0) {
-                        Glide.with(adView.getContext())
+                        Glide.with(Application.getContext())
                                 .load(images.get(0).getUri())
                                 .into(mainImageView);
                     }
@@ -316,7 +331,7 @@ public class AdsManager {
                 // These assets aren't guaranteed to be in every NativeAppInstallAd, so it's important to
                 // check before trying to display them.
                 if (nativeAppInstallAd.getStarRating() == null) {
-                    adView.getStarRatingView().setVisibility(View.INVISIBLE);
+                    adView.getStarRatingView().setVisibility(View.GONE);
                 } else {
                     ((RatingBar) adView.getStarRatingView())
                             .setRating(nativeAppInstallAd.getStarRating().floatValue());
@@ -332,12 +347,8 @@ public class AdsManager {
     }
 
     public void showBanner(Context context, LinearLayout bannerContainer) {
-        com.facebook.ads.AdView adView;
-        if (BuildConfig.DEBUG) {
-            adView = new com.facebook.ads.AdView(context, "YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50);
-        } else {
-            adView = new com.facebook.ads.AdView(context, context.getString(R.string.banner_facebook), AdSize.BANNER_HEIGHT_50);
-        }
+        //com.facebook.ads.AdView adView = new com.facebook.ads.AdView(context, "YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50);
+        com.facebook.ads.AdView adView = new com.facebook.ads.AdView(context, context.getString(R.string.banner_facebook), AdSize.BANNER_HEIGHT_50);
         if (bannerContainer != null) {
             adView.loadAd();
             adView.setAdListener(new com.facebook.ads.AdListener() {
@@ -367,83 +378,46 @@ public class AdsManager {
     }
 
     private void loadFacebookInterstitialAd() {
-        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
-            fbInterstitialAd.setAdListener(new InterstitialAdListener() {
-                @Override
-                public void onInterstitialDisplayed(Ad ad) {
-                    // Interstitial ad displayed callback
-                    Log.e(TAG, "Interstitial ad displayed.");
-                }
-
-                @Override
-                public void onInterstitialDismissed(Ad ad) {
-                    // Interstitial dismissed callback
-                    if (fbInterstitialAd != null && !isFbCallSent ){
-                        fbInterstitialAd.loadAd();
-                        isFbCallSent = true;
-                    }
-                    Log.e(TAG, "Interstitial ad dismissed.");
-                }
-
+        if (Utils.isNetworkAvailable(Application.getContext())) {
+            fbInterstitialAd.setAdListener(new AbstractAdListener() {
                 @Override
                 public void onError(Ad ad, AdError adError) {
-                    // Ad error callback
-                    Log.e(TAG, "Interstitial ad failed to load: " + adError.getErrorMessage());
-                    isFbCallSent = false;
+                    super.onError(ad, adError);
+                    Log.d(TAG, "Facebook InterstitialAd -> onError: " + adError.getErrorMessage());
                 }
 
                 @Override
                 public void onAdLoaded(Ad ad) {
-                    // Interstitial ad is loaded and ready to be displayed
-                    Log.d(TAG, "Interstitial ad is loaded and ready to be displayed!");
-                    isFbCallSent = false;
-                    // Show the ad
+                    super.onAdLoaded(ad);
+                    Log.d(TAG, "Facebook InterstitialAd -> onAdLoaded");
                 }
 
                 @Override
-                public void onAdClicked(Ad ad) {
-                    // Ad clicked callback
-                    Log.d(TAG, "Interstitial ad clicked!");
+                public void onInterstitialDisplayed(Ad ad) {
+                    super.onInterstitialDisplayed(ad);
                 }
 
                 @Override
-                public void onLoggingImpression(Ad ad) {
-                    // Ad impression logged callback
-                    Log.d(TAG, "Interstitial ad impression logged!");
+                public void onInterstitialDismissed(Ad ad) {
+                    super.onInterstitialDismissed(ad);
+                    loadFacebookInterstitialAd();
                 }
             });
             fbInterstitialAd.loadAd();
-            isFbCallSent = true;
         }
-    }
-
-    public boolean isFacebookInterstitalLoaded() {
-        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED) && !fbInterstitialAd.isAdLoaded()) {
-            if (fbInterstitialAd != null && !isFbCallSent ) {
-                fbInterstitialAd.loadAd();
-                isFbCallSent = true;
-            }
-        }
-        return Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED) && fbInterstitialAd.isAdLoaded();
     }
 
     public void showFacebookInterstitialAd() {
         if (fbInterstitialAd.isAdLoaded()) {
             fbInterstitialAd.show();
         } else {
-            if (fbInterstitialAd != null && !isFbCallSent ) {
-                fbInterstitialAd.loadAd();
-                isFbCallSent = true;
-            }
+            loadFacebookInterstitialAd();
+            showInterstitialAd();
         }
     }
 
 //    public void showFacebookNativeAd(final Context context, final LinearLayout nativeAdContainer, final AdView adView) {
-////        if(BuildConfig.DEBUG){
-////            nativeAd = new com.facebook.ads.NativeAd(context, "YOUR_PLACEMENT_ID");
-////        }else{
 //        nativeAd = new com.facebook.ads.NativeAd(context, context.getString(R.string.native_facebook));
-////        }
 //        nativeAd.setAdListener(new com.facebook.ads.AdListener() {
 //            @Override
 //            public void onError(Ad ad, AdError adError) {
@@ -495,9 +469,9 @@ public class AdsManager {
 //                Button nativeAdCallToAction = adView.findViewById(R.id.native_ad_call_to_action);
 //
 //                // Set the Text.
-//                nativeAdTitle.setText(nativeAd.getAdTitle());
+//                nativeAdTitle.setText(nativeAd.getAdHeadline());
 //                nativeAdSocialContext.setText(nativeAd.getAdSocialContext());
-//                nativeAdBody.setText(nativeAd.getAdBody());
+//                nativeAdBody.setText(nativeAd.getAdBodyText());
 //                nativeAdCallToAction.setText(nativeAd.getAdCallToAction());
 //
 //                // Download and display the ad icon.

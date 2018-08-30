@@ -39,18 +39,19 @@
                 <RelativeLayout
                     android:id="@+id/btn_add_reminder"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
+                    android:background="@drawable/days_screen_days_normal_bar"
                     android:layout_margin="8dp">
 
                     <TextView
                         android:id="@+id/tv_reminder"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/days_screen_days_normal_bar"
+                        android:layout_centerVertical="true"
                         android:drawableLeft="@drawable/completed_screen_reminder_icon"
                         android:drawablePadding="15dp"
                         android:drawableStart="@drawable/completed_screen_reminder_icon"
-                        android:fontFamily="@font/roboto_regular"
+                        app:fontFamily="@font/roboto_regular"
                         android:gravity="center_vertical"
                         android:padding="10dp"
                         android:text="Reminder: 14:20"
@@ -70,18 +71,19 @@
                 <RelativeLayout
                     android:id="@+id/btn_edit_bmi"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp">
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/days_screen_days_normal_bar">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/days_screen_days_normal_bar"
+                        android:layout_centerVertical="true"
                         android:drawableLeft="@drawable/completed_screen_bmi_icon"
                         android:drawablePadding="15dp"
                         android:drawableStart="@drawable/completed_screen_bmi_icon"
-                        android:fontFamily="@font/roboto_regular"
+                        app:fontFamily="@font/roboto_regular"
                         android:gravity="center_vertical"
                         android:padding="10dp"
                         android:text="BMI"
@@ -101,13 +103,15 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="130dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_marginStart="130dp">
 
                         <TextView
                             android:id="@+id/tv_bmi"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center" />
+                            android:gravity="center"
+                            android:textStyle="bold" />
 
                         <ImageView
                             android:id="@+id/img_bmi"
@@ -170,7 +174,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_regular"
+                        app:fontFamily="@font/roboto_regular"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text="History"
@@ -181,7 +185,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:fontFamily="@font/roboto_regular"
+                        app:fontFamily="@font/roboto_regular"
                         android:gravity="center_vertical"
                         android:padding="10dp"
                         android:text="MORE"
@@ -259,7 +263,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:fontFamily="@font/roboto_regular"
+                        app:fontFamily="@font/roboto_regular"
                         android:text="Mon"
                         android:textSize="12sp" />
                 </LinearLayout>

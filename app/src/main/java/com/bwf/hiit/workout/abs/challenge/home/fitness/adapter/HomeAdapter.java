@@ -2,14 +2,12 @@ package com.bwf.hiit.workout.abs.challenge.home.fitness.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -24,11 +22,11 @@ import java.util.List;
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MainMenuItemHolder> {
 
     private String[] tilte;
-    private Bitmap[] images;
+    private int[] images;
     private List<Integer> progress;
     private boolean isDataUp;
 
-    public HomeAdapter(String[] tilte, Bitmap[] images) {
+    public HomeAdapter(String[] tilte, int[] images) {
         this.tilte = tilte;
         this.images = images;
         new GetDataFromDb().execute();
@@ -46,17 +44,16 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MainMenuItemHo
     public void onBindViewHolder(@NonNull MainMenuItemHolder holder, final int position) {
 
         holder.tvTitle.setText(tilte[position]);
-        holder.imgBackground.setImageBitmap(images[position]);
+        holder.itemView.setBackgroundResource(images[position]);
 
         if (isDataUp) {
             holder.progressBar.setMax(30);
             holder.progressBar.setProgress(progress.get(position));
             int i = 30 - progress.get(position);
             holder.tvDayLeft.setText(i + "");
-            holder.tvPercentage.setText((int)(progress.get(position) / 0.3) + "%");
+            holder.tvPercentage.setText((int) (progress.get(position) / 0.3) + "%");
         }
-        holder.imgBackground.setOnClickListener(view -> setOnClick(view, position));
-        holder.imgStart.setOnClickListener(view -> setOnClick(view, position));
+        holder.itemView.setOnClickListener(view -> setOnClick(view, position));
     }
 
     public void updateRecycleView() {
@@ -71,17 +68,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MainMenuItemHo
     class MainMenuItemHolder extends RecyclerView.ViewHolder {
 
         TextView tvTitle;
-        ImageView imgStart;
-        ImageView imgBackground;
         ProgressBar progressBar;
         TextView tvDayLeft;
         TextView tvPercentage;
 
         MainMenuItemHolder(View itemView) {
             super(itemView);
-            imgBackground = itemView.findViewById(R.id.taskImageId);
             tvTitle = itemView.findViewById(R.id.tileId);
-            imgStart = itemView.findViewById(R.id.start);
             progressBar = itemView.findViewById(R.id.progressBar);
             tvDayLeft = itemView.findViewById(R.id.home_textViewDaysleft);
             tvPercentage = itemView.findViewById(R.id.home_textVewPercentage);
@@ -99,10 +92,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MainMenuItemHo
             for (int plan = 1; plan < 4; plan++) {
                 int val = 0;
                 for (int i = 0; i < 30; i++) {
-                    int totalComplete = dataBase.exerciseDayDao().getExerciseDays(plan,
-                            i + 1).get(0).getExerciseComplete();
-                    int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan,
-                            i + 1).get(0).getTotalExercise();
+                    int totalComplete = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getExerciseComplete();
+                    int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getTotalExercise();
                     float v = (float) totalComplete / (float) totalExercises;
                     if (v >= 1) {
                         val++;

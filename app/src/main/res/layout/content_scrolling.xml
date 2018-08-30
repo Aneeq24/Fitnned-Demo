@@ -19,11 +19,7 @@
         app:layout_constraintBottom_toTopOf="@id/banner_day"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
-
-        app:layout_constraintTop_toBottomOf="@+id/imageView3">
-
-    </android.support.v7.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"/>
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/banner_day"
@@ -41,10 +37,4 @@
         ads:layout_constraintStart_toStartOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_margin="@dimen/text_margin"-->
-        <!--a+ndroid:text="@string/large_text" />-->
-
 </android.support.v4.widget.NestedScrollView>

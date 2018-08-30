@@ -15,7 +15,6 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.LogHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.DataModelWorkout;
 import com.dinuscxj.progressbar.CircleProgressBar;
 import com.google.android.gms.ads.AdView;
@@ -164,11 +163,7 @@ public class ScrollingActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        if (AdsManager.getInstance().isFacebookInterstitalLoaded())
-            AdsManager.getInstance().showFacebookInterstitialAd();
-        else
-            AdsManager.getInstance().showInterstitialAd();
-
+        AdsManager.getInstance().showFacebookInterstitialAd();
     }
 
     @Override

@@ -77,10 +77,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
         AdView adView = findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
 
-        if (AdsManager.getInstance().isFacebookInterstitalLoaded())
-            AdsManager.getInstance().showFacebookInterstitialAd();
-        else
-            AdsManager.getInstance().showInterstitialAd();
+        AdsManager.getInstance().showFacebookInterstitialAd();
 
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "exercise_list_activity");
 

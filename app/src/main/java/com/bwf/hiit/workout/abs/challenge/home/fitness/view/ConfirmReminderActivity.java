@@ -15,11 +15,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
@@ -82,8 +80,10 @@ public class ConfirmReminderActivity extends AppCompatActivity {
         btnAddReminder.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b)
                 SharedPrefHelper.writeBoolean(context, "reminder", true);
-            else
+            else {
                 SharedPrefHelper.writeBoolean(context, "reminder", false);
+                AlarmManager.getInstance().cancelAlarm(context);
+            }
         });
 
         toolbar.setNavigationOnClickListener(view -> {
@@ -187,7 +187,7 @@ public class ConfirmReminderActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    class DayAdapter extends RecyclerView.Adapter<DayAdapter.MainMenuItemHolder> {
+    class DayAdapter extends RecyclerView.Adapter<DayAdapter.myHolder> {
 
         private List<String> tilte;
 
@@ -197,13 +197,13 @@ public class ConfirmReminderActivity extends AppCompatActivity {
 
         @NonNull
         @Override
-        public MainMenuItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public myHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_textview, parent, false);
-            return new MainMenuItemHolder(view);
+            return new myHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MainMenuItemHolder holder, final int position) {
+        public void onBindViewHolder(@NonNull myHolder holder, final int position) {
             holder.tvTitle.setText(tilte.get(position));
             holder.itemView.setOnClickListener(view -> setReminderDays());
         }
@@ -215,11 +215,11 @@ public class ConfirmReminderActivity extends AppCompatActivity {
             else return 0;
         }
 
-        class MainMenuItemHolder extends RecyclerView.ViewHolder {
+        class myHolder extends RecyclerView.ViewHolder {
 
             TextView tvTitle;
 
-            MainMenuItemHolder(View itemView) {
+            myHolder(View itemView) {
                 super(itemView);
                 tvTitle = itemView.findViewById(R.id.tv_title);
             }

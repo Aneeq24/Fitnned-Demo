@@ -18,14 +18,6 @@ public class ExerciseDayViewModel extends AndroidViewModel {
         mRepository = new ExerciseDayRepo();
     }
 
-    public LiveData<List<ExerciseDay>> getIncompleteExerciseDays(int day) {
-        return mRepository.getIncompleteExerciseDays(day);
-    }
-
-    public LiveData<ExerciseDay> getExercise(int id) {
-        return mRepository.getExercise(id);
-    }
-
     public LiveData<List<ExerciseDay>> getExerciseDays(int planId, int dayId) {
         return mRepository.getLiveExerciseDays(planId, dayId);
     }

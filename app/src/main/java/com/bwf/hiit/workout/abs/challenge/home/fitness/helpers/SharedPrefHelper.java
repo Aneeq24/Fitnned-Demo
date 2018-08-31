@@ -49,5 +49,4 @@ public class SharedPrefHelper {
         return getPreferences(context).getBoolean(key, false);
     }
 
-
 }

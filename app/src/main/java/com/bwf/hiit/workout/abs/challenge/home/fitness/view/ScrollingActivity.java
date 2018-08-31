@@ -43,13 +43,7 @@ public class ScrollingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scrolling);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        Intent intent = getIntent();
-
-        AdView adVie = findViewById(R.id.banner_day);
         AdView adView = findViewById(R.id.baner_Admob);
-
-        AdsManager.getInstance().showBanner(adVie);
-        adVie.setAlpha(0);
         AdsManager.getInstance().showBanner(adView);
 
         circleProgressBarLeft = findViewById(R.id.line_progress_left);
@@ -57,31 +51,26 @@ public class ScrollingActivity extends AppCompatActivity {
         circleProgressBarLeft.setProgressFormatter((progress, max) -> progress + "");
 
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "day_selection_activity");
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra(getString(R.string.plan)))
+            plan = intent.getIntExtra(getString(R.string.plan), 0);
 
-        if (getIntent() != null && intent.hasExtra(getString(R.string.plan)))
-            plan = getIntent().getIntExtra(getString(R.string.plan), 0);
-
-//        toolbar.setTitle(getPlanName());
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         dataModelsWorkout = new DataModelWorkout();
-        populateData();
-
-//        TTSManager.getInstance(getApplication()).play("You have selected plan " + getPlanName() + "  Mode of 30 Day Ab Challenge");
-
+        getData();
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void populateData() {
+    private void getData() {
         dataModelsWorkout.curretPlan = plan;
         switch (plan - 1) {
             case 0:
                 dataModelsWorkout.dayName = getResources().getStringArray(R.array.days_list);  //new String[]
                 for (int i = 0; i < 30; i++)
                     dataModelsWorkout.progress.add(i, (float) 0);
-
                 break;
             case 1:
                 dataModelsWorkout.dayName = getResources().getStringArray(R.array.days_list);//new String[]
@@ -96,7 +85,6 @@ public class ScrollingActivity extends AppCompatActivity {
                 break;
             default:
         }
-
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... voids) {
@@ -107,18 +95,15 @@ public class ScrollingActivity extends AppCompatActivity {
                             i + 1).get(0).getExerciseComplete();
                     int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan,
                             i + 1).get(0).getTotalExercise();
-
-
                     float v = (float) totalComplete / (float) totalExercises;
+                    dataModelsWorkout.progress.add(i, v);
 
                     LogHelper.logD("1994:", "" + v);
                     if (v >= 1) {
                         val++;
                         LogHelper.logD("1994:", "" + val);
                     }
-
                 }
-
                 int dayLeft = 30 - val;
                 return String.valueOf(dayLeft);
             }
@@ -135,11 +120,6 @@ public class ScrollingActivity extends AppCompatActivity {
                 LogHelper.logD("1993", "Day left" + (dayLeft));
                 circleProgressBarCompleted.setMax(30);
                 circleProgressBarCompleted.setProgress(val);
-            }
-
-            @Override
-            protected void onProgressUpdate(Void... values) {
-                super.onProgressUpdate(values);
             }
 
         }.execute();
@@ -162,7 +142,6 @@ public class ScrollingActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         AdsManager.getInstance().showFacebookInterstitialAd();
     }
 
@@ -171,23 +150,14 @@ public class ScrollingActivity extends AppCompatActivity {
         super.onResume();
         if (paused) {
             val = 0;
-            populateData();
-            dayRecycleAdapter.resetAdapter(dataModelsWorkout);
+            getData();
         }
     }
 
-    private String getPlanName() {
-        int i = plan - 1;
-        switch (i) {
-            case 0:
-                return "Beginner";
-            case 1:
-                return "Intermediate";
-            case 2:
-                return "Advanced";
-            default:
-                return "";
-        }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        resetData();
     }
 
     private void resetData() {
@@ -196,9 +166,4 @@ public class ScrollingActivity extends AppCompatActivity {
         dataModelsWorkout.progress = null;
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        resetData();
-    }
 }

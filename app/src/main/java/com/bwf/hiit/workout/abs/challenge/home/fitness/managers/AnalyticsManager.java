@@ -6,7 +6,6 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.AppStateManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
-
 public class AnalyticsManager {
 
     private static AnalyticsManager manager;
@@ -25,8 +24,8 @@ public class AnalyticsManager {
 
     public void sendAnalytics(String actionDetail, String actionName) {
         Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.CONTENT, (actionDetail));
         bundle.putString(AppStateManager.ACTION_TYPE, actionName);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT, (actionDetail));
         firebaseAnalytics.logEvent(actionName, bundle);
     }
 }

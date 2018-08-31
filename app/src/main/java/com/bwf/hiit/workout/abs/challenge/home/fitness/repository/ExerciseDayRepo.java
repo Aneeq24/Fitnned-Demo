@@ -18,14 +18,6 @@ public class ExerciseDayRepo {
         exerciseDayDao = db.exerciseDayDao();
     }
 
-    public LiveData<List<ExerciseDay>> getIncompleteExerciseDays(int day) {
-        return exerciseDayDao.getIncompleteExerciseDays(day);
-    }
-
-    public LiveData<ExerciseDay> getExercise(int cid){
-        return exerciseDayDao.findByPid(cid);
-    }
-
     public LiveData<List<ExerciseDay>> getLiveExerciseDays(int planId, int dayId){
         return exerciseDayDao.getLiveExerciseDays(planId,dayId);
     }

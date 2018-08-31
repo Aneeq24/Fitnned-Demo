@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.BuildConfig;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.HomeAdapter;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.inapp.MyBilling;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
@@ -37,16 +39,14 @@ import com.google.ads.consent.ConsentStatus;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     MyBilling mBilling;
-
-    String[] titles = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
-    int[] image;
-
+    List<Integer> progress;
     Context context;
-    HomeAdapter mAdapter;
     private ConsentForm form;
     private boolean isAppInBackground = false;
     private boolean paused;
@@ -88,21 +88,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         tvVersionName = findViewById(R.id.txt_version);
         tvVersionName.setText("V" + BuildConfig.VERSION_NAME);
 
+        noAds.setOnClickListener(this);
         workOut.setOnClickListener(this);
         reminder.setOnClickListener(this);
         feedback.setOnClickListener(this);
         moreApps.setOnClickListener(this);
         privacyPolicy.setOnClickListener(this);
-        noAds.setOnClickListener(this);
-
-        image = new int[]{ R.drawable.main_screen_beginner_image, R.drawable.main_screen_intermediate_image,
-           R.drawable.main_screen_advanced_image};
+        fabRateUs.setOnClickListener(view -> onRateUs());
+        fabNoAds.setOnClickListener(view -> mBilling.purchaseRemoveAds());
 
         consentInformation = ConsentInformation.getInstance(this);
         requestGoogleConsentForm(true);
 
         try {
-            initApp();
+            new getData().execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -118,15 +117,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        fabNoAds.setOnClickListener(view -> mBilling.purchaseRemoveAds());
-        fabRateUs.setOnClickListener(view -> onRateUs());
     }
 
     private void initApp() {
-        RecyclerView rvHomeScreen = findViewById(R.id.menuData);
+        RecyclerView rvHomeScreen = findViewById(R.id.rv_mainMenu);
         rvHomeScreen.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mAdapter = new HomeAdapter(titles, image);
+        HomeAdapter mAdapter = new HomeAdapter(progress);
         rvHomeScreen.setAdapter(mAdapter);
     }
 
@@ -163,7 +159,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume() {
         super.onResume();
         if (paused) {
-            mAdapter.updateRecycleView();
+            new getData().execute();
             paused = false;
         }
     }
@@ -171,7 +167,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         drawer.closeDrawer(GravityCompat.START);
@@ -321,6 +316,35 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mBilling.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private class getData extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            AppDataBase dataBase = AppDataBase.getInstance();
+            progress = new ArrayList<>();
+            for (int plan = 1; plan < 4; plan++) {
+                int val = 0;
+                for (int i = 0; i < 30; i++) {
+                    int totalComplete = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getExerciseComplete();
+                    int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getTotalExercise();
+                    float v = (float) totalComplete / (float) totalExercises;
+                    if (v >= 1) {
+                        val++;
+                    }
+                }
+                progress.add(val);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            initApp();
+        }
     }
 }
 

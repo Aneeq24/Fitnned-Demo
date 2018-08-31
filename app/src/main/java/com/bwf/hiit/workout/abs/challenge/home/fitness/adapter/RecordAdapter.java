@@ -13,7 +13,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
 
 import java.util.List;
 
-public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MainMenuItemHolder> {
+public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.myHolder> {
 
     private List<Record> recordList;
 
@@ -24,14 +24,14 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MainMenuIt
 
     @NonNull
     @Override
-    public MainMenuItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public myHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_record, parent, false);
-        return new MainMenuItemHolder(view);
+        return new myHolder(view);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull MainMenuItemHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull myHolder holder, final int position) {
         holder.tvDay.setText(recordList.get(position).getDay());
         holder.tvTitle.setText("Day " + String.valueOf(recordList.get(position).getExDay()) + " - " + recordList.get(position).getType());
         holder.tvWeight.setText(String.valueOf(recordList.get(position).getKcal()));
@@ -46,7 +46,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MainMenuIt
         else return 0;
     }
 
-    class MainMenuItemHolder extends RecyclerView.ViewHolder {
+    class myHolder extends RecyclerView.ViewHolder {
 
         TextView tvTitle;
         TextView tvWeight;
@@ -54,7 +54,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MainMenuIt
         TextView tvDate;
         TextView tvDuration;
 
-        MainMenuItemHolder(View itemView) {
+        myHolder(View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tv_title);
             tvWeight = itemView.findViewById(R.id.tv_weight);

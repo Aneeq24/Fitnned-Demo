@@ -36,7 +36,7 @@ public class SplashScreeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_scree);
+        setContentView(R.layout.activity_splash);
         context = this;
         AnalyticsManager.getInstance().sendAnalytics("splash_screen_started", "activity_started");
 //        Stetho.initializeWithDefaults(this);

@@ -2,7 +2,6 @@ package com.bwf.hiit.workout.abs.challenge.home.fitness.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,67 +11,55 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.ScrollingActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MainMenuItemHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.myHolder> {
 
-    private String[] tilte;
-    private int[] images;
+    private String[] title = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
+    private int[] image = new int[]{R.drawable.main_screen_beginner_image, R.drawable.main_screen_intermediate_image,
+            R.drawable.main_screen_advanced_image};
     private List<Integer> progress;
-    private boolean isDataUp = false;
 
-    public HomeAdapter(String[] tilte, int[] images) {
-        this.tilte = tilte;
-        this.images = images;
-        new GetDataFromDb().execute();
+    public HomeAdapter(List<Integer> progress) {
+        this.progress = progress;
     }
 
     @NonNull
     @Override
-    public MainMenuItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.menu_item_layout, parent, false);
-        return new MainMenuItemHolder(view);
+    public myHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new myHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.menu_item_layout, parent, false));
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull MainMenuItemHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull myHolder holder, final int position) {
 
-        holder.tvTitle.setText(tilte[position]);
-        holder.itemView.setBackgroundResource(images[position]);
-
-        if (isDataUp) {
-            holder.progressBar.setMax(30);
-            holder.progressBar.setProgress(progress.get(position));
-            int i = 30 - progress.get(position);
-            holder.tvDayLeft.setText(i + "");
-            holder.tvPercentage.setText((int) (progress.get(position) / 0.3) + "%");
-        }
+        holder.tvTitle.setText(title[position]);
+        holder.itemView.setBackgroundResource(image[position]);
+        holder.progressBar.setMax(30);
+        holder.progressBar.setProgress(progress.get(position));
+        int i = 30 - progress.get(position);
+        holder.tvDayLeft.setText(i + "");
+        holder.tvPercentage.setText((int) (progress.get(position) / 0.3) + "%");
         holder.itemView.setOnClickListener(view -> setOnClick(view, position));
-    }
-
-    public void updateRecycleView() {
-        new GetDataFromDb().execute();
     }
 
     @Override
     public int getItemCount() {
-        return tilte.length;
+        return title.length;
     }
 
-    class MainMenuItemHolder extends RecyclerView.ViewHolder {
+    class myHolder extends RecyclerView.ViewHolder {
 
         TextView tvTitle;
         ProgressBar progressBar;
         TextView tvDayLeft;
         TextView tvPercentage;
 
-        MainMenuItemHolder(View itemView) {
+        myHolder(View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tileId);
             progressBar = itemView.findViewById(R.id.progressBar);
@@ -81,46 +68,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MainMenuItemHo
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private class GetDataFromDb extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            AppDataBase dataBase = AppDataBase.getInstance();
-            progress = new ArrayList<>();
-            isDataUp = false;
-            for (int plan = 1; plan < 4; plan++) {
-                int val = 0;
-                for (int i = 0; i < 30; i++) {
-                    int totalComplete = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getExerciseComplete();
-                    int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getTotalExercise();
-                    float v = (float) totalComplete / (float) totalExercises;
-                    if (v >= 1) {
-                        val++;
-                    }
-                }
-                progress.add(val);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            setDataUp();
-        }
-    }
-
-    private void setDataUp() {
-        isDataUp = true;
-        this.notifyDataSetChanged();
-    }
-
     private void setOnClick(View view, int position) {
         Intent i = new Intent(view.getContext(), ScrollingActivity.class);
         i.putExtra(view.getContext().getString(R.string.plan), (position + 1));
         view.getContext().startActivity(i);
-        AnalyticsManager.getInstance().sendAnalytics("plan_selected" + tilte[position], "plan_selected _" + tilte[position]);
+        AnalyticsManager.getInstance().sendAnalytics("plan_selected" + title[position], "plan_selected_" + title[position]);
     }
 
 }

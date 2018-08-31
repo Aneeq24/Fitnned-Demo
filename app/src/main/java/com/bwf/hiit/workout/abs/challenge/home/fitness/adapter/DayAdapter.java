@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 
-public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MainMenuItemHolder> {
+public class DayAdapter extends RecyclerView.Adapter<DayAdapter.myHolder> {
 
     private String[] tilte;
     private int[] date;
@@ -22,13 +22,13 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MainMenuItemHold
 
     @NonNull
     @Override
-    public MainMenuItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public myHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_day, parent, false);
-        return new MainMenuItemHolder(view);
+        return new myHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MainMenuItemHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull myHolder holder, final int position) {
 
         holder.tvTitle.setText(tilte[position]);
         holder.tvDate.setText(String.valueOf(date[position]));
@@ -45,13 +45,12 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MainMenuItemHold
         else return 0;
     }
 
-    class MainMenuItemHolder extends RecyclerView.ViewHolder {
+    class myHolder extends RecyclerView.ViewHolder {
 
         TextView tvTitle;
         TextView tvDate;
 
-
-        MainMenuItemHolder(View itemView) {
+        myHolder(View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tv_title);
             tvDate = itemView.findViewById(R.id.tv_date);

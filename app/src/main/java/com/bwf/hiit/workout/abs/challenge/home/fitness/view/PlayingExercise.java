@@ -81,11 +81,11 @@ public class PlayingExercise extends AppCompatActivity {
         mListExDays = new ArrayList<>();
         dataBase = AppDataBase.getInstance();
 
-        setInitailData();
+        getData();
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void setInitailData() {
+    private void getData() {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -244,7 +244,7 @@ public class PlayingExercise extends AppCompatActivity {
             Log.i("1994:Current round", "Day not updated");
             mListExDays.get(0).setExerciseComplete(mListExDays.get(0).getExerciseComplete() + 1);
             mListExDays.get(0).setRoundCompleted(currentRound);
-            AnalyticsManager.getInstance().sendAnalytics("plan " + currentPlan + "day " + currentDay, "exercise_complete" + currentEx);
+            AnalyticsManager.getInstance().sendAnalytics("exercise_complete" + currentEx + "r_" + currentRound, "exercise_complete" + currentEx + "r_" + currentRound);
         } else {
             Log.i("1994:currentDay", "Day Upgraded");
             LogHelper.logD("1994:Current Round", "" + currentRound + "Get Rounds" + (mListExDays.get(0).getRounds() - 1));

@@ -57,7 +57,7 @@
                         android:scaleType="fitXY"
                         android:src="@drawable/timer_bar_bg" />
 
-                    <com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.MyWheelPicker
+                    <com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.MyWheelPicker
                         android:id="@+id/num_age"
                         android:layout_width="50dp"
                         android:layout_height="100dp"
@@ -111,7 +111,7 @@
                         android:scaleType="fitXY"
                         android:src="@drawable/timer_bar_bg" />
 
-                    <com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.MyWheelPicker
+                    <com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.MyWheelPicker
                         android:id="@+id/num_weight"
                         android:layout_width="50dp"
                         android:layout_height="100dp"
@@ -170,7 +170,7 @@
                         android:scaleType="fitXY"
                         android:src="@drawable/timer_bar_bg" />
 
-                    <com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.MyWheelPicker
+                    <com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.MyWheelPicker
                         android:id="@+id/num_feet"
                         android:layout_width="50dp"
                         android:layout_height="100dp"
@@ -213,7 +213,7 @@
                         android:scaleType="fitXY"
                         android:src="@drawable/timer_bar_bg" />
 
-                    <com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.MyWheelPicker
+                    <com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.MyWheelPicker
                         android:id="@+id/num_inches"
                         android:layout_width="50dp"
                         android:layout_height="100dp"
@@ -252,7 +252,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="20dp"
+        android:layout_marginBottom="60dp"
+        android:layout_marginRight="20dp"
         android:text="SKIP"
         android:textSize="18dp" />
 

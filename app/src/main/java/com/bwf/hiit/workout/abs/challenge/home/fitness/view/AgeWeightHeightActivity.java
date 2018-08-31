@@ -10,7 +10,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.UserViewModel;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.MyWheelPicker;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.MyWheelPicker;
 
 import java.util.ArrayList;
 import java.util.List;

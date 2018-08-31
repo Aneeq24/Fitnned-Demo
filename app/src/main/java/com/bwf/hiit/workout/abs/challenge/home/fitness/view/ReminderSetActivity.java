@@ -10,7 +10,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AlarmManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.wheel.MyWheelPicker;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.MyWheelPicker;
 import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;

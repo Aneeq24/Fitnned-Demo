@@ -15,7 +15,6 @@ import static com.bwf.hiit.workout.abs.challenge.home.fitness.inapp.IabHelper.BI
 public class MyBilling {
     // Debug tag, for logging
     private final String TAG = MyBilling.class.getSimpleName();
-//    private final String SKU_REMOVE_ADS = "android.test.canceled";
     private final String SKU_REMOVE_ADS = "com.bwf.hiit.workout.abs.challenge.home.fitness.noads";
     // (arbitrary) request code for the purchase flow
 

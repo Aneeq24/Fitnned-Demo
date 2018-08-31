@@ -32,6 +32,4 @@ public interface Recorddao {
     @Delete
     void delete(Record record);
 
-    @Update
-    void updateRecord(Record record);
 }

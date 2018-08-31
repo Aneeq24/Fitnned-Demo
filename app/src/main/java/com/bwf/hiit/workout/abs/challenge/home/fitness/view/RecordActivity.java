@@ -161,7 +161,7 @@ public class RecordActivity extends AppCompatActivity {
                     }
                     if (isCm)
                         height = height * 100 * 0.393701f;
-                    tvBmi.setText(String.valueOf(math(bmi)) + bmiCategory(math(bmi)));
+                    tvBmi.setText(math(bmi) + bmiCategory(Integer.parseInt(math(bmi))));
                     user.setWeight(weight);
                     user.setHeight(height);
                     user.setBmi((int) bmi);
@@ -186,8 +186,8 @@ public class RecordActivity extends AppCompatActivity {
         rbKg = view.findViewById(R.id.rb_kg);
         rbLbs = view.findViewById(R.id.rb_lb);
 
-        edtWeight.setText(String.valueOf(math(user.getWeight() * 0.453592f)));
-        edtCm.setText(String.valueOf(math(user.getHeight() * 2.54f)));
+        edtWeight.setText(math(user.getWeight() * 0.453592f));
+        edtCm.setText(math(user.getHeight() * 2.54f));
 
         rgWeight.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.rb_lb) {
@@ -207,17 +207,17 @@ public class RecordActivity extends AppCompatActivity {
                 edtFt.setVisibility(View.GONE);
                 edtIn.setVisibility(View.GONE);
                 isCm = true;
-                edtWeight.setText(String.valueOf(math(user.getWeight() * 0.453592f)));
-                edtCm.setText(String.valueOf(math(user.getHeight() * 2.54f)));
+                edtWeight.setText(math(user.getWeight() * 0.453592f));
+                edtCm.setText(math(user.getHeight() * 2.54f));
                 rbKg.setChecked(true);
             } else if (i == R.id.rb_in) {
                 edtFt.setVisibility(View.VISIBLE);
                 edtIn.setVisibility(View.VISIBLE);
                 edtCm.setVisibility(View.GONE);
                 isCm = false;
-                edtWeight.setText(String.valueOf(math(user.getWeight())));
-                edtFt.setText(String.valueOf(math(user.getHeight() / 12)));
-                edtIn.setText(String.valueOf(math(user.getHeight() % 12)));
+                edtWeight.setText(math(user.getWeight()));
+                edtFt.setText(math(user.getHeight() / 12));
+                edtIn.setText(math(user.getHeight() % 12));
                 rbLbs.setChecked(true);
             }
         });
@@ -412,8 +412,8 @@ public class RecordActivity extends AppCompatActivity {
         }
     }
 
-    public int math(float f) {
-        return (int) Math.floor(f);
+    public String math(float f) {
+        return String.valueOf((int) Math.floor(f));
     }
 
 }

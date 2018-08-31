@@ -31,7 +31,6 @@ public class CalenderActivity extends AppCompatActivity {
     CalendarView calendarView;
     @BindView(R.id.rv_records)
     RecyclerView rvRecords;
-
     RecordAdapter mAdapter;
 
     @Override

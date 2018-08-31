@@ -1,9 +1,7 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,61 +10,30 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.DataModelWorkout;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.DailyExerciseInfo;
 import com.dinuscxj.progressbar.CircleProgressBar;
 
-public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.DayItemHolder> {
+public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.myHolder> {
 
     private String[] titles = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
     private DataModelWorkout dataModelWorkout;
     private int currentPlan;
 
-    @SuppressLint("StaticFieldLeak")
-    private class GetDataFromDb extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            AppDataBase dataBase = AppDataBase.getInstance();
-
-            for (int i = 0; i < 30; i++) {
-                int totalComplete = dataBase.exerciseDayDao().getExerciseDays(currentPlan,
-                        i + 1).get(0).getExerciseComplete();
-                int totalExercises = dataBase.exerciseDayDao().getExerciseDays(currentPlan,
-                        i + 1).get(0).getTotalExercise();
-
-                float v = (float) totalComplete / (float) totalExercises;
-                dataModelWorkout.progress.add(i, v);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            if (isCancelled())
-                return;
-            notifyDataSetChanged();
-        }
-    }
-
     public DayRecycleAdapter(DataModelWorkout dataModelWorkout) {
         this.dataModelWorkout = dataModelWorkout;
         currentPlan = dataModelWorkout.curretPlan;
-        new GetDataFromDb().execute();
     }
 
     @NonNull
     @Override
-    public DayItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.day_item_layout, parent, false);
-        return new DayItemHolder(view);
+    public myHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new myHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.day_item_layout, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final DayItemHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final myHolder holder, final int position) {
         String nameOfApp = dataModelWorkout.dayName[position];
         float progress = 0;
         if (dataModelWorkout.progress.size() > position)
@@ -85,21 +52,16 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.Da
             return dataModelWorkout.dayName.length;
     }
 
-    class DayItemHolder extends RecyclerView.ViewHolder {
+    class myHolder extends RecyclerView.ViewHolder {
 
         TextView tvDayName;
         CircleProgressBar circleProgressBar;
 
-        DayItemHolder(View itemView) {
+        myHolder(View itemView) {
             super(itemView);
             tvDayName = itemView.findViewById(R.id.dayNameId);
             circleProgressBar = itemView.findViewById(R.id.line_progress_left);
         }
-    }
-
-    public void resetAdapter(DataModelWorkout modelWorkout) {
-        dataModelWorkout = modelWorkout;
-        new GetDataFromDb().execute();
     }
 
     private void goToNewActivity(Context context, int position) {

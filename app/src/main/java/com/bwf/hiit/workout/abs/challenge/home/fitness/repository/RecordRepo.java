@@ -22,10 +22,6 @@ public class RecordRepo {
         return recorddao.getAllRecords();
     }
 
-    public LiveData<Record> getRecord(int day) {
-        return recorddao.findById(day);
-    }
-
     public void insert(Record record) {
         new insertAsyncTask(recorddao).execute(record);
     }
@@ -44,6 +40,5 @@ public class RecordRepo {
             return null;
         }
     }
-
 
 }

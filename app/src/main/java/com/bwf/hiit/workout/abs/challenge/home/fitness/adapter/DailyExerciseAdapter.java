@@ -18,7 +18,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import java.util.List;
 
 
-public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdapter.DailyExerciseDataHolder> {
+public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdapter.myHolder> {
 
     private List<Exercise> exerciseList;
     private Activity info;
@@ -38,14 +38,13 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
 
     @NonNull
     @Override
-    public DailyExerciseDataHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.exercise_info_item_activity, parent, false);
-        return new DailyExerciseDataHolder(view);
+    public myHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new myHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.exercise_info_item_activity, parent, false));
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull DailyExerciseDataHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull myHolder holder, final int position) {
 
         holder.nameOfExercise.setText(exerciseList.get(position).getDisplay_name());
         holder.exerciseTime.setText(exerciseList.get(position).getUnit() + "s");
@@ -63,7 +62,7 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
     }
 
     @Override
-    public void onViewRecycled(@NonNull DailyExerciseDataHolder holder) {
+    public void onViewRecycled(@NonNull myHolder holder) {
         holder.imgeOfExercise.setImageDrawable(null);
         super.onViewRecycled(holder);
     }
@@ -85,21 +84,20 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
         this.completeExercise = completeExercise;
     }
 
-    class DailyExerciseDataHolder extends RecyclerView.ViewHolder {
+    class myHolder extends RecyclerView.ViewHolder {
         ImageView imgeOfExercise;
         TextView nameOfExercise;
         TextView textColor;
         TextView exerciseTime;
         TextView restTime;
 
-        DailyExerciseDataHolder(View itemView) {
+        myHolder(View itemView) {
             super(itemView);
             imgeOfExercise = itemView.findViewById(R.id.exerciseInfo_Icon);
             nameOfExercise = itemView.findViewById(R.id.exerciseInfo_ExerciseName);
             textColor = itemView.findViewById(R.id.dayNameId);
             exerciseTime = itemView.findViewById(R.id.edi_exerciseTime);
             restTime = itemView.findViewById(R.id.edi_exerciseRestTime);
-
         }
     }
 

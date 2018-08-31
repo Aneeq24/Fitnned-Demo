@@ -19,7 +19,6 @@ public class MyMarkerView extends MarkerView {
 
     public MyMarkerView(Context context, int layoutResource) {
         super(context, layoutResource);
-
         tvContent = findViewById(R.id.tvContent);
     }
 

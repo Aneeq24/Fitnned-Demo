@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="200dp"
-    android:maxHeight="400dp"
+    android:layout_height="200dp"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:layout_marginTop="5dp"
@@ -13,21 +11,20 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="39dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/main_screen_headline_example_image_bar_bg"
         android:orientation="vertical"
-        android:paddingLeft="8dp"
-        android:paddingStart="8dp">
+        android:padding="5dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            app:fontFamily="@font/roboto_bold"
             android:text="HIIT 30 DAY CHALLENGE"
-            android:textColor="?attr/colorBackgroundFloating"
+            android:textColor="@android:color/background_light"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:fontFamily="@font/roboto_bold" />
 
         <TextView
             android:id="@+id/tileId"
@@ -35,7 +32,7 @@
             android:layout_height="wrap_content"
             android:alpha="0.7"
             android:fontFamily="@font/roboto_regular"
-            android:text="BEGINEER"
+            android:text="BEGINNER"
             android:textColor="@android:color/background_light"
             android:textSize="12sp" />
 
@@ -46,6 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:contentDescription="@string/app_name"
         app:srcCompat="@drawable/main_screen_image_top_play_btn" />
 
     <LinearLayout
@@ -65,16 +63,15 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
                 android:lineSpacingExtra="8sp"
-                android:text="30"
                 android:textColor="@android:color/background_light"
                 android:textSize="13sp"
                 app:fontFamily="@font/roboto_bold" />
 
             <TextView
-                android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="35dp"
+                android:layout_marginStart="35dp"
                 android:text=" Days Left"
                 android:textColor="@android:color/background_light"
                 android:textSize="13sp"

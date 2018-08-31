@@ -1,7 +1,6 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -20,7 +19,6 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.ExerciseDayViewModel;
 import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
@@ -38,9 +36,10 @@ public class DailyExerciseInfo extends AppCompatActivity {
     List<Exercise> mEXList;
     int plan;
     int planday;
-    int totalRounds;
-    int completeRounds;
-    int completeExercise;
+    int totalRounds = 0;
+    int completeRounds = 0;
+    int completeExercise = 0;
+    int totaTimeSpend = 0;
     float kcal = 0;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -78,10 +77,8 @@ public class DailyExerciseInfo extends AppCompatActivity {
         AdsManager.getInstance().showBanner(adView);
 
         AdsManager.getInstance().showFacebookInterstitialAd();
-
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "exercise_list_activity");
 
-        ExerciseDayViewModel mExerciseDayViewModel = ViewModelProviders.of(this).get(ExerciseDayViewModel.class);
 
         Intent intent = getIntent();
         plan = intent.getIntExtra(getApplicationContext().getString(R.string.plan), 0);
@@ -92,27 +89,6 @@ public class DailyExerciseInfo extends AppCompatActivity {
         rvDayExercise.setAdapter(mAdapter);
         mAdapter.setDayPlan(planday, plan);
 
-        mExerciseDayViewModel.getExerciseDays(plan, planday).observe(this, exerciseDayList -> {
-            if (exerciseDayList != null) {
-                int totaTimeSpend = 0;
-                for (ExerciseDay day : exerciseDayList) {
-                    if (day.isStatus())
-                        day.setStatus(false);
-                    totaTimeSpend = totaTimeSpend + day.getReps() + day.getDelay();
-                }
-                totaTimeSpend = totaTimeSpend * exerciseDayList.get(0).getRounds();
-                totalRounds = exerciseDayList.get(0).getRounds();
-                int totalExercisePerRound = exerciseDayList.size();
-
-                completeExercise = exerciseDayList.get(0).getExerciseComplete();
-                completeRounds = exerciseDayList.get(0).getRoundCompleted();
-                tvRound.setText(String.valueOf(totalRounds) + "x");
-                tvExercise.setText(String.valueOf(totalExercisePerRound));
-                int minutes = (totaTimeSpend % 3600) / 60;
-                tvTime.setText(String.valueOf(minutes));
-            }
-        });
-
         new getExerciseTask().execute();
     }
 
@@ -121,20 +97,36 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
         @Override
         protected final Void doInBackground(Void... params) {
+
             List<ExerciseDay> mList = AppDataBase.getInstance().exerciseDayDao().getExerciseDays(plan, planday);
+            completeExercise = mList.get(0).getExerciseComplete();
+            completeRounds = mList.get(0).getRoundCompleted();
             for (ExerciseDay day : mList) {
+                if (day.isStatus())
+                    day.setStatus(false);
+                totaTimeSpend = totaTimeSpend + day.getReps() + day.getDelay();
                 Exercise exercise = AppDataBase.getInstance().exerciseDao().findByIdbg(day.getId());
                 if (exercise != null) {
                     mEXList.add(new Exercise(day.getReps(), day.getDelay(), exercise.getName(), exercise.getDisplay_name()));
                     kcal = kcal + exercise.getCalories();
                 }
             }
+
+            totaTimeSpend = totaTimeSpend * mList.get(0).getRounds();
+            totalRounds = mList.get(0).getRounds();
+
             return null;
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            int totalExercisePerRound = mEXList.size();
+            tvRound.setText(String.valueOf(totalRounds) + "x");
+            tvExercise.setText(String.valueOf(totalExercisePerRound));
+            int minutes = (totaTimeSpend % 3600) / 60;
+            tvTime.setText(String.valueOf(minutes));
             tvKcal.setText(String.valueOf((int) kcal * totalRounds));
             mAdapter.setList(mEXList);
             mAdapter.setData(completeRounds, completeExercise);

@@ -161,7 +161,7 @@ public class RecordActivity extends AppCompatActivity {
                     }
                     if (isCm)
                         height = height * 100 * 0.393701f;
-                    tvBmi.setText(math(bmi) + bmiCategory(Integer.parseInt(math(bmi))));
+                    tvBmi.setText(math(bmi) + bmiCategory(Integer.parseInt(mathround(bmi))));
                     user.setWeight(weight);
                     user.setHeight(height);
                     user.setBmi((int) bmi);
@@ -186,7 +186,7 @@ public class RecordActivity extends AppCompatActivity {
         rbKg = view.findViewById(R.id.rb_kg);
         rbLbs = view.findViewById(R.id.rb_lb);
 
-        edtWeight.setText(math(user.getWeight() * 0.453592f));
+        edtWeight.setText(mathround(user.getWeight() * 0.453592f));
         edtCm.setText(math(user.getHeight() * 2.54f));
 
         rgWeight.setOnCheckedChangeListener((radioGroup, i) -> {
@@ -207,7 +207,7 @@ public class RecordActivity extends AppCompatActivity {
                 edtFt.setVisibility(View.GONE);
                 edtIn.setVisibility(View.GONE);
                 isCm = true;
-                edtWeight.setText(math(user.getWeight() * 0.453592f));
+                edtWeight.setText(mathround(user.getWeight() * 0.453592f));
                 edtCm.setText(math(user.getHeight() * 2.54f));
                 rbKg.setChecked(true);
             } else if (i == R.id.rb_in) {
@@ -414,6 +414,10 @@ public class RecordActivity extends AppCompatActivity {
 
     public String math(float f) {
         return String.valueOf((int) Math.floor(f));
+    }
+
+    public String mathround(float f) {
+        return String.valueOf(Math.round(f));
     }
 
 }

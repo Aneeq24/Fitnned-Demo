@@ -228,7 +228,7 @@ public class PlayingExercise extends AppCompatActivity {
                     if (currentRound < totalRounds)
                         TTSManager.getInstance(getApplication()).play("This is end of Round " + currentRound +
                                 "You have" + (mListExDays.get(0).getRounds() - currentRound) + "round remaining");
-                    AnalyticsManager.getInstance().sendAnalytics("plan " + currentPlan + "day " + currentDay, "round_complete" + currentRound);
+                    AnalyticsManager.getInstance().sendAnalytics("round_complete", "round_complete_" + currentRound);
                 }
             }.start();
 
@@ -244,7 +244,7 @@ public class PlayingExercise extends AppCompatActivity {
             Log.i("1994:Current round", "Day not updated");
             mListExDays.get(0).setExerciseComplete(mListExDays.get(0).getExerciseComplete() + 1);
             mListExDays.get(0).setRoundCompleted(currentRound);
-            AnalyticsManager.getInstance().sendAnalytics("exercise_complete" + currentEx + "r_" + currentRound, "exercise_complete" + currentEx + "r_" + currentRound);
+            AnalyticsManager.getInstance().sendAnalytics("exercise_complete", "day_" + currentDay + "r_" + (currentRound + 1) + "exercise_" + currentEx);
         } else {
             Log.i("1994:currentDay", "Day Upgraded");
             LogHelper.logD("1994:Current Round", "" + currentRound + "Get Rounds" + (mListExDays.get(0).getRounds() - 1));
@@ -292,7 +292,7 @@ public class PlayingExercise extends AppCompatActivity {
 
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
-        }else super.onBackPressed();
+        } else super.onBackPressed();
     }
 
     @Override

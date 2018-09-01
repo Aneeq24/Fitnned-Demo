@@ -51,10 +51,11 @@ public class AdsManager {
     }
 
     private static AdsManager manager;
-    private InterstitialAd interstitialAd;
-    private RewardedVideoAd rewardedVideoAd;
+    private InterstitialAd interstitialAd = null;
+    private RewardedVideoAd rewardedVideoAd = null;
+    private com.facebook.ads.InterstitialAd fbInterstitialAd = null;
+
     private final String TAG = AdsManager.class.getName();
-    private com.facebook.ads.InterstitialAd fbInterstitialAd;
 
     private AdsManager() {
         if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {

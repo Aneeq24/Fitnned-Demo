@@ -117,7 +117,7 @@ public class CompleteFragment extends Fragment {
         AdsManager.getInstance().showFacebookInterstitialAd();
 
         if (SharedPrefHelper.readBoolean(context, "rate"))
-            setRateAppDialog();
+        setRateAppDialog();
 
         record = new Record();
         recordList = new ArrayList<>();

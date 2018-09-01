@@ -47,7 +47,7 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.facebook.android:audience-network-sdk:4.99.3'
     implementation 'com.google.android.gms:play-services-ads:15.0.1'
-    //    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
     implementation 'com.google.firebase:firebase-core:16.0.3'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     implementation 'com.annimon:stream:1.1.7'

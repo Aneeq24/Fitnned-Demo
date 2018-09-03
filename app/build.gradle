@@ -9,8 +9,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
         multiDexEnabled true
-        versionCode 19
-        versionName '19.0'
+        versionCode 20
+        versionName '20.0'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
@@ -42,6 +42,12 @@ dependencies {
     implementation 'android.arch.persistence.room:runtime:1.1.1'
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
     //    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    implementation 'com.facebook.android:audience-network-sdk:4.99.3'
+    implementation 'com.google.android.gms:play-services-ads:15.0.1'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
+    implementation 'com.google.firebase:firebase-core:16.0.3'
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
     implementation 'com.annimon:stream:1.1.7'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.jakewharton:butterknife:8.8.1'

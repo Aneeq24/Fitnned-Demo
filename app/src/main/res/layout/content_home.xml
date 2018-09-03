@@ -1,98 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#dedede"
+    android:id="@+id/rv_mainMenu"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".view.HomeActivity"
-    tools:showIn="@layout/app_bar_home">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/days_screen_days_normal_bar">
-
-            <TextView
-                android:id="@+id/cf_exerciseNo"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="15 \n Exercise" />
-
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="200 \n KCAL" />
-
-            <TextView
-                android:id="@+id/cf_totalTime"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="00 \n Mins" />
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/btn_more"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/days_screen_days_normal_bar"
-            android:clickable="true">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_regular"
-                android:gravity="center_vertical"
-                android:padding="5dp"
-                android:text="History"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:fontFamily="@font/roboto_regular"
-                android:gravity="center_vertical"
-                android:padding="10dp"
-                android:text="MORE"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="12sp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_days"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="30dp" />
-
-        </RelativeLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_mainMenu"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="60dp" />
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+    tools:showIn="@layout/app_bar_home"/>

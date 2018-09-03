@@ -66,14 +66,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.SelectGender"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.AgeWeightHeightActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.ConfirmReminderActivity"
             android:screenOrientation="portrait" />
@@ -82,9 +78,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.CalenderActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

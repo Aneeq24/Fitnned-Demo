@@ -60,45 +60,28 @@ public class ScrollingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         dataModelsWorkout = new DataModelWorkout();
-        getData();
+        try {
+            getData();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @SuppressLint("StaticFieldLeak")
     private void getData() {
         dataModelsWorkout.curretPlan = plan;
-        switch (plan - 1) {
-            case 0:
-                dataModelsWorkout.dayName = getResources().getStringArray(R.array.days_list);  //new String[]
-                for (int i = 0; i < 30; i++)
-                    dataModelsWorkout.progress.add(i, (float) 0);
-                break;
-            case 1:
-                dataModelsWorkout.dayName = getResources().getStringArray(R.array.days_list);//new String[]
-                for (int i = 0; i < 30; i++)
-                    dataModelsWorkout.progress.add(i, (float) 0);
-
-                break;
-            case 2:
-                dataModelsWorkout.dayName = getResources().getStringArray(R.array.days_list);
-                for (int i = 0; i < 30; i++)
-                    dataModelsWorkout.progress.add(i, (float) 0);
-                break;
-            default:
-        }
+        dataModelsWorkout.dayName = getResources().getStringArray(R.array.days_list);  //new String[]
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... voids) {
                 AppDataBase dataBase = AppDataBase.getInstance();
 
                 for (int i = 0; i < 30; i++) {
-                    int totalComplete = dataBase.exerciseDayDao().getExerciseDays(plan,
-                            i + 1).get(0).getExerciseComplete();
-                    int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan,
-                            i + 1).get(0).getTotalExercise();
+                    int totalComplete = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getExerciseComplete();
+                    int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getTotalExercise();
                     float v = (float) totalComplete / (float) totalExercises;
                     dataModelsWorkout.progress.add(i, v);
 
-                    LogHelper.logD("1994:", "" + v);
                     if (v >= 1) {
                         val++;
                         LogHelper.logD("1994:", "" + val);
@@ -111,9 +94,6 @@ public class ScrollingActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String dayLeft) {
                 super.onPostExecute(dayLeft);
-                if (isCancelled()) {
-                    return;
-                }
                 initView();
                 circleProgressBarLeft.setMax(30);
                 circleProgressBarLeft.setProgress(Integer.parseInt(dayLeft));
@@ -161,9 +141,7 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     private void resetData() {
-        dataModelsWorkout.dayName = null;
-        dataModelsWorkout.iconForExcersice = null;
-        dataModelsWorkout.progress = null;
+        dataModelsWorkout = new DataModelWorkout();
     }
 
 }

@@ -9,8 +9,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
         multiDexEnabled true
-        versionCode 18
-        versionName '18.0'
+        versionCode 19
+        versionName '19.0'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
@@ -47,16 +47,16 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.facebook.android:audience-network-sdk:4.99.3'
     implementation 'com.google.android.gms:play-services-ads:15.0.1'
-    //    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
     implementation 'com.google.firebase:firebase-core:16.0.3'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     implementation 'com.annimon:stream:1.1.7'
     implementation 'com.dinuscxj:circleprogressbar:1.2.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.google.android.ads.consent:consent-library:1.0.6'
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.android.billingclient:billing:1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

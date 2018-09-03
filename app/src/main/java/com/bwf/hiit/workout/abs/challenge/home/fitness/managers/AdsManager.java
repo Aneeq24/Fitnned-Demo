@@ -43,7 +43,6 @@ import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 import java.util.List;
 
-
 public class AdsManager {
 
     private enum NativeAdType {
@@ -52,11 +51,11 @@ public class AdsManager {
     }
 
     private static AdsManager manager;
-    private InterstitialAd interstitialAd;
-    private RewardedVideoAd rewardedVideoAd;
-    //    private com.facebook.ads.NativeAd nativeAd;
+    private InterstitialAd interstitialAd = null;
+    private RewardedVideoAd rewardedVideoAd = null;
+    private com.facebook.ads.InterstitialAd fbInterstitialAd = null;
+
     private final String TAG = AdsManager.class.getName();
-    private com.facebook.ads.InterstitialAd fbInterstitialAd;
 
     private AdsManager() {
         if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
@@ -64,7 +63,6 @@ public class AdsManager {
             interstitialAd = new InterstitialAd(context);
             interstitialAd.setAdUnitId(context.getString(R.string.interstitial_ad_unit));
             fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, context.getString(R.string.interstitial_facebook));
-            //fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, "YOUR_PLACEMENT_ID");
             // load the ads and cache them for later use
             loadInterstitialAd();
             loadFacebookInterstitialAd();
@@ -123,41 +121,45 @@ public class AdsManager {
     }
 
     private void loadInterstitialAd() {
-        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
-            if (BuildConfig.DEBUG) {
-                interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("8F14986600C19D5CB98F0125581FBBF4").build());
-            } else {
-                interstitialAd.loadAd(prepareAdRequest());
+        if (interstitialAd != null) {
+            if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
+                if (BuildConfig.DEBUG) {
+                    interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("8F14986600C19D5CB98F0125581FBBF4").build());
+                } else {
+                    interstitialAd.loadAd(prepareAdRequest());
+                }
+                interstitialAd.setAdListener(new AdListener() {
+
+                    @Override
+                    public void onAdClosed() {
+                        super.onAdClosed();
+                        Log.d(TAG, "AdMob InterstitialAd -> onAdClosed");
+                        loadInterstitialAd();
+                    }
+
+                    @Override
+                    public void onAdLoaded() {
+                        super.onAdLoaded();
+                        Log.d(TAG, "AdMob InterstitialAd -> onAdLoaded");
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(int i) {
+                        super.onAdFailedToLoad(i);
+                        Log.d(TAG, "AdMob InterstitialAd -> onAdFailedToLoad");
+                    }
+                });
             }
-            interstitialAd.setAdListener(new AdListener() {
-
-                @Override
-                public void onAdClosed() {
-                    super.onAdClosed();
-                    Log.d(TAG, "AdMob InterstitialAd -> onAdClosed");
-                    loadInterstitialAd();
-                }
-
-                @Override
-                public void onAdLoaded() {
-                    super.onAdLoaded();
-                    Log.d(TAG, "AdMob InterstitialAd -> onAdLoaded");
-                }
-
-                @Override
-                public void onAdFailedToLoad(int i) {
-                    super.onAdFailedToLoad(i);
-                    Log.d(TAG, "AdMob InterstitialAd -> onAdFailedToLoad");
-                }
-            });
         }
     }
 
     private void showInterstitialAd() {
-        if (interstitialAd.isLoaded()) {
-            interstitialAd.show();
-        } else {
-            loadInterstitialAd();
+        if (interstitialAd != null) {
+            if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED) && interstitialAd.isLoaded()) {
+                interstitialAd.show();
+            } else {
+                loadInterstitialAd();
+            }
         }
     }
 
@@ -349,7 +351,6 @@ public class AdsManager {
     }
 
     public void showBanner(Context context, LinearLayout bannerContainer) {
-        //com.facebook.ads.AdView adView = new com.facebook.ads.AdView(context, "YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50);
         com.facebook.ads.AdView adView = new com.facebook.ads.AdView(context, context.getString(R.string.banner_facebook), AdSize.BANNER_HEIGHT_50);
         if (bannerContainer != null) {
             adView.loadAd();
@@ -380,45 +381,48 @@ public class AdsManager {
     }
 
     private void loadFacebookInterstitialAd() {
-        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
-            fbInterstitialAd.setAdListener(new AbstractAdListener() {
+        if (fbInterstitialAd != null) {
+            if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
+                fbInterstitialAd.setAdListener(new AbstractAdListener() {
 
-                @Override
-                public void onError(Ad ad, AdError adError) {
-                    // Ad error callback
-                    Log.e(TAG, "Interstitial ad failed to load: " + adError.getErrorMessage());
-                }
+                    @Override
+                    public void onError(Ad ad, AdError adError) {
+                        // Ad error callback
+                        Log.e(TAG, "Interstitial ad failed to load: " + adError.getErrorMessage());
+                    }
 
-                @Override
-                public void onAdLoaded(Ad ad) {
-                    super.onAdLoaded(ad);
-                    Log.d(TAG, "Facebook InterstitialAd -> onAdLoaded");
-                    // Interstitial ad is loaded and ready to be displayed
-                    // Show the ad
-                }
+                    @Override
+                    public void onAdLoaded(Ad ad) {
+                        super.onAdLoaded(ad);
+                        Log.d(TAG, "Facebook InterstitialAd -> onAdLoaded");
+                        // Interstitial ad is loaded and ready to be displayed
+                        // Show the ad
+                    }
 
-                @Override
-                public void onInterstitialDisplayed(Ad ad) {
-                    super.onInterstitialDisplayed(ad);
-                }
+                    @Override
+                    public void onInterstitialDisplayed(Ad ad) {
+                        super.onInterstitialDisplayed(ad);
+                    }
 
-                @Override
-                public void onInterstitialDismissed(Ad ad) {
-                    super.onInterstitialDismissed(ad);
-                    loadFacebookInterstitialAd();
-                }
-            });
-            fbInterstitialAd.loadAd();
+                    @Override
+                    public void onInterstitialDismissed(Ad ad) {
+                        super.onInterstitialDismissed(ad);
+                        loadFacebookInterstitialAd();
+                    }
+                });
+                fbInterstitialAd.loadAd();
+            }
         }
     }
 
-
     public void showFacebookInterstitialAd() {
-        if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED) && fbInterstitialAd.isAdLoaded()) {
-            fbInterstitialAd.show();
-        } else {
-            loadFacebookInterstitialAd();
-            showInterstitialAd();
+        if (fbInterstitialAd != null) {
+            if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED) && fbInterstitialAd.isAdLoaded()) {
+                fbInterstitialAd.show();
+            } else {
+                loadFacebookInterstitialAd();
+                showInterstitialAd();
+            }
         }
     }
 

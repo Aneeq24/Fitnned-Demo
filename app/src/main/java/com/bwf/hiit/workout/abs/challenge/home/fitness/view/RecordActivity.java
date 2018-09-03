@@ -138,6 +138,8 @@ public class RecordActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void showDialog() {
+        isKg = true;
+        isCm = true;
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .title("BMI Calculator")
                 .customView(R.layout.dialog_bmi, true)
@@ -187,7 +189,7 @@ public class RecordActivity extends AppCompatActivity {
         rbLbs = view.findViewById(R.id.rb_lb);
 
         edtWeight.setText(mathround(user.getWeight() * 0.453592f));
-        edtCm.setText(math(user.getHeight() * 2.54f));
+        edtCm.setText(mathround(user.getHeight() * 2.54f));
 
         rgWeight.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.rb_lb) {
@@ -208,7 +210,7 @@ public class RecordActivity extends AppCompatActivity {
                 edtIn.setVisibility(View.GONE);
                 isCm = true;
                 edtWeight.setText(mathround(user.getWeight() * 0.453592f));
-                edtCm.setText(math(user.getHeight() * 2.54f));
+                edtCm.setText(mathround(user.getHeight() * 2.54f));
                 rbKg.setChecked(true);
             } else if (i == R.id.rb_in) {
                 edtFt.setVisibility(View.VISIBLE);
@@ -217,7 +219,7 @@ public class RecordActivity extends AppCompatActivity {
                 isCm = false;
                 edtWeight.setText(math(user.getWeight()));
                 edtFt.setText(math(user.getHeight() / 12));
-                edtIn.setText(math(user.getHeight() % 12));
+                edtIn.setText(mathround(user.getHeight() % 12));
                 rbLbs.setChecked(true);
             }
         });
@@ -280,8 +282,7 @@ public class RecordActivity extends AppCompatActivity {
     private void setKcalYAxis() {
         YAxis leftAxis = graph.getAxisLeft();
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
-        leftAxis.setAxisMaximum(700f);
-        leftAxis.setAxisMinimum(150f);
+        leftAxis.setAxisMinimum(0f);
     }
 
     private void setWeightYAxis() {
@@ -341,6 +342,7 @@ public class RecordActivity extends AppCompatActivity {
         // create a data object with the datasets
         LineData data = new LineData(dataSets);
         // set data
+        graph.getAxisLeft().setAxisMaximum(data.getYMax() + 100);
         graph.setData(data);
         graph.getData().notifyDataChanged();
         graph.notifyDataSetChanged();
@@ -399,7 +401,7 @@ public class RecordActivity extends AppCompatActivity {
             return " - Healthy Weight";
         else if (bmi >= 25 && bmi < 30)
             return " - Over Weight";
-        else if (bmi > 30)
+        else if (bmi >= 30)
             return " - Heavily Over Weight";
         else return "";
     }

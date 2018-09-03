@@ -49,7 +49,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.myHolder> {
 
     @Override
     public int getItemCount() {
-        return title.length;
+        return progress.size();
     }
 
     class myHolder extends RecyclerView.ViewHolder {

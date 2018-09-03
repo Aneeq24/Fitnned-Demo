@@ -4,8 +4,6 @@ package com.bwf.hiit.workout.abs.challenge.home.fitness.models;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 
 @Entity

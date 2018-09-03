@@ -28,8 +28,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_accessibility" />
-                            <entry key="sourceFile" value="C:\Users\aneeqahmad" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_television" />
+                            <entry key="sourceFile" value="C:\Users\aneeqahmad\Downloads\television.svg" />
                           </map>
                         </option>
                       </PersistentState>

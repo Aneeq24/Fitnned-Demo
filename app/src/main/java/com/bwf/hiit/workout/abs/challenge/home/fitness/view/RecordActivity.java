@@ -154,15 +154,19 @@ public class RecordActivity extends AppCompatActivity {
                         feet = convertIntoFloat(edtFt.getText().toString().trim());
                         height = (feet * 12) + inches;
                     }
+                    if (!isKg)
+                        weight = user.getWeight();
+
+                    bmi = (weight) / (height * height);
 
                     if (!isKg)
-                        bmi = ((weight) / (height * height)) * 703;
-                    else {
-                        bmi = (weight) / (height * height);
+                        bmi *= 703;
+
+                    if (isKg)
                         weight = weight * 2.20462f;
-                    }
                     if (isCm)
                         height = height * 100 * 0.393701f;
+
                     tvBmi.setText(math(bmi) + bmiCategory(Integer.parseInt(mathround(bmi))));
                     user.setWeight(weight);
                     user.setHeight(height);
@@ -190,37 +194,39 @@ public class RecordActivity extends AppCompatActivity {
 
         edtWeight.setText(mathround(user.getWeight() * 0.453592f));
         edtCm.setText(mathround(user.getHeight() * 2.54f));
+        edtFt.setText(math(user.getHeight() / 12));
+        edtIn.setText(mathround(user.getHeight() % 12));
 
         rgWeight.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.rb_lb) {
-                edtWeight.setHint("00.00 LB");
                 isKg = false;
-                rbIn.setChecked(true);
+                isCm = false;
+                edtWeight.setHint("00.00 LB");
+                edtWeight.setText(math(user.getWeight()));
             } else if (i == R.id.rb_kg) {
-                edtWeight.setHint("00.00 KG");
                 isKg = true;
-                rbCm.setChecked(true);
+                isCm = true;
+                edtWeight.setHint("00.00 KG");
+                edtWeight.setText(mathround(user.getWeight() * 0.453592f));
             }
         });
 
         rgHeight.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.rb_cm) {
-                edtCm.setVisibility(View.VISIBLE);
+                isKg = true;
+                isCm = true;
                 edtFt.setVisibility(View.GONE);
                 edtIn.setVisibility(View.GONE);
-                isCm = true;
-                edtWeight.setText(mathround(user.getWeight() * 0.453592f));
+                edtCm.setVisibility(View.VISIBLE);
                 edtCm.setText(mathround(user.getHeight() * 2.54f));
-                rbKg.setChecked(true);
             } else if (i == R.id.rb_in) {
+                isKg = false;
+                isCm = false;
+                edtCm.setVisibility(View.GONE);
                 edtFt.setVisibility(View.VISIBLE);
                 edtIn.setVisibility(View.VISIBLE);
-                edtCm.setVisibility(View.GONE);
-                isCm = false;
-                edtWeight.setText(math(user.getWeight()));
                 edtFt.setText(math(user.getHeight() / 12));
                 edtIn.setText(mathround(user.getHeight() % 12));
-                rbLbs.setChecked(true);
             }
         });
     }

@@ -1,6 +1,7 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,10 +16,11 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.LogHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.models.DataModelWorkout;
 import com.dinuscxj.progressbar.CircleProgressBar;
 import com.google.android.gms.ads.AdView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class ScrollingActivity extends AppCompatActivity {
@@ -26,8 +28,8 @@ public class ScrollingActivity extends AppCompatActivity {
     int val = 0;
     int plan = 0;
     boolean paused;
-    DataModelWorkout dataModelsWorkout;
-    DayRecycleAdapter dayRecycleAdapter;
+    Context context;
+    List<Float> mProgress;
     CircleProgressBar circleProgressBarLeft;
     CircleProgressBar circleProgressBarCompleted;
 
@@ -42,6 +44,7 @@ public class ScrollingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling);
 
+        context = this;
         Toolbar toolbar = findViewById(R.id.toolbar);
         AdView adView = findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
@@ -59,18 +62,16 @@ public class ScrollingActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        dataModelsWorkout = new DataModelWorkout();
         try {
             getData();
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
         }
     }
 
     @SuppressLint("StaticFieldLeak")
     private void getData() {
-        dataModelsWorkout.curretPlan = plan;
-        dataModelsWorkout.dayName = getResources().getStringArray(R.array.days_list);  //new String[]
+        mProgress = new ArrayList<>();
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... voids) {
@@ -80,7 +81,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     int totalComplete = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getExerciseComplete();
                     int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getTotalExercise();
                     float v = (float) totalComplete / (float) totalExercises;
-                    dataModelsWorkout.progress.add(i, v);
+                    mProgress.add(v);
 
                     if (v >= 1) {
                         val++;
@@ -108,8 +109,8 @@ public class ScrollingActivity extends AppCompatActivity {
     private void initView() {
         RecyclerView rvDayTasks = findViewById(R.id.dayTaskRecycleid);
         rvDayTasks.setNestedScrollingEnabled(false);
-        rvDayTasks.setLayoutManager(new LinearLayoutManager(this));
-        dayRecycleAdapter = new DayRecycleAdapter(dataModelsWorkout);
+        rvDayTasks.setLayoutManager(new LinearLayoutManager(context));
+        DayRecycleAdapter dayRecycleAdapter = new DayRecycleAdapter(context, mProgress, plan);
         rvDayTasks.setAdapter(dayRecycleAdapter);
     }
 
@@ -137,11 +138,6 @@ public class ScrollingActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        resetData();
-    }
-
-    private void resetData() {
-        dataModelsWorkout = new DataModelWorkout();
     }
 
 }

@@ -11,19 +11,21 @@ import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.models.DataModelWorkout;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.DailyExerciseInfo;
 import com.dinuscxj.progressbar.CircleProgressBar;
+import java.util.List;
 
 public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.myHolder> {
 
     private String[] titles = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
-    private DataModelWorkout dataModelWorkout;
+    private String[] dayName;
+    private List<Float> mProgress;
     private int currentPlan;
 
-    public DayRecycleAdapter(DataModelWorkout dataModelWorkout) {
-        this.dataModelWorkout = dataModelWorkout;
-        currentPlan = dataModelWorkout.curretPlan;
+    public DayRecycleAdapter(Context context, List<Float> progress,int plan) {
+        this.currentPlan = plan;
+        this.dayName = context.getResources().getStringArray(R.array.days_list);
+        this.mProgress = progress;
     }
 
     @NonNull
@@ -34,10 +36,10 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.my
 
     @Override
     public void onBindViewHolder(@NonNull final myHolder holder, final int position) {
-        String nameOfApp = dataModelWorkout.dayName[position];
+        String nameOfApp = dayName[position];
         float progress = 0;
-        if (dataModelWorkout.progress.size() > position)
-            progress = dataModelWorkout.progress.get(position);
+        if (mProgress.size() > position)
+            progress = mProgress.get(position);
 
         holder.tvDayName.setText(nameOfApp);
         holder.circleProgressBar.setProgress((int) (progress * 100));
@@ -46,10 +48,10 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.my
 
     @Override
     public int getItemCount() {
-        if (dataModelWorkout.dayName == null)
+        if (mProgress == null)
             return 0;
         else
-            return dataModelWorkout.dayName.length;
+            return mProgress.size();
     }
 
     class myHolder extends RecyclerView.ViewHolder {

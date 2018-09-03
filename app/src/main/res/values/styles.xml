@@ -27,6 +27,10 @@
         <item name="android:textColorPrimary">@android:color/white</item>
     </style>
 
+    <style name="AppTheme.WhiteAccent">
+        <item name="colorAccent">#97DE14</item> <!-- Whatever color you want-->
+    </style>
+
     <style name="radio_btn">
         <item name="android:gravity">center</item>
         <item name="android:layout_width">30dp</item>

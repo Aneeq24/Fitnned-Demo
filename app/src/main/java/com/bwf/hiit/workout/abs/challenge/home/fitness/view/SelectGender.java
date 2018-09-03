@@ -64,7 +64,7 @@ public class SelectGender extends AppCompatActivity {
     }
 
     private void startNewActivity() {
-        startActivity(new Intent(getApplicationContext(), AgeWeightHeightActivity.class));
+        startActivity(new Intent(getApplicationContext(), ReminderSetActivity.class));
         finish();
     }
 }

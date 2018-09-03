@@ -113,7 +113,6 @@ public class IabHelper {
 
     // some fields on the getSkuDetails response bundle
     public static final String GET_SKU_DETAILS_ITEM_LIST = "ITEM_ID_LIST";
-    public static final String GET_SKU_DETAILS_ITEM_TYPE_LIST = "ITEM_TYPE_LIST";
 
     /**
      * Creates an instance. After creation, it will not yet be ready to use. You must perform

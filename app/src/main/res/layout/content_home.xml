@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#dedede"
+    android:background="#00E9FB"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".view.HomeActivity"
     tools:showIn="@layout/app_bar_home">
@@ -16,35 +16,61 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:padding="10dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/days_screen_days_normal_bar">
+            android:background="@drawable/main_screen_bar">
 
             <TextView
-                android:id="@+id/cf_exerciseNo"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:id="@+id/cf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="15 \n Exercise" />
+                android:background="@drawable/main_screen_min_round_bg"
+                android:text="15\nMin"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="200 \n KCAL" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
 
-            <TextView
-                android:id="@+id/cf_totalTime"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="00 \n Mins" />
+                <TextView
+                    android:id="@+id/cf_exerciseNo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="1 Days"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="15 Mins"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/cf_totalTime"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="150 Kcal"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -89,10 +115,27 @@
 
         </RelativeLayout>
 
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/baner_Admob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/days_screen_days_normal_bar"
+            android:padding="5dp"
+            android:visibility="gone"
+            ads:adSize="MEDIUM_RECTANGLE"
+            ads:adUnitId="@string/banner_rect_ad_unit" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_mainMenu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="60dp" />
+
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

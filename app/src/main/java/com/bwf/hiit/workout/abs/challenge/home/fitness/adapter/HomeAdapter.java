@@ -38,7 +38,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.myHolder> {
     public void onBindViewHolder(@NonNull myHolder holder, final int position) {
 
         holder.tvTitle.setText(title[position]);
-        holder.itemView.setBackgroundResource(image[position]);
+
         holder.progressBar.setMax(30);
         holder.progressBar.setProgress(progress.get(position));
         int i = 30 - progress.get(position);

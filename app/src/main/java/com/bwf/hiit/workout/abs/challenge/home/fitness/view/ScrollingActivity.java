@@ -75,18 +75,22 @@ public class ScrollingActivity extends AppCompatActivity {
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... voids) {
-                AppDataBase dataBase = AppDataBase.getInstance();
+                try {
+                    AppDataBase dataBase = AppDataBase.getInstance();
 
-                for (int i = 0; i < 30; i++) {
-                    int totalComplete = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getExerciseComplete();
-                    int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getTotalExercise();
-                    float v = (float) totalComplete / (float) totalExercises;
-                    mProgress.add(v);
+                    for (int i = 0; i < 30; i++) {
+                        int totalComplete = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getExerciseComplete();
+                        int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getTotalExercise();
+                        float v = (float) totalComplete / (float) totalExercises;
+                        mProgress.add(v);
 
-                    if (v >= 1) {
-                        val++;
-                        LogHelper.logD("1994:", "" + val);
+                        if (v >= 1) {
+                            val++;
+                            LogHelper.logD("1994:", "" + val);
+                        }
                     }
+                } catch (RuntimeException e) {
+                    e.printStackTrace();
                 }
                 int dayLeft = 30 - val;
                 return String.valueOf(dayLeft);

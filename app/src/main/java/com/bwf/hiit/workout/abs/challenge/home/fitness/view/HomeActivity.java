@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -25,6 +24,7 @@ import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.BuildConfig;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayAdapter;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.HomeAdapter;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
@@ -36,14 +36,20 @@ import com.google.ads.consent.ConsentFormListener;
 import com.google.ads.consent.ConsentInfoUpdateListener;
 import com.google.ads.consent.ConsentInformation;
 import com.google.ads.consent.ConsentStatus;
+import com.google.android.gms.ads.AdView;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
+    String[] titles = {"S", "M", "T", "W", "T", "F", "S", "S", "M", "T", "W", "T", "F", "S"};
+    int[] date = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
     MyBilling mBilling;
     List<Integer> progress;
     Context context;
@@ -60,8 +66,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     TextView privacyPolicy;
     TextView noAds;
     TextView tvVersionName;
-    FloatingActionButton fabNoAds;
-    FloatingActionButton fabRateUs;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -77,8 +81,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         AdsManager.getInstance().showFacebookInterstitialAd();
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "plan_screen_activity");
 
-        fabNoAds = findViewById(R.id.fab_no_ads);
-        fabRateUs = findViewById(R.id.fab_rate_us);
+        AdView adView = findViewById(R.id.baner_Admob);
+        AdsManager.getInstance().showBanner(adView);
+
         workOut = findViewById(R.id.workout_record);
         reminder = findViewById(R.id.reminder);
         feedback = findViewById(R.id.feedback);
@@ -94,8 +99,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         feedback.setOnClickListener(this);
         moreApps.setOnClickListener(this);
         privacyPolicy.setOnClickListener(this);
-        fabRateUs.setOnClickListener(view -> onRateUs());
-        fabNoAds.setOnClickListener(view -> mBilling.purchaseRemoveAds());
 
         consentInformation = ConsentInformation.getInstance(this);
         requestGoogleConsentForm(true);
@@ -117,6 +120,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void setDaysData() {
+        RecyclerView rvHistory = findViewById(R.id.rv_days);
+        DayAdapter mAdapter = new DayAdapter(titles, date);
+        rvHistory.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        rvHistory.setAdapter(mAdapter);
     }
 
     private void initApp() {

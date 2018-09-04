@@ -28,7 +28,6 @@ public class NextFragment extends Fragment {
     ImageView imgAnim;
     ImageView btnResume;
     ImageView btnTimerUp;
-    TextView txtRound;
     TextView txtExercise;
     TextView txtExerciseName;
     int pauseTimer = 0;
@@ -49,7 +48,6 @@ public class NextFragment extends Fragment {
 
         btnResume = rootView.findViewById(R.id.nf_pauseTimerImageView);
         mCustomCircleBar = rootView.findViewById(R.id.restTimer);
-        txtRound = rootView.findViewById(R.id.cf_roundText);
         txtExercise = rootView.findViewById(R.id.nf_exerciseText);
         imgAnim = rootView.findViewById(R.id.nf_exerciseImage);
         btnTimerUp = rootView.findViewById(R.id.addRestTime); //addRestTime
@@ -63,11 +61,6 @@ public class NextFragment extends Fragment {
 
         assert mActivity != null;
         mCustomCircleBar.setMax(mActivity.restTime);
-
-        if (mActivity.currentRound <= (mActivity.totalRounds - 1))
-            txtRound.setText("Round " + (mActivity.currentRound + 1) + " of " + mActivity.totalRounds);
-        else
-            txtRound.setText("Round " + mActivity.totalRounds + " of " + mActivity.totalRounds);
 
         txtExercise.setText("Exercise " + (mActivity.currentEx + 1) + " of " + mActivity.totalExercisePerRound);
         mCustomCircleBar.setProgress(mActivity.restTime);
@@ -105,12 +98,12 @@ public class NextFragment extends Fragment {
         int id = getResources().getIdentifier(str, "drawable", context.getPackageName());
         String path = "android.resource://" + context.getPackageName() + "/" + id;
         Glide.with(this).load(path).into(imgAnim);
-        if (mActivity.currentRound == mActivity.totalRounds) {
-            imgAnim.setVisibility(View.GONE);
-            txtExerciseName.setVisibility(View.GONE);
-            TTSManager.getInstance(mActivity.getApplication()).play("This is the end of the last round. Take 60 sec break to end today's workout" +
-                    "If You Like Our Workout App Please Do Rate Us At The End Of This Workout");
-        } else
+
+//            imgAnim.setVisibility(View.GONE);
+//            txtExerciseName.setVisibility(View.GONE);
+//            TTSManager.getInstance(mActivity.getApplication()).play("This is the end of the last exercise. Take 60 sec break to end today's workout" +
+//                    "If You Like Our Workout App Please Do Rate Us At The End Of This Workout");
+//
             TTSManager.getInstance(mActivity.getApplication()).play("Take a Rest for " + mActivity.restTime + "seconds" + "The Next Exercise is " + mActivity.exerciseName);
     }
 

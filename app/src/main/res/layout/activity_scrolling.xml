@@ -50,8 +50,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
-                    android:alpha="0.5"
                     android:layout_weight="1"
+                    android:alpha="0.5"
                     android:text="DAYS LEFT"
                     android:textColor="@android:color/background_dark"
                     android:textSize="18sp"
@@ -77,8 +77,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
-                    android:alpha="0.5"
                     android:layout_weight="1"
+                    android:alpha="0.5"
                     android:text="FINISHED"
                     android:textColor="@color/colorAccent"
                     android:textSize="18sp"
@@ -88,10 +88,18 @@
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay" />
+                app:layout_collapseMode="pin">
+
+                <TextView
+                    android:id="@+id/tv_Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp" />
+
+            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>

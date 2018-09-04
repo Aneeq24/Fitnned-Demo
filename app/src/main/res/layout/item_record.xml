@@ -5,7 +5,7 @@
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:layout_marginTop="5dp"
-    android:background="@drawable/days_screen_days_normal_bar"
+    android:background="@drawable/ic_white_round_bar"
     android:padding="5dp">
 
     <TextView

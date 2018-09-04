@@ -21,7 +21,6 @@ public class PauseFragment extends Fragment {
 
     View rootView;
     TextView tvExName;
-    TextView tvRound;
     TextView tvExercise;
     ImageView btnResume;
     ImageView imgAnimate;
@@ -45,7 +44,6 @@ public class PauseFragment extends Fragment {
         btnResume = rootView.findViewById(R.id.pauseResume);
         tvExName = rootView.findViewById(R.id.tv_pauseHeadline);
         imgAnimate = rootView.findViewById(R.id.pf_exerciseImage);
-        tvRound = rootView.findViewById(R.id.pf_roundText);
         tvExercise = rootView.findViewById(R.id.pf_exerciseText);
 
         tvExName.setText(playingExercise.nextExerciseName);
@@ -57,10 +55,6 @@ public class PauseFragment extends Fragment {
         Glide.with(this).load(path).into(imgAnimate);
         btnResume.setOnClickListener(view -> onResumeExercise());
 
-        if (playingExercise.currentRound <= (playingExercise.totalRounds - 1))
-            tvRound.setText("Round " + (playingExercise.currentRound + 1) + " of " + playingExercise.totalRounds);
-        else
-            tvRound.setText("Round " + playingExercise.totalRounds + " of " + playingExercise.totalRounds);
         if (playingExercise.currentEx <= (playingExercise.totalExercises - 1))
             tvExercise.setText("Exercise " + (playingExercise.currentEx + 1) + " of " + playingExercise.totalExercisePerRound);
         else

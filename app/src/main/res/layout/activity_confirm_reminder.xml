@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="8dp"
-        android:background="@drawable/days_screen_days_normal_bar">
+        android:background="@drawable/ic_white_round_bar">
 
         <TextView
             android:id="@+id/txt_time"
@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_margin="8dp"
-        android:background="@drawable/days_screen_days_normal_bar"
+        android:background="@drawable/ic_white_round_bar"
         android:orientation="vertical"
         android:padding="5dp">
 

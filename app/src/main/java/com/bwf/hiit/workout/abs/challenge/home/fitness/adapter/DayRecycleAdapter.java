@@ -2,17 +2,20 @@ package com.bwf.hiit.workout.abs.challenge.home.fitness.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.DailyExerciseInfo;
 import com.dinuscxj.progressbar.CircleProgressBar;
+
 import java.util.List;
 
 public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.myHolder> {
@@ -22,7 +25,7 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.my
     private List<Float> mProgress;
     private int currentPlan;
 
-    public DayRecycleAdapter(Context context, List<Float> progress,int plan) {
+    public DayRecycleAdapter(Context context, List<Float> progress, int plan) {
         this.currentPlan = plan;
         this.dayName = context.getResources().getStringArray(R.array.days_list);
         this.mProgress = progress;
@@ -40,29 +43,37 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.my
         float progress = 0;
         if (mProgress.size() > position)
             progress = mProgress.get(position);
+        if (progress == 1) {
+            holder.tvDayName.setTextColor(Color.WHITE);
+            holder.mProgressBar.setVisibility(View.GONE);
+            holder.imgDone.setVisibility(View.VISIBLE);
+            holder.itemView.setBackgroundResource(R.drawable.ic_yellow_round_bar);
+        }
 
         holder.tvDayName.setText(nameOfApp);
-        holder.circleProgressBar.setProgress((int) (progress * 100));
+        holder.mProgressBar.setProgress((int) (progress * 100));
         holder.itemView.setOnClickListener(view -> goToNewActivity(view.getContext(), position));
     }
 
     @Override
     public int getItemCount() {
-        if (mProgress == null)
+        if (dayName == null)
             return 0;
         else
-            return mProgress.size();
+            return dayName.length;
     }
 
     class myHolder extends RecyclerView.ViewHolder {
 
         TextView tvDayName;
-        CircleProgressBar circleProgressBar;
+        ImageView imgDone;
+        CircleProgressBar mProgressBar;
 
         myHolder(View itemView) {
             super(itemView);
             tvDayName = itemView.findViewById(R.id.dayNameId);
-            circleProgressBar = itemView.findViewById(R.id.line_progress_left);
+            imgDone = itemView.findViewById(R.id.img_done);
+            mProgressBar = itemView.findViewById(R.id.line_progress_left);
         }
     }
 

@@ -46,13 +46,12 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
     @Override
     public void onBindViewHolder(@NonNull myHolder holder, final int position) {
 
-        holder.nameOfExercise.setText(exerciseList.get(position).getDisplay_name());
-        holder.exerciseTime.setText(exerciseList.get(position).getUnit() + "s");
-        holder.restTime.setText(exerciseList.get(position).getLang() + "s");
+        holder.tvExerciseName.setText(exerciseList.get(position).getDisplay_name());
+        holder.tvMin.setText(exerciseList.get(position).getUnit() + "X");
+
         String videoPath = exerciseList.get(position).getName();
         int id = info.getApplication().getResources().getIdentifier(videoPath, "drawable", info.getApplication().getPackageName());
-
-        Glide.with(info).load(id).into(holder.imgeOfExercise);
+        Glide.with(info).load(id).into(holder.imgExercise);
 
         holder.itemView.setOnClickListener(view -> {
             if (completeRounds > 0 || completeExercise > 0)
@@ -63,7 +62,7 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
 
     @Override
     public void onViewRecycled(@NonNull myHolder holder) {
-        holder.imgeOfExercise.setImageDrawable(null);
+        holder.imgExercise.setImageDrawable(null);
         super.onViewRecycled(holder);
     }
 
@@ -85,19 +84,15 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
     }
 
     class myHolder extends RecyclerView.ViewHolder {
-        ImageView imgeOfExercise;
-        TextView nameOfExercise;
-        TextView textColor;
-        TextView exerciseTime;
-        TextView restTime;
+        ImageView imgExercise;
+        TextView tvExerciseName;
+        TextView tvMin;
 
         myHolder(View itemView) {
             super(itemView);
-            imgeOfExercise = itemView.findViewById(R.id.exerciseInfo_Icon);
-            nameOfExercise = itemView.findViewById(R.id.exerciseInfo_ExerciseName);
-            textColor = itemView.findViewById(R.id.dayNameId);
-            exerciseTime = itemView.findViewById(R.id.edi_exerciseTime);
-            restTime = itemView.findViewById(R.id.edi_exerciseRestTime);
+            imgExercise = itemView.findViewById(R.id.exerciseInfo_Icon);
+            tvExerciseName = itemView.findViewById(R.id.tv_exerciseName);
+            tvMin = itemView.findViewById(R.id.tv_min);
         }
     }
 

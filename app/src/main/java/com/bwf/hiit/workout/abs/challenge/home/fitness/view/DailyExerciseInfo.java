@@ -35,24 +35,23 @@ public class DailyExerciseInfo extends AppCompatActivity {
     DailyExerciseAdapter mAdapter;
     List<Exercise> mEXList;
     int plan;
-    int planday;
-    int totalRounds = 0;
+    int planDay;
     int completeRounds = 0;
     int completeExercise = 0;
     int totaTimeSpend = 0;
     float kcal = 0;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.rv_dailyExercise)
+    @BindView(R.id.rv_scroll)
     RecyclerView rvDayExercise;
-    @BindView(R.id.tv_round)
-    TextView tvRound;
     @BindView(R.id.tv_exercise)
     TextView tvExercise;
     @BindView(R.id.tv_time)
     TextView tvTime;
     @BindView(R.id.tv_kcal)
     TextView tvKcal;
+    @BindView(R.id.tv_Title)
+    TextView tvTitle;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -69,9 +68,6 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
         context = this;
         mEXList = new ArrayList<>();
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         AdView adView = findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
@@ -82,13 +78,16 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
         Intent intent = getIntent();
         plan = intent.getIntExtra(getApplicationContext().getString(R.string.plan), 0);
-        planday = intent.getIntExtra(getApplicationContext().getString(R.string.day_selected), 0);
-
+        planDay = intent.getIntExtra(getApplicationContext().getString(R.string.day_selected), 0);
+        tvTitle.setText("Day " + planDay);
         rvDayExercise.setLayoutManager(new LinearLayoutManager(context));
         mAdapter = new DailyExerciseAdapter(this);
+        rvDayExercise.setNestedScrollingEnabled(false);
         rvDayExercise.setAdapter(mAdapter);
-        mAdapter.setDayPlan(planday, plan);
-
+        mAdapter.setDayPlan(planDay, plan);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         new getExerciseTask().execute();
     }
 
@@ -98,7 +97,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
         @Override
         protected final Void doInBackground(Void... params) {
 
-            List<ExerciseDay> mList = AppDataBase.getInstance().exerciseDayDao().getExerciseDays(plan, planday);
+            List<ExerciseDay> mList = AppDataBase.getInstance().exerciseDayDao().getExerciseDays(plan, planDay);
             completeExercise = mList.get(0).getExerciseComplete();
             completeRounds = mList.get(0).getRoundCompleted();
             for (ExerciseDay day : mList) {
@@ -113,7 +112,6 @@ public class DailyExerciseInfo extends AppCompatActivity {
             }
 
             totaTimeSpend = totaTimeSpend * mList.get(0).getRounds();
-            totalRounds = mList.get(0).getRounds();
 
             return null;
         }
@@ -123,11 +121,10 @@ public class DailyExerciseInfo extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             int totalExercisePerRound = mEXList.size();
-            tvRound.setText(String.valueOf(totalRounds) + "x");
-            tvExercise.setText(String.valueOf(totalExercisePerRound));
+            tvExercise.setText(String.valueOf(totalExercisePerRound) + " Exercise");
             int minutes = (totaTimeSpend % 3600) / 60;
-            tvTime.setText(String.valueOf(minutes));
-            tvKcal.setText(String.valueOf((int) kcal * totalRounds));
+            tvTime.setText(String.valueOf(minutes) + " Min");
+            tvKcal.setText(String.valueOf((int) kcal) + " Kcal");
             mAdapter.setList(mEXList);
             mAdapter.setData(completeRounds, completeExercise);
         }
@@ -136,7 +133,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
     @OnClick(R.id.startButton)
     public void onViewClicked() {
         if (completeRounds > 0 || completeExercise > 0)
-            Utils.setCheckBox(context, planday, plan);
-        else Utils.setScreen(context, planday, plan);
+            Utils.setCheckBox(context, planDay, plan);
+        else Utils.setScreen(context, planDay, plan);
     }
 }

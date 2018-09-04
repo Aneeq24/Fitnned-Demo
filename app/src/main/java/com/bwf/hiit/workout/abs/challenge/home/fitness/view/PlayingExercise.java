@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +32,8 @@ import java.util.List;
 
 public class PlayingExercise extends AppCompatActivity {
 
+    private String[] title = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
+
     public MyBilling mBilling;
     FragmentManager fragmentManager;
     AppDataBase dataBase;
@@ -56,7 +57,6 @@ public class PlayingExercise extends AppCompatActivity {
     public String nextExerciseImage;
     public List<ExerciseDay> mListExDays;
     public int currentEx = 0;
-    public int totalRounds = 0;
     public int currentRound = 0;
     public int totaTimeSpend = 0;
     public float totalKcal = 0;
@@ -107,7 +107,6 @@ public class PlayingExercise extends AppCompatActivity {
                 mListExDays.get(0).setRoundCompleted(mListExDays.get(0).getRoundCompleted());
 
                 totalExercisePerRound = mListExDays.size();
-                totalRounds = mListExDays.get(0).getRounds();
                 totalExercises = mListExDays.get(0).getTotalExercise();
                 int roundsCleared = mListExDays.get(0).getRoundCompleted();
                 totalExercisesPlayed = mListExDays.get(0).getExerciseComplete();
@@ -155,11 +154,10 @@ public class PlayingExercise extends AppCompatActivity {
                     completeFragment.setArguments(bundle);
                     fragmentManager.beginTransaction().add(R.id.fragment_container, completeFragment, null).commitAllowingStateLoss();
                     iscomplete = true;
-                } else
+                } else {
                     fragmentManager.beginTransaction().add(R.id.fragment_container, skipFragment, null).commitAllowingStateLoss();
-
-                int i = currentRound + 1;
-                TTSManager.getInstance(getApplication()).play("This is start of round" + i + "  next exercise is  " + displayName);
+                    TTSManager.getInstance(getApplication()).play("This is start of exercise exercise is  " + displayName);
+                }
             }
         }.execute();
     }
@@ -205,6 +203,7 @@ public class PlayingExercise extends AppCompatActivity {
     }
 
     public void onCompleteCheckingNext(boolean isNext) {
+        AnalyticsManager.getInstance().sendAnalytics("exercise_complete", "plan_" + title[currentPlan - 1] + "day_" + currentDay + "exercise_" + (currentEx + 1));
         mListExDays.get(currentEx).setStatus(true);
         totalExercises = mListExDays.size();
         if (!isNext) {
@@ -217,21 +216,6 @@ public class PlayingExercise extends AppCompatActivity {
             Log.i("1994:Current exercise", "current exercise less than total" + currentEx + "Total" + totalExercises);
             currentEx++;
         } else if (currentRound < mListExDays.get(0).getRounds()) {
-            new CountDownTimer(5000, 1000) {
-                @Override
-                public void onTick(long l) {
-
-                }
-
-                @Override
-                public void onFinish() {
-                    if (currentRound < totalRounds)
-                        TTSManager.getInstance(getApplication()).play("This is end of Round " + currentRound +
-                                "You have" + (mListExDays.get(0).getRounds() - currentRound) + "round remaining");
-                    AnalyticsManager.getInstance().sendAnalytics("round_complete", "round_complete_" + currentRound);
-                }
-            }.start();
-
             for (ExerciseDay exerciseDay : mListExDays) {
                 exerciseDay.setStatus(false);
             }
@@ -244,7 +228,6 @@ public class PlayingExercise extends AppCompatActivity {
             Log.i("1994:Current round", "Day not updated");
             mListExDays.get(0).setExerciseComplete(mListExDays.get(0).getExerciseComplete() + 1);
             mListExDays.get(0).setRoundCompleted(currentRound);
-            AnalyticsManager.getInstance().sendAnalytics("exercise_complete", "day_" + currentDay + "r_" + (currentRound + 1) + "exercise_" + currentEx);
         } else {
             Log.i("1994:currentDay", "Day Upgraded");
             LogHelper.logD("1994:Current Round", "" + currentRound + "Get Rounds" + (mListExDays.get(0).getRounds() - 1));
@@ -298,7 +281,7 @@ public class PlayingExercise extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AnalyticsManager.getInstance().sendAnalytics("Exercise Screen End", "Plan " + currentPlan + " Day " + currentDay + " Total Exercises " + totalExercises + " Total Exercises Done " + totalExercisesPlayed);
+        AnalyticsManager.getInstance().sendAnalytics("Exercise Screen End", "Plan_" + title[currentPlan - 1] + "Day_" + currentDay + "Total_Exercises_" + totalExercises + "Total_Exercises_Done_" + totalExercisesPlayed);
         resetStaticPauseValues();
     }
 

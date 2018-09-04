@@ -38,7 +38,6 @@ public class ExerciseFragment extends Fragment {
     PlayingExercise mActivity;
     CircleProgressBar progressTimer;
     TextView tvExName;
-    TextView tvRound;
     TextView tvExercise;
     ImageView btnPause;
     ImageView imgExercise;
@@ -62,7 +61,6 @@ public class ExerciseFragment extends Fragment {
 
         imgExercise = rootView.findViewById(R.id.animationImage);
         tvExercise = rootView.findViewById(R.id.ef_exerciseTextView);
-        tvRound = rootView.findViewById(R.id.ef_roundTextView);
         btnHelp = rootView.findViewById(R.id.btn_help);
         btnPause = rootView.findViewById(R.id.btn_pause);
         btnNext = rootView.findViewById(R.id.btn_next);
@@ -129,7 +127,6 @@ public class ExerciseFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void assignTopUi() {
-        tvRound.setText((mActivity.currentRound + 1) + " of " + mActivity.totalRounds);
         tvExercise.setText((mActivity.currentEx + 1) + " of " + mActivity.totalExercisePerRound);
     }
 

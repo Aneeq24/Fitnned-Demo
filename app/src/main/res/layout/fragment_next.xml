@@ -85,24 +85,11 @@
             android:src="@drawable/pause_screen_skip_icon" />
 
         <TextView
-            android:id="@+id/cf_roundText"
-            style="@style/Base.TextAppearance.AppCompat.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:text="Round 1/5 "
-            android:textColor="@android:color/background_light"
-            app:fontFamily="@font/roboto_bold" />
-
-        <TextView
             android:id="@+id/nf_exerciseText"
             style="@style/Base.TextAppearance.AppCompat.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:layout_marginTop="16dp"
@@ -117,15 +104,15 @@
         android:layout_height="0dp"
         android:layout_margin="5dp"
         android:layout_weight=".4"
-        android:background="@drawable/days_screen_days_normal_bar"
+        android:background="@drawable/ic_white_round_bar"
         android:paddingLeft="16sp"
         android:paddingStart="16sp">
 
         <LinearLayout
             android:layout_width="0dp"
-            android:orientation="vertical"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"

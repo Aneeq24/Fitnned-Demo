@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -37,8 +38,23 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.myHolder> {
     @Override
     public void onBindViewHolder(@NonNull myHolder holder, final int position) {
 
-        holder.tvTitle.setText(title[position]);
+        switch (position) {
+            case 0:
+                holder.imgStar1.setImageResource(R.drawable.main_screen_star_s);
+                break;
+            case 1:
+                holder.imgStar1.setImageResource(R.drawable.main_screen_star_s);
+                holder.imgStar2.setImageResource(R.drawable.main_screen_star_s);
+                break;
+            case 2:
+                holder.imgStar1.setImageResource(R.drawable.main_screen_star_s);
+                holder.imgStar2.setImageResource(R.drawable.main_screen_star_s);
+                holder.imgStar3.setImageResource(R.drawable.main_screen_star_s);
+                break;
+        }
 
+        holder.tvTitle.setText(title[position]);
+        holder.imgMain.setImageResource(image[position]);
         holder.progressBar.setMax(30);
         holder.progressBar.setProgress(progress.get(position));
         int i = 30 - progress.get(position);
@@ -58,13 +74,21 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.myHolder> {
         ProgressBar progressBar;
         TextView tvDayLeft;
         TextView tvPercentage;
+        ImageView imgStar1;
+        ImageView imgStar2;
+        ImageView imgStar3;
+        ImageView imgMain;
 
         myHolder(View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tileId);
             progressBar = itemView.findViewById(R.id.progressBar);
-            tvDayLeft = itemView.findViewById(R.id.home_textViewDaysleft);
-            tvPercentage = itemView.findViewById(R.id.home_textVewPercentage);
+            tvDayLeft = itemView.findViewById(R.id.tv_dayleft);
+            tvPercentage = itemView.findViewById(R.id.tv_percentage);
+            imgMain = itemView.findViewById(R.id.img_main);
+            imgStar1 = itemView.findViewById(R.id.star1);
+            imgStar2 = itemView.findViewById(R.id.star2);
+            imgStar3 = itemView.findViewById(R.id.star3);
         }
     }
 

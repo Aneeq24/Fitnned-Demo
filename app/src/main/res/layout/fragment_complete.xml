@@ -40,7 +40,7 @@
                     android:id="@+id/btn_add_reminder"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:background="@drawable/days_screen_days_normal_bar"
+                    android:background="@drawable/ic_white_round_bar"
                     android:layout_margin="8dp">
 
                     <TextView
@@ -74,7 +74,7 @@
                     android:layout_height="100dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:background="@drawable/days_screen_days_normal_bar">
+                    android:background="@drawable/ic_white_round_bar">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -167,7 +167,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/days_screen_days_normal_bar"
+                    android:background="@drawable/ic_white_round_bar"
                     android:clickable="true"
                     android:focusable="true">
 
@@ -209,7 +209,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/days_screen_days_normal_bar"
+                    android:background="@drawable/ic_white_round_bar"
                     android:orientation="vertical"
                     android:paddingBottom="20dp"
                     android:paddingLeft="5dp"

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayRecycleAdapter;
@@ -23,8 +24,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ScrollingActivity extends AppCompatActivity {
 
+    private String[] title = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
     int val = 0;
     int plan = 0;
     boolean paused;
@@ -32,6 +37,8 @@ public class ScrollingActivity extends AppCompatActivity {
     List<Float> mProgress;
     CircleProgressBar circleProgressBarLeft;
     CircleProgressBar circleProgressBarCompleted;
+    @BindView(R.id.tv_Title)
+    TextView tvTitle;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -43,6 +50,7 @@ public class ScrollingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling);
+        ButterKnife.bind(this);
 
         context = this;
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -57,6 +65,8 @@ public class ScrollingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(getString(R.string.plan)))
             plan = intent.getIntExtra(getString(R.string.plan), 0);
+
+        tvTitle.setText(title[plan - 1]);
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -111,7 +121,7 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        RecyclerView rvDayTasks = findViewById(R.id.dayTaskRecycleid);
+        RecyclerView rvDayTasks = findViewById(R.id.rv_scroll);
         rvDayTasks.setNestedScrollingEnabled(false);
         rvDayTasks.setLayoutManager(new LinearLayoutManager(context));
         DayRecycleAdapter dayRecycleAdapter = new DayRecycleAdapter(context, mProgress, plan);

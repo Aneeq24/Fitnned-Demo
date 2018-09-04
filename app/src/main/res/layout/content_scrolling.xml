@@ -4,13 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#00E9FB"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".view.ScrollingActivity"
     tools:showIn="@layout/activity_scrolling">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/dayTaskRecycleid"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="5dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="55dp" />
+    </LinearLayout>
+
 
 </android.support.v4.widget.NestedScrollView>

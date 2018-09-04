@@ -7,7 +7,7 @@
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:layout_marginTop="5dp"
-    android:background="@drawable/days_screen_days_normal_bar"
+    android:background="@drawable/ic_white_round_bar"
     android:orientation="vertical"
     android:paddingLeft="10dp"
     android:paddingRight="10dp">
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/home_textViewDaysleft"
+                android:id="@+id/tv_dayleft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="8sp"
@@ -43,15 +43,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:layout_marginStart="35dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:text=" Days Left"
                 android:textColor="#97DE14"
                 android:textSize="13sp"
                 app:fontFamily="@font/roboto_bold" />
 
             <TextView
-                android:id="@+id/home_textVewPercentage"
+                android:id="@+id/tv_percentage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -71,15 +71,13 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".5"
+            android:layout_weight=".7"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tileId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:alpha="0.7"
-                android:fontFamily="@font/roboto_regular"
                 android:text="BEGINNER"
                 android:textColor="#4C0488"
                 android:textSize="18sp"
@@ -91,19 +89,25 @@
                 android:layout_margin="2dp">
 
                 <ImageView
+                    android:id="@+id/star1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/main_screen_star_s" />
+                    android:layout_margin="2dp"
+                    android:src="@drawable/main_screen_star_n" />
 
                 <ImageView
+                    android:id="@+id/star2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/main_screen_star_s" />
+                    android:layout_margin="2dp"
+                    android:src="@drawable/main_screen_star_n" />
 
                 <ImageView
+                    android:id="@+id/star3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/main_screen_star_s" />
+                    android:layout_margin="2dp"
+                    android:src="@drawable/main_screen_star_n" />
             </LinearLayout>
 
             <ImageView
@@ -115,9 +119,11 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/img_main"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_weight="1"
+            android:contentDescription="@string/app_name"
             android:src="@drawable/main_screen_beginner_image" />
 
     </LinearLayout>

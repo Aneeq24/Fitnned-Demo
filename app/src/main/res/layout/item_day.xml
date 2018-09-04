@@ -17,12 +17,11 @@
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="20dp"
-        android:gravity="center"
         android:layout_height="20dp"
         android:layout_marginTop="5dp"
+        android:gravity="center"
         android:text="5"
         android:textColor="@color/item_day_text_color"
-        android:background="@drawable/bg_item_day"
         android:textSize="14sp" />
 
 </LinearLayout>

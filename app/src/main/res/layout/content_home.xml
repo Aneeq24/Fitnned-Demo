@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00E9FB"
+    android:paddingBottom="5dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".view.HomeActivity"
     tools:showIn="@layout/app_bar_home">
@@ -17,95 +18,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:background="@drawable/exercise_screen_classic_stage_bg"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="OVER All"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/main_screen_min_round_bg"
-                    android:gravity="center"
-                    android:text="15"
-                    android:textColor="@android:color/white"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="30sp"
-                    android:text="MIN"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true">
-
-                    <TextView
-                        android:id="@+id/tv_days"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="1 Days"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tv_mins"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="15 Min"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tv_kcal"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="150 Kcal"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
-
-            </RelativeLayout>
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/btn_more"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/ic_white_round_bar">
+                android:layout_height="120dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/ic_white_round_bar"
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:padding="7dp"
                     android:text="THIS WEEK"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
@@ -116,7 +44,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:padding="7dp"
                     android:text="MORE"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
@@ -125,10 +52,8 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_days"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="40dp" />
+                    android:layout_height="70dp"
+                    android:layout_marginTop="30dp" />
 
             </RelativeLayout>
 
@@ -149,15 +74,8 @@
                 ads:adSize="MEDIUM_RECTANGLE"
                 ads:adUnitId="@string/banner_rect_ad_unit" />
 
-
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
-    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

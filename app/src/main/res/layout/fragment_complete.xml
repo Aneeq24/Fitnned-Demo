@@ -1,280 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bgColor"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary">
 
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        style="@style/tab_text"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:navigationIcon="@drawable/ic_back"
-        app:title="@string/exercie_complete"
-        app:titleTextColor="#FFDF00" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/completed_screen_top_bg"
+            android:padding="16sp"
+            android:scaleType="fitXY">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/ic_back" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/completed_screen_workout_done_text" />
+
+            <ImageView
+                android:id="@+id/btn_again"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/completed_screen_do_it_again_icon" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/completed_screen_medel" />
+
+            <ImageView
+                android:id="@+id/btn_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/completed_screen_rate_us_icon" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/completed_screen_image" />
-
-                <RelativeLayout
-                    android:id="@+id/btn_add_reminder"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:background="@drawable/ic_white_round_bar"
-                    android:layout_margin="8dp">
-
-                    <TextView
-                        android:id="@+id/tv_reminder"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:drawableLeft="@drawable/completed_screen_reminder_icon"
-                        android:drawablePadding="15dp"
-                        android:drawableStart="@drawable/completed_screen_reminder_icon"
-                        app:fontFamily="@font/roboto_regular"
-                        android:gravity="center_vertical"
-                        android:padding="10dp"
-                        android:text="Reminder: 14:20"
-                        android:textSize="24sp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="10dp"
-                        android:src="@drawable/completed_screen_plus_icon" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/btn_edit_bmi"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:background="@drawable/ic_white_round_bar">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:drawableLeft="@drawable/completed_screen_bmi_icon"
-                        android:drawablePadding="15dp"
-                        android:drawableStart="@drawable/completed_screen_bmi_icon"
-                        app:fontFamily="@font/roboto_regular"
-                        android:gravity="center_vertical"
-                        android:padding="10dp"
-                        android:text="BMI"
-                        android:textSize="24sp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="10dp"
-                        android:src="@drawable/completed_screen_edit_icon" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="130dp"
-                        android:orientation="vertical"
-                        android:layout_marginStart="130dp">
-
-                        <TextView
-                            android:id="@+id/tv_bmi"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:textStyle="bold" />
-
-                        <ImageView
-                            android:id="@+id/img_bmi"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/completed_screen_bmi_color_bar" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="end"
-                                android:text="19"
-                                android:textSize="10sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="end"
-                                android:text="25"
-                                android:textSize="10sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="end"
-                                android:text="30"
-                                android:textSize="10sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="end"
-                                android:textSize="10sp" />
-
-                        </LinearLayout>
-                    </LinearLayout>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/btn_more"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/ic_white_round_bar"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:fontFamily="@font/roboto_regular"
-                        android:gravity="center_vertical"
-                        android:padding="5dp"
-                        android:text="History"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        app:fontFamily="@font/roboto_regular"
-                        android:gravity="center_vertical"
-                        android:padding="10dp"
-                        android:text="MORE"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="12sp" />
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_days"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="30dp" />
-
-
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/ic_white_round_bar"
-                    android:orientation="vertical"
-                    android:paddingBottom="20dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="5dp">
-
-                    <com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.RelativeRadioGroup
-                        android:id="@+id/rg_graph"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="5dp">
-
-                        <RadioButton
-                            android:id="@+id/rb_lb_graph"
-                            style="@style/radio_tab"
-                            android:background="@drawable/bg_weight_tab"
-                            android:checked="true"
-                            android:text="Kcal" />
-
-                        <RadioButton
-                            android:id="@+id/rb_kg_graph"
-                            style="@style/radio_tab"
-                            android:layout_marginLeft="75dp"
-                            android:layout_marginStart="75dp"
-                            android:background="@drawable/bg_kcal_tab"
-                            android:text="Weight" />
-
-                        <ImageView
-                            android:id="@+id/btn_add_weight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_margin="10dp"
-                            android:src="@drawable/completed_screen_edit_icon"
-                            android:visibility="gone" />
-
-                    </com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.RelativeRadioGroup>
-
-
-                    <com.github.mikephil.charting.charts.LineChart
-                        android:id="@+id/graph"
-                        android:layout_width="match_parent"
-                        android:layout_height="350dp"
-                        android:layout_marginTop="10dp"
-                        android:padding="5dp" />
-
-                    <TextView
-                        android:id="@+id/tv_mon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        app:fontFamily="@font/roboto_regular"
-                        android:text="Mon"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/completed_screen_image_text_bar"
-                android:gravity="center"
+                android:layout_alignParentBottom="true"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -288,7 +74,8 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="15"
-                        android:textColor="@android:color/background_light" />
+                        android:textColor="@android:color/background_light"
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/tv_kcal"
@@ -297,7 +84,8 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="200"
-                        android:textColor="@android:color/background_light" />
+                        android:textColor="@android:color/background_light"
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/cf_totalTime"
@@ -306,7 +94,8 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="00"
-                        android:textColor="@android:color/background_light" />
+                        android:textColor="@android:color/background_light"
+                        android:textSize="20sp" />
 
                 </LinearLayout>
 
@@ -340,20 +129,182 @@
 
                 </LinearLayout>
 
-
             </LinearLayout>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="85dp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/completed_screen_trophi_icon" />
 
         </RelativeLayout>
 
-    </ScrollView>
+        <TextView
+            android:id="@+id/tv_reminder"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/ic_white_round_bar"
+            android:drawableEnd="@drawable/completed_screen_plus_icon"
+            android:drawableLeft="@drawable/completed_screen_reminder_icon"
+            android:drawablePadding="15dp"
+            android:drawableRight="@drawable/completed_screen_plus_icon"
+            android:drawableStart="@drawable/completed_screen_reminder_icon"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="Reminder: 14:20"
+            android:textSize="24sp"
+            app:fontFamily="@font/roboto_regular" />
 
-</LinearLayout>
+        <RelativeLayout
+            android:id="@+id/btn_edit_bmi"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/ic_white_round_bar">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/completed_screen_edit_icon"
+                android:drawableLeft="@drawable/completed_screen_bmi_icon"
+                android:drawablePadding="15dp"
+                android:drawableRight="@drawable/completed_screen_edit_icon"
+                android:drawableStart="@drawable/completed_screen_bmi_icon"
+                android:padding="10dp"
+                android:text="BMI"
+                app:fontFamily="@font/roboto_regular" />
+
+            <TextView
+                android:id="@+id/tv_bmi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/img_bmi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/completed_screen_bmi_color_bar" />
+
+        </RelativeLayout>
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/baner_Admob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:background="@drawable/ic_white_round_bar"
+            android:padding="5dp"
+            android:visibility="gone"
+            ads:adSize="MEDIUM_RECTANGLE"
+            ads:adUnitId="@string/banner_rect_ad_unit" />
+
+        <RelativeLayout
+            android:id="@+id/btn_more"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/ic_white_round_bar"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="THIS WEEK"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="MORE"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_days"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="30dp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/ic_white_round_bar"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="KCAL"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/graph_kcal"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="10dp"
+                android:padding="5dp" />
+
+            <TextView
+                android:id="@+id/tv_mon_kcal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/ic_white_round_bar"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="WEIGHT"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/graph_weight"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="10dp"
+                android:padding="5dp" />
+
+            <TextView
+                android:id="@+id/tv_mon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

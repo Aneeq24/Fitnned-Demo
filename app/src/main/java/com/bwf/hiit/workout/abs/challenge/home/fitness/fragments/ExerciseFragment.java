@@ -25,19 +25,20 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.dinuscxj.progressbar.CircleProgressBar;
 
-import java.util.Objects;
-
 
 public class ExerciseFragment extends Fragment {
 
     int value = 0;
+    int timer = 0;
     int soundValue;
     int reamingTime;
     Context context;
     CountDownTimer countDownTimer;
+    CountDownTimer totaltimer;
     PlayingExercise mActivity;
     CircleProgressBar progressTimer;
     TextView tvExName;
+    TextView tvTimer;
     TextView tvExercise;
     ImageView btnPause;
     ImageView imgExercise;
@@ -70,6 +71,7 @@ public class ExerciseFragment extends Fragment {
         progressTimer = rootView.findViewById(R.id.prog_timer);
         btnNoAds = rootView.findViewById(R.id.fab_no_ads);
         btnRateUs = rootView.findViewById(R.id.fab_rate_us);
+        tvTimer = rootView.findViewById(R.id.tv_timer);
 
         progressTimer.setProgressFormatter((progress, max) -> progress + "\"");
         progressTimer.setOnClickListener(view -> pause());
@@ -82,6 +84,7 @@ public class ExerciseFragment extends Fragment {
         btnNext.setOnClickListener(view -> onExerciseComplete(true));
 
         findRefrence();
+        startTimer(mActivity.timer);
         return rootView;
     }
 
@@ -137,32 +140,50 @@ public class ExerciseFragment extends Fragment {
             public void onTick(long millisUntilFinished) {
 
                 reamingTime = (int) (millisUntilFinished / 1000);
-                int id = getResources().getIdentifier("clock", "raw", Objects.requireNonNull(getContext()).getPackageName());
+                int id = context.getResources().getIdentifier("clock", "raw", context.getPackageName());
 
                 if (reamingTime > 3) {
                     Utils.playAudio(getContext(), id);
                 } else {
                     TTSManager.getInstance(mActivity.getApplication()).play("" + reamingTime);
                 }
-
                 progressTimer.setProgress(reamingTime);
             }
 
             @SuppressLint("SetTextI18n")
             public void onFinish() {
-                int id = getResources().getIdentifier("ding", "raw", Objects.requireNonNull(getContext()).getPackageName());
+                int id = context.getResources().getIdentifier("ding", "raw", context.getPackageName());
                 Utils.playAudio(getContext(), id);
                 onExerciseComplete(true);
             }
         }.start();
+    }
 
+    private void startTimer(int totalSkipTime) {
+        totalSkipTime *= 1000;
+        totaltimer = new CountDownTimer(totalSkipTime, 1000) {
+
+            @SuppressLint("SetTextI18n")
+            public void onTick(long millisUntilFinished) {
+                timer = (int) (millisUntilFinished / 1000);
+                int seconds = (int) (millisUntilFinished / 1000) % 60;
+                int minutes = (int) ((millisUntilFinished / (1000 * 60)) % 60);
+                @SuppressLint("DefaultLocale") String timeString = String.format("%02d:%02d", minutes, seconds);
+                tvTimer.setText(timeString);
+            }
+
+            public void onFinish() {
+
+            }
+        }.start();
     }
 
     private void onExerciseComplete(boolean isNext) {
-        mActivity.NextFragment(isNext);
+        mActivity.NextFragment(isNext,timer);
     }
 
     public void pause() {
+        mActivity.progressBar.pause();
         countDownTimer.cancel();
         mActivity.PauseFragment(reamingTime);
         reamingTime = 0;
@@ -188,12 +209,13 @@ public class ExerciseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         countDownTimer.cancel();
+        totaltimer.cancel();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        countDownTimer.cancel();
+        totaltimer.cancel();
     }
 
 

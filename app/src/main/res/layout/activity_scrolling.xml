@@ -17,16 +17,22 @@
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/days_screen_top_image"
+            android:background="@drawable/exercise_screen_classic_stage_bg"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:src="@drawable/days_screen_top_image_ex" />
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="60dp"
                 android:layout_gravity="bottom"
-                android:background="@android:color/white"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -41,7 +47,7 @@
                     app:progress_end_color="@color/colorPrimary"
                     app:progress_start_color="@color/colorPrimary"
                     app:progress_stroke_width="4dp"
-                    app:progress_text_color="@color/colorPrimary"
+                    app:progress_text_color="@color/white"
                     app:progress_text_size="12dp"
                     app:style="solid_line" />
 
@@ -51,9 +57,8 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:alpha="0.5"
                     android:text="DAYS LEFT"
-                    android:textColor="@android:color/background_dark"
+                    android:textColor="@android:color/white"
                     android:textSize="18sp"
                     app:fontFamily="@font/roboto_bold" />
 
@@ -68,7 +73,7 @@
                     app:progress_end_color="@color/colorPrimary"
                     app:progress_start_color="@color/colorPrimary"
                     app:progress_stroke_width="4dp"
-                    app:progress_text_color="@color/colorPrimary"
+                    app:progress_text_color="@color/white"
                     app:progress_text_size="12dp"
                     app:style="solid_line" />
 
@@ -78,9 +83,8 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:alpha="0.5"
                     android:text="FINISHED"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     app:fontFamily="@font/roboto_bold" />
 
@@ -97,7 +101,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
             </android.support.v7.widget.Toolbar>
 

@@ -61,7 +61,8 @@ dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
     implementation 'com.google.android.gms:play-services-ads:15.0.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.github.carlosmuvi:SegmentedProgressBar:0.6.0'
     implementation 'com.facebook.android:audience-network-sdk:4.99.3'
     implementation 'com.google.android.ads.consent:consent-library:1.0.6'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }

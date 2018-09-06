@@ -17,13 +17,10 @@ import java.util.Date;
 
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.myHolder> {
 
-    private String[] tilte;
-    private int[] date;
+    private String[] days;
 
-
-    public DayAdapter(String[] tilte, int[] date) {
-        this.tilte = tilte;
-        this.date = date;
+    public DayAdapter(String[] days) {
+        this.days = days;
     }
 
     @NonNull
@@ -36,41 +33,38 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.myHolder> {
     @Override
     public void onBindViewHolder(@NonNull myHolder holder, final int position) {
 
-        holder.tvTitle.setText(tilte[position]);
-        holder.tvDate.setText(String.valueOf(date[position]));
-
-        if (date[position] == getCurrentDate()) {
-            holder.tvDate.setBackgroundResource(R.drawable.bg_item_day);
+        holder.tvDay.setText(days[position]);
+        String temp = getCurrentDate();
+        if (days[position].equals(temp)) {
+            holder.itemView.setBackgroundResource(R.drawable.bg_item_day_round_fill);
+            holder.tvDay.setTextColor(Color.WHITE);
             holder.tvDate.setTextColor(Color.WHITE);
-            holder.tvDate.setHeight(30);
-            holder.tvDate.setWidth(30);
-            holder.tvTitle.setTextColor(Color.parseColor("#08f514"));
         }
     }
 
     @Override
     public int getItemCount() {
-        if (tilte != null)
-            return tilte.length;
+        if (days != null)
+            return days.length;
         else return 0;
     }
 
     class myHolder extends RecyclerView.ViewHolder {
 
-        TextView tvTitle;
         TextView tvDate;
+        TextView tvDay;
 
         myHolder(View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.tv_title);
             tvDate = itemView.findViewById(R.id.tv_date);
+            tvDay = itemView.findViewById(R.id.tv_day);
         }
     }
 
-    private int getCurrentDate() {
-        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd");
+    private String getCurrentDate() {
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("EEE");
         Date date = new Date();
-        return Integer.parseInt(dateFormat.format(date));
+        return dateFormat.format(date);
     }
 
 }

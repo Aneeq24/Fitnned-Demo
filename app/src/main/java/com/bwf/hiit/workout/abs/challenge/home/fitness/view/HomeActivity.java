@@ -1,6 +1,7 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +22,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -34,6 +37,8 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.inapp.MyBilling;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.UserViewModel;
 import com.google.ads.consent.ConsentForm;
 import com.google.ads.consent.ConsentFormListener;
 import com.google.ads.consent.ConsentInfoUpdateListener;
@@ -46,13 +51,19 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    String[] titles = {"S", "M", "T", "W", "T", "F", "S", "S", "M", "T", "W", "T", "F", "S"};
-    int[] date = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
+    String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
     MyBilling mBilling;
     List<Integer> progress;
     Context context;
+    @BindView(R.id.rl_normal)
+    RelativeLayout rlNormal;
+    @BindView(R.id.rl_welcome)
+    LinearLayout rlWelcome;
     private ConsentForm form;
     private boolean isAppInBackground = false;
     private boolean paused;
@@ -66,12 +77,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     TextView privacyPolicy;
     TextView noAds;
     TextView tvVersionName;
+    TextView tvExerciseNo;
+    TextView tvTotalMin;
+    TextView tvTotalTime;
+    TextView tvKcal;
+    RelativeLayout btnMore;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        ButterKnife.bind(this);
         context = this;
         paused = false;
 
@@ -92,6 +109,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         noAds = findViewById(R.id.no_ads);
         tvVersionName = findViewById(R.id.txt_version);
         tvVersionName.setText("V" + BuildConfig.VERSION_NAME);
+        tvExerciseNo = findViewById(R.id.tv_exercise);
+        tvTotalMin = findViewById(R.id.tv_time);
+        tvTotalTime = findViewById(R.id.tv_mins);
+        tvKcal = findViewById(R.id.tv_kcal);
+        btnMore = findViewById(R.id.btn_more);
 
         noAds.setOnClickListener(this);
         workOut.setOnClickListener(this);
@@ -122,7 +144,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         setDaysData();
 
-        AHBottomNavigation bottomNavigation =  findViewById(R.id.bottom_navigation);
+        AHBottomNavigation bottomNavigation = findViewById(R.id.bottom_navigation);
         AHBottomNavigationItem item1 = new AHBottomNavigationItem("WORKOUT", R.drawable.main_screen_nav_bar_workout_icon_n, R.color.colorPrimary);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem("REPORT", R.drawable.main_screen_nav_bar_report_icon_n, R.color.colorAccent);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem("REMOVE ADS", R.drawable.main_screen_nav_bar_exercise_icon_n, R.color.colorAccent);
@@ -130,18 +152,46 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
-        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE);
         bottomNavigation.setAccentColor(Color.parseColor("#00BFF3"));
-        bottomNavigation.setTranslucentNavigationEnabled(true);
+        bottomNavigation.setBehaviorTranslationEnabled(false);
+        bottomNavigation.setOnTabSelectedListener((position, wasSelected) -> {
+            if (position == 1)
+                onRecordClicked();
+            else if (position == 2)
+                mBilling.purchaseRemoveAds();
+            return true;
+        });
 
+        btnMore.setOnClickListener(view12 -> startActivity(new Intent(context, CalenderActivity.class)));
+
+        UserViewModel mUserViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        mUserViewModel.getUser().observe(this, user -> {
+            if (user != null) {
+                initApp(user);
+            }
+        });
     }
 
     private void setDaysData() {
         RecyclerView rvHistory = findViewById(R.id.rv_days);
-        DayAdapter mAdapter = new DayAdapter(titles, date);
-        rvHistory.setItemViewCacheSize(7);
+        DayAdapter mAdapter = new DayAdapter(days);
         rvHistory.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         rvHistory.setAdapter(mAdapter);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void initApp(User user) {
+        if (user.getTotalExcercise() > 0) {
+            rlNormal.setVisibility(View.VISIBLE);
+            rlWelcome.setVisibility(View.GONE);
+            tvExerciseNo.setText(String.valueOf(user.getTotalExcercise()) + " Exercise");
+            tvKcal.setText(String.valueOf(user.getTotalKcal()) + " Kcal");
+            tvTotalMin.setText(String.valueOf(user.getTotalTime()));
+            tvTotalTime.setText(String.valueOf(user.getTotalTime()) + " Mins");
+        } else {
+            rlWelcome.setVisibility(View.VISIBLE);
+            rlNormal.setVisibility(View.GONE);
+        }
     }
 
     private void initApp() {
@@ -279,7 +329,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private void onRecordClicked() {
         startActivity(new Intent(context, RecordActivity.class));
-        onBackPressed();
     }
 
     private void onReminderClicked() {
@@ -319,6 +368,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         switch (view.getId()) {
             case R.id.workout_record:
                 onRecordClicked();
+                onBackPressed();
                 break;
             case R.id.reminder:
                 onReminderClicked();
@@ -353,12 +403,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             progress = new ArrayList<>();
             for (int plan = 1; plan < 4; plan++) {
                 int val = 0;
-                for (int i = 0; i < 30; i++) {
-                    int totalComplete = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getExerciseComplete();
-                    int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getTotalExercise();
-                    float v = (float) totalComplete / (float) totalExercises;
-                    if (v >= 1) {
-                        val++;
+                for (int i = 1; i <= 30; i++) {
+                    if (dataBase.exerciseDayDao().getExerciseDays(plan, i).size() > 0) {
+                        int totalComplete = dataBase.exerciseDayDao().getExerciseDays(plan, i).get(0).getExerciseComplete();
+                        int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan, i).get(0).getTotalExercise();
+                        float v = (float) totalComplete / (float) totalExercises;
+                        if (v >= 1) {
+                            val++;
+                        }
                     }
                 }
                 progress.add(val);

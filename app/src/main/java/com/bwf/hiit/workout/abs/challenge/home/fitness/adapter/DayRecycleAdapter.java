@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.DailyExerciseInfo;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.dinuscxj.progressbar.CircleProgressBar;
 
 import java.util.List;
@@ -39,20 +40,25 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.my
 
     @Override
     public void onBindViewHolder(@NonNull final myHolder holder, final int position) {
-        String nameOfApp = dayName[position];
+        holder.tvDayName.setText(dayName[position]);
         float progress = 0;
         if (mProgress.size() > position)
             progress = mProgress.get(position);
-        if (progress == 1) {
-            holder.tvDayName.setTextColor(Color.WHITE);
+        if (progress > 1) {
             holder.mProgressBar.setVisibility(View.GONE);
             holder.imgDone.setVisibility(View.VISIBLE);
-            holder.itemView.setBackgroundResource(R.drawable.ic_yellow_round_bar);
+            holder.imgDone.setImageResource(R.drawable.days_screen_rest_icon);
+            holder.itemView.setOnClickListener(view -> goToRestActivity(view.getContext(), position));
+        } else {
+            if (progress == 1) {
+                holder.tvDayName.setTextColor(Color.WHITE);
+                holder.mProgressBar.setVisibility(View.GONE);
+                holder.imgDone.setVisibility(View.VISIBLE);
+                holder.itemView.setBackgroundResource(R.drawable.ic_yellow_round_bar);
+            }
+            holder.itemView.setOnClickListener(view -> goToNewActivity(view.getContext(), position));
+            holder.mProgressBar.setProgress((int) (progress * 100));
         }
-
-        holder.tvDayName.setText(nameOfApp);
-        holder.mProgressBar.setProgress((int) (progress * 100));
-        holder.itemView.setOnClickListener(view -> goToNewActivity(view.getContext(), position));
     }
 
     @Override
@@ -79,6 +85,14 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.my
 
     private void goToNewActivity(Context context, int position) {
         Intent i = new Intent(context, DailyExerciseInfo.class);
+        i.putExtra(context.getString(R.string.day_selected), position + 1);
+        i.putExtra(context.getString(R.string.plan), currentPlan);
+        AnalyticsManager.getInstance().sendAnalytics("day  " + (position + 1) + "of_plan:" + titles[currentPlan - 1], "day_selected_" + (position + 1));
+        context.startActivity(i);
+    }
+
+    private void goToRestActivity(Context context, int position) {
+        Intent i = new Intent(context, PlayingExercise.class);
         i.putExtra(context.getString(R.string.day_selected), position + 1);
         i.putExtra(context.getString(R.string.plan), currentPlan);
         AnalyticsManager.getInstance().sendAnalytics("day  " + (position + 1) + "of_plan:" + titles[currentPlan - 1], "day_selected_" + (position + 1));

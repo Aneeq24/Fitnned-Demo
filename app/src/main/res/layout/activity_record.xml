@@ -1,260 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgColor"
-    tools:context=".view.RecordActivity">
+    tools:context=".view.ReminderSetActivity">
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:theme="@style/AppTheme.NoActionBar.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar10"
-            style="@style/tab_text"
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            app:navigationIcon="@drawable/ic_back"
-            app:title="Record"
-            app:titleTextColor="#ffff" />
+            android:layout_height="250dp"
+            android:background="@drawable/exercise_screen_classic_stage_bg"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/ic_white_round_bar">
-
-            <TextView
-                android:id="@+id/cf_exerciseNo"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="15 \n Exercise" />
-
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="200 \n KCAL" />
-
-            <TextView
-                android:id="@+id/cf_totalTime"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="00 \n Mins" />
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/btn_edit_bmi"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:background="@drawable/ic_white_round_bar"
-            android:layout_marginTop="8dp">
-
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/completed_screen_bmi_icon"
-                android:drawablePadding="15dp"
-                android:layout_centerVertical="true"
-                android:drawableStart="@drawable/completed_screen_bmi_icon"
-                android:gravity="center_vertical"
-                android:padding="10dp"
-                android:text="BMI"
-                android:textSize="24sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="10dp"
-                android:src="@drawable/completed_screen_edit_icon" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="130dp"
-                android:layout_marginStart="130dp"
-                android:orientation="vertical">
+                android:layout_height="200dp"
+                android:layout_marginTop="40dp"
+                android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/tv_bmi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/img_bmi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/completed_screen_bmi_color_bar" />
+                    android:layout_marginTop="10dp"
+                    android:text="OVER All"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/main_screen_min_round_bg"
+                    android:gravity="center"
+                    android:text="15"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="40sp"
+                    android:text="MIN"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_alignParentBottom="true">
 
                     <TextView
+                        android:id="@+id/tv_exercise"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="end"
-                        android:text="19"
-                        android:textSize="10sp" />
+                        android:gravity="center"
+                        android:text="1 Days"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/tv_mins"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="end"
-                        android:text="25"
-                        android:textSize="10sp" />
+                        android:gravity="center"
+                        android:text="15 Min"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/tv_kcal"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="end"
-                        android:text="30"
-                        android:textSize="10sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:textSize="10sp" />
+                        android:gravity="center"
+                        android:text="150 Kcal"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </RelativeLayout>
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/btn_more"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/ic_white_round_bar"
-            android:clickable="true">
-
-            <TextView
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_regular"
-                android:gravity="center_vertical"
-                android:padding="5dp"
-                android:text="History"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:fontFamily="@font/roboto_regular"
-                android:gravity="center_vertical"
-                android:padding="10dp"
-                android:text="MORE"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="12sp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_days"
-                android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="30dp" />
+                app:layout_collapseMode="pin">
 
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/ic_white_round_bar"
-            android:orientation="vertical"
-            android:paddingBottom="20dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="5dp">
-
-            <com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.RelativeRadioGroup
-                android:id="@+id/rg_graph"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="5dp">
-
-                <RadioButton
-                    android:id="@+id/rb_lb_graph"
-                    style="@style/radio_tab"
-                    android:background="@drawable/bg_weight_tab"
-                    android:checked="true"
-                    android:text="Kcal" />
-
-                <RadioButton
-                    android:id="@+id/rb_kg_graph"
-                    style="@style/radio_tab"
-                    android:layout_marginLeft="75dp"
-                    android:layout_marginStart="75dp"
-                    android:background="@drawable/bg_kcal_tab"
-                    android:text="Weight" />
-
-                <ImageView
-                    android:id="@+id/btn_add_weight"
+                <TextView
+                    android:id="@+id/tv_Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/completed_screen_edit_icon"
-                    android:visibility="gone" />
+                    android:text="REPORT"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-            </com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.RelativeRadioGroup>
+            </android.support.v7.widget.Toolbar>
 
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/graph"
-                android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:layout_marginTop="10dp"
-                android:padding="5dp" />
+    <include layout="@layout/content_record" />
 
-            <TextView
-                android:id="@+id/tv_mon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/roboto_regular"
-                android:text="Mon"
-                android:textSize="12sp" />
-        </LinearLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    </LinearLayout>
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/baner_Admob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_ad_unit"
+            ads:layout_constraintBottom_toBottomOf="parent"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintStart_toStartOf="parent" />
 
-</ScrollView>
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.design.widget.CoordinatorLayout>

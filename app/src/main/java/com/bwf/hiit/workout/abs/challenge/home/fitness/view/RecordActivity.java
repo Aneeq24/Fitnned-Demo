@@ -15,7 +15,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -24,19 +23,23 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayAdapter;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.RelativeRadioGroup;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.RecordViewModel;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.UserViewModel;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
 
@@ -45,25 +48,26 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.ButterKnife;
 
 public class RecordActivity extends AppCompatActivity {
 
-    String[] titles = {"S", "M", "T", "W", "T", "F", "S", "S", "M", "T", "W", "T", "F", "S"};
-    int[] date = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
+    String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
     Toolbar toolbar;
     Context context;
-    LineChart graph;
+    LineChart graphWeight;
+    BarChart graphKcal;
     TextView tvExerciseNo;
+    TextView tvTotalMin;
     TextView tvTotalTime;
     TextView tvKcal;
     TextView tvMon;
-    ImageView btnAddWeight;
+    TextView tvMonKcal;
     TextView tvBmi;
     RelativeLayout btnEditBmi;
     RelativeLayout btnMore;
-    RelativeRadioGroup rgGraph;
     RecordViewModel mRecordViewModel;
     UserViewModel mUserViewModel;
     User user;
@@ -74,20 +78,24 @@ public class RecordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_record);
         ButterKnife.bind(this);
         context = this;
-
         AdsManager.getInstance().showFacebookInterstitialAd();
 
-        toolbar = findViewById(R.id.toolbar10);
-        graph = findViewById(R.id.graph);
-        tvExerciseNo = findViewById(R.id.cf_exerciseNo);
-        tvTotalTime = findViewById(R.id.cf_totalTime);
-        tvKcal = findViewById(R.id.textView17);
-        tvBmi = findViewById(R.id.tv_bmi);
-        btnEditBmi = findViewById(R.id.btn_edit_bmi);
-        btnMore = findViewById(R.id.btn_more);
-        rgGraph = findViewById(R.id.rg_graph);
         tvMon = findViewById(R.id.tv_mon);
-        btnAddWeight = findViewById(R.id.btn_add_weight);
+        tvBmi = findViewById(R.id.tv_bmi);
+        tvKcal = findViewById(R.id.tv_kcal);
+        toolbar = findViewById(R.id.toolbar);
+        btnMore = findViewById(R.id.btn_more);
+        tvTotalMin = findViewById(R.id.tv_time);
+        tvTotalTime = findViewById(R.id.tv_mins);
+        graphKcal = findViewById(R.id.graph_kcal);
+        tvMonKcal = findViewById(R.id.tv_mon_kcal);
+        btnEditBmi = findViewById(R.id.btn_edit_bmi);
+        tvExerciseNo = findViewById(R.id.tv_exercise);
+        graphWeight = findViewById(R.id.graph_weight);
+
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mUserViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         mRecordViewModel = ViewModelProviders.of(this).get(RecordViewModel.class);
@@ -96,21 +104,7 @@ public class RecordActivity extends AppCompatActivity {
 
         toolbar.setNavigationOnClickListener(view1 -> finish());
         btnEditBmi.setOnClickListener(view12 -> showDialog());
-        btnAddWeight.setOnClickListener(view12 -> showDialog());
         btnMore.setOnClickListener(view12 -> startActivity(new Intent(context, CalenderActivity.class)));
-
-        rgGraph.setOnCheckedChangeListener((radioGroup, i) -> {
-            if (i == R.id.rb_lb_graph) {
-                btnAddWeight.setVisibility(View.GONE);
-                initApp(user);
-                setKcalYAxis();
-            } else if (i == R.id.rb_kg_graph) {
-                setWeight();
-                setWeightYAxis();
-                btnAddWeight.setVisibility(View.VISIBLE);
-                graph.invalidate();
-            }
-        });
 
         mUserViewModel.getUser().observe(this, user -> {
             if (user != null) {
@@ -233,132 +227,59 @@ public class RecordActivity extends AppCompatActivity {
 
     private void setDaysData() {
         RecyclerView rvHistory = findViewById(R.id.rv_days);
-        DayAdapter mAdapter = new DayAdapter(titles, date);
+        DayAdapter mAdapter = new DayAdapter(days);
         rvHistory.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         rvHistory.setAdapter(mAdapter);
-
         @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("MMM");
         Date date = new Date();
         tvMon.setText(dateFormat.format(date));
+        tvMonKcal.setText(dateFormat.format(date));
     }
 
     @SuppressLint("SetTextI18n")
     private void initApp(User user) {
         tvBmi.setText(String.valueOf(user.getBmi()) + bmiCategory(user.getBmi()));
-        tvExerciseNo.setText(String.valueOf(user.getTotalExcercise()) + "\nExercise");
-        tvKcal.setText(String.valueOf(user.getTotalKcal()) + "\nKcal");
-        tvTotalTime.setText(String.valueOf(user.getTotalTime()) + "\nMins");
+        tvExerciseNo.setText(String.valueOf(user.getTotalExcercise()) + " Exercise");
+        tvKcal.setText(String.valueOf(user.getTotalKcal()) + " Kcal");
+        tvTotalMin.setText(String.valueOf(user.getTotalTime()));
+        tvTotalTime.setText(String.valueOf(user.getTotalTime()) + " Mins");
+        setupWeightChart();
         mRecordViewModel.getAllRecords().observe(this, records -> {
             if (records != null) {
-                setupChart(records);
+                setupKcalChart(records);
             }
         });
     }
 
-    private void setupChart(List<Record> recordList) {
-        graph.setDrawGridBackground(false);
+    private void setupWeightChart() {
+        graphWeight.setDrawGridBackground(false);
         // no description text
-        graph.getDescription().setEnabled(false);
+        graphWeight.getDescription().setEnabled(false);
         // enable touch gestures
-        graph.setTouchEnabled(false);
+        graphWeight.setTouchEnabled(false);
         // enable scaling and dragging
-        graph.setDragEnabled(false);
-        graph.setScaleEnabled(false);
+        graphWeight.setDragEnabled(false);
+        graphWeight.setScaleEnabled(false);
         // if disabled, scaling can be done on x- and y-axis separately
-        graph.setPinchZoom(false);
+        graphWeight.setPinchZoom(false);
         // create a custom MarkerView (extend MarkerView) and specify the layout
         // to use for it
-        setKcalYAxis();
 //        MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
-//        mv.setChartView(graph); // For bounds control
-//        graph.setMarker(mv); // Set the marker to the chart
-        XAxis xAxis = graph.getXAxis();
+//        mv.setChartView(graphWeight); // For bounds control
+//        graphWeight.setMarker(mv); // Set the marker to the chart
+        XAxis xAxis = graphWeight.getXAxis();
         xAxis.setAxisMinimum(1);
         xAxis.setAxisMaximum(31);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGridColor(Color.TRANSPARENT);
-        graph.getAxisRight().setEnabled(false);
+        graphWeight.getAxisRight().setEnabled(false);
         // add data
-        setData(recordList);
-        graph.animateX(500);
-        // // dont forget to refresh the drawing
-        graph.invalidate();
-    }
-
-    private void setKcalYAxis() {
-        YAxis leftAxis = graph.getAxisLeft();
-        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
-        leftAxis.setAxisMinimum(0f);
-    }
-
-    private void setWeightYAxis() {
-        YAxis leftAxis = graph.getAxisLeft();
+        ArrayList<Entry> values = new ArrayList<>();
+        values.add(new Entry(getCurrentDay(), user.getWeight()));
+        YAxis leftAxis = graphWeight.getAxisLeft();
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
         leftAxis.setAxisMaximum(user.getWeight() + 50f);
         leftAxis.setAxisMinimum(user.getWeight() - 50f);
-    }
-
-    private void setData(List<Record> recordList) {
-
-        ArrayList<Entry> values = new ArrayList<>();
-        List<Record> mList = new ArrayList<>();
-        if (recordList.size() == 0)
-            values.add(new Entry(1, 1));
-        else {
-            for (int i = 0; i < recordList.size(); i++) {
-                if (getCurrentDay() == Integer.parseInt(recordList.get(i).getDay()))
-                    mList.add(recordList.get(i));
-                else
-                    values.add(new Entry(Integer.parseInt(recordList.get(i).getDay()), recordList.get(i).getKcal()));
-            }
-            float sum = 0;
-            for (int i = 0; i < mList.size(); i++) {
-                sum = sum + mList.get(i).getKcal();
-            }
-            values.add(new Entry(getCurrentDay(), sum));
-        }
-
-        LineDataSet set;
-        // create a dataset and give it a type
-        set = new LineDataSet(values, "kcal");
-        set.setDrawIcons(false);
-        // set the line to be drawn like this "- - - - - -"
-        set.enableDashedLine(10f, 0f, 0f);
-        set.enableDashedHighlightLine(10f, 0f, 0f);
-        set.setColor(Color.parseColor("#00aeef"));
-        set.setCircleColor(Color.parseColor("#00aeef"));
-        set.setLineWidth(1f);
-        set.setValueTextColor(Color.parseColor("#00aeef"));
-        set.setCircleRadius(3f);
-        set.setDrawCircleHole(false);
-        set.setValueTextSize(9f);
-        set.setDrawFilled(true);
-        set.setFormLineWidth(1f);
-        set.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-        set.setFormSize(15.f);
-        if (Utils.getSDKInt() >= 18) {
-            // fill drawable only supported on api level 18 and above
-            Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_green);
-            set.setFillDrawable(drawable);
-        } else {
-            set.setFillColor(Color.parseColor("#00aeef"));
-        }
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(set); // add the datasets
-        // create a data object with the datasets
-        LineData data = new LineData(dataSets);
-        // set data
-        graph.getAxisLeft().setAxisMaximum(data.getYMax() + 100);
-        graph.setData(data);
-        graph.getData().notifyDataChanged();
-        graph.notifyDataSetChanged();
-
-    }
-
-    private void setWeight() {
-        ArrayList<Entry> values = new ArrayList<>();
-        values.add(new Entry(getCurrentDay(), user.getWeight()));
-
         LineDataSet set;
         // create a dataset and give it a type
         set = new LineDataSet(values, "lbs");
@@ -389,9 +310,82 @@ public class RecordActivity extends AppCompatActivity {
         // create a data object with the datasets
         LineData data = new LineData(dataSets);
         // set data
-        graph.setData(data);
-        graph.getData().notifyDataChanged();
-        graph.notifyDataSetChanged();
+        graphWeight.setData(data);
+        graphWeight.getData().notifyDataChanged();
+        graphWeight.notifyDataSetChanged();
+        graphWeight.animateX(500);
+        // // dont forget to refresh the drawing
+        graphWeight.invalidate();
+    }
+
+    private void setupKcalChart(List<Record> recordList) {
+        graphKcal.setDrawGridBackground(false);
+        // no description text
+        graphKcal.getDescription().setEnabled(false);
+        // enable touch gestures
+        graphKcal.setTouchEnabled(false);
+        // enable scaling and dragging
+        graphKcal.setDragEnabled(false);
+        graphKcal.setScaleEnabled(false);
+        // if disabled, scaling can be done on x- and y-axis separately
+        graphKcal.setPinchZoom(false);
+        // create a custom MarkerView (extend MarkerView) and specify the layout
+        // to use for it
+//        MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
+//        mv.setChartView(graphWeight); // For bounds control
+//        graphWeight.setMarker(mv); // Set the marker to the chart
+        XAxis xAxis = graphKcal.getXAxis();
+        xAxis.setAxisMinimum(getCurrentDay() - 3);
+        xAxis.setAxisMaximum(getCurrentDay() + 3);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGridColor(Color.TRANSPARENT);
+        graphKcal.getAxisRight().setEnabled(false);
+
+        ArrayList<BarEntry> values = new ArrayList<>();
+        List<Record> mList = new ArrayList<>();
+        if (recordList.size() == 0)
+            values.add(new BarEntry(1, 1));
+        else {
+            for (int i = 0; i < recordList.size(); i++) {
+                if (getCurrentDay() == Integer.parseInt(recordList.get(i).getDay()))
+                    mList.add(recordList.get(i));
+                else
+                    values.add(new BarEntry(Integer.parseInt(recordList.get(i).getDay()), recordList.get(i).getKcal()));
+            }
+            float sum = 0;
+            for (int i = 0; i < mList.size(); i++) {
+                sum = sum + mList.get(i).getKcal();
+            }
+            values.add(new BarEntry(getCurrentDay(), sum));
+        }
+        YAxis leftAxis = graphKcal.getAxisLeft();
+        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
+        leftAxis.setAxisMaximum(leftAxis.getAxisMaximum() + 50f);
+        leftAxis.setAxisMinimum(0);
+        BarDataSet set;
+        // create a dataset and give it a type
+        set = new BarDataSet(values, "kcal");
+        set.setDrawIcons(false);
+        // set the line to be drawn like this "- - - - - -"
+        set.setColor(Color.parseColor("#FF671C"));
+
+        set.setValueTextColor(Color.parseColor("#FF671C"));
+        set.setValueTextSize(9f);
+        set.setFormLineWidth(1f);
+        set.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+        set.setFormSize(15.f);
+        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set); // add the datasets
+        // create a data object with the datasets
+        BarData data = new BarData(dataSets);
+        // set data
+        graphKcal.getAxisLeft().setAxisMaximum(data.getYMax() + 100);
+        graphKcal.setData(data);
+        graphKcal.getData().notifyDataChanged();
+        graphKcal.notifyDataSetChanged();
+        graphKcal.animateX(500);
+        // // dont forget to refresh the drawing
+        graphKcal.invalidate();
     }
 
     private int getCurrentDay() {

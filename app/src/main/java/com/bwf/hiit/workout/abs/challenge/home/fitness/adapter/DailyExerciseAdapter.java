@@ -47,7 +47,7 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
     public void onBindViewHolder(@NonNull myHolder holder, final int position) {
 
         holder.tvExerciseName.setText(exerciseList.get(position).getDisplay_name());
-        holder.tvMin.setText(exerciseList.get(position).getUnit() + "X");
+        holder.tvMin.setText(exerciseList.get(position).getUnit() + "s");
 
         String videoPath = exerciseList.get(position).getName();
         int id = info.getApplication().getResources().getIdentifier(videoPath, "drawable", info.getApplication().getPackageName());

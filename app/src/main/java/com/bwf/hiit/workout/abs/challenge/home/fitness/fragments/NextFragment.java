@@ -98,13 +98,7 @@ public class NextFragment extends Fragment {
         int id = getResources().getIdentifier(str, "drawable", context.getPackageName());
         String path = "android.resource://" + context.getPackageName() + "/" + id;
         Glide.with(this).load(path).into(imgAnim);
-
-//            imgAnim.setVisibility(View.GONE);
-//            txtExerciseName.setVisibility(View.GONE);
-//            TTSManager.getInstance(mActivity.getApplication()).play("This is the end of the last exercise. Take 60 sec break to end today's workout" +
-//                    "If You Like Our Workout App Please Do Rate Us At The End Of This Workout");
-//
-            TTSManager.getInstance(mActivity.getApplication()).play("Take a Rest for " + mActivity.restTime + "seconds" + "The Next Exercise is " + mActivity.exerciseName);
+        TTSManager.getInstance(mActivity.getApplication()).play("Take a Rest for " + mActivity.restTime + "seconds" + "The Next Exercise is " + mActivity.exerciseName);
     }
 
     private void startRestTimer(int totalSkipTime) {

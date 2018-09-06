@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayRecycleAdapter;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.LogHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.dinuscxj.progressbar.CircleProgressBar;
@@ -89,14 +88,17 @@ public class ScrollingActivity extends AppCompatActivity {
                     AppDataBase dataBase = AppDataBase.getInstance();
 
                     for (int i = 0; i < 30; i++) {
-                        int totalComplete = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getExerciseComplete();
-                        int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getTotalExercise();
-                        float v = (float) totalComplete / (float) totalExercises;
-                        mProgress.add(v);
+                        if (dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).size() > 0) {
+                            int totalComplete = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getExerciseComplete();
+                            int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getTotalExercise();
+                            float v = (float) totalComplete / (float) totalExercises;
+                            mProgress.add(v);
 
-                        if (v >= 1) {
-                            val++;
-                            LogHelper.logD("1994:", "" + val);
+                            if (v >= 1) {
+                                val++;
+                            }
+                        }else{
+                            mProgress.add(200f);
                         }
                     }
                 } catch (RuntimeException e) {
@@ -112,7 +114,6 @@ public class ScrollingActivity extends AppCompatActivity {
                 initView();
                 circleProgressBarLeft.setMax(30);
                 circleProgressBarLeft.setProgress(Integer.parseInt(dayLeft));
-                LogHelper.logD("1993", "Day left" + (dayLeft));
                 circleProgressBarCompleted.setMax(30);
                 circleProgressBarCompleted.setProgress(val);
             }

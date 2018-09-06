@@ -222,5 +222,21 @@
     "calories": 12.576,
     "name": "v_ups",
     "display": "V Ups"
+  },
+  {
+    "id": 29,
+    "unit": 1,
+    "lang": 1,
+    "calories": 12.576,
+    "name": "side_plank_Left",
+    "display": "Side Plank Left"
+  },
+  {
+    "id": 30,
+    "unit": 1,
+    "lang": 1,
+    "calories": 12.576,
+    "name": "side_plank_Right",
+    "display": "Side Plank Right"
   }
 ]

@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.LogHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
@@ -58,13 +57,12 @@ public class SelectGender extends AppCompatActivity {
     private void setGender(String gender, int sex) {
         user.setGender(sex);
         AnalyticsManager.getInstance().sendAnalytics("gender_selected", gender);
-        LogHelper.logD("1994:", "" + gender);
         mViewModel.update(user);
         startNewActivity();
     }
 
     private void startNewActivity() {
-        startActivity(new Intent(getApplicationContext(), ReminderSetActivity.class));
+        startActivity(new Intent(getApplicationContext(), AgeWeightHeightActivity.class));
         finish();
     }
 }

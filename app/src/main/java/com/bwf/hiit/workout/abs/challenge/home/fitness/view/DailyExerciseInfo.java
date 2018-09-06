@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
@@ -16,6 +17,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DailyExerciseAdap
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
@@ -52,6 +54,8 @@ public class DailyExerciseInfo extends AppCompatActivity {
     TextView tvKcal;
     @BindView(R.id.tv_Title)
     TextView tvTitle;
+    @BindView(R.id.img_title)
+    ImageView imgTitle;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -68,26 +72,29 @@ public class DailyExerciseInfo extends AppCompatActivity {
 
         context = this;
         mEXList = new ArrayList<>();
+        Intent intent = getIntent();
+        plan = intent.getIntExtra(getApplicationContext().getString(R.string.plan), 0);
+        planDay = intent.getIntExtra(getApplicationContext().getString(R.string.day_selected), 0);
+        tvTitle.setText("DAY " + planDay);
 
         AdView adView = findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
 
         AdsManager.getInstance().showFacebookInterstitialAd();
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "exercise_list_activity");
+        String[] dayTTS = context.getResources().getStringArray(R.array.days_tts);
+        TTSManager.getInstance(getApplication()).play(dayTTS[planDay - 1]);
 
-
-        Intent intent = getIntent();
-        plan = intent.getIntExtra(getApplicationContext().getString(R.string.plan), 0);
-        planDay = intent.getIntExtra(getApplicationContext().getString(R.string.day_selected), 0);
-        tvTitle.setText("Day " + planDay);
         rvDayExercise.setLayoutManager(new LinearLayoutManager(context));
         mAdapter = new DailyExerciseAdapter(this);
         rvDayExercise.setNestedScrollingEnabled(false);
         rvDayExercise.setAdapter(mAdapter);
         mAdapter.setDayPlan(planDay, plan);
+
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         new getExerciseTask().execute();
     }
 
@@ -98,21 +105,21 @@ public class DailyExerciseInfo extends AppCompatActivity {
         protected final Void doInBackground(Void... params) {
 
             List<ExerciseDay> mList = AppDataBase.getInstance().exerciseDayDao().getExerciseDays(plan, planDay);
-            completeExercise = mList.get(0).getExerciseComplete();
-            completeRounds = mList.get(0).getRoundCompleted();
-            for (ExerciseDay day : mList) {
-                if (day.isStatus())
-                    day.setStatus(false);
-                totaTimeSpend = totaTimeSpend + day.getReps() + day.getDelay();
-                Exercise exercise = AppDataBase.getInstance().exerciseDao().findByIdbg(day.getId());
-                if (exercise != null) {
-                    mEXList.add(new Exercise(day.getReps(), day.getDelay(), exercise.getName(), exercise.getDisplay_name()));
-                    kcal = kcal + exercise.getCalories();
+            if (mList.size() > 0) {
+                completeExercise = mList.get(0).getExerciseComplete();
+                completeRounds = mList.get(0).getRoundCompleted();
+                for (ExerciseDay day : mList) {
+                    if (day.isStatus())
+                        day.setStatus(false);
+                    totaTimeSpend = totaTimeSpend + day.getReps();
+                    Exercise exercise = AppDataBase.getInstance().exerciseDao().findByIdbg(day.getId());
+                    if (exercise != null) {
+                        mEXList.add(new Exercise(day.getReps(), day.getDelay(), exercise.getName(), exercise.getDisplay_name()));
+                        kcal = kcal + exercise.getCalories();
+                    }
                 }
+                totaTimeSpend = totaTimeSpend * mList.get(0).getRounds();
             }
-
-            totaTimeSpend = totaTimeSpend * mList.get(0).getRounds();
-
             return null;
         }
 

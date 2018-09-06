@@ -21,8 +21,6 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.dinuscxj.progressbar.CircleProgressBar;
 
-import java.util.Objects;
-
 public class SkipFragment extends Fragment {
 
     View rootView;
@@ -103,7 +101,7 @@ public class SkipFragment extends Fragment {
         btnSound.setOnClickListener(view -> soundButton());
 
         String str = playingExercise.exerciseName;
-        int id = getResources().getIdentifier(str, "drawable", rootView.getContext().getPackageName());
+        int id = context.getResources().getIdentifier(str, "drawable", rootView.getContext().getPackageName());
         String path = "android.resource://" + rootView.getContext().getPackageName() + "/" + id;
         Glide.with(this).load(path).into(imgAnim);
 
@@ -128,7 +126,6 @@ public class SkipFragment extends Fragment {
             public void onFinish() {
                 int id = getResources().getIdentifier("ding", "raw", rootView.getContext().getPackageName());
                 Utils.playAudio(rootView.getContext(), id);
-
                 startPlayingButton();
             }
         }.start();
@@ -142,7 +139,7 @@ public class SkipFragment extends Fragment {
 
     private void startPlayingButton() {
         countDownTimer.cancel();
-        Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().remove(SkipFragment.this).commit();
+        playingExercise.getSupportFragmentManager().beginTransaction().remove(SkipFragment.this).commitAllowingStateLoss();
         playingExercise.StartPlayingFragment();
     }
 

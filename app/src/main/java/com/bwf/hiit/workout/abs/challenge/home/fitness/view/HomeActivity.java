@@ -99,9 +99,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         AdsManager.getInstance().showFacebookInterstitialAd();
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "plan_screen_activity");
 
-        AdView adView = findViewById(R.id.baner_Admob);
-        AdsManager.getInstance().showBanner(adView);
-
         workOut = findViewById(R.id.workout_record);
         reminder = findViewById(R.id.reminder);
         feedback = findViewById(R.id.feedback);

@@ -85,6 +85,38 @@ public class DailyExerciseInfo extends AppCompatActivity {
         String[] dayTTS = context.getResources().getStringArray(R.array.days_tts);
         TTSManager.getInstance(getApplication()).play(dayTTS[planDay - 1]);
 
+        switch (planDay) {
+            case 1:
+            case 5:
+            case 9:
+            case 13:
+            case 17:
+            case 21:
+            case 25:
+            case 29:
+                imgTitle.setImageResource(R.drawable.lower_abs);
+                break;
+            case 2:
+            case 6:
+            case 10:
+            case 14:
+            case 18:
+            case 22:
+            case 26:
+            case 30:
+                imgTitle.setImageResource(R.drawable.obliques);
+                break;
+            case 3:
+            case 7:
+            case 11:
+            case 15:
+            case 19:
+            case 23:
+            case 28:
+                imgTitle.setImageResource(R.drawable.upper_abs);
+                break;
+        }
+
         rvDayExercise.setLayoutManager(new LinearLayoutManager(context));
         mAdapter = new DailyExerciseAdapter(this);
         rvDayExercise.setNestedScrollingEnabled(false);

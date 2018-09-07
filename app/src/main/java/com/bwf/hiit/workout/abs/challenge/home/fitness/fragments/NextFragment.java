@@ -67,6 +67,9 @@ public class NextFragment extends Fragment {
         mCustomCircleBar.setOnClickListener(view -> pauseOrRenume());
         startRestTimer(mActivity.restTime * 1000);
 
+        if (mActivity.iscomplete)
+            mActivity.StartPlayingFragment();
+
         initNext();
 
         return rootView;
@@ -98,7 +101,7 @@ public class NextFragment extends Fragment {
         int id = getResources().getIdentifier(str, "drawable", context.getPackageName());
         String path = "android.resource://" + context.getPackageName() + "/" + id;
         Glide.with(this).load(path).into(imgAnim);
-        TTSManager.getInstance(mActivity.getApplication()).play("Take a Rest for " + mActivity.restTime + "seconds" + "The Next Exercise is " + mActivity.exerciseName);
+        TTSManager.getInstance(mActivity.getApplication()).play("Take a Rest for " + mActivity.restTime + "seconds" + "The Next Exercise is " + mActivity.displayName);
     }
 
     private void startRestTimer(int totalSkipTime) {

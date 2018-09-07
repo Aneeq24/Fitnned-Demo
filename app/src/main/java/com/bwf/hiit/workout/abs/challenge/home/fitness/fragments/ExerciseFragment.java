@@ -79,7 +79,7 @@ public class ExerciseFragment extends Fragment {
         btnPause.setOnClickListener(view -> pause());
         btnHelp.setOnClickListener(view -> helpButtonClick());
         btnNoAds.setOnClickListener(view -> mActivity.mBilling.purchaseRemoveAds());
-        btnRateUs.setOnClickListener(view -> onRateUs());
+        btnRateUs.setOnClickListener(view -> Utils.showRateUsDialog(context));
         btnPrevious.setOnClickListener(view -> onExerciseComplete(false));
         btnNext.setOnClickListener(view -> onExerciseComplete(true));
 
@@ -179,7 +179,7 @@ public class ExerciseFragment extends Fragment {
     }
 
     private void onExerciseComplete(boolean isNext) {
-        mActivity.NextFragment(isNext,timer);
+        mActivity.NextFragment(isNext, timer - reamingTime);
     }
 
     public void pause() {
@@ -193,16 +193,6 @@ public class ExerciseFragment extends Fragment {
         countDownTimer.cancel();
         mActivity.helpFragmentFun(reamingTime);
         reamingTime = 0;
-    }
-
-    public void onRateUs() {
-        AnalyticsManager.getInstance().sendAnalytics("rate_us_clicked_done", "Rate_us");
-        SharedPrefHelper.writeBoolean(context, "rate", true);
-        try {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
-        } catch (ActivityNotFoundException anfe) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
-        }
     }
 
     @Override

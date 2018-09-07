@@ -1,134 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#dedede"
+    android:background="#00E9FB"
     tools:context=".view.ScrollingActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.NoActionBar.AppBarOverlay">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@drawable/exercise_screen_classic_stage_bg"
-            app:contentScrim="@color/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/img_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="50dp"
-                android:src="@drawable/exercise_screen_complete_icon" />
-
-            <LinearLayout
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/app_bar"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="20sp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.NoActionBar.AppBarOverlay">
 
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:drawableLeft="@drawable/exercise_screen_classic_stage_minutes_icon"
-                    android:drawableStart="@drawable/exercise_screen_classic_stage_minutes_icon"
-                    android:gravity="center"
-                    android:paddingLeft="15dp"
-                    android:paddingStart="15dp"
-                    android:text="5"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
+                <android.support.design.widget.CollapsingToolbarLayout
+                    android:id="@+id/toolbar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@drawable/exercise_screen_classic_stage_bg"
+                    app:contentScrim="@color/colorPrimary"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                <TextView
-                    android:id="@+id/tv_kcal"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:drawableLeft="@drawable/exercise_screen_classic_stage_kcal_icon"
-                    android:drawableStart="@drawable/exercise_screen_classic_stage_kcal_icon"
-                    android:gravity="center"
-                    android:text="250"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
+                    <ImageView
+                        android:id="@+id/img_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="50dp"
+                        android:src="@drawable/exercise_screen_complete_icon" />
 
-                <TextView
-                    android:id="@+id/tv_exercise"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:drawableLeft="@drawable/exercise_screen_classic_stage_exercises_icon"
-                    android:drawableStart="@drawable/exercise_screen_classic_stage_exercises_icon"
-                    android:gravity="center"
-                    android:text="5"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="20sp"
+                        android:orientation="horizontal">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                app:layout_collapseMode="pin">
+                        <TextView
+                            android:id="@+id/tv_time"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:drawableLeft="@drawable/exercise_screen_classic_stage_minutes_icon"
+                            android:drawableStart="@drawable/exercise_screen_classic_stage_minutes_icon"
+                            android:gravity="center"
+                            android:paddingLeft="15dp"
+                            android:paddingStart="15dp"
+                            android:text="5"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/tv_Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white"
-                    android:textSize="24sp" />
-            </android.support.v7.widget.Toolbar>
+                        <TextView
+                            android:id="@+id/tv_kcal"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:drawableLeft="@drawable/exercise_screen_classic_stage_kcal_icon"
+                            android:drawableStart="@drawable/exercise_screen_classic_stage_kcal_icon"
+                            android:gravity="center"
+                            android:text="250"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp" />
 
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+                        <TextView
+                            android:id="@+id/tv_exercise"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:drawableLeft="@drawable/exercise_screen_classic_stage_exercises_icon"
+                            android:drawableStart="@drawable/exercise_screen_classic_stage_exercises_icon"
+                            android:gravity="center"
+                            android:text="5"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp" />
+                    </LinearLayout>
 
-    <include layout="@layout/content_scrolling" />
+                    <android.support.v7.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        app:layout_collapseMode="pin">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/tv_Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/white"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+                    </android.support.v7.widget.Toolbar>
 
-        <Button
-            android:id="@+id/startButton"
-            android:layout_width="344dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/ic_orange_round_bar"
-            android:text="START"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/baner_Admob"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
+                </android.support.design.widget.CollapsingToolbarLayout>
 
-        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/baner_Admob"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/banner_ad_unit"
-            ads:layout_constraintBottom_toBottomOf="parent"
-            ads:layout_constraintEnd_toEndOf="parent"
-            ads:layout_constraintStart_toStartOf="parent" />
+            </android.support.design.widget.AppBarLayout>
 
-    </android.support.constraint.ConstraintLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="5dp" />
 
-</android.support.design.widget.CoordinatorLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="344dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/ic_orange_round_bar"
+        android:text="START"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/baner_Admob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent" />
+
+</RelativeLayout>

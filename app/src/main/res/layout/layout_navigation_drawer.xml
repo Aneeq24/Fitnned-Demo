@@ -34,9 +34,9 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height=".5dp"
             android:layout_marginTop="10dp"
-            android:background="@color/colorLightGrey" />
+            android:background="@color/white" />
 
         <TextView
             android:id="@+id/reminder"
@@ -56,9 +56,9 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height=".5dp"
             android:layout_marginTop="10dp"
-            android:background="@color/colorLightGrey" />
+            android:background="@color/white" />
 
         <TextView
             android:id="@+id/feedback"
@@ -72,13 +72,13 @@
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/menu_screen_feedback_icon"
             android:focusable="true"
-            android:text="@string/rate_us"
+            android:text="Rate us"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/white" />
 
         <!--<View-->
         <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"-->
+        <!--android:layout_height=".5dp"-->
         <!--android:layout_marginTop="10dp"-->
         <!--android:background="@color/colorLightGrey" />-->
 
@@ -100,9 +100,9 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height=".5dp"
             android:layout_marginTop="10dp"
-            android:background="@color/colorLightGrey" />
+            android:background="@color/white" />
 
 
         <!--<TextView-->
@@ -137,9 +137,9 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height=".5dp"
             android:layout_marginTop="10dp"
-            android:background="@color/colorLightGrey" />
+            android:background="@color/white" />
 
         <TextView
             android:id="@+id/privacy_policy"
@@ -162,9 +162,9 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height=".5dp"
             android:layout_marginTop="10dp"
-            android:background="@color/colorLightGrey" />
+            android:background="@color/white" />
 
         <TextView
             android:id="@+id/no_ads"
@@ -187,9 +187,9 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height=".5dp"
             android:layout_marginTop="10dp"
-            android:background="@color/colorLightGrey" />
+            android:background="@color/white" />
 
     </LinearLayout>
 

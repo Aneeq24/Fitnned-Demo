@@ -228,7 +228,7 @@
     "unit": 1,
     "lang": 1,
     "calories": 12.576,
-    "name": "side_plank_Left",
+    "name": "side_plank_left",
     "display": "Side Plank Left"
   },
   {
@@ -236,7 +236,7 @@
     "unit": 1,
     "lang": 1,
     "calories": 12.576,
-    "name": "side_plank_Right",
+    "name": "side_plank_right",
     "display": "Side Plank Right"
   }
 ]

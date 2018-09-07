@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
     tools:context=".view.PlayingExercise">
 
     <com.carlosmuvi.segmentedprogressbar.SegmentedProgressBar
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="10dp"
         app:container_color="#898989"
-        app:fill_color="#0FD39D"
-        app:segment_count="10" />
+        app:fill_color="#00FF00" />
 
     <RelativeLayout
         android:id="@+id/fragment_container"

@@ -1,16 +1,21 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.utils;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
@@ -124,5 +129,25 @@ public class Utils {
         i.putExtra(context.getString(R.string.day_selected), currentDay);
         i.putExtra(context.getString(R.string.plan), currentPlan);
         context.startActivity(i);
+    }
+
+    public static void showRateUsDialog(Context context) {
+        MaterialDialog dialog = new MaterialDialog.Builder(context)
+                .customView(R.layout.dialog_rate_us, false)
+                .show();
+        View view = dialog.getCustomView();
+        assert view != null;
+        Button btnSubmit = view.findViewById(R.id.btn_rate_us);
+        btnSubmit.setOnClickListener(view1 -> onRateUs(context));
+    }
+
+    private static void onRateUs(Context context) {
+        AnalyticsManager.getInstance().sendAnalytics("rate_us_clicked_done", "Rate_us");
+        SharedPrefHelper.writeBoolean(context, "rate", true);
+        try {
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
+        } catch (ActivityNotFoundException anfe) {
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
+        }
     }
 }

@@ -20,6 +20,8 @@ import java.util.List;
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.myHolder> {
 
     private String[] title = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
+    private String[] dis = {"Your Journey towards Ripped Six Pack Abs Start Here...",
+            "Let’s Take Your Six Abs Workout Up A Notch...", "Recommended Abs Workout for Those Who Want a Challenge…"};
     private int[] image = new int[]{R.drawable.main_screen_beginner_image, R.drawable.main_screen_intermediate_image,
             R.drawable.main_screen_advanced_image};
     private List<Integer> progress;
@@ -54,6 +56,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.myHolder> {
         }
 
         holder.tvTitle.setText(title[position]);
+        holder.tvDis.setText(dis[position]);
         holder.imgMain.setImageResource(image[position]);
         holder.progressBar.setMax(30);
         holder.progressBar.setProgress(progress.get(position));
@@ -78,6 +81,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.myHolder> {
         ImageView imgStar2;
         ImageView imgStar3;
         ImageView imgMain;
+        TextView tvDis;
 
         myHolder(View itemView) {
             super(itemView);
@@ -89,6 +93,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.myHolder> {
             imgStar1 = itemView.findViewById(R.id.star1);
             imgStar2 = itemView.findViewById(R.id.star2);
             imgStar3 = itemView.findViewById(R.id.star3);
+            tvDis = itemView.findViewById(R.id.tv_dis);
         }
     }
 

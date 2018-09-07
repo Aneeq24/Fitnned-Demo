@@ -13,14 +13,26 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.myHolder> {
 
     private String[] days;
+    private String[] date;
 
     public DayAdapter(String[] days) {
         this.days = days;
+        date = new String[7];
+        DateFormat format = new SimpleDateFormat("dd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+
+        for (int i = 0; i < 7; i++) {
+            date[i] = format.format(calendar.getTime());
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
     }
 
     @NonNull
@@ -32,10 +44,9 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.myHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull myHolder holder, final int position) {
-
         holder.tvDay.setText(days[position]);
-        String temp = getCurrentDate();
-        if (days[position].equals(temp)) {
+        holder.tvDate.setText(date[position]);
+        if (days[position].equals(getCurrentDay())) {
             holder.itemView.setBackgroundResource(R.drawable.bg_item_day_round_fill);
             holder.tvDay.setTextColor(Color.WHITE);
             holder.tvDate.setTextColor(Color.WHITE);
@@ -61,7 +72,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.myHolder> {
         }
     }
 
-    private String getCurrentDate() {
+    private String getCurrentDay() {
         @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("EEE");
         Date date = new Date();
         return dateFormat.format(date);

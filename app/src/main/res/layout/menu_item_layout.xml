@@ -68,11 +68,13 @@
             android:layout_margin="2dp"
             android:text="START"
             android:textColor="@color/colorPrimary"
-            android:textSize="18sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_dis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"

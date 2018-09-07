@@ -24,7 +24,6 @@ public interface ExerciseDayDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<ExerciseDay> exerciseDays);
 
-
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void update(ExerciseDay exerciseday);
 

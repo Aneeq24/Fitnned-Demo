@@ -36,7 +36,7 @@
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="75dp"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
@@ -163,6 +163,7 @@
             android:textAlignment="center"
             android:textColor="#898989"
             android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

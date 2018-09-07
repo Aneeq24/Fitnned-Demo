@@ -103,7 +103,7 @@ public class PlayingExercise extends AppCompatActivity {
                 if (mListExDays.size() > 0) {
 
                     for (ExerciseDay day : mListExDays) {
-                        totaTimeSpend = totaTimeSpend + day.getReps() + day.getDelay();
+                        totaTimeSpend = totaTimeSpend + day.getReps();
                         totalKcal = totalKcal + AppDataBase.getInstance().exerciseDao().findByIdbg(day.getId()).getCalories();
                         if (day.isStatus()) {
                             currentEx++;
@@ -259,7 +259,7 @@ public class PlayingExercise extends AppCompatActivity {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle(getString(R.string.app_name));
             alertDialogBuilder
-                    .setMessage("Do you want to exit workout ?")
+                    .setMessage("Do you want to end workout ?")
                     .setCancelable(false)
                     .setPositiveButton("YES", (dialog, id) -> {
                         dialog.cancel();

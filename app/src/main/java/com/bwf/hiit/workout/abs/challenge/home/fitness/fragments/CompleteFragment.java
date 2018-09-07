@@ -2,18 +2,15 @@ package com.bwf.hiit.workout.abs.challenge.home.fitness.fragments;
 
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -163,7 +160,7 @@ public class CompleteFragment extends Fragment {
         });
 
         btnEditBmi.setOnClickListener(view1 -> showDialog());
-        btnShare.setOnClickListener(view1 -> setRateAppDialog());
+        btnShare.setOnClickListener(view1 -> com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils.showRateUsDialog(context));
         tvTime.setOnClickListener(view1 -> startActivity(new Intent(context, ConfirmReminderActivity.class).putExtra("up", true)));
         btnMore.setOnClickListener(view1 -> startActivity(new Intent(context, CalenderActivity.class)));
 
@@ -208,6 +205,8 @@ public class CompleteFragment extends Fragment {
                 }
             }, 2000);
         }
+
+        btnShare.performClick();
         return view;
     }
 
@@ -471,7 +470,7 @@ public class CompleteFragment extends Fragment {
         // set the line to be drawn like this "- - - - - -"
         set.setColor(Color.parseColor("#FF671C"));
 
-        set.setValueTextColor(Color.parseColor("#00aeef"));
+        set.setValueTextColor(Color.parseColor("#FF671C"));
         set.setValueTextSize(9f);
         set.setFormLineWidth(1f);
         set.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
@@ -520,36 +519,6 @@ public class CompleteFragment extends Fragment {
         @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd");
         Date date = new Date();
         return Integer.parseInt(dateFormat.format(date));
-    }
-
-    public void setRateAppDialog() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-
-        alertDialogBuilder.setTitle(context.getString(R.string.app_name));
-
-        alertDialogBuilder
-                .setMessage("Do you want to Rate us?")
-                .setCancelable(false)
-                .setPositiveButton("YES", (dialog, id) -> {
-                    AnalyticsManager.getInstance().sendAnalytics("rate_us_clicked_yes", "Rate_us");
-                    dialog.cancel();
-                    onRateUs(context);
-                }).setNegativeButton("NO", (dialog, id) -> {
-            dialog.cancel();
-            AnalyticsManager.getInstance().sendAnalytics("rate_us_clicked_no", "Rate_us");
-        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
-
-    private void onRateUs(Context context) {
-        AnalyticsManager.getInstance().sendAnalytics("rate_us_clicked_done", "Rate_us");
-        SharedPrefHelper.writeBoolean(context, "rate", true);
-        try {
-            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
-        } catch (ActivityNotFoundException anfe) {
-            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
-        }
     }
 
 }

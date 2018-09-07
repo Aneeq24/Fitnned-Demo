@@ -20,11 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="5dp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="55dp" />
     </LinearLayout>
-
 
 </android.support.v4.widget.NestedScrollView>

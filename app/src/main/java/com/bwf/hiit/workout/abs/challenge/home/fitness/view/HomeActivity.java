@@ -38,6 +38,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.inapp.MyBilling;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.UserViewModel;
 import com.google.ads.consent.ConsentForm;
 import com.google.ads.consent.ConsentFormListener;
@@ -145,20 +146,27 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setDaysData();
 
         AHBottomNavigation bottomNavigation = findViewById(R.id.bottom_navigation);
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem("WORKOUT", R.drawable.main_screen_nav_bar_workout_icon_n, R.color.colorPrimary);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem("REPORT", R.drawable.main_screen_nav_bar_report_icon_n, R.color.colorAccent);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("REMOVE ADS", R.drawable.main_screen_nav_bar_exercise_icon_n, R.color.colorAccent);
-
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem("WORKOUT", R.drawable.main_screen_nav_bar_workout_icon_n, R.color.colorAccent);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem("REPORT", R.drawable.main_screen_nav_bar_report_icon_n, R.color.orange);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem("REMOVE ADS", R.drawable.main_screen_nav_bar_remove_ads_icon_n, R.color.red);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem("RATE US", R.drawable.main_screen_nav_bar_rate_us_icon_n, R.color.green);
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
+        bottomNavigation.addItem(item4);
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+        bottomNavigation.setCurrentItem(0);
+        bottomNavigation.setAccentColor(R.color.orange);
+        bottomNavigation.setTranslucentNavigationEnabled(true);
         bottomNavigation.setAccentColor(Color.parseColor("#00BFF3"));
-        bottomNavigation.setBehaviorTranslationEnabled(false);
+
         bottomNavigation.setOnTabSelectedListener((position, wasSelected) -> {
             if (position == 1)
                 onRecordClicked();
             else if (position == 2)
                 mBilling.purchaseRemoveAds();
+            else if (position == 3)
+                Utils.showRateUsDialog(context);
             return true;
         });
 
@@ -218,7 +226,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         finish();
                     }).setNeutralButton("Rate Us", (dialog, id) -> {
                 dialog.cancel();
-                onRateUs();
+                Utils.showRateUsDialog(context);
             }).setNegativeButton("NO", (dialog, id) -> dialog.cancel());
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
@@ -353,16 +361,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         onBackPressed();
     }
 
-    public void onRateUs() {
-        AnalyticsManager.getInstance().sendAnalytics("rate_us_clicked_done", "Rate_us");
-        SharedPrefHelper.writeBoolean(context, "rate", true);
-        try {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
-        } catch (ActivityNotFoundException anfe) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
-        }
-    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -374,7 +372,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 onReminderClicked();
                 break;
             case R.id.feedback:
-                onRateUs();
+                Utils.showRateUsDialog(context);
                 break;
             case R.id.more_apps:
                 onMoreAppsClicked();

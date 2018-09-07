@@ -18,4 +18,7 @@
     <color name="itemHighlightColor">#1F000000</color>
 
     <color name="defaultColor">#2962FF</color>
+    <color name="red">#f70303</color>
+    <color name="orange">#FF671C</color>
+    <color name="green">#00ff00</color>
 </resources>

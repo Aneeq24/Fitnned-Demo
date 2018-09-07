@@ -9,7 +9,7 @@
     <string name="share">Share</string>
     <string name="workout">WORKOUT</string>
 
-    <string name="welcome_txt">EMBARK ON A NEW WAY TO LIFE\nSTART YOUR FIRST WORKOUT NOW!</string>
+    <string name="welcome_txt">READY FOR A NEW BODY!!!\nSTART YOUR FIRST WORKOUT NOW!</string>
 
     <string-array name="days_list">
         <item>Day 1</item>
@@ -87,8 +87,9 @@
 
     <string name="app_id" translatable="false">ca-app-pub-2972677223588085~8301994603</string>
     <string name="native_ad_unit" translatable="false">ca-app-pub-6412217023250030/9137922994</string>
+    <!--<string name="banner_ad_unit" translatable="false">ca-app-pub-3940256099942544/6300978111</string>-->
     <string name="banner_ad_unit" translatable="false">ca-app-pub-2972677223588085/7985874802</string>
-    <string name="banner_rect_ad_unit" translatable="false">ca-app-pub-2972677223588085/1150920407</string>
+    <string name="banner_rect_ad_unit" translatable="false">ca-app-pub-2972677223588085/7985874802</string>
     <string name="rewarded_ad_unit" translatable="false">ca-app-pub-6412217023250030/7633506345</string>
     <string name="exit_banner_ad_unit" translatable="false">ca-app-pub-2972677223588085/7985874802</string>
     <string name="interstitial_ad_unit" translatable="false">ca-app-pub-2972677223588085/8936419421</string>
@@ -101,7 +102,8 @@
     <string name="uhoh">Uh-oh…</string>
     <string name="cancel">Cancel</string>
     <string name="choose">Choose</string>
-    <string name="rate_us">Rate us</string>
+    <string name="rate_now">Rate Now</string>
+    <string name="rate_us">If You Like Our App. Give us Five Star</string>
     <string name="feedback">Feedback</string>
     <string name="settings">Settings</string>
     <string name="about_us">About us</string>
@@ -147,36 +149,37 @@
 
 
     <string-array name="days_tts">
-        <item>Day 1 Today We Will Focus on Core and Lower Abs exercises, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 2 Today We Will Focus on Core and Oblique Abs exercise, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 3 Today We Will Focus on Core and Upper Abs exercise, along with high intensity full body workouts to maximize belly fat loss</item>
+        <item>Day 1 Today We Will Focus on Core and Lower Abs exercises</item>
+        <item>Day 2 Today We Will Focus on Core and Oblique Abs exercises</item>
+        <item>Day 3 Today We Will Focus on Core and Upper Abs exercises</item>
         <item>Day 4 </item>
-        <item>Day 5 Today We Will Focus on Core and Lower Abs exercises, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 6 Today We Will Focus on Core and Oblique Abs exercise, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 7 Today We Will Focus on Core and Upper Abs exercise, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 8 Today We Will Focus on Core and Lower Abs exercises, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 9 Today We Will Focus on Core and Oblique Abs exercise, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 10 Today We Will Focus on Core and Upper Abs exercise, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 11 </item>
-        <item>Day 12 Today We Will Focus on Core and Lower Abs exercises, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 13 Today We Will Focus on Core and Oblique Abs exercise, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 14 Today We Will Focus on Core and Upper Abs exercise, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 15 Today We Will Focus on Core and Lower Abs exercises, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 16 Today We Will Focus on Core and Oblique Abs exercise, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 17 Today We Will Focus on Core and Upper Abs exercise, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 18 </item>
-        <item>Day 19 Today We Will Focus on Core and Lower Abs exercises, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 20 Today We Will Focus on Core and Oblique Abs exercise, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 21 Today We Will Focus on Core and Upper Abs exercise, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 22 Today We Will Focus on Core and Lower Abs exercises, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 23 Today We Will Focus on Core and Oblique Abs exercise, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 24 Today We Will Focus on Core and Upper Abs exercise, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 25 </item>
-        <item>Day 26 Today We Will Focus on Core and Lower Abs exercises, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 27 Today We Will Focus on Core and Oblique Abs exercise, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 28 Today We Will Focus on Core and Upper Abs exercise, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 29 Today We Will Focus on Core and Lower Abs exercises, along with high intensity full body workouts to maximize belly fat loss</item>
-        <item>Day 30 Today We Will Focus on Core and Oblique Abs exercise, along with high intensity full body workouts to maximize belly fat loss</item>
+        <item>Day 5 Today We Will Focus on Core and Lower Abs exercises</item>
+        <item>Day 6 Today We Will Focus on Core and Oblique Abs exercises</item>
+        <item>Day 7 Today We Will Focus on Core and Upper Abs exercises</item>
+        <item>Day 8 </item>
+        <item>Day 9 Today We Will Focus on Core and Oblique Abs exercises</item>
+        <item>Day 10 Today We Will Focus on Core and Upper Abs exercises</item>
+        <item>Day 11 Today We Will Focus on Core and Lower Abs exercises</item>
+        <item>Day 12 </item>
+        <item>Day 13 Today We Will Focus on Core and Oblique Abs exercises</item>
+        <item>Day 14 Today We Will Focus on Core and Upper Abs exercises</item>
+        <item>Day 15 Today We Will Focus on Core and Lower Abs exercises</item>
+        <item>Day 16 </item>
+        <item>Day 16 Today We Will Focus on Core and Oblique Abs exercises</item>
+        <item>Day 17 Today We Will Focus on Core and Upper Abs exercises</item>
+        <item>Day 18 Today We Will Focus on Core and Lower Abs exercises</item>
+        <item>Day 19 Today We Will Focus on Core and Oblique Abs exercises</item>
+        <item>Day 20 </item>
+        <item>Day 21 Today We Will Focus on Core and Upper Abs exercises</item>
+        <item>Day 22 Today We Will Focus on Core and Lower Abs exercises</item>
+        <item>Day 23 Today We Will Focus on Core and Oblique Abs exercises</item>
+        <item>Day 24 </item>
+        <item>Day 25 Today We Will Focus on Core and Upper Abs exercises</item>
+        <item>Day 26 Today We Will Focus on Core and Lower Abs exercises</item>
+        <item>Day 27 Today We Will Focus on Core and Oblique Abs exercises</item>
+        <item>Day 28 </item>
+        <item>Day 29 Today We Will Focus on Core and Lower Abs exercises</item>
+        <item>Day 30 Today We Will Focus on Core and Oblique Abs exercises</item>
     </string-array>
 
 </resources>

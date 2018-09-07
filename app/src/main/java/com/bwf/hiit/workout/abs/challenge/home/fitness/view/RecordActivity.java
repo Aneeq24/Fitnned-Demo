@@ -50,7 +50,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import butterknife.ButterKnife;
 
 public class RecordActivity extends AppCompatActivity {
 
@@ -76,7 +75,7 @@ public class RecordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
-        ButterKnife.bind(this);
+
         context = this;
         AdsManager.getInstance().showFacebookInterstitialAd();
 

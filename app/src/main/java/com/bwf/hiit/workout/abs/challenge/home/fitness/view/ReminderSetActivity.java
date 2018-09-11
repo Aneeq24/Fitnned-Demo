@@ -35,10 +35,10 @@ public class ReminderSetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reminder_set);
         ButterKnife.bind(this);
 
-        setNumbers();
-
         AdView adView = findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
+
+        setNumbers();
     }
 
     private void setNumbers(){

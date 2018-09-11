@@ -4,17 +4,12 @@
     android:layout_height="match_parent"
     android:background="@color/orange">
 
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/exercise_screen_classic_stage_bg" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
+        android:background="@drawable/exercise_screen_classic_stage_bg"
         android:orientation="vertical">
 
         <TextView
@@ -90,5 +85,15 @@
             android:textColor="#84B000" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/btn_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_close"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

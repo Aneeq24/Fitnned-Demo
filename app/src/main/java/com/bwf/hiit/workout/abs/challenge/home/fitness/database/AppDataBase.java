@@ -9,17 +9,19 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.dao.ExerciseDao;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.dao.ExerciseDayDao;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.dao.Recorddao;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.dao.RecordDao;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.dao.ReminderDao;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.dao.Userdao;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.dao.UserDao;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.dao.WeightDao;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Reminder;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Weight;
 
 
-@Database(entities = {ExerciseDay.class , Exercise.class ,User.class, Record.class, Reminder.class}, version = 2 ,exportSchema = false)
+@Database(entities = {ExerciseDay.class , Exercise.class ,User.class, Record.class, Reminder.class, Weight.class}, version = 3 ,exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
 
     private static AppDataBase appDataBase;
@@ -28,11 +30,13 @@ public abstract class AppDataBase extends RoomDatabase {
 
     public abstract ExerciseDayDao exerciseDayDao();
 
-    public  abstract Userdao userdao();
+    public  abstract UserDao userdao();
 
-    public  abstract Recorddao recorddao();
+    public  abstract RecordDao recorddao();
 
     public abstract ReminderDao reminderDao();
+
+    public abstract WeightDao weightdao();
 
     public static AppDataBase getInstance() {
         if (appDataBase == null) {

@@ -3,13 +3,13 @@ package com.bwf.hiit.workout.abs.challenge.home.fitness.repository;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
-import com.bwf.hiit.workout.abs.challenge.home.fitness.dao.Userdao;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.dao.UserDao;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 
 public class UserRepo {
 
-    private Userdao userdao;
+    private UserDao userdao;
 
     public UserRepo() {
         AppDataBase db = AppDataBase.getInstance();
@@ -26,9 +26,9 @@ public class UserRepo {
 
     private static class updateAsyncTask extends AsyncTask<User, Void, Void> {
 
-        private Userdao mAsyncTaskDao;
+        private UserDao mAsyncTaskDao;
 
-        updateAsyncTask(Userdao dao) {
+        updateAsyncTask(UserDao dao) {
             mAsyncTaskDao = dao;
         }
 

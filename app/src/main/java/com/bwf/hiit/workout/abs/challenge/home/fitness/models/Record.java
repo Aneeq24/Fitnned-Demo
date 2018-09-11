@@ -88,7 +88,7 @@ public class Record {
     }
 
     private String getCurrentDate() {
-        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd - MMM - yy");
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd MMM \nhh:mm");
         Date date = new Date();
         return dateFormat.format(date);
     }

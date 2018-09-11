@@ -196,7 +196,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:background="@drawable/ic_white_round_bar"
             android:padding="5dp"
             android:visibility="gone"
             ads:adSize="MEDIUM_RECTANGLE"
@@ -253,7 +252,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="KCAL"
+                android:text="Calories Burnt,Kcal"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -281,14 +280,29 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="WEIGHT"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="WEIGHT"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/btn_edit_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/completed_screen_edit_icon"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/graph_weight"

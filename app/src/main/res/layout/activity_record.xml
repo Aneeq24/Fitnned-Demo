@@ -118,7 +118,7 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_record" />
+    <include layout="@layout/fragment_record" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

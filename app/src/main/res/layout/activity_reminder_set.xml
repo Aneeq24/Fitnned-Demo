@@ -5,14 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/select_you_number_bg"
-    android:paddingLeft="16dp"
-    android:paddingRight="16sp"
     tools:context=".view.ReminderSetActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_margin="14dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -27,7 +25,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:text="WE WILL REMIND YOU THEN."
             android:textColor="@android:color/background_light"
             android:textSize="24sp" />
@@ -36,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:baselineAligned="false"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -64,6 +63,7 @@
                         android:layout_width="80dp"
                         android:layout_height="40dp"
                         android:layout_centerVertical="true"
+                        android:contentDescription="@string/app_name"
                         android:scaleType="fitXY"
                         android:src="@drawable/timer_bar_bg" />
 
@@ -107,6 +107,7 @@
                         android:layout_width="80dp"
                         android:layout_height="40dp"
                         android:layout_centerVertical="true"
+                        android:contentDescription="@string/app_name"
                         android:scaleType="fitXY"
                         android:src="@drawable/timer_bar_bg" />
 
@@ -140,23 +141,21 @@
             android:textColor="@android:color/background_light"
             android:textSize="24sp" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/btn_skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="14dp"
+            android:text="SKIP"
+            android:textSize="18sp"
+            android:layout_marginEnd="14dp" />
 
-    <TextView
-        android:id="@+id/btn_skip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="100dp"
-        android:layout_marginRight="4dp"
-        android:text="SKIP"
-        android:textSize="18sp" />
+    </LinearLayout>
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/baner_Admob"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="8dp"

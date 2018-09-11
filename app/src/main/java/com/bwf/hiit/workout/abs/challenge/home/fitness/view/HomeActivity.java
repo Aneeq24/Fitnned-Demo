@@ -7,21 +7,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.URLUtil;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,9 +30,8 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.BuildConfig;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayAdapter;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.HomeAdapter;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.HomeFragment;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.RecordFragment;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.inapp.MyBilling;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
@@ -45,21 +44,16 @@ import com.google.ads.consent.ConsentFormListener;
 import com.google.ads.consent.ConsentInfoUpdateListener;
 import com.google.ads.consent.ConsentInformation;
 import com.google.ads.consent.ConsentStatus;
-import com.google.android.gms.ads.AdView;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
     MyBilling mBilling;
-    List<Integer> progress;
     Context context;
     @BindView(R.id.rl_normal)
     RelativeLayout rlNormal;
@@ -82,7 +76,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     TextView tvTotalMin;
     TextView tvTotalTime;
     TextView tvKcal;
-    RelativeLayout btnMore;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -111,7 +104,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         tvTotalMin = findViewById(R.id.tv_time);
         tvTotalTime = findViewById(R.id.tv_mins);
         tvKcal = findViewById(R.id.tv_kcal);
-        btnMore = findViewById(R.id.btn_more);
 
         noAds.setOnClickListener(this);
         workOut.setOnClickListener(this);
@@ -122,12 +114,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         consentInformation = ConsentInformation.getInstance(this);
         requestGoogleConsentForm(true);
-
-        try {
-            new getData().execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -140,7 +126,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        setDaysData();
+
+        selectFragment(0);
 
         AHBottomNavigation bottomNavigation = findViewById(R.id.bottom_navigation);
         AHBottomNavigationItem item1 = new AHBottomNavigationItem("WORKOUT", R.drawable.main_screen_nav_bar_workout_icon_n, R.color.colorAccent);
@@ -158,16 +145,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         bottomNavigation.setAccentColor(Color.parseColor("#00BFF3"));
 
         bottomNavigation.setOnTabSelectedListener((position, wasSelected) -> {
-            if (position == 1)
-                onRecordClicked();
+            if (position == 0)
+                selectFragment(0);
+            else if (position == 1)
+                selectFragment(1);
             else if (position == 2)
                 mBilling.purchaseRemoveAds();
             else if (position == 3)
-                Utils.showRateUsDialog(context);
+                Utils.onRateUs(context);
             return true;
         });
-
-        btnMore.setOnClickListener(view12 -> startActivity(new Intent(context, CalenderActivity.class)));
 
         UserViewModel mUserViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         mUserViewModel.getUser().observe(this, user -> {
@@ -177,11 +164,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-    private void setDaysData() {
-        RecyclerView rvHistory = findViewById(R.id.rv_days);
-        DayAdapter mAdapter = new DayAdapter(days);
-        rvHistory.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        rvHistory.setAdapter(mAdapter);
+    private void selectFragment(int pos) {
+        FragmentTransaction ft;
+        Fragment fragment;
+        switch (pos) {
+            case 0:
+                fragment = new HomeFragment();
+                break;
+            case 1:
+                fragment = new RecordFragment();
+                break;
+            default:
+                fragment = null;
+                break;
+        }
+
+        ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.main_screen, fragment).commit();
     }
 
     @SuppressLint("SetTextI18n")
@@ -199,16 +198,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    private void initApp() {
-        RecyclerView rvHomeScreen = findViewById(R.id.rv_mainMenu);
-        rvHomeScreen.setNestedScrollingEnabled(false);
-        rvHomeScreen.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        HomeAdapter mAdapter = new HomeAdapter(progress);
-        rvHomeScreen.setAdapter(mAdapter);
-    }
-
     @Override
     public void onBackPressed() {
+        isAppInBackground = true;
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -240,7 +232,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume() {
         super.onResume();
         if (paused) {
-            new getData().execute();
             paused = false;
         }
     }
@@ -287,7 +278,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         } catch (MalformedURLException e) {
             Log.e(TAG, "onConsentInfoUpdated: " + e.getLocalizedMessage());
         }
-        form = new ConsentForm.Builder(HomeActivity.this, privacyUrl)
+        form = new ConsentForm.Builder(getApplicationContext(), privacyUrl)
                 .withPersonalizedAdsOption()
                 .withNonPersonalizedAdsOption()
                 .withListener(new ConsentFormListener() {
@@ -328,12 +319,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void showPrivacyPolicy() {
-        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://docs.google.com/document/d/1-ZDXRqZfKHd_sWjgrmyLAqoBbGHzGFEYY4OEKhEA6hA/edit"));
-        startActivity(i);
+        if (URLUtil.isValidUrl(getString(R.string.privacy_policy_url))) {
+            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.privacy_policy_url)));
+            startActivity(i);
+        }
     }
 
     private void onRecordClicked() {
-        startActivity(new Intent(context, RecordActivity.class));
+        selectFragment(1);
     }
 
     private void onReminderClicked() {
@@ -369,7 +362,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 onReminderClicked();
                 break;
             case R.id.feedback:
-                Utils.showRateUsDialog(context);
+                Utils.onRateUs(context);
                 break;
             case R.id.more_apps:
                 onMoreAppsClicked();
@@ -389,36 +382,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         mBilling.onActivityResult(requestCode, resultCode, data);
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private class getData extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            AppDataBase dataBase = AppDataBase.getInstance();
-            progress = new ArrayList<>();
-            for (int plan = 1; plan < 4; plan++) {
-                int val = 0;
-                for (int i = 1; i <= 30; i++) {
-                    if (dataBase.exerciseDayDao().getExerciseDays(plan, i).size() > 0) {
-                        int totalComplete = dataBase.exerciseDayDao().getExerciseDays(plan, i).get(0).getExerciseComplete();
-                        int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan, i).get(0).getTotalExercise();
-                        float v = (float) totalComplete / (float) totalExercises;
-                        if (v >= 1) {
-                            val++;
-                        }
-                    }
-                }
-                progress.add(val);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            initApp();
-        }
-    }
 }
 
 

@@ -21,7 +21,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.myHolder> {
 
     private String[] title = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
     private String[] dis = {"Your Journey towards Ripped Six Pack Abs Start Here...",
-            "Let’s Take Your Six Abs Workout Up A Notch...", "Recommended Abs Workout for Those Who Want a Challenge…"};
+            "Let’s Take Your Six Pack Abs Workout Up A Notch...", "Recommended Abs Workout for Those Who Want a Challenge…"};
     private int[] image = new int[]{R.drawable.main_screen_beginner_image, R.drawable.main_screen_intermediate_image,
             R.drawable.main_screen_advanced_image};
     private List<Integer> progress;

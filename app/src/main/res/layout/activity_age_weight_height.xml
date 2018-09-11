@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal|center"
+        android:paddingTop="30dp"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <LinearLayout
@@ -252,8 +253,24 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="100dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="30dp"
         android:text="SKIP"
-        android:textSize="18dp" />
+        android:textSize="18sp"
+        android:layout_marginEnd="30dp" />
+
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/baner_Admob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:visibility="visible"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit" />
 
 </RelativeLayout>

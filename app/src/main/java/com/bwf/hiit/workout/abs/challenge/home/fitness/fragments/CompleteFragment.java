@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,11 +31,13 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Weight;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.CalenderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.ConfirmReminderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.RecordViewModel;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.UserViewModel;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.WeightViewModel;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -67,39 +68,28 @@ public class CompleteFragment extends Fragment {
     private static TextView tvTime;
     String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
 
-    RecordViewModel mRecordViewModel;
-    UserViewModel mUserViewModel;
-    EditText edtWeight;
-    ImageView btnBack;
-    TextView tvExerciseNo;
-    TextView tvTotalTime;
-    TextView tvKcal;
-    TextView tvBmi;
     TextView tvMon;
-    TextView tvMonKcal;
-    RelativeLayout btnEditBmi;
-    RelativeLayout btnMore;
+    TextView tvBmi;
+    TextView tvKcal;
     Context context;
-    LineChart graphWeight;
-    BarChart graphKcal;
-    PlayingExercise playingExercise;
-    Record record;
-    List<Record> recordList;
-    User user;
-    EditText edtCm;
-    EditText edtFt;
-    EditText edtIn;
-    RadioGroup rgWeight;
-    RadioGroup rgHeight;
-    RadioButton rbCm;
-    RadioButton rbIn;
-    RadioButton rbKg;
-    RadioButton rbLbs;
-    float weight, height, inches, feet, bmi;
-    boolean isKg = true;
-    boolean isCm = true;
+    ImageView btnBack;
     ImageView btnAgain;
+    TextView tvMonKcal;
+    BarChart graphKcal;
     ImageView btnShare;
+    TextView tvTotalTime;
+    TextView tvExerciseNo;
+    LineChart graphWeight;
+    RelativeLayout btnMore;
+    List<Record> recordList;
+    ImageView btnEditWeight;
+    RelativeLayout btnEditBmi;
+    UserViewModel mUserViewModel;
+    PlayingExercise playingExercise;
+    RecordViewModel mRecordViewModel;
+    WeightViewModel mWeightViewModel;
+    Record record;
+    User user;
 
     @SuppressLint("SetTextI18n")
     public static void setReminder(Context context) {
@@ -137,9 +127,11 @@ public class CompleteFragment extends Fragment {
         tvTotalTime = view.findViewById(R.id.cf_totalTime);
         graphWeight = view.findViewById(R.id.graph_weight);
         tvExerciseNo = view.findViewById(R.id.cf_exerciseNo);
+        btnEditWeight = view.findViewById(R.id.btn_edit_weight);
 
         mUserViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         mRecordViewModel = ViewModelProviders.of(this).get(RecordViewModel.class);
+        mWeightViewModel = ViewModelProviders.of(this).get(WeightViewModel.class);
 
         playingExercise = (PlayingExercise) getActivity();
         assert playingExercise != null;
@@ -159,7 +151,8 @@ public class CompleteFragment extends Fragment {
             playingExercise.finish();
         });
 
-        btnEditBmi.setOnClickListener(view1 -> showDialog());
+        btnEditBmi.setOnClickListener(view1 -> showBMIDialog());
+        btnEditWeight.setOnClickListener(view1 -> showEditWeightDialog());
         btnShare.setOnClickListener(view1 -> com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils.showRateUsDialog(context));
         tvTime.setOnClickListener(view1 -> startActivity(new Intent(context, ConfirmReminderActivity.class).putExtra("up", true)));
         btnMore.setOnClickListener(view1 -> startActivity(new Intent(context, CalenderActivity.class)));
@@ -176,6 +169,12 @@ public class CompleteFragment extends Fragment {
                 initApp(user);
             }
         });
+
+        if (user != null) {
+            Weight myWeight = new Weight();
+            myWeight.setWeight((int) user.getWeight());
+            mWeightViewModel.insert(myWeight);
+        }
 
         assert getArguments() != null;
         if (getArguments().containsKey("repeat") && !getArguments().getBoolean("repeat")) {
@@ -222,8 +221,17 @@ public class CompleteFragment extends Fragment {
         tvMonKcal.setText(dateFormat.format(date));
     }
 
+    EditText edtWeight;
+    EditText edtCm;
+    EditText edtFt;
+    EditText edtIn;
+
+    float weight, height, inches, feet, bmi;
+    boolean isKg = true;
+    boolean isCm = true;
+
     @SuppressLint("SetTextI18n")
-    private void showDialog() {
+    private void showBMIDialog() {
         isKg = true;
         isCm = true;
         MaterialDialog dialog = new MaterialDialog.Builder(context)
@@ -240,18 +248,31 @@ public class CompleteFragment extends Fragment {
                         feet = convertIntoFloat(edtFt.getText().toString().trim());
                         height = (feet * 12) + inches;
                     }
-                    if (!isKg)
-                        weight = user.getWeight();
+
+                    boolean isCross0 = false;
+                    boolean isCross1 = false;
+
+                    if (isCm && !isKg) {
+                        height = height * 100 * 0.393701f;
+                        isCross0 = true;
+                    }
+
+                    if (isKg && !isCm) {
+                        weight = weight * 2.20462f;
+                        isCross1 = true;
+                        isKg = false;
+                    }
 
                     bmi = (weight) / (height * height);
 
                     if (!isKg)
                         bmi *= 703;
 
-                    if (isKg)
-                        weight = weight * 2.20462f;
-                    if (isCm)
+                    if (isCm && !isCross0)
                         height = height * 100 * 0.393701f;
+
+                    if (isKg && !isCross1)
+                        weight = weight * 2.20462f;
 
                     tvBmi.setText(math(bmi) + bmiCategory(Integer.parseInt(mathround(bmi))));
                     user.setWeight(weight);
@@ -271,12 +292,9 @@ public class CompleteFragment extends Fragment {
         edtCm = view.findViewById(R.id.edt_cm);
         edtFt = view.findViewById(R.id.edt_ft);
         edtIn = view.findViewById(R.id.edt_in);
-        rgWeight = view.findViewById(R.id.rg_weight);
-        rgHeight = view.findViewById(R.id.rg_height);
-        rbCm = view.findViewById(R.id.rb_cm);
-        rbIn = view.findViewById(R.id.rb_in);
-        rbKg = view.findViewById(R.id.rb_kg);
-        rbLbs = view.findViewById(R.id.rb_lb);
+
+        RadioGroup rgWeight = view.findViewById(R.id.rg_weight);
+        RadioGroup rgHeight = view.findViewById(R.id.rg_height);
 
         edtWeight.setText(mathround(user.getWeight() * 0.453592f));
         edtCm.setText(mathround(user.getHeight() * 2.54f));
@@ -286,12 +304,10 @@ public class CompleteFragment extends Fragment {
         rgWeight.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.rb_lb) {
                 isKg = false;
-                isCm = false;
                 edtWeight.setHint("00.00 LB");
                 edtWeight.setText(math(user.getWeight()));
             } else if (i == R.id.rb_kg) {
                 isKg = true;
-                isCm = true;
                 edtWeight.setHint("00.00 KG");
                 edtWeight.setText(mathround(user.getWeight() * 0.453592f));
             }
@@ -299,20 +315,62 @@ public class CompleteFragment extends Fragment {
 
         rgHeight.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.rb_cm) {
-                isKg = true;
                 isCm = true;
                 edtFt.setVisibility(View.GONE);
                 edtIn.setVisibility(View.GONE);
                 edtCm.setVisibility(View.VISIBLE);
                 edtCm.setText(mathround(user.getHeight() * 2.54f));
             } else if (i == R.id.rb_in) {
-                isKg = false;
                 isCm = false;
                 edtCm.setVisibility(View.GONE);
                 edtFt.setVisibility(View.VISIBLE);
                 edtIn.setVisibility(View.VISIBLE);
                 edtFt.setText(math(user.getHeight() / 12));
                 edtIn.setText(mathround(user.getHeight() % 12));
+            }
+        });
+    }
+
+    EditText edtEditWeight;
+
+    @SuppressLint("SetTextI18n")
+    private void showEditWeightDialog() {
+        isKg = true;
+        MaterialDialog dialog = new MaterialDialog.Builder(context)
+                .title("Weight")
+                .customView(R.layout.dialog_weight, true)
+                .positiveText("Save")
+                .onPositive((dialog1, which) -> {
+                    weight = convertIntoFloat(edtEditWeight.getText().toString().trim());
+
+                    if (isKg)
+                        weight = weight * 2.20462f;
+
+                    user.setWeight(weight);
+                    mUserViewModel.update(user);
+                    dialog1.dismiss();
+                })
+                .negativeText("Cancel")
+                .onNegative((dialog12, which) -> dialog12.dismiss())
+                .show();
+
+        View view = dialog.getCustomView();
+
+        assert view != null;
+        edtEditWeight = view.findViewById(R.id.edt_weight);
+
+        RadioGroup rgWeight = view.findViewById(R.id.rg_weight);
+        edtEditWeight.setText(mathround(user.getWeight() * 0.453592f));
+
+        rgWeight.setOnCheckedChangeListener((radioGroup, i) -> {
+            if (i == R.id.rb_lb) {
+                isKg = false;
+                edtEditWeight.setHint("00.00 LB");
+                edtEditWeight.setText(math(user.getWeight()));
+            } else if (i == R.id.rb_kg) {
+                isKg = true;
+                edtEditWeight.setHint("00.00 KG");
+                edtEditWeight.setText(mathround(user.getWeight() * 0.453592f));
             }
         });
     }
@@ -344,7 +402,11 @@ public class CompleteFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     private void initApp(User user) {
         tvBmi.setText(String.valueOf(user.getBmi()) + bmiCategory(user.getBmi()));
-        setupWeightChart();
+        mWeightViewModel.getAllWeights().observe(this, weights -> {
+            if (weights != null) {
+                setupWeightChart(weights);
+            }
+        });
         mRecordViewModel.getAllRecords().observe(this, records -> {
             if (records != null) {
                 setupKcalChart(records);
@@ -352,7 +414,7 @@ public class CompleteFragment extends Fragment {
         });
     }
 
-    private void setupWeightChart() {
+    private void setupWeightChart(List<Weight> mList) {
         graphWeight.setDrawGridBackground(false);
         // no description text
         graphWeight.getDescription().setEnabled(false);
@@ -369,14 +431,21 @@ public class CompleteFragment extends Fragment {
 //        mv.setChartView(graphWeight); // For bounds control
 //        graphWeight.setMarker(mv); // Set the marker to the chart
         XAxis xAxis = graphWeight.getXAxis();
-        xAxis.setAxisMinimum(1);
-        xAxis.setAxisMaximum(31);
+        xAxis.setAxisMinimum(getCurrentDay() - 3);
+        xAxis.setAxisMaximum(getCurrentDay() + 3);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGridColor(Color.TRANSPARENT);
         graphWeight.getAxisRight().setEnabled(false);
         // add data
         ArrayList<Entry> values = new ArrayList<>();
-        values.add(new Entry(getCurrentDay(), user.getWeight()));
+
+        if (mList.size() == 0)
+            values.add(new Entry(getCurrentDay(), user.getWeight()));
+        else {
+            for (int i = 0; i < mList.size(); i++)
+                values.add(new Entry(mList.get(i).getDay(), mList.get(i).getWeight()));
+        }
+
         YAxis leftAxis = graphWeight.getAxisLeft();
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
         leftAxis.setAxisMaximum(user.getWeight() + 50f);

@@ -128,11 +128,7 @@ public class PlayingExercise extends AppCompatActivity {
                     int exerciseId = mListExDays.get(currentEx).getId();
                     exerciseName = dataBase.exerciseDao().findByIdbg(exerciseId).getName();
                     displayName = dataBase.exerciseDao().findByIdbg(exerciseId).getDisplay_name();
-                    if (currentEx > 0) {
-                        for (int i = 0; i < currentEx; i++)
-                            progressBar.incrementCompletedSegments();
-                    }
-                    progressBar.setSegmentCount(totalExercisePerRound);
+
                     timer = totaTimeSpend;
                 }
                 return null;
@@ -152,8 +148,13 @@ public class PlayingExercise extends AppCompatActivity {
                         fragmentManager.beginTransaction().add(R.id.fragment_container, completeFragment, null).commitAllowingStateLoss();
                         iscomplete = true;
                     } else {
+                        progressBar.setSegmentCount(totalExercisePerRound);
+                        if (currentEx > 0) {
+                            for (int i = 0; i < currentEx; i++)
+                                progressBar.incrementCompletedSegments();
+                        }
                         fragmentManager.beginTransaction().add(R.id.fragment_container, skipFragment, null).commitAllowingStateLoss();
-                        TTSManager.getInstance(getApplication()).play("This is start of exercise exercise is  " + displayName);
+                        TTSManager.getInstance(getApplication()).play("This is start of today workout The exercise is  " + displayName);
                     }
                 } else {
                     iscomplete = true;
@@ -179,6 +180,7 @@ public class PlayingExercise extends AppCompatActivity {
         if (!iscomplete)
             fragmentManager.beginTransaction().replace(R.id.fragment_container, exerciseFragment, null).commitAllowingStateLoss();
         else {
+            AnalyticsManager.getInstance().sendAnalytics("exercise_complete", "plan_" + title[currentPlan - 1] + "day_" + currentDay + "completed");
             progressBar.setVisibility(View.GONE);
             Bundle bundle = new Bundle();
             bundle.putBoolean("repeat", false);

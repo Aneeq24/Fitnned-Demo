@@ -7,10 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.UserViewModel;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.MyWheelPicker;
+import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,10 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_age_weight_height);
         ButterKnife.bind(this);
+
+        AdView adView = findViewById(R.id.baner_Admob);
+        AdsManager.getInstance().showBanner(adView);
+
         mViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         mViewModel.getUser().observe(this,user ->
                 this.user = user);

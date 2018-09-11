@@ -89,7 +89,7 @@
     <string name="native_ad_unit" translatable="false">ca-app-pub-6412217023250030/9137922994</string>
     <!--<string name="banner_ad_unit" translatable="false">ca-app-pub-3940256099942544/6300978111</string>-->
     <string name="banner_ad_unit" translatable="false">ca-app-pub-2972677223588085/7985874802</string>
-    <string name="banner_rect_ad_unit" translatable="false">ca-app-pub-2972677223588085/7985874802</string>
+    <string name="banner_rect_ad_unit" translatable="false">ca-app-pub-2972677223588085/1150920407</string>
     <string name="rewarded_ad_unit" translatable="false">ca-app-pub-6412217023250030/7633506345</string>
     <string name="exit_banner_ad_unit" translatable="false">ca-app-pub-2972677223588085/7985874802</string>
     <string name="interstitial_ad_unit" translatable="false">ca-app-pub-2972677223588085/8936419421</string>

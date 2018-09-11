@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
@@ -138,10 +139,12 @@ public class Utils {
         View view = dialog.getCustomView();
         assert view != null;
         Button btnSubmit = view.findViewById(R.id.btn_rate_us);
+        ImageView btnClose = view.findViewById(R.id.btn_close);
         btnSubmit.setOnClickListener(view1 -> onRateUs(context));
+        btnClose.setOnClickListener(view1 -> dialog.dismiss());
     }
 
-    private static void onRateUs(Context context) {
+    public static void onRateUs(Context context) {
         AnalyticsManager.getInstance().sendAnalytics("rate_us_clicked_done", "Rate_us");
         SharedPrefHelper.writeBoolean(context, "rate", true);
         try {

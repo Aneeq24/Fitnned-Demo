@@ -7,135 +7,138 @@
     android:background="#00E9FB"
     tools:context=".view.ScrollingActivity">
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="60dp">
+        android:layout_marginBottom="60dp"
+        tools:context=".view.ScrollingActivity">
 
-        <LinearLayout
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.NoActionBar.AppBarOverlay">
 
-            <android.support.design.widget.AppBarLayout
-                android:id="@+id/app_bar"
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/AppTheme.NoActionBar.AppBarOverlay">
+                android:layout_height="200dp"
+                android:background="@drawable/exercise_screen_classic_stage_bg"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:toolbarId="@+id/toolbar">
 
-                <android.support.design.widget.CollapsingToolbarLayout
-                    android:id="@+id/toolbar_layout"
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="40dp"
+                    android:src="@drawable/days_screen_top_image_ex" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@drawable/exercise_screen_classic_stage_bg"
-                    app:contentScrim="?attr/colorPrimary"
-                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                    app:toolbarId="@+id/toolbar">
+                    android:layout_height="60dp"
+                    android:layout_gravity="bottom"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    <ImageView
+                    <com.dinuscxj.progressbar.CircleProgressBar
+                        android:id="@+id/line_progress_left"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        app:line_count="30"
+                        app:line_width="4dp"
+                        app:progress_end_color="@color/colorPrimary"
+                        app:progress_start_color="@color/colorPrimary"
+                        app:progress_stroke_width="4dp"
+                        app:progress_text_color="@color/white"
+                        app:progress_text_size="12dp"
+                        app:style="solid_line" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="DAYS LEFT"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        app:fontFamily="@font/roboto_bold" />
+
+                    <com.dinuscxj.progressbar.CircleProgressBar
+                        android:id="@+id/line_progress_finished"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginStart="24dp"
+                        app:line_count="30"
+                        app:line_width="4dp"
+                        app:progress_end_color="@color/colorPrimary"
+                        app:progress_start_color="@color/colorPrimary"
+                        app:progress_stroke_width="4dp"
+                        app:progress_text_color="@color/white"
+                        app:progress_text_size="12dp"
+                        app:style="solid_line" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="FINISHED"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:fontFamily="@font/roboto_bold" />
+
+                </LinearLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    app:layout_collapseMode="pin">
+
+                    <TextView
+                        android:id="@+id/tv_Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="40dp"
-                        android:src="@drawable/days_screen_top_image_ex" />
+                        android:textColor="@android:color/white"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_gravity="bottom"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                </android.support.v7.widget.Toolbar>
 
-                        <com.dinuscxj.progressbar.CircleProgressBar
-                            android:id="@+id/line_progress_left"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginStart="16dp"
-                            app:line_count="30"
-                            app:line_width="4dp"
-                            app:progress_end_color="@color/colorPrimary"
-                            app:progress_start_color="@color/colorPrimary"
-                            app:progress_stroke_width="4dp"
-                            app:progress_text_color="@color/white"
-                            app:progress_text_size="12dp"
-                            app:style="solid_line" />
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:text="DAYS LEFT"
-                            android:textColor="@android:color/white"
-                            android:textSize="18sp"
-                            app:fontFamily="@font/roboto_bold" />
-
-                        <com.dinuscxj.progressbar.CircleProgressBar
-                            android:id="@+id/line_progress_finished"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginLeft="24dp"
-                            android:layout_marginStart="24dp"
-                            app:line_count="30"
-                            app:line_width="4dp"
-                            app:progress_end_color="@color/colorPrimary"
-                            app:progress_start_color="@color/colorPrimary"
-                            app:progress_stroke_width="4dp"
-                            app:progress_text_color="@color/white"
-                            app:progress_text_size="12dp"
-                            app:style="solid_line" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:text="FINISHED"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            app:fontFamily="@font/roboto_bold" />
-
-                    </LinearLayout>
-
-                    <android.support.v7.widget.Toolbar
-                        android:id="@+id/toolbar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        app:layout_collapseMode="pin">
-
-                        <TextView
-                            android:id="@+id/tv_Title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@android:color/white"
-                            android:textSize="24sp"
-                            android:textStyle="bold" />
-
-                    </android.support.v7.widget.Toolbar>
-
-                </android.support.design.widget.CollapsingToolbarLayout>
-            </android.support.design.widget.AppBarLayout>
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00E9FB"
+            android:layout_marginTop="5dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".view.DailyExerciseInfo"
+            tools:showIn="@layout/activity_daily_exercise_info">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_scroll"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="5dp" />
+                android:layout_height="match_parent" />
 
-        </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
-    </android.support.v4.widget.NestedScrollView>
-
+    </android.support.design.widget.CoordinatorLayout>
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/baner_Admob"
         android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner_ad_unit"
         ads:layout_constraintBottom_toBottomOf="parent"

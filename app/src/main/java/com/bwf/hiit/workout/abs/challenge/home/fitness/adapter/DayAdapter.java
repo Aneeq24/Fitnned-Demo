@@ -77,5 +77,4 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.myHolder> {
         Date date = new Date();
         return dateFormat.format(date);
     }
-
 }

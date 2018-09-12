@@ -180,7 +180,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
 
         ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.main_screen, fragment).commit();
+        ft.replace(R.id.main_screen, fragment).commitAllowingStateLoss();
     }
 
     @SuppressLint("SetTextI18n")
@@ -278,7 +278,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         } catch (MalformedURLException e) {
             Log.e(TAG, "onConsentInfoUpdated: " + e.getLocalizedMessage());
         }
-        form = new ConsentForm.Builder(getApplicationContext(), privacyUrl)
+        form = new ConsentForm.Builder(context, privacyUrl)
                 .withPersonalizedAdsOption()
                 .withNonPersonalizedAdsOption()
                 .withListener(new ConsentFormListener() {

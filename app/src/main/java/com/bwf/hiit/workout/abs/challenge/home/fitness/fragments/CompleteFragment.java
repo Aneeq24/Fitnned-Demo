@@ -139,7 +139,7 @@ public class CompleteFragment extends Fragment {
         TTSManager.getInstance(getActivity().getApplication()).play(" Well Done. This is end of day " + playingExercise.currentDay + "of your training");
         AnalyticsManager.getInstance().sendAnalytics("day " + playingExercise.currentDay, "workout_complete");
 
-        int minutes = (playingExercise.totaTimeSpend % 3600) / 60;
+        int minutes = (playingExercise.totalTimeSpend % 3600) / 60;
         @SuppressLint("DefaultLocale") String timeString = String.format("%02d", minutes);
 
         btnBack.setOnClickListener(view1 -> {
@@ -153,7 +153,7 @@ public class CompleteFragment extends Fragment {
 
         btnEditBmi.setOnClickListener(view1 -> showBMIDialog());
         btnEditWeight.setOnClickListener(view1 -> showEditWeightDialog());
-        btnShare.setOnClickListener(view1 -> com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils.showRateUsDialog(context));
+        btnShare.setOnClickListener(view1 -> com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils.onRateUs(context));
         tvTime.setOnClickListener(view1 -> startActivity(new Intent(context, ConfirmReminderActivity.class).putExtra("up", true)));
         btnMore.setOnClickListener(view1 -> startActivity(new Intent(context, CalenderActivity.class)));
 
@@ -204,8 +204,7 @@ public class CompleteFragment extends Fragment {
                 }
             }, 2000);
         }
-
-        btnShare.performClick();
+        com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils.showRateUsDialog(context);
         return view;
     }
 
@@ -344,9 +343,21 @@ public class CompleteFragment extends Fragment {
                     weight = convertIntoFloat(edtEditWeight.getText().toString().trim());
 
                     if (isKg)
+                        height = (user.getHeight() * 2.54f) / 100;
+                    else
+                        height = user.getHeight();
+
+                    bmi = (weight) / (height * height);
+
+                    if (!isKg)
+                        bmi *= 703;
+
+                    if (isKg)
                         weight = weight * 2.20462f;
 
+                    tvBmi.setText(math(bmi) + bmiCategory(Integer.parseInt(mathround(bmi))));
                     user.setWeight(weight);
+                    user.setBmi((int) bmi);
                     mUserViewModel.update(user);
                     dialog1.dismiss();
                 })
@@ -358,8 +369,8 @@ public class CompleteFragment extends Fragment {
 
         assert view != null;
         edtEditWeight = view.findViewById(R.id.edt_weight);
-
         RadioGroup rgWeight = view.findViewById(R.id.rg_weight);
+
         edtEditWeight.setText(mathround(user.getWeight() * 0.453592f));
 
         rgWeight.setOnCheckedChangeListener((radioGroup, i) -> {

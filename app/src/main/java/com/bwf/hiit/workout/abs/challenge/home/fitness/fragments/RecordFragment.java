@@ -25,7 +25,6 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayAdapter;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
@@ -78,7 +77,6 @@ public class RecordFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_record, container, false);
         context = getContext();
-        AdsManager.getInstance().showFacebookInterstitialAd();
 
         tvMon = rootView.findViewById(R.id.tv_mon);
         tvBmi = rootView.findViewById(R.id.tv_bmi);
@@ -232,9 +230,21 @@ public class RecordFragment extends Fragment {
                     weight = convertIntoFloat(edtEditWeight.getText().toString().trim());
 
                     if (isKg)
+                        height = (user.getHeight() * 2.54f) / 100;
+                    else
+                        height = user.getHeight();
+
+                    bmi = (weight) / (height * height);
+
+                    if (!isKg)
+                        bmi *= 703;
+
+                    if (isKg)
                         weight = weight * 2.20462f;
 
+                    tvBmi.setText(math(bmi) + bmiCategory(Integer.parseInt(mathround(bmi))));
                     user.setWeight(weight);
+                    user.setBmi((int) bmi);
                     mUserViewModel.update(user);
                     dialog1.dismiss();
                 })

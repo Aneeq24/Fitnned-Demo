@@ -215,7 +215,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         finish();
                     }).setNeutralButton("Rate Us", (dialog, id) -> {
                 dialog.cancel();
-                Utils.showRateUsDialog(context);
+                Utils.onRateUs(context);
             }).setNegativeButton("NO", (dialog, id) -> dialog.cancel());
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();

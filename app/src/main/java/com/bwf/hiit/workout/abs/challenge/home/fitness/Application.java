@@ -26,6 +26,7 @@ public class Application extends android.app.Application {
         context = getApplicationContext();
         MobileAds.initialize(context, context.getString(R.string.app_id));
         AdsManager.getInstance();
+        //hello
     }
 
     @Override

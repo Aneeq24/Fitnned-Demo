@@ -204,7 +204,7 @@ public class PlayingExercise extends AppCompatActivity {
     }
 
     public void onResumeFragment() {
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, exerciseFragment, null).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, exerciseFragment, null).commitAllowingStateLoss();
     }
 
     public void onCompleteCheckingNext(boolean isNext) {

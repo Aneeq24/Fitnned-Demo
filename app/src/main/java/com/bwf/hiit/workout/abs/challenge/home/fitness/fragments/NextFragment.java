@@ -67,7 +67,7 @@ public class NextFragment extends Fragment {
         mCustomCircleBar.setOnClickListener(view -> pauseOrRenume());
         startRestTimer(mActivity.restTime * 1000);
 
-        if (mActivity.iscomplete)
+        if (mActivity.isComplete)
             mActivity.StartPlayingFragment();
 
         initNext();

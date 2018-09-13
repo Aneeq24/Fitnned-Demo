@@ -75,7 +75,7 @@ public class ExerciseFragment extends Fragment {
         btnPause.setOnClickListener(view -> pause());
         btnHelp.setOnClickListener(view -> helpButtonClick());
         btnNoAds.setOnClickListener(view -> mActivity.mBilling.purchaseRemoveAds());
-        btnRateUs.setOnClickListener(view -> Utils.showRateUsDialog(context));
+        btnRateUs.setOnClickListener(view -> Utils.onRateUs(context));
         btnPrevious.setOnClickListener(view -> onExerciseComplete(false));
         btnNext.setOnClickListener(view -> onExerciseComplete(true));
 

@@ -215,7 +215,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         finish();
                     }).setNeutralButton("Rate Us", (dialog, id) -> {
                 dialog.cancel();
-                Utils.showRateUsDialog(context);
+                Utils.onRateUs(context);
             }).setNegativeButton("NO", (dialog, id) -> dialog.cancel());
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
@@ -278,7 +278,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         } catch (MalformedURLException e) {
             Log.e(TAG, "onConsentInfoUpdated: " + e.getLocalizedMessage());
         }
-        form = new ConsentForm.Builder(getApplicationContext(), privacyUrl)
+        form = new ConsentForm.Builder(context, privacyUrl)
                 .withPersonalizedAdsOption()
                 .withNonPersonalizedAdsOption()
                 .withListener(new ConsentFormListener() {

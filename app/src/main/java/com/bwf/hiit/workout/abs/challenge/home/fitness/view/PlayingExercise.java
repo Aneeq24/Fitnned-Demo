@@ -66,9 +66,9 @@ public class PlayingExercise extends AppCompatActivity {
     public int currentEx = 0;
     public int timer = 0;
     public int currentRound = 0;
-    public int totaTimeSpend = 0;
+    public int totalTimeSpend = 0;
     public float totalKcal = 0;
-    public boolean iscomplete;
+    public boolean isComplete;
     public static boolean isPaused = false;
 
     @Override
@@ -103,7 +103,7 @@ public class PlayingExercise extends AppCompatActivity {
                 if (mListExDays.size() > 0) {
 
                     for (ExerciseDay day : mListExDays) {
-                        totaTimeSpend = totaTimeSpend + day.getReps();
+                        totalTimeSpend = totalTimeSpend + day.getReps();
                         totalKcal = totalKcal + AppDataBase.getInstance().exerciseDao().findByIdbg(day.getId()).getCalories();
                         if (day.isStatus()) {
                             currentEx++;
@@ -129,7 +129,7 @@ public class PlayingExercise extends AppCompatActivity {
                     exerciseName = dataBase.exerciseDao().findByIdbg(exerciseId).getName();
                     displayName = dataBase.exerciseDao().findByIdbg(exerciseId).getDisplay_name();
 
-                    timer = totaTimeSpend;
+                    timer = totalTimeSpend;
                 }
                 return null;
             }
@@ -146,7 +146,7 @@ public class PlayingExercise extends AppCompatActivity {
                         bundle.putBoolean("repeat", true);
                         completeFragment.setArguments(bundle);
                         fragmentManager.beginTransaction().add(R.id.fragment_container, completeFragment, null).commitAllowingStateLoss();
-                        iscomplete = true;
+                        isComplete = true;
                     } else {
                         progressBar.setSegmentCount(totalExercisePerRound);
                         if (currentEx > 0) {
@@ -157,7 +157,7 @@ public class PlayingExercise extends AppCompatActivity {
                         TTSManager.getInstance(getApplication()).play("This is start of today workout The exercise is  " + displayName);
                     }
                 } else {
-                    iscomplete = true;
+                    isComplete = true;
                     progressBar.setVisibility(View.GONE);
                     fragmentManager.beginTransaction().add(R.id.fragment_container, restFragment, null).commitAllowingStateLoss();
                     TTSManager.getInstance(getApplication()).play(getString(R.string.txt_rest));
@@ -177,7 +177,7 @@ public class PlayingExercise extends AppCompatActivity {
     }
 
     public void StartPlayingFragment() {
-        if (!iscomplete)
+        if (!isComplete)
             fragmentManager.beginTransaction().replace(R.id.fragment_container, exerciseFragment, null).commitAllowingStateLoss();
         else {
             AnalyticsManager.getInstance().sendAnalytics("exercise_complete", "plan_" + title[currentPlan - 1] + "day_" + currentDay + "completed");
@@ -204,7 +204,7 @@ public class PlayingExercise extends AppCompatActivity {
     }
 
     public void onResumeFragment() {
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, exerciseFragment, null).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, exerciseFragment, null).commitAllowingStateLoss();
     }
 
     public void onCompleteCheckingNext(boolean isNext) {
@@ -221,7 +221,8 @@ public class PlayingExercise extends AppCompatActivity {
         } else if (currentEx < totalExercises - 1) {
             Log.i("1994:Current exercise", "current exercise less than total" + currentEx + "Total" + totalExercises);
             currentEx++;
-            progressBar.incrementCompletedSegments();
+            if (!mListExDays.get(currentEx).isStatus())
+                progressBar.incrementCompletedSegments();
         } else if (currentRound < mListExDays.get(0).getRounds()) {
             currentRound++;
         }
@@ -233,7 +234,7 @@ public class PlayingExercise extends AppCompatActivity {
             AnalyticsManager.getInstance().sendAnalytics("plan " + currentPlan + "days " + currentDay, "complete_all_exercises");
             mListExDays.get(0).setExerciseComplete(mListExDays.get(0).getTotalExercise());
             mListExDays.get(0).setRoundCompleted(currentRound);
-            this.iscomplete = true;
+            this.isComplete = true;
         }
 
         new updateData().execute();
@@ -256,7 +257,7 @@ public class PlayingExercise extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (!iscomplete) {
+        if (!isComplete) {
             AnalyticsManager.getInstance().sendAnalytics("playing_exercise", "close at" + "plan " + currentPlan + "days " + currentDay);
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle(getString(R.string.app_name));

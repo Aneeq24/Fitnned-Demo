@@ -175,7 +175,11 @@ public class ExerciseFragment extends Fragment {
     }
 
     private void onExerciseComplete(boolean isNext) {
-        mActivity.NextFragment(isNext, timer - reamingTime);
+        int time;
+        if (isNext)
+            time = timer - reamingTime;
+        else time = timer + 30;
+        mActivity.NextFragment(isNext, time);
     }
 
     public void pause() {

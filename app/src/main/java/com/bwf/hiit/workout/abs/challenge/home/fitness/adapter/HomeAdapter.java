@@ -26,8 +26,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.myHolder> {
             R.drawable.main_screen_advanced_image};
     private List<Integer> progress;
 
-    public HomeAdapter(List<Integer> progress) {
+    public void setProgress(List<Integer> progress) {
         this.progress = progress;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -68,7 +69,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.myHolder> {
 
     @Override
     public int getItemCount() {
-        return progress.size();
+        if (progress != null)
+            return progress.size();
+        else
+            return 0;
     }
 
     class myHolder extends RecyclerView.ViewHolder {

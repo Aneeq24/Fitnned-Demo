@@ -64,6 +64,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private boolean paused;
     private ConsentInformation consentInformation;
     private final String TAG = HomeActivity.class.getSimpleName();
+    private HomeFragment homeFragment = new HomeFragment();
+    private RecordFragment recordFragment = new RecordFragment();
 
     TextView workOut;
     TextView reminder;
@@ -127,7 +129,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        selectFragment(0);
+        selectFragment(homeFragment);
 
         AHBottomNavigation bottomNavigation = findViewById(R.id.bottom_navigation);
         AHBottomNavigationItem item1 = new AHBottomNavigationItem("WORKOUT", R.drawable.main_screen_nav_bar_workout_icon_n, R.color.colorAccent);
@@ -146,9 +148,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         bottomNavigation.setOnTabSelectedListener((position, wasSelected) -> {
             if (position == 0)
-                selectFragment(0);
+                selectFragment(homeFragment);
             else if (position == 1)
-                selectFragment(1);
+                selectFragment(recordFragment);
             else if (position == 2)
                 mBilling.purchaseRemoveAds();
             else if (position == 3)
@@ -164,21 +166,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-    private void selectFragment(int pos) {
+    private void selectFragment(Fragment fragment) {
         FragmentTransaction ft;
-        Fragment fragment;
-        switch (pos) {
-            case 0:
-                fragment = new HomeFragment();
-                break;
-            case 1:
-                fragment = new RecordFragment();
-                break;
-            default:
-                fragment = null;
-                break;
-        }
-
         ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.main_screen, fragment).commit();
     }
@@ -233,6 +222,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         super.onResume();
         if (paused) {
             paused = false;
+            selectFragment(homeFragment);
         }
     }
 
@@ -326,7 +316,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void onRecordClicked() {
-        selectFragment(1);
+        selectFragment(recordFragment);
     }
 
     private void onReminderClicked() {

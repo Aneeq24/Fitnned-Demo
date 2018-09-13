@@ -44,7 +44,7 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.my
         float progress = 0;
         if (mProgress.size() > position)
             progress = mProgress.get(position);
-        if (progress > 1) {
+        if (progress == 200f) {
             holder.mProgressBar.setVisibility(View.GONE);
             holder.imgDone.setVisibility(View.VISIBLE);
             holder.imgDone.setImageResource(R.drawable.days_screen_rest_icon);

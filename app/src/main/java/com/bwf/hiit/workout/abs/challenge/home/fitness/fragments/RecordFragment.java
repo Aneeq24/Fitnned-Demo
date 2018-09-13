@@ -241,10 +241,12 @@ public class RecordFragment extends Fragment {
 
                     if (isKg)
                         weight = weight * 2.20462f;
+                    if (user.getHeight() != 0) {
+                        tvBmi.setText(math(bmi) + bmiCategory(Integer.parseInt(mathround(bmi))));
+                        user.setBmi((int) bmi);
+                    } else tvBmi.setText("Enter your height");
 
-                    tvBmi.setText(math(bmi) + bmiCategory(Integer.parseInt(mathround(bmi))));
                     user.setWeight(weight);
-                    user.setBmi((int) bmi);
                     mUserViewModel.update(user);
                     dialog1.dismiss();
                 })
@@ -286,7 +288,12 @@ public class RecordFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void initApp(User user) {
-        tvBmi.setText(String.valueOf(user.getBmi()) + bmiCategory(user.getBmi()));
+        if (user.getBmi() == 0) {
+            tvBmi.setText("Enter your measurements");
+        } else if (user.getHeight() == 0) {
+            tvBmi.setText("Enter your height");
+        } else tvBmi.setText(String.valueOf(user.getBmi()) + bmiCategory(user.getBmi()));
+
         mWeightViewModel.getAllWeights().observe(this, weights -> {
             if (weights != null) {
                 setupWeightChart(weights);

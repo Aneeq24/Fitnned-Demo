@@ -32,10 +32,11 @@ public class HomeFragment extends Fragment {
     List<Integer> progress;
     Context context;
 
-    TextView tvExerciseNo;
+    TextView tvKcal;
     TextView tvTotalMin;
     TextView tvTotalTime;
-    TextView tvKcal;
+    HomeAdapter mAdapter;
+    TextView tvExerciseNo;
     RelativeLayout btnMore;
     RecyclerView rvHomeScreen;
 
@@ -60,6 +61,7 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
 
+        initApp();
         setDaysData(rootView);
 
         btnMore.setOnClickListener(view12 -> startActivity(new Intent(context, CalenderActivity.class)));
@@ -77,8 +79,18 @@ public class HomeFragment extends Fragment {
     private void initApp() {
         rvHomeScreen.setNestedScrollingEnabled(false);
         rvHomeScreen.setLayoutManager(new LinearLayoutManager(context));
-        HomeAdapter mAdapter = new HomeAdapter(progress);
+        mAdapter = new HomeAdapter();
         rvHomeScreen.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            new getData().execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -108,7 +120,7 @@ public class HomeFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            initApp();
+            mAdapter.setProgress(progress);
         }
     }
 

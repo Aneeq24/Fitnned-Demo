@@ -1,25 +1,16 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.managers;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.AppStateManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.BuildConfig;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.interfaces.RewardedVideoListener;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.facebook.ads.AbstractAdListener;
 import com.facebook.ads.Ad;
@@ -27,35 +18,17 @@ import com.facebook.ads.AdError;
 import com.facebook.ads.AdSize;
 import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.VideoController;
-import com.google.android.gms.ads.formats.MediaView;
-import com.google.android.gms.ads.formats.NativeAd;
-import com.google.android.gms.ads.formats.UnifiedNativeAd;
-import com.google.android.gms.ads.formats.UnifiedNativeAdView;
-import com.google.android.gms.ads.reward.RewardItem;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
-
-import java.util.List;
 
 public class AdsManager {
-
-    private enum NativeAdType {
-        REGULAR_TYPE,
-        BANNER_TYPE
-    }
 
     private static AdsManager manager;
     private InterstitialAd interstitialAd = null;
     private InterstitialAd interstitialAd_Main = null;
     private InterstitialAd interstitialAd_list = null;
     private InterstitialAd interstitialAd_Pause = null;
-    private RewardedVideoAd rewardedVideoAd = null;
     private com.facebook.ads.InterstitialAd fbInterstitialAd = null;
     private com.facebook.ads.InterstitialAd fbInterstitialAdComplete = null;
 
@@ -406,7 +379,6 @@ public class AdsManager {
             }
         }
     }
-
 
     public void showFacebookInterstitialAdWithAdmob() {
         if (fbInterstitialAd != null) {

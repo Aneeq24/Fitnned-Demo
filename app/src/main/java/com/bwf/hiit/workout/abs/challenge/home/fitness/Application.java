@@ -21,7 +21,7 @@ public class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
         if (BuildConfig.DEBUG) {
-            AdSettings.addTestDevice("32044b73-433f-4c52-80d0-041e8800e364");
+            AdSettings.addTestDevice("3ea2e07a-d22e-43a6-8517-b2b57801df06");
         }
         context = getApplicationContext();
         MobileAds.initialize(context, context.getString(R.string.app_id));

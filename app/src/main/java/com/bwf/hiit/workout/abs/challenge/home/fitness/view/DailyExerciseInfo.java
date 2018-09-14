@@ -80,6 +80,8 @@ public class DailyExerciseInfo extends AppCompatActivity {
         AdView adView = findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
 
+        AdsManager.getInstance().showInterstitialAd(getString(R.string.AM_Int_Exercise_List));
+
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "exercise_list_activity");
         String[] dayTTS = context.getResources().getStringArray(R.array.days_tts);
         TTSManager.getInstance(getApplication()).play(dayTTS[planDay - 1]);

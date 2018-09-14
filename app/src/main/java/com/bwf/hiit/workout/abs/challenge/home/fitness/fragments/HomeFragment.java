@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         context = getContext();
 
-        AdsManager.getInstance().showFacebookInterstitialAd();
+//        AdsManager.getInstance().showFacebookInterstitial(getString(R.string.FB_Main_Menu),true);
 
         tvExerciseNo = rootView.findViewById(R.id.tv_exercise);
         tvTotalMin = rootView.findViewById(R.id.tv_time);

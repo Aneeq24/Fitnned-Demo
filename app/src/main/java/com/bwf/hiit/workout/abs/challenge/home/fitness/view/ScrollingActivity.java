@@ -55,7 +55,6 @@ public class ScrollingActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         AdView adView = findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
-        AdsManager.getInstance().showInterstitialAdList();
 
         circleProgressBarLeft = findViewById(R.id.line_progress_left);
         circleProgressBarCompleted = findViewById(R.id.line_progress_finished);
@@ -147,7 +146,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AdsManager.getInstance().showInterstitialAd();
+        AdsManager.getInstance().showInterstitialAd(getString(R.string.AM_Int_Exercise_List));
         super.onBackPressed();
     }
 

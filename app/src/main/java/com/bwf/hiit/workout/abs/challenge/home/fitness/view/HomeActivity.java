@@ -147,14 +147,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         bottomNavigation.setAccentColor(Color.parseColor("#00BFF3"));
 
         bottomNavigation.setOnTabSelectedListener((position, wasSelected) -> {
-            if (position == 0)
+            if (position == 0) {
                 selectFragment(homeFragment);
-            else if (position == 1)
+                AdsManager.getInstance().showInterstitialAdMain();
+            } else if (position == 1) {
                 selectFragment(recordFragment);
-            else if (position == 2)
+            } else if (position == 2) {
                 mBilling.purchaseRemoveAds();
-            else if (position == 3)
+            } else if (position == 3) {
                 Utils.onRateUs(context);
+            }
             return true;
         });
 

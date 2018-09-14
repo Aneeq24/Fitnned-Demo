@@ -93,10 +93,15 @@
     <string name="rewarded_ad_unit" translatable="false">ca-app-pub-6412217023250030/7633506345</string>
     <string name="exit_banner_ad_unit" translatable="false">ca-app-pub-2972677223588085/7985874802</string>
     <string name="interstitial_ad_unit" translatable="false">ca-app-pub-2972677223588085/8936419421</string>
+    <string name="AM_Int_Main_Menu">ca-app-pub-2972677223588085/8936419421</string>
+    <string name="AM_Int_Exercise_List">ca-app-pub-2972677223588085/3090397422</string>
+    <string name="AM_Int_Pause">ca-app-pub-2972677223588085/2492573570</string>
 
-    <string name="native_facebook" translatable="false">511255115963411_511255379296718</string>
-    <string name="banner_facebook" translatable="false">511255115963411_511257882629801</string>
-    <string name="interstitial_facebook" translatable="false">511255115963411_511258032629786</string>
+    <string name="native_facebook" translatable="false">326485758102616_326485888102603</string>
+    <string name="banner_facebook" translatable="false">326485758102616_326486234769235</string>
+    <string name="interstitial_facebook" translatable="false">511255115963411_549741028781486</string>
+    <string name="FB_Main_Menu">511255115963411_549741028781486</string>
+    <string name="FB_Workout_End">511255115963411_549741482114774</string>
 
     <string name="ad">AD</string>
     <string name="uhoh">Uh-oh…</string>

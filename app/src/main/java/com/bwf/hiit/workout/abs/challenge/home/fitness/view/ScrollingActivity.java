@@ -55,6 +55,7 @@ public class ScrollingActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         AdView adView = findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
+        AdsManager.getInstance().showInterstitialAdList();
 
         circleProgressBarLeft = findViewById(R.id.line_progress_left);
         circleProgressBarCompleted = findViewById(R.id.line_progress_finished);
@@ -136,12 +137,6 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        AdsManager.getInstance().showFacebookInterstitialAd();
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         if (paused) {
@@ -152,6 +147,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        AdsManager.getInstance().showInterstitialAd();
         super.onBackPressed();
     }
 

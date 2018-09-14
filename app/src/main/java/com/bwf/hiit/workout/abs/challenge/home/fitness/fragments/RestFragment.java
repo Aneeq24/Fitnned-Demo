@@ -29,8 +29,6 @@ public class RestFragment extends Fragment {
 
         playingExercise = (PlayingExercise) getActivity();
 
-        AdsManager.getInstance().showFacebookInterstitialAd();
-
         unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }

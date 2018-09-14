@@ -26,8 +26,6 @@ public class HelpFragment extends Fragment {
         playingExercise = (PlayingExercise) getActivity();
         ImageView closeButton  =  rootView.findViewById(R.id.closeButton);
 
-        AdsManager.getInstance().showFacebookInterstitialAd();
-
         closeButton.setOnClickListener(view -> closeButtonClick());
         return rootView;
     }

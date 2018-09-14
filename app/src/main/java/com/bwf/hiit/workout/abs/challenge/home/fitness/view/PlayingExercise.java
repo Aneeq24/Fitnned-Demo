@@ -190,7 +190,7 @@ public class PlayingExercise extends AppCompatActivity {
     }
 
     public void PauseFragment(int remaingTime) {
-        AdsManager.getInstance().showFacebookInterstitialAd();
+        AdsManager.getInstance().showInterstitialAdPause();
         isPaused = true;
         pauseTimer = remaingTime;
         fragmentManager.beginTransaction().replace(R.id.fragment_container, pauseFragment, null).commitAllowingStateLoss();

@@ -19,8 +19,8 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayAdapter;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.HomeAdapter;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.CalenderActivity;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.view.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,13 +40,14 @@ public class HomeFragment extends Fragment {
     RelativeLayout btnMore;
     RecyclerView rvHomeScreen;
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         context = getContext();
 
-//        AdsManager.getInstance().showFacebookInterstitial(getString(R.string.FB_Main_Menu),true);
+        HomeActivity.tvTitle.setText("Workout");
 
         tvExerciseNo = rootView.findViewById(R.id.tv_exercise);
         tvTotalMin = rootView.findViewById(R.id.tv_time);

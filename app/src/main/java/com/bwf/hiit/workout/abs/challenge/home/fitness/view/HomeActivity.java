@@ -59,6 +59,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     RelativeLayout rlNormal;
     @BindView(R.id.rl_welcome)
     LinearLayout rlWelcome;
+    @SuppressLint("StaticFieldLeak")
+    public static TextView tvTitle;
     private ConsentForm form;
     private boolean isAppInBackground = false;
     private boolean paused;
@@ -91,7 +93,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         mBilling = new MyBilling(this);
         mBilling.onCreate();
 
-        AdsManager.getInstance().showFacebookInterstitial(getString(R.string.FB_Main_Menu),true);
+        AdsManager.getInstance().showInterstitialAd(getString(R.string.AM_Int_Main_Menu));
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "plan_screen_activity");
 
         workOut = findViewById(R.id.workout_record);
@@ -106,6 +108,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         tvTotalMin = findViewById(R.id.tv_time);
         tvTotalTime = findViewById(R.id.tv_mins);
         tvKcal = findViewById(R.id.tv_kcal);
+        tvTitle = findViewById(R.id.tv_Title);
 
         noAds.setOnClickListener(this);
         workOut.setOnClickListener(this);

@@ -97,7 +97,7 @@ public class ScrollingActivity extends AppCompatActivity {
                             if (v >= 1) {
                                 val++;
                             }
-                        }else{
+                        } else {
                             mProgress.add(200f);
                         }
                     }
@@ -146,7 +146,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AdsManager.getInstance().showInterstitialAd(getString(R.string.AM_Int_Exercise_List));
+        AdsManager.getInstance().showInterstitialAd(getString(R.string.AM_Int_Main_Menu));
         super.onBackPressed();
     }
 

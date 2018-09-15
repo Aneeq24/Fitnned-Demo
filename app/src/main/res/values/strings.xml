@@ -90,14 +90,10 @@
     <string name="banner_ad_unit" translatable="false">ca-app-pub-2972677223588085/7985874802</string>
     <string name="banner_rect_ad_unit" translatable="false">ca-app-pub-2972677223588085/1150920407</string>
 
-    <string name="interstitial_ad_unit" translatable="false">ca-app-pub-2972677223588085/8936419421</string>
-
     <string name="AM_Int_Main_Menu">ca-app-pub-2972677223588085/8936419421</string>
-    <string name="AM_Int_Exercise_List">ca-app-pub-2972677223588085/3090397422</string>
-    <string name="AM_Int_Pause">ca-app-pub-2972677223588085/2492573570</string>
+    <string name="AM_Int_Workout_End">ca-app-pub-2972677223588085/3090397422</string>
 
-    <string name="FB_Main_Menu">511255115963411_549741028781486</string>
-    <string name="FB_Workout_End">511255115963411_549741482114774</string>
+    <string name="FB_Int_Exercise_List">511255115963411_549741028781486</string>
 
     <string name="ad">AD</string>
     <string name="uhoh">Uh-oh…</string>

@@ -9,9 +9,6 @@ import com.google.gson.annotations.SerializedName;
 @Entity
 public class Exercise {
 
-    // unit: 1 for reps & 2 for sec
-    // lang: it is the language id, 1 is the default en_US
-
     @PrimaryKey
     private int id;
 
@@ -22,6 +19,8 @@ public class Exercise {
     private float calories;
 
     private String name;
+
+    private String tts;
 
     @SerializedName("display")
     private String display_name;
@@ -34,12 +33,13 @@ public class Exercise {
         this.display_name = display_name;
     }
 
-    public Exercise(int id, int unit, int lang, float calories, String name, String display_name) {
+    public Exercise(int id, int unit, int lang, float calories, String name, String tts, String display_name) {
         this.id = id;
         this.unit = unit;
         this.lang = lang;
         this.calories = calories;
         this.name = name;
+        this.tts = tts;
         this.display_name = display_name;
     }
 
@@ -83,6 +83,13 @@ public class Exercise {
         this.name = name;
     }
 
+    public String getTts() {
+        return tts;
+    }
+
+    public void setTts(String tts) {
+        this.tts = tts;
+    }
 
     public String getDisplay_name() {
         return display_name;

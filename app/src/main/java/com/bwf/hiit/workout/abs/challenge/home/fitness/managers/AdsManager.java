@@ -40,29 +40,17 @@ public class AdsManager {
 
             //Adding All Admob Ads To Our Hashmap//
             InterstitialAd interstitialAd = new InterstitialAd(context);
-            interstitialAd.setAdUnitId(context.getString(R.string.interstitial_ad_unit));
-            adMobAdsList.put(context.getString(R.string.interstitial_ad_unit), interstitialAd);
-
-            interstitialAd = new InterstitialAd(context);
             interstitialAd.setAdUnitId(context.getString(R.string.AM_Int_Main_Menu));
             adMobAdsList.put(context.getString(R.string.AM_Int_Main_Menu), interstitialAd);
 
             interstitialAd = new InterstitialAd(context);
-            interstitialAd.setAdUnitId(context.getString(R.string.AM_Int_Exercise_List));
-            adMobAdsList.put(context.getString(R.string.AM_Int_Exercise_List), interstitialAd);
-
-            interstitialAd = new InterstitialAd(context);
-            interstitialAd.setAdUnitId(context.getString(R.string.AM_Int_Pause));
-            adMobAdsList.put(context.getString(R.string.AM_Int_Pause), interstitialAd);
+            interstitialAd.setAdUnitId(context.getString(R.string.AM_Int_Workout_End));
+            adMobAdsList.put(context.getString(R.string.AM_Int_Workout_End), interstitialAd);
 
             //Adding All Admob Ads To Our Hashmap//
             //initialise this ad fb ad instance and put it in our dictionary//
-            com.facebook.ads.InterstitialAd fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, context.getString(R.string.FB_Main_Menu));
-            fbAdsList.put(context.getString(R.string.FB_Main_Menu), fbInterstitialAd);
-
-            //initialise this ad fb ad instance and put it in our dictionary//
-            fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, context.getString(R.string.FB_Workout_End));
-            fbAdsList.put(context.getString(R.string.FB_Workout_End), fbInterstitialAd);
+            com.facebook.ads.InterstitialAd fbInterstitialAd = new com.facebook.ads.InterstitialAd(context, context.getString(R.string.FB_Int_Exercise_List));
+            fbAdsList.put(context.getString(R.string.FB_Int_Exercise_List), fbInterstitialAd);
 
             // load the ads and cache them for later use
             loadAllAdMobInterstitialAd();
@@ -95,7 +83,6 @@ public class AdsManager {
     private void loadAllAdMobInterstitialAd() {
         if (adMobAdsList != null && adMobAdsList.size() > 0) {
             for (InterstitialAd ad : adMobAdsList.values()) {
-
                 if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
 
                     AdListener adListener = new AdListener() {
@@ -177,14 +164,11 @@ public class AdsManager {
     }
 
     public void showInterstitialAd(String adId) {
-        if(adMobAdsList!=null)
-        {
+        if (adMobAdsList != null) {
             if (adMobAdsList.containsKey(adId)) {
                 if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
-
                     InterstitialAd myAdMobAd = adMobAdsList.get(adId);
-                    if(myAdMobAd != null)
-                    {
+                    if (myAdMobAd != null) {
                         if (myAdMobAd.isLoaded()) {
                             myAdMobAd.show();
                         } else {
@@ -197,8 +181,7 @@ public class AdsManager {
     }
 
     public void showFacebookInterstitial(String adId, boolean withBackup) {
-        if(fbAdsList!=null)
-        {
+        if (fbAdsList != null) {
             if (fbAdsList.containsKey((adId))) {
                 com.facebook.ads.InterstitialAd myFbAd = fbAdsList.get(adId);
                 if (myFbAd != null) {
@@ -212,12 +195,12 @@ public class AdsManager {
                             for (InterstitialAd ad : adMobAdsList.values()) {
                                 //show the first one which has a loaded ad here//
                                 if (ad.isLoaded()) {
+                                    Log.d(TAG, "Ad is Loadded , showing back Up" + myFbAd.getPlacementId());
                                     ad.show();
+                                    break;
                                 }
                             }
-
                             myFbAd.loadAd();
-
                         } else {
                             myFbAd.loadAd();
                         }
@@ -251,5 +234,4 @@ public class AdsManager {
             }
         }
     }
-
 }

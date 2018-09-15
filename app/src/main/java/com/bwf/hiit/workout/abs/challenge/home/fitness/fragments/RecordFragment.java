@@ -30,6 +30,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Weight;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.CalenderActivity;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.view.HomeActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.RecordViewModel;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.UserViewModel;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.WeightViewModel;
@@ -71,12 +72,15 @@ public class RecordFragment extends Fragment {
     RecordViewModel mRecordViewModel;
     User user;
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_record, container, false);
         context = getContext();
+
+        HomeActivity.tvTitle.setText("Report");
 
         tvMon = rootView.findViewById(R.id.tv_mon);
         tvBmi = rootView.findViewById(R.id.tv_bmi);

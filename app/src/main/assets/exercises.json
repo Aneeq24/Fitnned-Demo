@@ -5,6 +5,7 @@
     "lang": 1,
     "calories": 13.23,
     "name": "bicycle_crunches",
+    "tts": "This exercise targets all abs muscle groups",
     "display": "Bicycle Crunches"
   },
   {
@@ -13,6 +14,7 @@
     "lang": 1,
     "calories": 12.63,
     "name": "burpees",
+    "tts": "Burpees is a highly effective fat burning exercise It raises heart rate and boosts body metabolism",
     "display": "Burpees"
   },
   {
@@ -21,6 +23,7 @@
     "lang": 1,
     "calories": 13.6,
     "name": "circle_crunches",
+    "tts": "Circle Crunches is a highly effective abs exercise it targets all abs muscles group",
     "display": "Circle Crunches"
   },
   {
@@ -29,6 +32,7 @@
     "lang": 1,
     "calories": 14.12,
     "name": "crunches",
+    "tts": "Crunches build strength in core abs muscles",
     "display": "Sit up Crunches"
   },
   {
@@ -37,6 +41,7 @@
     "lang": 1,
     "calories": 12.045,
     "name": "elbow_plank",
+    "tts": "Elbow Plank targets upper and lower abs along with shoulder and Lat muscles",
     "display": "Elbow Plank"
   },
   {
@@ -45,6 +50,7 @@
     "lang": 1,
     "calories": 13.04,
     "name": "flutter_kicks",
+    "tts": "Flutter Kicks works lower abs and hip flexor muscles",
     "display": "Flutter Kicks"
   },
   {
@@ -53,6 +59,7 @@
     "lang": 1,
     "calories": 12.05,
     "name": "high_knees",
+    "tts": "High Knees is a very good full body cardio vascular exercise very effective for fat burning",
     "display": "High Knees"
   },
   {
@@ -61,6 +68,7 @@
     "lang": 1,
     "calories": 12.02,
     "name": "jump_push_up",
+    "tts": "Jump Push Up targets chest and triceps muscles",
     "display": "Jump Pushup"
   },
   {
@@ -69,6 +77,7 @@
     "lang": 1,
     "calories": 13.54,
     "name": "jumping_jacks",
+    "tts": "Jumping Jacks is a very good full body warm up exercise",
     "display": "Jumping Jacks"
   },
   {
@@ -77,6 +86,7 @@
     "lang": 1,
     "calories": 14.588,
     "name": "leg_raises",
+    "tts": "Leg Raises targets Hip Flexors and Lower Abs Muscles",
     "display": "Leg Raises"
   },
   {
@@ -85,6 +95,7 @@
     "lang": 1,
     "calories": 12.45,
     "name": "lunge_step_ups",
+    "tts": "Lunge Step Ups is a Lower Body Exercise which targets quadriceps and hamstring muscles",
     "display": "Lunge Step Ups"
   },
   {
@@ -93,6 +104,7 @@
     "lang": 1,
     "calories": 13.04,
     "name": "mountain_climbers",
+    "tts": "Mountain Climbers is a full body exercise which targets shoulder chest and lower ab muscles",
     "display": "Mountain Climbers"
   },
   {
@@ -101,6 +113,7 @@
     "lang": 1,
     "calories": 13.045,
     "name": "moving_plank",
+    "tts": "Moving planks very effectively targets core abs chest and shoulder muscles all in a single exercise",
     "display": "Moving Plank"
   },
   {
@@ -109,6 +122,7 @@
     "lang": 1,
     "calories": 12.045,
     "name": "one_legged_push_up_plank",
+    "tts": "Push Up Plank with leg raises targets core abs chest lower back and glutes muscles",
     "display": "Push Up Plank Leg Raises"
   },
   {
@@ -117,6 +131,7 @@
     "lang": 1,
     "calories": 11.045,
     "name": "pike_walk",
+    "tts": "Pike Walk targets the core and upper abs muscles",
     "display": "Pike Walk"
   },
   {
@@ -125,6 +140,7 @@
     "lang": 1,
     "calories": 15.5745,
     "name": "plank",
+    "tts": "Plank targets the core and upper abs muscles",
     "display": "Plank"
   },
   {
@@ -133,6 +149,7 @@
     "lang": 1,
     "calories": 12.578,
     "name": "plank_arm_raises",
+    "tts": "Plank Arm Raises builds core strength in addition to working shoulder and triceps muscles",
     "display": "Plank Arm Raises"
   },
   {
@@ -141,6 +158,7 @@
     "lang": 1,
     "calories": 12.4287,
     "name": "plank_jacks",
+    "tts": "Plank Jacks targets core abs hip flexors and calf muscles",
     "display": "Plank Jacks"
   },
   {
@@ -149,6 +167,7 @@
     "lang": 1,
     "calories": 13.04,
     "name": "plank_jump_ins",
+    "tts": "Plank Jump Ins targets the core and lower abs muscles in addition to lower back and glutes",
     "display": "Plank Jump Ins"
   },
   {
@@ -157,6 +176,7 @@
     "lang": 1,
     "calories": 13.86,
     "name": "plank_leg_raises",
+    "tts": "Plank Leg Raises targets core abs lower back and glutes muscles",
     "display": "Plank Leg Raises"
   },
   {
@@ -165,6 +185,7 @@
     "lang": 1,
     "calories": 12.574,
     "name": "push_up",
+    "tts": "Push Up is very effective exercise for upper body conditioning and core abs muscles",
     "display": "Push Ups"
   },
   {
@@ -173,6 +194,7 @@
     "lang": 1,
     "calories": 12.876,
     "name": "push_up_plank",
+    "tts": "Push Up Plank targets chest shoulder and core abs muscles",
     "display": "Push Up Plank"
   },
   {
@@ -181,6 +203,7 @@
     "lang": 1,
     "calories": 12.786,
     "name": "raised_leg_circles",
+    "tts": "Raised Leg Circles targets all abs muscle groups",
     "display": "Raised Leg Circles"
   },
   {
@@ -189,6 +212,7 @@
     "lang": 1,
     "calories": 12.786,
     "name": "reverse_crunches",
+    "tts": "Reverse Crunches targets lower and core abs muscles",
     "display": "Reverse Crunches"
   },
   {
@@ -197,6 +221,7 @@
     "lang": 1,
     "calories": 13.876,
     "name": "russian_twist",
+    "tts": "Russian Twists works obliques and lower abs muscles",
     "display": "Russian Twist"
   },
   {
@@ -205,6 +230,7 @@
     "lang": 1,
     "calories": 15.7456,
     "name": "scissors",
+    "tts": "Scissors strengthens core and lower abs muscles along with hip flexors and quadriceps",
     "display": "Scissors"
   },
   {
@@ -213,6 +239,7 @@
     "lang": 1,
     "calories": 13.75,
     "name": "side_plank_leg_raise",
+    "tts": "Side Plank Leg Raises targets obliques and hip abductor muscles",
     "display": "Side Plank"
   },
   {
@@ -221,6 +248,7 @@
     "lang": 1,
     "calories": 12.576,
     "name": "v_ups",
+    "tts": "V Ups targets core upper and lower abs muscles ",
     "display": "V Ups"
   },
   {
@@ -229,6 +257,7 @@
     "lang": 1,
     "calories": 12.576,
     "name": "side_plank_left",
+    "tts": "Side Plank very effectively targets obliques and hip abductor muscles",
     "display": "Side Plank Left"
   },
   {
@@ -237,6 +266,7 @@
     "lang": 1,
     "calories": 12.576,
     "name": "side_plank_right",
+    "tts": "Side Plank very effectively targets obliques and hip abductor muscles",
     "display": "Side Plank Right"
   }
 ]

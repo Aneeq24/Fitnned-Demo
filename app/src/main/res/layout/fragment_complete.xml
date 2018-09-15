@@ -190,17 +190,6 @@
 
         </RelativeLayout>
 
-        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/baner_Admob"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:padding="5dp"
-            android:visibility="gone"
-            ads:adSize="MEDIUM_RECTANGLE"
-            ads:adUnitId="@string/banner_rect_ad_unit" />
-
         <RelativeLayout
             android:id="@+id/btn_more"
             android:layout_width="match_parent"
@@ -237,6 +226,17 @@
                 android:layout_marginTop="30dp" />
 
         </RelativeLayout>
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/baner_Admob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:visibility="gone"
+            ads:adSize="MEDIUM_RECTANGLE"
+            ads:adUnitId="@string/banner_rect_ad_unit" />
 
         <LinearLayout
             android:layout_width="match_parent"

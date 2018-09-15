@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -103,6 +104,7 @@ public class ExerciseFragment extends Fragment {
         if (!PlayingExercise.isPaused) {
             value = mActivity.getCurrentReps();
             TTSManager.getInstance(mActivity.getApplication()).play("Do " + mActivity.displayName + " for " + value / 1000 + " seconds");
+            new Handler().postDelayed(() -> TTSManager.getInstance(mActivity.getApplication()).play(mActivity.exerciseTTS), 5000);
             startPlayingExercise(value);
         } else {
             PlayingExercise.isPaused = false;

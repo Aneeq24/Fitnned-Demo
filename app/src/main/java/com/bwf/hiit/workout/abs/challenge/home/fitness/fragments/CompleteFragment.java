@@ -106,10 +106,12 @@ public class CompleteFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_complete, container, false);
         context = getContext();
 
-        AdsManager.getInstance().showFacebookInterstitial(getString(R.string.FB_Workout_End),true);
+        com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils.showRateUsDialog(context);
 
         AdView adView = view.findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
+
+        AdsManager.getInstance().showInterstitialAd(getString(R.string.AM_Int_Workout_End));
 
         record = new Record();
         recordList = new ArrayList<>();
@@ -204,7 +206,6 @@ public class CompleteFragment extends Fragment {
                 }
             }, 2000);
         }
-        com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils.showRateUsDialog(context);
         return view;
     }
 
@@ -354,10 +355,12 @@ public class CompleteFragment extends Fragment {
 
                     if (isKg)
                         weight = weight * 2.20462f;
+                    if (user.getHeight() != 0) {
+                        tvBmi.setText(math(bmi) + bmiCategory(Integer.parseInt(mathround(bmi))));
+                        user.setBmi((int) bmi);
+                    } else tvBmi.setText("Enter your height");
 
-                    tvBmi.setText(math(bmi) + bmiCategory(Integer.parseInt(mathround(bmi))));
                     user.setWeight(weight);
-                    user.setBmi((int) bmi);
                     mUserViewModel.update(user);
                     dialog1.dismiss();
                 })
@@ -412,7 +415,12 @@ public class CompleteFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void initApp(User user) {
-        tvBmi.setText(String.valueOf(user.getBmi()) + bmiCategory(user.getBmi()));
+        if (user.getBmi() == 0) {
+            tvBmi.setText("Enter your measurements");
+        } else if (user.getHeight() == 0) {
+            tvBmi.setText("Enter your height");
+        } else tvBmi.setText(String.valueOf(user.getBmi()) + bmiCategory(user.getBmi()));
+
         mWeightViewModel.getAllWeights().observe(this, weights -> {
             if (weights != null) {
                 setupWeightChart(weights);

@@ -22,7 +22,6 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.PauseFragment;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.RestFragment;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.SkipFragment;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.inapp.MyBilling;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
@@ -60,6 +59,7 @@ public class PlayingExercise extends AppCompatActivity {
     public int totalExercises = 0;
     public String displayName;
     public String exerciseName;
+    public String exerciseTTS;
     public String nextExerciseName;
     public String nextExerciseImage;
     public List<ExerciseDay> mListExDays;
@@ -127,6 +127,7 @@ public class PlayingExercise extends AppCompatActivity {
 
                     int exerciseId = mListExDays.get(currentEx).getId();
                     exerciseName = dataBase.exerciseDao().findByIdbg(exerciseId).getName();
+                    exerciseTTS = dataBase.exerciseDao().findByIdbg(exerciseId).getTts();
                     displayName = dataBase.exerciseDao().findByIdbg(exerciseId).getDisplay_name();
 
                     timer = totalTimeSpend;
@@ -190,6 +191,7 @@ public class PlayingExercise extends AppCompatActivity {
     }
 
     public void PauseFragment(int remaingTime) {
+        AnalyticsManager.getInstance().sendAnalytics("exercise_pause_complete", "exercise_pause_clicked");
         isPaused = true;
         pauseTimer = remaingTime;
         fragmentManager.beginTransaction().replace(R.id.fragment_container, pauseFragment, null).commitAllowingStateLoss();
@@ -309,6 +311,7 @@ public class PlayingExercise extends AppCompatActivity {
 
             int exerciseId = mListExDays.get(currentEx).getId();
             exerciseName = dataBase.exerciseDao().findByIdbg(exerciseId).getName();
+            exerciseTTS = dataBase.exerciseDao().findByIdbg(exerciseId).getTts();
             displayName = dataBase.exerciseDao().findByIdbg(exerciseId).getDisplay_name();
             currentReps = mListExDays.get(currentEx).getReps();
             currentReps *= 1000;

@@ -193,7 +193,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        isAppInBackground = true;
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -205,6 +204,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     .setCancelable(false)
                     .setPositiveButton("YES", (dialog, id) -> {
                         dialog.cancel();
+                        isAppInBackground = true;
                         finish();
                     }).setNeutralButton("Rate Us", (dialog, id) -> {
                 dialog.cancel();
@@ -213,6 +213,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isAppInBackground = true;
     }
 
     @Override

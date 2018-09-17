@@ -33,14 +33,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.PlayingExercise"
-            android:keepScreenOn="true"
+            android:name=".view.SelectGender"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.DailyExerciseInfo"
-            android:label=""
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".view.AgeWeightHeightActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.ReminderSetActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.HomeActivity"
             android:label=""
@@ -51,25 +51,14 @@
             android:label=""
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <receiver
-            android:name=".receiver.AlarmReceiver"
-            android:enabled="true"
-            android:exported="false" />
-
-        <receiver
-            android:name=".receiver.RebootReceiver"
-            android:enabled="true"
-            android:exported="false" />
-
         <activity
-            android:name=".view.ReminderSetActivity"
-            android:screenOrientation="portrait" />
+            android:name=".view.DailyExerciseInfo"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.SelectGender"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.AgeWeightHeightActivity"
+            android:name=".view.PlayingExercise"
+            android:keepScreenOn="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.ConfirmReminderActivity"
@@ -77,6 +66,15 @@
         <activity
             android:name=".view.CalenderActivity"
             android:screenOrientation="portrait" />
+
+        <receiver
+            android:name=".receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="false" />
+        <receiver
+            android:name=".receiver.RebootReceiver"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>

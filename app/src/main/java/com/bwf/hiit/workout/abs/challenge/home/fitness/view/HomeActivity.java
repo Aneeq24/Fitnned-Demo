@@ -145,7 +145,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         bottomNavigation.addItem(item4);
         bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
         bottomNavigation.setCurrentItem(0);
-        bottomNavigation.setAccentColor(R.color.orange);
         bottomNavigation.setTranslucentNavigationEnabled(true);
         bottomNavigation.setAccentColor(Color.parseColor("#00BFF3"));
 
@@ -174,7 +173,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private void selectFragment(Fragment fragment) {
         FragmentTransaction ft;
         ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.main_screen, fragment).commit();
+        ft.replace(R.id.main_screen, fragment).commitAllowingStateLoss();
     }
 
     @SuppressLint("SetTextI18n")
@@ -251,7 +250,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     }
                 } else {
                     if (!isAppLaunch) {
-                        showPrivacyPolicy();
+                        if (!isAppInBackground)
+                            showPrivacyPolicy();
                     }
                 }
             }

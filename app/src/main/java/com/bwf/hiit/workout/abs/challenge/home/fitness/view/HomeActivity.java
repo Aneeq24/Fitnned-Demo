@@ -227,7 +227,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         super.onResume();
         if (paused) {
             paused = false;
-            selectFragment(homeFragment);
         }
     }
 

@@ -51,7 +51,7 @@
                 android:drawableStart="@drawable/history_screen_timer_icon"
                 android:gravity="center"
                 android:text="10"
-                android:textColor="@color/item_day_text_color"
+                android:textColor="@android:color/black"
                 android:textSize="14sp" />
 
             <TextView
@@ -64,7 +64,7 @@
                 android:drawableStart="@drawable/history_screen_hot_icon"
                 android:gravity="center"
                 android:text="5"
-                android:textColor="@color/item_day_text_color"
+                android:textColor="@android:color/black"
                 android:textSize="14sp" />
         </LinearLayout>
 

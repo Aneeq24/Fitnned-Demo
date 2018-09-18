@@ -44,6 +44,15 @@
         <item>Day 30</item>
     </string-array>
 
+    <string-array name="activity_list">
+        <item>Little to no exercise</item>
+        <item>Light exercise (1–3 days per week)</item>
+        <item>Moderate exercise (3–5 days per week)</item>
+        <item>Heavy exercise (6–7 days per week)</item>
+        <item>Very heavy exercise (twice per day, extra heavy workouts)</item>
+    </string-array>
+
+
     <string name="material_calendar_monday">M</string>
     <string name="material_calendar_tuesday">T</string>
     <string name="material_calendar_wednesday">W</string>

@@ -47,7 +47,6 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/main_screen_min_round_bg"
                     android:gravity="center"
-                    android:text="15"
                     android:textColor="@android:color/white"
                     android:textSize="30sp"
                     android:textStyle="bold" />
@@ -73,7 +72,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="1 Days"
                         android:textColor="@android:color/white"
                         android:textSize="18sp" />
 
@@ -83,7 +81,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="15 Min"
                         android:textColor="@android:color/white"
                         android:textSize="18sp" />
 
@@ -93,7 +90,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="150 Kcal"
                         android:textColor="@android:color/white"
                         android:textSize="18sp" />
 
@@ -108,9 +104,11 @@
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginTop="15dp"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
+                    android:contentDescription="@string/app_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/main_screen_image_workout" />
@@ -150,13 +148,80 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+        <RadioGroup
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#00E9FB"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
+
+            <RadioButton
+                android:id="@+id/btn0"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="true"
+                android:background="@drawable/bg_radio2"
+                android:gravity="center"
+                android:text="@string/workout"
+                android:textColor="@color/ic_text_color"
+                android:drawableTop="@drawable/bg_radio1" />
+
+            <RadioButton
+                android:id="@+id/btn1"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:background="@drawable/bg_radio2"
+                android:gravity="center"
+                android:text="Report"
+                android:textColor="@color/ic_text_color"
+                android:drawableTop="@drawable/bg_radio1" />
+
+
+            <RadioButton
+                android:id="@+id/btn2"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="Exercise"
+                android:background="@drawable/bg_radio2"
+                android:gravity="center"
+                android:textColor="@color/ic_text_color"
+                android:drawableTop="@drawable/bg_radio1" />
+
+            <RadioButton
+                android:id="@+id/btn3"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="No Ads"
+                android:background="@drawable/bg_radio2"
+                android:gravity="center"
+                android:textColor="@color/ic_text_color"
+                android:drawableTop="@drawable/bg_radio1" />
+
+            <RadioButton
+                android:id="@+id/btn4"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/bg_radio2"
+                android:button="@null"
+                android:text="Rate us"
+                android:textColor="@color/ic_text_color"
+                android:drawableTop="@drawable/bg_radio1" />
+
+
+        </RadioGroup>
 
     </android.support.constraint.ConstraintLayout>
 

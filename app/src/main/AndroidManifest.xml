@@ -66,6 +66,12 @@
         <activity
             android:name=".view.CalenderActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.secondActivity"
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name=".receiver.AlarmReceiver"

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/age_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="enter age"
+        android:inputType="number"
+        android:textColor="#36454f"
+        android:textSize="22sp" />
+
+    <EditText
+        android:id="@+id/height_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="enter height"
+        android:inputType="number"
+        android:textColor="#36454f"
+        android:textSize="22sp" />
+
+    <EditText
+        android:id="@+id/mass_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="enter mass"
+        android:inputType="number|numberDecimal"
+        android:textColor="#36454f"
+        android:textSize="22sp" />
+
+    <EditText
+        android:id="@+id/neck_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="enter neck"
+        android:inputType="number|numberDecimal"
+        android:textColor="#36454f"
+        android:textSize="22sp" />
+
+    <EditText
+        android:id="@+id/waist_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="enter Waist"
+        android:inputType="number|numberDecimal"
+        android:textColor="#36454f"
+        android:textSize="22sp" />
+
+    <EditText
+        android:id="@+id/hip_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="enter hip"
+        android:inputType="number|numberDecimal"
+        android:textColor="#36454f"
+        android:textSize="22sp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="enter activity"
+            android:textColor="#475650"
+            android:textSize="22sp" />
+
+        <Spinner
+            android:id="@+id/activity_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="12dp" />
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_male"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:onClick="onRadioButtonClicked"
+            android:text="Male"
+            android:textColor="#36454f"
+            android:textSize="22sp" />
+
+        <RadioButton
+            android:id="@+id/rb_female"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onRadioButtonClicked"
+            android:text="Female"
+            android:textColor="#36454f"
+            android:textSize="22sp" />
+    </RadioGroup>
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onCalculate"
+        android:text="Calculate"
+        android:textColor="#36454f"
+        android:textSize="22sp" />
+</LinearLayout>

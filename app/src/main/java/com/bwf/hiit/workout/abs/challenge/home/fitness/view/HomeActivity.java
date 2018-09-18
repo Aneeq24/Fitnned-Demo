@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,11 +22,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.URLUtil;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.BuildConfig;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.HomeFragment;
@@ -80,6 +78,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     TextView tvTotalMin;
     TextView tvTotalTime;
     TextView tvKcal;
+    RadioGroup btnGroup;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -134,32 +133,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         selectFragment(homeFragment);
 
-        AHBottomNavigation bottomNavigation = findViewById(R.id.bottom_navigation);
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem("WORKOUT", R.drawable.main_screen_nav_bar_workout_icon_n, R.color.colorAccent);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem("REPORT", R.drawable.main_screen_nav_bar_report_icon_n, R.color.orange);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("REMOVE ADS", R.drawable.main_screen_nav_bar_remove_ads_icon_n, R.color.red);
-        AHBottomNavigationItem item4 = new AHBottomNavigationItem("RATE US", R.drawable.main_screen_nav_bar_rate_us_icon_n, R.color.green);
-        bottomNavigation.addItem(item1);
-        bottomNavigation.addItem(item2);
-        bottomNavigation.addItem(item3);
-        bottomNavigation.addItem(item4);
-        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
-        bottomNavigation.setCurrentItem(0);
-        bottomNavigation.setTranslucentNavigationEnabled(true);
-        bottomNavigation.setAccentColor(Color.parseColor("#00BFF3"));
-
-        bottomNavigation.setOnTabSelectedListener((position, wasSelected) -> {
-            if (position == 0) {
+        btnGroup = findViewById(R.id.bottom_navigation);
+        btnGroup.setOnCheckedChangeListener((radioGroup, i) -> {
+            if (i == R.id.btn0) {
                 selectFragment(homeFragment);
                 AdsManager.getInstance().showInterstitialAd(getString(R.string.AM_Int_Main_Menu));
-            } else if (position == 1) {
+            } else if (i == R.id.btn1) {
                 selectFragment(recordFragment);
-            } else if (position == 2) {
+            }else if (i==R.id.btn2){
                 mBilling.purchaseRemoveAds();
-            } else if (position == 3) {
+            }else if (i==R.id.btn3){
+                Utils.onRateUs(context);
+            } else if (i==R.id.btn4) {
                 Utils.onRateUs(context);
             }
-            return true;
         });
 
         UserViewModel mUserViewModel = ViewModelProviders.of(this).get(UserViewModel.class);

@@ -5,15 +5,11 @@
     "id": 1,
     "lang": 1,
     "name": "bicycle_crunches",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fbicycle_crunches.gif?alt=media&token=6ff3b62b-aad5-4df8-9542-1fb1695cea53",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fbicycle_crunches.gif?alt=media&token=2d328000-95c5-4bd4-9d76-544f7b79e9e5",
     "tts": [
       {
         "text": "This exercise targets all abs muscle groups",
         "time": "7"
-      },
-      {
-        "text": "This exercise targets all abs muscle groups",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -24,15 +20,11 @@
     "id": 2,
     "lang": 1,
     "name": "burpees",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fburpees.gif?alt=media&token=10e70c70-020d-427c-9bf6-44255ef7a6ba",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fburpees.gif?alt=media&token=f6ff8d0a-4d41-4528-8b7a-46bec5398a29",
     "tts": [
       {
         "text": "Burpees is a highly effective fat burning exercise It raises heart rate and boosts body metabolism",
         "time": "7"
-      },
-      {
-        "text": "Burpees is a highly effective fat burning exercise It raises heart rate and boosts body metabolism",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -43,15 +35,11 @@
     "id": 3,
     "lang": 1,
     "name": "circle_crunches",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fcircle_crunches.gif?alt=media&token=7cd28ae5-6bb5-41c6-9083-744ff7be5cd0",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fcircle_crunches.gif?alt=media&token=a4976667-44fd-424e-a6d4-760d39d9bb55",
     "tts": [
       {
         "text": "Circle Crunches is a highly effective abs exercise it targets all abs muscles group",
         "time": "7"
-      },
-      {
-        "text": "Circle Crunches is a highly effective abs exercise it targets all abs muscles group",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -62,15 +50,11 @@
     "id": 4,
     "lang": 1,
     "name": "crunches",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fcrunches.gif?alt=media&token=42c032c3-3ffd-4f7b-9a89-291f617596b6",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fcrunches.gif?alt=media&token=c6befb4a-016f-4291-a7cf-b53b48f89d1e",
     "tts": [
       {
         "text": "Sit Up Crunches target core abs muscles",
         "time": "7"
-      },
-      {
-        "text": "Sit Up Crunches target core abs muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -81,15 +65,11 @@
     "id": 5,
     "lang": 1,
     "name": "elbow_plank",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Felbow_plank.gif?alt=media&token=a9976ea3-c9a1-4eaa-9cd0-8b11f8aa7eae",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Felbow_plank.gif?alt=media&token=61b312fd-8159-452f-b1e7-b771cc58c212",
     "tts": [
       {
         "text": "Elbow Plank targets upper and lower abs along with shoulder and Lat muscles",
         "time": "7"
-      },
-      {
-        "text": "Elbow Plank targets upper and lower abs along with shoulder and Lat muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -100,15 +80,11 @@
     "id": 6,
     "lang": 1,
     "name": "flutter_kicks",
-    "url":"https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fflutter_kicks.gif?alt=media&token=9d1ec505-87bf-41a4-9fe7-ca462c2d247a",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fflutter_kicks.gif?alt=media&token=f5048afc-6e59-4c32-9b57-fd7cfc2bdb0f",
     "tts": [
       {
         "text": "Flutter Kicks works lower abs and hip flexor muscles",
         "time": "7"
-      },
-      {
-        "text": "Flutter Kicks works lower abs and hip flexor muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -119,15 +95,11 @@
     "id": 7,
     "lang": 1,
     "name": "high_knees",
-    "url":"https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fhigh_knees.gif?alt=media&token=d76211d3-e471-4e9f-b52d-6b66736550a8",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fhigh_knees.gif?alt=media&token=16cfbe2c-d4ff-4db0-a402-62d949bbdd2c",
     "tts": [
       {
         "text": "High Knees is a very good full body cardio vascular exercise very effective for fat burning",
         "time": "7"
-      },
-      {
-        "text": "High Knees is a very good full body cardio vascular exercise very effective for fat burning",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -138,15 +110,11 @@
     "id": 8,
     "lang": 1,
     "name": "jump_push_up",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fjump_push_up.gif?alt=media&token=f291da68-5261-4b19-a6a6-2d69f16ed1c8",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fjump_push_up.gif?alt=media&token=3fdf1e22-9b2c-44f6-ad30-f522aab830cd",
     "tts": [
       {
         "text": "Jump Push Up targets chest and triceps muscles",
         "time": "7"
-      },
-      {
-        "text": "Jump Push Up targets chest and triceps muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -157,15 +125,11 @@
     "id": 9,
     "lang": 1,
     "name": "jumping_jacks",
-    "url":"https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fjumping_jacks.gif?alt=media&token=d18fe030-7c68-4abf-acb5-c91a428eff7a",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fjumping_jacks.gif?alt=media&token=e2fa8383-11a3-4cca-899c-b1762cb9acaf",
     "tts": [
       {
         "text": "Jumping Jacks is a very good full body warm up exercise",
         "time": "7"
-      },
-      {
-        "text": "Jumping Jacks is a very good full body warm up exercise",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -176,15 +140,11 @@
     "id": 10,
     "lang": 1,
     "name": "leg_raises",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fleg_raises.gif?alt=media&token=9da934e9-d0e3-49a3-8415-cde838f16f2d",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fleg_raises.gif?alt=media&token=a6837346-8e8d-423b-8bda-221ac56d7545",
     "tts": [
       {
         "text": "Leg Raises targets Hip Flexors and Lower Abs Muscles",
         "time": "7"
-      },
-      {
-        "text": "Leg Raises targets Hip Flexors and Lower Abs Muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -195,15 +155,11 @@
     "id": 11,
     "lang": 1,
     "name": "lunge_step_ups",
-    "url":"https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fleg_raises.gif?alt=media&token=9da934e9-d0e3-49a3-8415-cde838f16f2d",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Flunge_step_ups.gif?alt=media&token=5552e99b-8ba1-48a6-9f23-176a759dbf15",
     "tts": [
       {
         "text": "Lunge Step Ups is a Lower Body Exercise which targets quadriceps and hamstring muscles",
         "time": "7"
-      },
-      {
-        "text": "Lunge Step Ups is a Lower Body Exercise which targets quadriceps and hamstring muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -214,15 +170,11 @@
     "id": 12,
     "lang": 1,
     "name": "mountain_climbers",
-    "url":"https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fmountain_climbers.gif?alt=media&token=eef61932-4079-4a41-9490-e131916ac054",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fmountain_climbers.gif?alt=media&token=56a13dcb-09cd-4246-8d3b-fe51a52d9a74",
     "tts": [
       {
         "text": "Mountain Climbers is a full body exercise which targets shoulder chest and lower ab muscles",
         "time": "7"
-      },
-      {
-        "text": "Mountain Climbers is a full body exercise which targets shoulder chest and lower ab muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -233,15 +185,11 @@
     "id": 13,
     "lang": 1,
     "name": "moving_plank",
-    "url":"https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fmoving_plank.gif?alt=media&token=bfa1681c-d918-470e-9378-d36981b3b869",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fmoving_plank.gif?alt=media&token=390b3630-e78e-4ee7-8d98-ce6e44da7743",
     "tts": [
       {
         "text": "Moving planks very effectively targets core abs chest and shoulder muscles all in a single exercise",
         "time": "7"
-      },
-      {
-        "text": "Moving planks very effectively targets core abs chest and shoulder muscles all in a single exercise",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -252,15 +200,11 @@
     "id": 14,
     "lang": 1,
     "name": "one_legged_push_up_plank",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fone_legged_push_up_plank.gif?alt=media&token=c7e3ed4f-ef2f-42cc-8db0-dd766db5dff5",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fone_legged_push_up_plank.gif?alt=media&token=7b125b69-949e-48f1-875c-06609a56526d",
     "tts": [
       {
         "text": "Push Up Plank with leg raises targets core abs chest lower back and glutes muscles",
         "time": "7"
-      },
-      {
-        "text": "Push Up Plank with leg raises targets core abs chest lower back and glutes muscles",
-        "time": "3"
       }
     ],
     "unit": 2
@@ -271,15 +215,11 @@
     "id": 15,
     "lang": 1,
     "name": "pike_walk",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fpike_walk.gif?alt=media&token=a630e5da-8d39-4c67-9131-25c2f13894ec",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fpike_walk.gif?alt=media&token=13d3592f-e497-4800-a899-87a1cf7af40b",
     "tts": [
       {
         "text": "Pike Walk targets the core and upper abs muscles",
         "time": "7"
-      },
-      {
-        "text": "Pike Walk targets the core and upper abs muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -290,15 +230,11 @@
     "id": 16,
     "lang": 1,
     "name": "plank",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fplank.gif?alt=media&token=e10796fb-8449-48f1-9bf4-149e19bcfd98",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fplank.gif?alt=media&token=68befeff-7987-44cb-bdb4-487f26b38ab7",
     "tts": [
       {
         "text": "Plank targets the core and upper abs muscles",
         "time": "7"
-      },
-      {
-        "text": "Plank targets the core and upper abs muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -309,15 +245,11 @@
     "id": 17,
     "lang": 1,
     "url": "plank_arm_raises",
-    "name": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fplank_arm_raises.gif?alt=media&token=6d2b6d41-e3bc-483c-9ba2-1e34700ea3d5",
+    "name": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fplank_arm_raises.gif?alt=media&token=31d77373-fe16-4ad0-9981-112c310ea56c",
     "tts": [
       {
         "text": "Plank Arm Raises builds core strength in addition to working shoulder and triceps muscles",
         "time": "7"
-      },
-      {
-        "text": "Plank Arm Raises builds core strength in addition to working shoulder and triceps muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -328,15 +260,11 @@
     "id": 18,
     "lang": 1,
     "name": "plank_jacks",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fplank_jacks.gif?alt=media&token=b62f6638-b2b5-48f6-97f1-51b47271c84c",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fplank_jacks.gif?alt=media&token=233b7055-1f7e-4557-bf16-158d582d2a1b",
     "tts": [
       {
         "text": "Plank Jacks targets core abs hip flexors and calf muscles",
         "time": "7"
-      },
-      {
-        "text": "Plank Jacks targets core abs hip flexors and calf muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -347,15 +275,11 @@
     "id": 19,
     "lang": 1,
     "name": "plank_jump_ins",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fplank_jump_ins.gif?alt=media&token=19070ef9-46d6-4323-9d71-7e85efbd6229",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fplank_jump_ins.gif?alt=media&token=50260c74-fad9-4dcd-9606-afa0e920ed1b",
     "tts": [
       {
         "text": "Plank Jump Ins targets the core and lower abs muscles in addition to lower back and glutes",
         "time": "7"
-      },
-      {
-        "text": "Plank Jump Ins targets the core and lower abs muscles in addition to lower back and glutes",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -366,15 +290,11 @@
     "id": 20,
     "lang": 1,
     "name": "plank_leg_raises",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fplank_leg_raises.gif?alt=media&token=15d869a6-a1f6-4468-b323-b28d565278cc",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fplank_leg_raises.gif?alt=media&token=42bacefd-bd24-4ff2-a208-83e7fe21c86f",
     "tts": [
       {
         "text": "Plank Leg Raises targets core abs lower back and glutes muscles",
         "time": "7"
-      },
-      {
-        "text": "Plank Leg Raises targets core abs lower back and glutes muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -385,15 +305,11 @@
     "id": 21,
     "lang": 1,
     "name": "push_up",
-    "url":"https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fpush_up.gif?alt=media&token=4995af0f-1036-4c5d-8ed4-918676701eea",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fpush_up.gif?alt=media&token=c74ba72d-5ea4-4b7a-b2c1-25d159502e67",
     "tts": [
       {
         "text": "Push Up is very effective exercise for upper body conditioning and core abs muscles",
         "time": "7"
-      },
-      {
-        "text": "Push Up is very effective exercise for upper body conditioning and core abs muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -404,15 +320,11 @@
     "id": 22,
     "lang": 1,
     "name": "push_up_plank",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fpush_up_plank.gif?alt=media&token=aa4044d5-100d-4157-946e-c25b513571b5",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fpush_up_plank.gif?alt=media&token=04692729-0a51-4697-b4b3-1e636e9c6a4f",
     "tts": [
       {
         "text": "Push Up Plank targets chest shoulder and core abs muscles",
         "time": "7"
-      },
-      {
-        "text": "Push Up Plank targets chest shoulder and core abs muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -423,15 +335,11 @@
     "id": 23,
     "lang": 1,
     "name": "raised_leg_circles",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fraised_leg_circles.gif?alt=media&token=cb111bfe-770d-4b13-bbca-4dc68dafbee5",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fraised_leg_circles.gif?alt=media&token=18e853af-dd9e-4317-bae6-073baee99910",
     "tts": [
       {
         "text": "Raised Leg Circles targets all abs muscle groups",
         "time": "7"
-      },
-      {
-        "text": "Raised Leg Circles targets all abs muscle groups",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -442,15 +350,11 @@
     "id": 24,
     "lang": 1,
     "name": "reverse_crunches",
-    "url":"https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Freverse_crunches.gif?alt=media&token=54cd42e9-1da4-4d4b-8bd7-fd53ff33c185",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Freverse_crunches.gif?alt=media&token=db190a92-7904-4c6b-9d88-a818b0cb1b54",
     "tts": [
       {
         "text": "Reverse Crunches targets lower and core abs muscles",
         "time": "7"
-      },
-      {
-        "text": "Reverse Crunches targets lower and core abs muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -461,15 +365,11 @@
     "id": 25,
     "lang": 1,
     "name": "russian_twist",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Frussian_twist.gif?alt=media&token=c730939b-9f62-483c-95db-e917773737e5",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Frussian_twist.gif?alt=media&token=8c070f88-efc6-4a95-bd1c-306ff2db89c4",
     "tts": [
       {
         "text": "Russian Twists works obliques and lower abs muscles",
         "time": "7"
-      },
-      {
-        "text": "Russian Twists works obliques and lower abs muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -480,34 +380,11 @@
     "id": 26,
     "lang": 1,
     "name": "scissors",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fscissors.gif?alt=media&token=f6079be1-770a-44f1-a6ed-57017c8710fb",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fscissors.gif?alt=media&token=356beb33-2972-4f85-9ba1-6930dbfe4bf7",
     "tts": [
       {
         "text": "Scissors strengthens core and lower abs muscles along with hip flexors and quadriceps",
         "time": "7"
-      },
-      {
-        "text": "Scissors strengthens core and lower abs muscles along with hip flexors and quadriceps",
-        "time": "3"
-      }
-    ],
-    "unit": 1
-  },
-  {
-    "calories": 13.75,
-    "display": "Side Plank",
-    "id": 27,
-    "lang": 1,
-    "name": "side_plank_leg_raise",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fside_plank_leg_raise.gif?alt=media&token=c3f0a9db-00d4-4576-8bb5-c3724d08459f",
-    "tts": [
-      {
-        "text": "Side Plank Leg Raises targets obliques and hip abductor muscles",
-        "time": "7"
-      },
-      {
-        "text": "Side Plank Leg Raises targets obliques and hip abductor muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -515,18 +392,14 @@
   {
     "calories": 12.576,
     "display": "V Ups",
-    "id": 28,
+    "id": 27,
     "lang": 1,
     "name": "v_ups",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fv_ups.gif?alt=media&token=113b5575-4853-42ca-a001-cd2575c43c8b",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fv_ups.gif?alt=media&token=1c4ea4d9-40ee-4b2a-a2aa-baf8e547f6f1",
     "tts": [
       {
         "text": "V Ups targets core upper and lower abs muscles",
         "time": "7"
-      },
-      {
-        "text": "V Ups targets core upper and lower abs muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -534,18 +407,14 @@
   {
     "calories": 12.576,
     "display": "Side Plank Left",
-    "id": 29,
+    "id": 28,
     "lang": 1,
     "name": "side_plank_left",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fside_plank_leg_raise_left.gif?alt=media&token=9e2547ea-c7b8-4ec2-b6c4-d6a68dd4f172",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fside_plank_left.gif?alt=media&token=434be6b4-0a88-4576-b3de-0594b2cf023a",
     "tts": [
       {
         "text": "Side Plank very effectively targets obliques and hip abductor muscles",
         "time": "7"
-      },
-      {
-        "text": "Side Plank very effectively targets obliques and hip abductor muscles",
-        "time": "3"
       }
     ],
     "unit": 1
@@ -553,97 +422,92 @@
   {
     "calories": 12.576,
     "display": "Side Plank Right",
-    "id": 30,
+    "id": 29,
     "lang": 1,
     "name": "side_plank_right",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fside_plank_right.gif?alt=media&token=91fbc4d1-87a7-440d-a4cb-df7ba1ef65b7",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fside_plank_right.gif?alt=media&token=b3c18c24-7353-4f19-bc56-241b66c4420f",
     "tts": [
       {
-        "text": "Side Plank very effectively targets obliques and hip abductor muscles",
+        "text": "side plank leg raise right very effectively targets obliques and hip abductor muscles",
         "time": "7"
-      },
-      {
-        "text": "Side Plank very effectively targets obliques and hip abductor muscles",
-        "time": "3"
       }
     ],
     "unit": 1
   },
   {
     "calories": 12.63,
-    "display": "Pelvic Stretch",
-    "id": 31,
+    "display": "Chest Expansions",
+    "id": 30,
     "unit": 1,
     "lang": 1,
     "tts": [
       {
         "text": "",
         "time": "7"
-      },
-      {
-        "text": "",
-        "time": "3"
       }
     ],
-    "name":"",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fpelvic_stretch.gif?alt=media&token=f89a7a23-2fe0-4795-b6c1-64c65070d979"
+    "name": "chest_expansion",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fchest_expansion.gif?alt=media&token=39b0f8a5-30b8-4525-a533-3a3d01b10cc4"
+  },
+  {
+    "id": 31,
+    "unit": 1,
+    "lang": 1,
+    "calories": 12.63,
+    "display": "March Jacks",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      }
+    ],
+    "name": "march_jacks",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fmarch_jacks.gif?alt=media&token=068fda2f-f551-47ed-bd2a-b52f25b07491"
   },
   {
     "id": 32,
     "unit": 1,
     "lang": 1,
     "calories": 12.63,
-    "display": "Quad Stretch",
+    "display": "Raised Arm Circles",
     "tts": [
       {
         "text": "",
         "time": "7"
-      },
-      {
-        "text": "",
-        "time": "3"
       }
     ],
-    "name":"",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fquad_stretch.gif?alt=media&token=ff1ffac9-ec8a-4bff-af27-b1621e553a56"
+    "name": "raised_arm_circles",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fraised_arm_circles.gif?alt=media&token=38029e52-a673-455a-a8f0-0c5f3b8c96f6"
   },
   {
     "id": 33,
     "unit": 1,
     "lang": 1,
     "calories": 12.63,
-    "display": "Cat Cow Stretch",
+    "display": "Seal Jacks",
     "tts": [
       {
         "text": "",
         "time": "7"
-      },
-      {
-        "text": "",
-        "time": "3"
       }
     ],
-    "name":"",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fcat_cow_stretch.gif?alt=media&token=72e1f7a2-d84c-4645-9d11-883b772fe080"
+    "name": "seal_jacks",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fseal_jacks.gif?alt=media&token=be032596-462b-4563-a7c6-a79cb9350060"
   },
   {
     "id": 34,
     "unit": 1,
     "lang": 1,
     "calories": 12.63,
-    "display": "Chest Expansions",
+    "display": "Torso Rotation",
     "tts": [
       {
         "text": "",
         "time": "7"
-      },
-      {
-        "text": "",
-        "time": "3"
       }
     ],
-    "name":"",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fdouble_chest_expansion.gif?alt=media&token=bb89bf2b-55a3-478e-b3a9-f8fd306c6b69"
+    "name": "torso_rotation",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Ftorso_rotation.gif?alt=media&token=c5d647b2-f7e3-45c0-a2b6-a2cc66c48eb8"
   },
   {
     "id": 35,
@@ -655,74 +519,13 @@
       {
         "text": "",
         "time": "7"
-      },
-      {
-        "text": "",
-        "time": "3"
       }
     ],
-    "name":"",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fcobra_stretch.gif?alt=media&token=dacc9cb6-c448-4587-9653-296feeb2103c"
+    "name": "cobra_stretch",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fcobra_stretch.gif?alt=media&token=966c418c-d716-4dc6-8177-70244d5466d7"
   },
   {
     "id": 36,
-    "unit": 1,
-    "lang": 1,
-    "calories": 12.63,
-    "display": "March Jacks",
-    "tts": [
-      {
-        "text": "",
-        "time": "7"
-      },
-      {
-        "text": "",
-        "time": "3"
-      }
-    ],
-    "name":"",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fmarch_jacks.gif?alt=media&token=c7ed31e9-5d97-4cd2-9e96-1d8ed48e6baa"
-  },
-  {
-    "id": 37,
-    "unit": 1,
-    "lang": 1,
-    "calories": 12.63,
-    "display": "Raised Arm Circles",
-    "tts": [
-      {
-        "text": "",
-        "time": "7"
-      },
-      {
-        "text": "",
-        "time": "3"
-      }
-    ],
-    "name":"",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fraised_arm_circles.gif?alt=media&token=02ba770d-79f7-48b9-b81c-e164ef43a56f"
-  },
-  {
-    "id": 38,
-    "unit": 1,
-    "lang": 1,
-    "calories": 12.63,
-    "display": "Seal Jacks",
-    "tts": [
-      {
-        "text": "",
-        "time": "7"
-      },
-      {
-        "text": "",
-        "time": "3"
-      }
-    ],
-    "name":"",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fseal_jacks.gif?alt=media&token=cb7df00c-06fa-4def-ad14-b91954ce2de3"
-  },
-  {
-    "id": 39,
     "unit": 1,
     "lang": 1,
     "calories": 12.63,
@@ -731,17 +534,13 @@
       {
         "text": "",
         "time": "7"
-      },
-      {
-        "text": "",
-        "time": "3"
       }
     ],
-    "name":"",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fshoulder_stretch_left2.gif?alt=media&token=57814933-464f-473e-a3e3-24fefcbff164"
+    "name": "shoulder_stretch",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fshoulder_stretch.gif?alt=media&token=62c36bca-0f10-468a-9cf9-74fb7ec4efc7"
   },
   {
-    "id": 40,
+    "id": 37,
     "unit": 1,
     "lang": 1,
     "calories": 12.63,
@@ -750,52 +549,85 @@
       {
         "text": "",
         "time": "7"
-      },
-      {
-        "text": "",
-        "time": "3"
       }
     ],
-    "name":"",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fside_bend_stretch_left2.gif?alt=media&token=0cf92e24-f394-4bcb-a361-16580d536713"
+    "name": "side_bend_stretch",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fside_bend_stretch.gif?alt=media&token=205cfb07-5cfe-48b1-a18c-2faa62704861"
+  },
+  {
+    "id": 38,
+    "unit": 1,
+    "lang": 1,
+    "calories": 12.63,
+    "display": "Cat Cow Stretch",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      }
+    ],
+    "name": "cat_cow_stretch",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fcat_cow_stretch.gif?alt=media&token=8ba57510-d23b-42a6-bd14-34782135d9ba"
+  },
+  {
+    "id": 39,
+    "unit": 1,
+    "lang": 1,
+    "calories": 12.63,
+    "display": "Abductor Stretch Left",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      }
+    ],
+    "name": "abductor_stretch_left",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fabductor_stretch_left.gif?alt=media&token=4734622f-8283-4c41-a6e0-b2b234d6ceb6"
+  },
+  {
+    "id": 40,
+    "unit": 1,
+    "lang": 1,
+    "calories": 12.63,
+    "display": "Abductor Stretch Right",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      }
+    ],
+    "name": "abductor_stretch_right",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fabductor_stretch_right.gif?alt=media&token=7091d1ae-81a5-4861-957e-1eedd90d9350"
   },
   {
     "id": 41,
     "unit": 1,
     "lang": 1,
     "calories": 12.63,
-    "display": "Torso Rotation",
+    "display": "Pelvic Stretch",
     "tts": [
       {
         "text": "",
         "time": "7"
-      },
-      {
-        "text": "",
-        "time": "3"
       }
     ],
-    "name":"",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Ftorso_rotation.gif?alt=media&token=cf51d950-1a34-4496-b6b9-ea756ed37a86"
+    "name": "pelvic_stretch",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fpelvic_stretch.gif?alt=media&token=daf7bcf3-d957-4f53-9b42-ef1ae6af74e4"
   },
   {
     "id": 42,
     "unit": 1,
     "lang": 1,
     "calories": 12.63,
-    "display": "Tricep Stretch",
+    "display": "Quadricep Stretch",
     "tts": [
       {
         "text": "",
         "time": "7"
-      },
-      {
-        "text": "",
-        "time": "3"
       }
     ],
-    "name":"",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Ftorso_rotation.gif?alt=media&token=cf51d950-1a34-4496-b6b9-ea756ed37a86"
+    "name": "quad_stretch",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fquad_stretch.gif?alt=media&token=649b96c0-a5f8-41c5-ad08-4e7f007c4c4c"
   },
   {
     "id": 43,
@@ -807,13 +639,84 @@
       {
         "text": "",
         "time": "7"
-      },
-      {
-        "text": "",
-        "time": "3"
       }
     ],
-    "name":"",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Ftorso_rotation.gif?alt=media&token=cf51d950-1a34-4496-b6b9-ea756ed37a86"
+    "name": "neck_stretch",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fneck_stretch.gif?alt=media&token=38f85a02-d569-4386-a2b8-cba1adca55ba"
+  },
+  {
+    "id": 44,
+    "unit": 1,
+    "lang": 1,
+    "calories": 12.63,
+    "display": "Tricep Stretch",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      }
+    ],
+    "name": "tricep_stretch",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Ftricep_stretch.gif?alt=media&token=f6341991-ae71-41a7-9a03-1e3dc3021786"
+  },
+  {
+    "id": 45,
+    "unit": 1,
+    "lang": 1,
+    "calories": 12.63,
+    "display": "Back Shoulder Stretch",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      }
+    ],
+    "name": "back_shoulder_stretch",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fback_shoulder_stretch.gif?alt=media&token=b05b314a-21d6-4e5c-baea-51b0bbd4f5b0"
+  },
+  {
+    "id": 46,
+    "unit": 1,
+    "lang": 1,
+    "calories": 12.63,
+    "display": "Hamstring Stretch",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      }
+    ],
+    "name": "hamstring_stretch",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fhamstring_stretch.gif?alt=media&token=659dca0f-161d-4623-a5e1-1b360201d1aa"
+  },
+  {
+    "id": 47,
+    "unit": 1,
+    "lang": 1,
+    "calories": 12.63,
+    "display": "Downward Upward Dog",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      }
+    ],
+    "name": "downward_upward_dog",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fdownward_upward_dog.gif?alt=media&token=7d485e9f-06c2-4ed8-ac4a-3b52716221f5"
+  },
+  {
+    "id": 48,
+    "unit": 1,
+    "lang": 1,
+    "calories": 12.63,
+    "display": "Lunge Stretch",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      }
+    ],
+    "name": "lunge_stretch",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Flunge_stretch.gif?alt=media&token=cc2f1890-bb04-45c4-8512-0234ca4d4a70"
   }
 ]

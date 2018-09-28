@@ -14,6 +14,7 @@
         android:theme="@style/AppTheme.NoActionBar.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapse_layout"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:background="@drawable/exercise_screen_classic_stage_bg"

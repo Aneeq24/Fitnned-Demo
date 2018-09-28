@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/information_screen_slider_bg"
+    android:background="@drawable/ic_white_round_bar"
     android:orientation="vertical"
     android:padding="60dp">
 
@@ -10,19 +10,11 @@
         android:id="@+id/tv_type_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
+        android:text="Food Tips"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp"
         android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/img_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/weight_loss_science_screen_image" />
 
     <WebView
         android:id="@+id/webView"

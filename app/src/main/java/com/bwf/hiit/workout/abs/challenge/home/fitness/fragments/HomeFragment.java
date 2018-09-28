@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment {
     private void initApp() {
         rvHomeScreen.setNestedScrollingEnabled(false);
         rvHomeScreen.setLayoutManager(new LinearLayoutManager(context));
-        mAdapter = new HomeAdapter();
+        mAdapter = new HomeAdapter(context);
         rvHomeScreen.setAdapter(mAdapter);
     }
 

@@ -1,6 +1,7 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.adapter;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -19,12 +20,17 @@ import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.myHolder> {
 
-    private String[] title = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
+    private String[] title ;
     private String[] dis = {"Your Journey towards Ripped Six Pack Abs Start Here...",
             "Let’s Take Your Six Pack Abs Workout Up A Notch...", "Recommended Abs Workout for Those Who Want a Challenge…"};
     private int[] image = new int[]{R.drawable.main_screen_beginner_image, R.drawable.main_screen_intermediate_image,
             R.drawable.main_screen_advanced_image};
     private List<Integer> progress;
+
+
+    public HomeAdapter(Context context) {
+        this.title = context.getResources().getStringArray(R.array.title_list);
+    }
 
     public void setProgress(List<Integer> progress) {
         this.progress = progress;

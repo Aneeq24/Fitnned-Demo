@@ -11,6 +11,12 @@
 
     <string name="welcome_txt">READY FOR A NEW BODY!!!\nSTART YOUR FIRST WORKOUT NOW!</string>
 
+    <string-array name="title_list">
+        <item>BEGINNER</item>
+        <item>INTERMEDIATE</item>
+        <item>ADVANCED</item>
+    </string-array>
+
     <string-array name="days_list">
         <item>Day 1</item>
         <item>Day 2</item>

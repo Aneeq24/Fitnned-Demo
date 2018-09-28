@@ -10,13 +10,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.NestedScrollView;
+
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -91,8 +90,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     TextView tvKcal;
     RadioGroup btnGroup;
     AppBarLayout appBarLayout;
+    CollapsingToolbarLayout mLayout;
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "RestrictedApi"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +102,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         paused = false;
 
         appBarLayout = findViewById(R.id.app_bar);
+        mLayout = findViewById(R.id.collapse_layout);
 
         mBilling = new MyBilling(this);
         mBilling.onCreate();
@@ -145,20 +146,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         btnGroup.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.btn0) {
                 selectFragment(homeFragment);
-                appBarLayout.setExpanded(true, true);
+                appBarLayout.setExpanded(true);
                 AdsManager.getInstance().showInterstitialAd(getString(R.string.AM_Int_Main_Menu));
             } else if (i == R.id.btn1) {
                 selectFragment(workoutFragment);
-                appBarLayout.setExpanded(false, true);
+                appBarLayout.setExpanded(false);
             } else if (i == R.id.btn2) {
                 selectFragment(foodFragment);
-                appBarLayout.setExpanded(false, true);
+                appBarLayout.setExpanded(false);
             } else if (i == R.id.btn3) {
                 selectFragment(recordFragment);
-                appBarLayout.setExpanded(true, true);
+                appBarLayout.setExpanded(true);
             } else if (i == R.id.btn4) {
                 selectFragment(utilitiesFragment);
-                appBarLayout.setExpanded(false, true);
+                appBarLayout.setExpanded(false);
             }
         });
 

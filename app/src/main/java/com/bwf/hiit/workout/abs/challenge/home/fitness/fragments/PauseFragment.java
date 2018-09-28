@@ -51,15 +51,15 @@ public class PauseFragment extends Fragment {
 
         tvExName.setText(mActivity.nextExerciseName);
 
-        int id = getResources().getIdentifier(mActivity.exerciseName, "drawable", mActivity.getPackageName());
+        int id = getResources().getIdentifier(mActivity.nextExerciseImage, "drawable", mActivity.getPackageName());
         if (id != 0) {
             String path = "android.resource://" + mActivity.getPackageName() + "/" + id;
             Glide.with(this).load(path).into(imgAnimate);
         } else if (SharedPrefHelper.readBoolean(mActivity, getString(R.string.is_load))) {
-            String temp = mActivity.getCacheDir().getAbsolutePath() + "/" + mActivity.exerciseName + ".gif";
+            String temp = mActivity.getCacheDir().getAbsolutePath() + "/" + mActivity.nextExerciseImage + ".gif";
             Glide.with(this).load(temp).into(imgAnimate);
         } else {
-            Glide.with(this).load(mActivity.exerciseUrl).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(imgAnimate);
+            Glide.with(this).load(mActivity.nextExerciseUrl).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(imgAnimate);
         }
         btnResume.setOnClickListener(view -> onResumeExercise());
 

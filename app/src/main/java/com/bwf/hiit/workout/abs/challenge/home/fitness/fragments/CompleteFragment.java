@@ -85,7 +85,7 @@ public class CompleteFragment extends Fragment {
     ImageView btnEditWeight;
     RelativeLayout btnEditBmi;
     UserViewModel mUserViewModel;
-    PlayingExercise playingExercise;
+    PlayingExercise mActivity;
     RecordViewModel mRecordViewModel;
     WeightViewModel mWeightViewModel;
     Record record;
@@ -135,22 +135,22 @@ public class CompleteFragment extends Fragment {
         mRecordViewModel = ViewModelProviders.of(this).get(RecordViewModel.class);
         mWeightViewModel = ViewModelProviders.of(this).get(WeightViewModel.class);
 
-        playingExercise = (PlayingExercise) getActivity();
-        assert playingExercise != null;
+        mActivity = (PlayingExercise) getActivity();
+        assert mActivity != null;
 
-        TTSManager.getInstance(getActivity().getApplication()).play(" Well Done. This is end of day " + playingExercise.currentDay + "of your training");
-        AnalyticsManager.getInstance().sendAnalytics("day " + playingExercise.currentDay, "workout_complete");
+        TTSManager.getInstance(getActivity().getApplication()).play(" Well Done. This is end of day " + mActivity.currentDay + "of your training");
+        AnalyticsManager.getInstance().sendAnalytics("day " + mActivity.currentDay, "workout_complete");
 
-        int minutes = (playingExercise.totalTimeSpend % 3600) / 60;
+        int minutes = (mActivity.totalTimeSpend % 3600) / 60;
         @SuppressLint("DefaultLocale") String timeString = String.format("%02d", minutes);
 
         btnBack.setOnClickListener(view1 -> {
-            playingExercise.getSupportFragmentManager().beginTransaction().remove(CompleteFragment.this).commitAllowingStateLoss();
-            playingExercise.finish();
+            mActivity.getSupportFragmentManager().beginTransaction().remove(CompleteFragment.this).commitAllowingStateLoss();
+            mActivity.finish();
         });
         btnAgain.setOnClickListener(view1 -> {
-            playingExercise.getSupportFragmentManager().beginTransaction().remove(CompleteFragment.this).commitAllowingStateLoss();
-            playingExercise.finish();
+            mActivity.getSupportFragmentManager().beginTransaction().remove(CompleteFragment.this).commitAllowingStateLoss();
+            mActivity.finish();
         });
 
         btnEditBmi.setOnClickListener(view1 -> showBMIDialog());
@@ -162,8 +162,8 @@ public class CompleteFragment extends Fragment {
         setReminder(context);
         setDaysData(view);
         tvTotalTime.setText(String.valueOf(timeString));
-        tvKcal.setText(String.valueOf((int) playingExercise.totalKcal));
-        tvExerciseNo.setText(String.valueOf(playingExercise.mListExDays.get(0).getExerciseComplete()));
+        tvKcal.setText(String.valueOf((int) mActivity.totalKcal));
+        tvExerciseNo.setText(String.valueOf(mActivity.mListExDays.get(0).getExerciseComplete()));
 
         mUserViewModel.getUser().observe(this, user -> {
             if (user != null) {
@@ -190,14 +190,17 @@ public class CompleteFragment extends Fragment {
                 @Override
                 public void run() {
                     if (user != null) {
-                        user.setTotalKcal(user.getTotalKcal() + (int) playingExercise.totalKcal);
-                        user.setTotalExcercise(user.getTotalExcercise() + playingExercise.mListExDays.get(0).getExerciseComplete());
+                        user.setTotalKcal(user.getTotalKcal() + (int) mActivity.totalKcal);
+                        user.setTotalExcercise(user.getTotalExcercise() + mActivity.mListExDays.get(0).getExerciseComplete());
                         user.setTotalTime(user.getTotalTime() + convertIntoInteger(timeString));
                         mUserViewModel.update(user);
                     }
                     if (record != null) {
-                        record.setExDay(playingExercise.currentDay);
-                        record.setKcal((int) playingExercise.totalKcal);
+                        if (mActivity.currentPlan == 0)
+                            record.setExDay(0);
+                        else
+                            record.setExDay(mActivity.currentDay);
+                        record.setKcal((int) mActivity.totalKcal);
                         record.setDuration(minutes);
                         record.setType(getPlanName());
                         mRecordViewModel.insert(record);
@@ -590,10 +593,11 @@ public class CompleteFragment extends Fragment {
     }
 
     private String getPlanName() {
-        int i = playingExercise.currentPlan - 1;
+        int i = mActivity.currentPlan;
         switch (i) {
             case 0:
-                return "Workout";
+                String[] temp = context.getResources().getStringArray(R.array.exercise_list);
+                return temp[mActivity.currentDay - 1];
             case 1:
                 return "Beginner";
             case 2:

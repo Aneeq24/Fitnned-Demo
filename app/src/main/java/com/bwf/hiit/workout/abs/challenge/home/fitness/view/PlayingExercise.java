@@ -60,6 +60,7 @@ public class PlayingExercise extends AppCompatActivity {
     public String exerciseUrl;
     public String nextExerciseName;
     public String nextExerciseImage;
+    public String nextExerciseUrl;
     public List<ExerciseDay> mListExDays;
     public int currentEx = 0;
     public int timer = 0;
@@ -118,9 +119,11 @@ public class PlayingExercise extends AppCompatActivity {
                     if (currentEx < mListExDays.size() - 1) {
                         nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentEx + 1).getId()).getDisplay();
                         nextExerciseImage = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentEx + 1).getId()).getName();
+                        nextExerciseUrl = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentEx + 1).getId()).getUrl();
                     } else {
                         nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getDisplay();
                         nextExerciseImage = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getName();
+                        nextExerciseUrl = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getUrl();
                     }
 
                     int exerciseId = mListExDays.get(currentEx).getId();

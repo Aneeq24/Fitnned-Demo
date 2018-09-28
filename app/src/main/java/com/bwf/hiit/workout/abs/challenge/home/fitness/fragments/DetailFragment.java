@@ -21,8 +21,6 @@ public class DetailFragment extends Fragment {
     View rootView;
     @BindView(R.id.tv_type_name)
     TextView tvTypeName;
-    @BindView(R.id.img_main)
-    ImageView imgMain;
     @BindView(R.id.webView)
     WebView webView;
     Unbinder unbinder;

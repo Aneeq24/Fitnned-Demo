@@ -12,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.DailyExerciseInfo;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.dinuscxj.progressbar.CircleProgressBar;
@@ -84,6 +86,16 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.my
     }
 
     private void goToNewActivity(Context context, int position) {
+        if (position == 0) {
+            setActivity(context, position);
+        } else {
+                if (SharedPrefHelper.readBoolean(context, context.getString(R.string.is_load))) {
+                    setActivity(context, position);
+                } else Utils.showConnectionUsDialog(context);
+        }
+    }
+
+    private void setActivity(Context context, int position) {
         Intent i = new Intent(context, DailyExerciseInfo.class);
         i.putExtra(context.getString(R.string.day_selected), position + 1);
         i.putExtra(context.getString(R.string.plan), currentPlan);

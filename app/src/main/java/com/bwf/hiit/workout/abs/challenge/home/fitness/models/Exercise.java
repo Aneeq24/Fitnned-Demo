@@ -3,8 +3,11 @@ package com.bwf.hiit.workout.abs.challenge.home.fitness.models;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 @Entity
 public class Exercise {
@@ -16,31 +19,43 @@ public class Exercise {
 
     private int lang;
 
+    @SerializedName("calories")
     private float calories;
 
+    @SerializedName("name")
     private String name;
 
-    private String tts;
+    @SerializedName("url")
+    private String url;
+
+    @SerializedName("tts")
+    @TypeConverters(Converters.class)
+    private List<Tts> tts;
 
     @SerializedName("display")
-    private String display_name;
+    private String display;
+
+    @Ignore
+    Exercise(){
+    }
 
     @Ignore
     public Exercise(int unit, int lang, String name, String display_name) {
         this.unit = unit;
         this.lang = lang;
         this.name = name;
-        this.display_name = display_name;
+        this.display = display_name;
     }
 
-    public Exercise(int id, int unit, int lang, float calories, String name, String tts, String display_name) {
+    public Exercise(int id, int unit, int lang, float calories, String name, String url, List<Tts> tts, String display) {
         this.id = id;
         this.unit = unit;
         this.lang = lang;
         this.calories = calories;
         this.name = name;
+        this.url = url;
         this.tts = tts;
-        this.display_name = display_name;
+        this.display = display;
     }
 
     public int getId() {
@@ -83,19 +98,27 @@ public class Exercise {
         this.name = name;
     }
 
-    public String getTts() {
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public List<Tts> getTts() {
         return tts;
     }
 
-    public void setTts(String tts) {
+    public void setTts(List<Tts> tts) {
         this.tts = tts;
     }
 
-    public String getDisplay_name() {
-        return display_name;
+    public String getDisplay() {
+        return display;
     }
 
-    public void setDisplay_name(String display_name) {
-        this.display_name = display_name;
+    public void setDisplay(String display) {
+        this.display = display;
     }
 }

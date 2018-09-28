@@ -1,272 +1,819 @@
 [
   {
-    "id": 1,
-    "unit": 1,
-    "lang": 1,
     "calories": 13.23,
+    "display": "Bicycle Crunches",
+    "id": 1,
+    "lang": 1,
     "name": "bicycle_crunches",
-    "tts": "This exercise targets all abs muscle groups",
-    "display": "Bicycle Crunches"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fbicycle_crunches.gif?alt=media&token=6ff3b62b-aad5-4df8-9542-1fb1695cea53",
+    "tts": [
+      {
+        "text": "This exercise targets all abs muscle groups",
+        "time": "7"
+      },
+      {
+        "text": "This exercise targets all abs muscle groups",
+        "time": "3"
+      }
+    ],
+    "unit": 1
   },
   {
+    "calories": 12.63,
+    "display": "Burpees",
     "id": 2,
+    "lang": 1,
+    "name": "burpees",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fburpees.gif?alt=media&token=10e70c70-020d-427c-9bf6-44255ef7a6ba",
+    "tts": [
+      {
+        "text": "Burpees is a highly effective fat burning exercise It raises heart rate and boosts body metabolism",
+        "time": "7"
+      },
+      {
+        "text": "Burpees is a highly effective fat burning exercise It raises heart rate and boosts body metabolism",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 13.6,
+    "display": "Circle Crunches",
+    "id": 3,
+    "lang": 1,
+    "name": "circle_crunches",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fcircle_crunches.gif?alt=media&token=7cd28ae5-6bb5-41c6-9083-744ff7be5cd0",
+    "tts": [
+      {
+        "text": "Circle Crunches is a highly effective abs exercise it targets all abs muscles group",
+        "time": "7"
+      },
+      {
+        "text": "Circle Crunches is a highly effective abs exercise it targets all abs muscles group",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 14.12,
+    "display": "Sit up Crunches",
+    "id": 4,
+    "lang": 1,
+    "name": "crunches",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fcrunches.gif?alt=media&token=42c032c3-3ffd-4f7b-9a89-291f617596b6",
+    "tts": [
+      {
+        "text": "Sit Up Crunches target core abs muscles",
+        "time": "7"
+      },
+      {
+        "text": "Sit Up Crunches target core abs muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 12.045,
+    "display": "Elbow Plank",
+    "id": 5,
+    "lang": 1,
+    "name": "elbow_plank",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Felbow_plank.gif?alt=media&token=a9976ea3-c9a1-4eaa-9cd0-8b11f8aa7eae",
+    "tts": [
+      {
+        "text": "Elbow Plank targets upper and lower abs along with shoulder and Lat muscles",
+        "time": "7"
+      },
+      {
+        "text": "Elbow Plank targets upper and lower abs along with shoulder and Lat muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 13.04,
+    "display": "Flutter Kicks",
+    "id": 6,
+    "lang": 1,
+    "name": "flutter_kicks",
+    "url":"https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fflutter_kicks.gif?alt=media&token=9d1ec505-87bf-41a4-9fe7-ca462c2d247a",
+    "tts": [
+      {
+        "text": "Flutter Kicks works lower abs and hip flexor muscles",
+        "time": "7"
+      },
+      {
+        "text": "Flutter Kicks works lower abs and hip flexor muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 12.05,
+    "display": "High Knees",
+    "id": 7,
+    "lang": 1,
+    "name": "high_knees",
+    "url":"https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fhigh_knees.gif?alt=media&token=d76211d3-e471-4e9f-b52d-6b66736550a8",
+    "tts": [
+      {
+        "text": "High Knees is a very good full body cardio vascular exercise very effective for fat burning",
+        "time": "7"
+      },
+      {
+        "text": "High Knees is a very good full body cardio vascular exercise very effective for fat burning",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 12.02,
+    "display": "Jump Pushup",
+    "id": 8,
+    "lang": 1,
+    "name": "jump_push_up",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fjump_push_up.gif?alt=media&token=f291da68-5261-4b19-a6a6-2d69f16ed1c8",
+    "tts": [
+      {
+        "text": "Jump Push Up targets chest and triceps muscles",
+        "time": "7"
+      },
+      {
+        "text": "Jump Push Up targets chest and triceps muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 13.54,
+    "display": "Jumping Jacks",
+    "id": 9,
+    "lang": 1,
+    "name": "jumping_jacks",
+    "url":"https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fjumping_jacks.gif?alt=media&token=d18fe030-7c68-4abf-acb5-c91a428eff7a",
+    "tts": [
+      {
+        "text": "Jumping Jacks is a very good full body warm up exercise",
+        "time": "7"
+      },
+      {
+        "text": "Jumping Jacks is a very good full body warm up exercise",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 14.588,
+    "display": "Leg Raises",
+    "id": 10,
+    "lang": 1,
+    "name": "leg_raises",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fleg_raises.gif?alt=media&token=9da934e9-d0e3-49a3-8415-cde838f16f2d",
+    "tts": [
+      {
+        "text": "Leg Raises targets Hip Flexors and Lower Abs Muscles",
+        "time": "7"
+      },
+      {
+        "text": "Leg Raises targets Hip Flexors and Lower Abs Muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 12.45,
+    "display": "Lunge Step Ups",
+    "id": 11,
+    "lang": 1,
+    "name": "lunge_step_ups",
+    "url":"https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fleg_raises.gif?alt=media&token=9da934e9-d0e3-49a3-8415-cde838f16f2d",
+    "tts": [
+      {
+        "text": "Lunge Step Ups is a Lower Body Exercise which targets quadriceps and hamstring muscles",
+        "time": "7"
+      },
+      {
+        "text": "Lunge Step Ups is a Lower Body Exercise which targets quadriceps and hamstring muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 13.04,
+    "display": "Mountain Climbers",
+    "id": 12,
+    "lang": 1,
+    "name": "mountain_climbers",
+    "url":"https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fmountain_climbers.gif?alt=media&token=eef61932-4079-4a41-9490-e131916ac054",
+    "tts": [
+      {
+        "text": "Mountain Climbers is a full body exercise which targets shoulder chest and lower ab muscles",
+        "time": "7"
+      },
+      {
+        "text": "Mountain Climbers is a full body exercise which targets shoulder chest and lower ab muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 13.045,
+    "display": "Moving Plank",
+    "id": 13,
+    "lang": 1,
+    "name": "moving_plank",
+    "url":"https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fmoving_plank.gif?alt=media&token=bfa1681c-d918-470e-9378-d36981b3b869",
+    "tts": [
+      {
+        "text": "Moving planks very effectively targets core abs chest and shoulder muscles all in a single exercise",
+        "time": "7"
+      },
+      {
+        "text": "Moving planks very effectively targets core abs chest and shoulder muscles all in a single exercise",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 12.045,
+    "display": "Push Up Plank Leg Raises",
+    "id": 14,
+    "lang": 1,
+    "name": "one_legged_push_up_plank",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fone_legged_push_up_plank.gif?alt=media&token=c7e3ed4f-ef2f-42cc-8db0-dd766db5dff5",
+    "tts": [
+      {
+        "text": "Push Up Plank with leg raises targets core abs chest lower back and glutes muscles",
+        "time": "7"
+      },
+      {
+        "text": "Push Up Plank with leg raises targets core abs chest lower back and glutes muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 2
+  },
+  {
+    "calories": 11.045,
+    "display": "Pike Walk",
+    "id": 15,
+    "lang": 1,
+    "name": "pike_walk",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fpike_walk.gif?alt=media&token=a630e5da-8d39-4c67-9131-25c2f13894ec",
+    "tts": [
+      {
+        "text": "Pike Walk targets the core and upper abs muscles",
+        "time": "7"
+      },
+      {
+        "text": "Pike Walk targets the core and upper abs muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 15.5745,
+    "display": "Plank",
+    "id": 16,
+    "lang": 1,
+    "name": "plank",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fplank.gif?alt=media&token=e10796fb-8449-48f1-9bf4-149e19bcfd98",
+    "tts": [
+      {
+        "text": "Plank targets the core and upper abs muscles",
+        "time": "7"
+      },
+      {
+        "text": "Plank targets the core and upper abs muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 12.578,
+    "display": "Plank Arm Raises",
+    "id": 17,
+    "lang": 1,
+    "url": "plank_arm_raises",
+    "name": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fplank_arm_raises.gif?alt=media&token=6d2b6d41-e3bc-483c-9ba2-1e34700ea3d5",
+    "tts": [
+      {
+        "text": "Plank Arm Raises builds core strength in addition to working shoulder and triceps muscles",
+        "time": "7"
+      },
+      {
+        "text": "Plank Arm Raises builds core strength in addition to working shoulder and triceps muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 12.4287,
+    "display": "Plank Jacks",
+    "id": 18,
+    "lang": 1,
+    "name": "plank_jacks",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fplank_jacks.gif?alt=media&token=b62f6638-b2b5-48f6-97f1-51b47271c84c",
+    "tts": [
+      {
+        "text": "Plank Jacks targets core abs hip flexors and calf muscles",
+        "time": "7"
+      },
+      {
+        "text": "Plank Jacks targets core abs hip flexors and calf muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 13.04,
+    "display": "Plank Jump Ins",
+    "id": 19,
+    "lang": 1,
+    "name": "plank_jump_ins",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fplank_jump_ins.gif?alt=media&token=19070ef9-46d6-4323-9d71-7e85efbd6229",
+    "tts": [
+      {
+        "text": "Plank Jump Ins targets the core and lower abs muscles in addition to lower back and glutes",
+        "time": "7"
+      },
+      {
+        "text": "Plank Jump Ins targets the core and lower abs muscles in addition to lower back and glutes",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 13.86,
+    "display": "Plank Leg Raises",
+    "id": 20,
+    "lang": 1,
+    "name": "plank_leg_raises",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fplank_leg_raises.gif?alt=media&token=15d869a6-a1f6-4468-b323-b28d565278cc",
+    "tts": [
+      {
+        "text": "Plank Leg Raises targets core abs lower back and glutes muscles",
+        "time": "7"
+      },
+      {
+        "text": "Plank Leg Raises targets core abs lower back and glutes muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 12.574,
+    "display": "Push Ups",
+    "id": 21,
+    "lang": 1,
+    "name": "push_up",
+    "url":"https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fpush_up.gif?alt=media&token=4995af0f-1036-4c5d-8ed4-918676701eea",
+    "tts": [
+      {
+        "text": "Push Up is very effective exercise for upper body conditioning and core abs muscles",
+        "time": "7"
+      },
+      {
+        "text": "Push Up is very effective exercise for upper body conditioning and core abs muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 12.876,
+    "display": "Push Up Plank",
+    "id": 22,
+    "lang": 1,
+    "name": "push_up_plank",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fpush_up_plank.gif?alt=media&token=aa4044d5-100d-4157-946e-c25b513571b5",
+    "tts": [
+      {
+        "text": "Push Up Plank targets chest shoulder and core abs muscles",
+        "time": "7"
+      },
+      {
+        "text": "Push Up Plank targets chest shoulder and core abs muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 12.786,
+    "display": "Raised Leg Circles",
+    "id": 23,
+    "lang": 1,
+    "name": "raised_leg_circles",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fraised_leg_circles.gif?alt=media&token=cb111bfe-770d-4b13-bbca-4dc68dafbee5",
+    "tts": [
+      {
+        "text": "Raised Leg Circles targets all abs muscle groups",
+        "time": "7"
+      },
+      {
+        "text": "Raised Leg Circles targets all abs muscle groups",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 12.786,
+    "display": "Reverse Crunches",
+    "id": 24,
+    "lang": 1,
+    "name": "reverse_crunches",
+    "url":"https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Freverse_crunches.gif?alt=media&token=54cd42e9-1da4-4d4b-8bd7-fd53ff33c185",
+    "tts": [
+      {
+        "text": "Reverse Crunches targets lower and core abs muscles",
+        "time": "7"
+      },
+      {
+        "text": "Reverse Crunches targets lower and core abs muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 13.876,
+    "display": "Russian Twist",
+    "id": 25,
+    "lang": 1,
+    "name": "russian_twist",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Frussian_twist.gif?alt=media&token=c730939b-9f62-483c-95db-e917773737e5",
+    "tts": [
+      {
+        "text": "Russian Twists works obliques and lower abs muscles",
+        "time": "7"
+      },
+      {
+        "text": "Russian Twists works obliques and lower abs muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 15.7456,
+    "display": "Scissors",
+    "id": 26,
+    "lang": 1,
+    "name": "scissors",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fscissors.gif?alt=media&token=f6079be1-770a-44f1-a6ed-57017c8710fb",
+    "tts": [
+      {
+        "text": "Scissors strengthens core and lower abs muscles along with hip flexors and quadriceps",
+        "time": "7"
+      },
+      {
+        "text": "Scissors strengthens core and lower abs muscles along with hip flexors and quadriceps",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 13.75,
+    "display": "Side Plank",
+    "id": 27,
+    "lang": 1,
+    "name": "side_plank_leg_raise",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fside_plank_leg_raise.gif?alt=media&token=c3f0a9db-00d4-4576-8bb5-c3724d08459f",
+    "tts": [
+      {
+        "text": "Side Plank Leg Raises targets obliques and hip abductor muscles",
+        "time": "7"
+      },
+      {
+        "text": "Side Plank Leg Raises targets obliques and hip abductor muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 12.576,
+    "display": "V Ups",
+    "id": 28,
+    "lang": 1,
+    "name": "v_ups",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fv_ups.gif?alt=media&token=113b5575-4853-42ca-a001-cd2575c43c8b",
+    "tts": [
+      {
+        "text": "V Ups targets core upper and lower abs muscles",
+        "time": "7"
+      },
+      {
+        "text": "V Ups targets core upper and lower abs muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 12.576,
+    "display": "Side Plank Left",
+    "id": 29,
+    "lang": 1,
+    "name": "side_plank_left",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fside_plank_leg_raise_left.gif?alt=media&token=9e2547ea-c7b8-4ec2-b6c4-d6a68dd4f172",
+    "tts": [
+      {
+        "text": "Side Plank very effectively targets obliques and hip abductor muscles",
+        "time": "7"
+      },
+      {
+        "text": "Side Plank very effectively targets obliques and hip abductor muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 12.576,
+    "display": "Side Plank Right",
+    "id": 30,
+    "lang": 1,
+    "name": "side_plank_right",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fside_plank_right.gif?alt=media&token=91fbc4d1-87a7-440d-a4cb-df7ba1ef65b7",
+    "tts": [
+      {
+        "text": "Side Plank very effectively targets obliques and hip abductor muscles",
+        "time": "7"
+      },
+      {
+        "text": "Side Plank very effectively targets obliques and hip abductor muscles",
+        "time": "3"
+      }
+    ],
+    "unit": 1
+  },
+  {
+    "calories": 12.63,
+    "display": "Pelvic Stretch",
+    "id": 31,
+    "unit": 1,
+    "lang": 1,
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      },
+      {
+        "text": "",
+        "time": "3"
+      }
+    ],
+    "name":"",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fpelvic_stretch.gif?alt=media&token=f89a7a23-2fe0-4795-b6c1-64c65070d979"
+  },
+  {
+    "id": 32,
     "unit": 1,
     "lang": 1,
     "calories": 12.63,
-    "name": "burpees",
-    "tts": "Burpees is a highly effective fat burning exercise It raises heart rate and boosts body metabolism",
-    "display": "Burpees"
+    "display": "Quad Stretch",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      },
+      {
+        "text": "",
+        "time": "3"
+      }
+    ],
+    "name":"",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fquad_stretch.gif?alt=media&token=ff1ffac9-ec8a-4bff-af27-b1621e553a56"
   },
   {
-    "id": 3,
+    "id": 33,
     "unit": 1,
     "lang": 1,
-    "calories": 13.6,
-    "name": "circle_crunches",
-    "tts": "Circle Crunches is a highly effective abs exercise it targets all abs muscles group",
-    "display": "Circle Crunches"
+    "calories": 12.63,
+    "display": "Cat Cow Stretch",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      },
+      {
+        "text": "",
+        "time": "3"
+      }
+    ],
+    "name":"",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fcat_cow_stretch.gif?alt=media&token=72e1f7a2-d84c-4645-9d11-883b772fe080"
   },
   {
-    "id": 4,
+    "id": 34,
     "unit": 1,
     "lang": 1,
-    "calories": 14.12,
-    "name": "crunches",
-    "tts": "Sit Up Crunches target core abs muscles",
-    "display": "Sit up Crunches"
+    "calories": 12.63,
+    "display": "Chest Expansions",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      },
+      {
+        "text": "",
+        "time": "3"
+      }
+    ],
+    "name":"",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fdouble_chest_expansion.gif?alt=media&token=bb89bf2b-55a3-478e-b3a9-f8fd306c6b69"
   },
   {
-    "id": 5,
+    "id": 35,
     "unit": 1,
     "lang": 1,
-    "calories": 12.045,
-    "name": "elbow_plank",
-    "tts": "Elbow Plank targets upper and lower abs along with shoulder and Lat muscles",
-    "display": "Elbow Plank"
+    "calories": 12.63,
+    "display": "Cobra Stretch",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      },
+      {
+        "text": "",
+        "time": "3"
+      }
+    ],
+    "name":"",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fcobra_stretch.gif?alt=media&token=dacc9cb6-c448-4587-9653-296feeb2103c"
   },
   {
-    "id": 6,
+    "id": 36,
     "unit": 1,
     "lang": 1,
-    "calories": 13.04,
-    "name": "flutter_kicks",
-    "tts": "Flutter Kicks works lower abs and hip flexor muscles",
-    "display": "Flutter Kicks"
+    "calories": 12.63,
+    "display": "March Jacks",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      },
+      {
+        "text": "",
+        "time": "3"
+      }
+    ],
+    "name":"",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fmarch_jacks.gif?alt=media&token=c7ed31e9-5d97-4cd2-9e96-1d8ed48e6baa"
   },
   {
-    "id": 7,
+    "id": 37,
     "unit": 1,
     "lang": 1,
-    "calories": 12.05,
-    "name": "high_knees",
-    "tts": "High Knees is a very good full body cardio vascular exercise very effective for fat burning",
-    "display": "High Knees"
+    "calories": 12.63,
+    "display": "Raised Arm Circles",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      },
+      {
+        "text": "",
+        "time": "3"
+      }
+    ],
+    "name":"",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fraised_arm_circles.gif?alt=media&token=02ba770d-79f7-48b9-b81c-e164ef43a56f"
   },
   {
-    "id": 8,
+    "id": 38,
     "unit": 1,
     "lang": 1,
-    "calories": 12.02,
-    "name": "jump_push_up",
-    "tts": "Jump Push Up targets chest and triceps muscles",
-    "display": "Jump Pushup"
+    "calories": 12.63,
+    "display": "Seal Jacks",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      },
+      {
+        "text": "",
+        "time": "3"
+      }
+    ],
+    "name":"",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fseal_jacks.gif?alt=media&token=cb7df00c-06fa-4def-ad14-b91954ce2de3"
   },
   {
-    "id": 9,
+    "id": 39,
     "unit": 1,
     "lang": 1,
-    "calories": 13.54,
-    "name": "jumping_jacks",
-    "tts": "Jumping Jacks is a very good full body warm up exercise",
-    "display": "Jumping Jacks"
+    "calories": 12.63,
+    "display": "Shoulder Stretch",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      },
+      {
+        "text": "",
+        "time": "3"
+      }
+    ],
+    "name":"",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fshoulder_stretch_left2.gif?alt=media&token=57814933-464f-473e-a3e3-24fefcbff164"
   },
   {
-    "id": 10,
+    "id": 40,
     "unit": 1,
     "lang": 1,
-    "calories": 14.588,
-    "name": "leg_raises",
-    "tts": "Leg Raises targets Hip Flexors and Lower Abs Muscles",
-    "display": "Leg Raises"
+    "calories": 12.63,
+    "display": "Side Bend Stretch",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      },
+      {
+        "text": "",
+        "time": "3"
+      }
+    ],
+    "name":"",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Fside_bend_stretch_left2.gif?alt=media&token=0cf92e24-f394-4bcb-a361-16580d536713"
   },
   {
-    "id": 11,
+    "id": 41,
     "unit": 1,
     "lang": 1,
-    "calories": 12.45,
-    "name": "lunge_step_ups",
-    "tts": "Lunge Step Ups is a Lower Body Exercise which targets quadriceps and hamstring muscles",
-    "display": "Lunge Step Ups"
+    "calories": 12.63,
+    "display": "Torso Rotation",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      },
+      {
+        "text": "",
+        "time": "3"
+      }
+    ],
+    "name":"",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Ftorso_rotation.gif?alt=media&token=cf51d950-1a34-4496-b6b9-ea756ed37a86"
   },
   {
-    "id": 12,
+    "id": 42,
     "unit": 1,
     "lang": 1,
-    "calories": 13.04,
-    "name": "mountain_climbers",
-    "tts": "Mountain Climbers is a full body exercise which targets shoulder chest and lower ab muscles",
-    "display": "Mountain Climbers"
+    "calories": 12.63,
+    "display": "Tricep Stretch",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      },
+      {
+        "text": "",
+        "time": "3"
+      }
+    ],
+    "name":"",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Ftorso_rotation.gif?alt=media&token=cf51d950-1a34-4496-b6b9-ea756ed37a86"
   },
   {
-    "id": 13,
+    "id": 43,
     "unit": 1,
     "lang": 1,
-    "calories": 13.045,
-    "name": "moving_plank",
-    "tts": "Moving planks very effectively targets core abs chest and shoulder muscles all in a single exercise",
-    "display": "Moving Plank"
-  },
-  {
-    "id": 14,
-    "unit": 2,
-    "lang": 1,
-    "calories": 12.045,
-    "name": "one_legged_push_up_plank",
-    "tts": "Push Up Plank with leg raises targets core abs chest lower back and glutes muscles",
-    "display": "Push Up Plank Leg Raises"
-  },
-  {
-    "id": 15,
-    "unit": 1,
-    "lang": 1,
-    "calories": 11.045,
-    "name": "pike_walk",
-    "tts": "Pike Walk targets the core and upper abs muscles",
-    "display": "Pike Walk"
-  },
-  {
-    "id": 16,
-    "unit": 1,
-    "lang": 1,
-    "calories": 15.5745,
-    "name": "plank",
-    "tts": "Plank targets the core and upper abs muscles",
-    "display": "Plank"
-  },
-  {
-    "id": 17,
-    "unit": 1,
-    "lang": 1,
-    "calories": 12.578,
-    "name": "plank_arm_raises",
-    "tts": "Plank Arm Raises builds core strength in addition to working shoulder and triceps muscles",
-    "display": "Plank Arm Raises"
-  },
-  {
-    "id": 18,
-    "unit": 1,
-    "lang": 1,
-    "calories": 12.4287,
-    "name": "plank_jacks",
-    "tts": "Plank Jacks targets core abs hip flexors and calf muscles",
-    "display": "Plank Jacks"
-  },
-  {
-    "id": 19,
-    "unit": 1,
-    "lang": 1,
-    "calories": 13.04,
-    "name": "plank_jump_ins",
-    "tts": "Plank Jump Ins targets the core and lower abs muscles in addition to lower back and glutes",
-    "display": "Plank Jump Ins"
-  },
-  {
-    "id": 20,
-    "unit": 1,
-    "lang": 1,
-    "calories": 13.86,
-    "name": "plank_leg_raises",
-    "tts": "Plank Leg Raises targets core abs lower back and glutes muscles",
-    "display": "Plank Leg Raises"
-  },
-  {
-    "id": 21,
-    "unit": 1,
-    "lang": 1,
-    "calories": 12.574,
-    "name": "push_up",
-    "tts": "Push Up is very effective exercise for upper body conditioning and core abs muscles",
-    "display": "Push Ups"
-  },
-  {
-    "id": 22,
-    "unit": 1,
-    "lang": 1,
-    "calories": 12.876,
-    "name": "push_up_plank",
-    "tts": "Push Up Plank targets chest shoulder and core abs muscles",
-    "display": "Push Up Plank"
-  },
-  {
-    "id": 23,
-    "unit": 1,
-    "lang": 1,
-    "calories": 12.786,
-    "name": "raised_leg_circles",
-    "tts": "Raised Leg Circles targets all abs muscle groups",
-    "display": "Raised Leg Circles"
-  },
-  {
-    "id": 24,
-    "unit": 1,
-    "lang": 1,
-    "calories": 12.786,
-    "name": "reverse_crunches",
-    "tts": "Reverse Crunches targets lower and core abs muscles",
-    "display": "Reverse Crunches"
-  },
-  {
-    "id": 25,
-    "unit": 1,
-    "lang": 1,
-    "calories": 13.876,
-    "name": "russian_twist",
-    "tts": "Russian Twists works obliques and lower abs muscles",
-    "display": "Russian Twist"
-  },
-  {
-    "id": 26,
-    "unit": 1,
-    "lang": 1,
-    "calories": 15.7456,
-    "name": "scissors",
-    "tts": "Scissors strengthens core and lower abs muscles along with hip flexors and quadriceps",
-    "display": "Scissors"
-  },
-  {
-    "id": 27,
-    "unit": 1,
-    "lang": 1,
-    "calories": 13.75,
-    "name": "side_plank_leg_raise",
-    "tts": "Side Plank Leg Raises targets obliques and hip abductor muscles",
-    "display": "Side Plank"
-  },
-  {
-    "id": 28,
-    "unit": 1,
-    "lang": 1,
-    "calories": 12.576,
-    "name": "v_ups",
-    "tts": "V Ups targets core upper and lower abs muscles ",
-    "display": "V Ups"
-  },
-  {
-    "id": 29,
-    "unit": 1,
-    "lang": 1,
-    "calories": 12.576,
-    "name": "side_plank_left",
-    "tts": "Side Plank very effectively targets obliques and hip abductor muscles",
-    "display": "Side Plank Left"
-  },
-  {
-    "id": 30,
-    "unit": 1,
-    "lang": 1,
-    "calories": 12.576,
-    "name": "side_plank_right",
-    "tts": "Side Plank very effectively targets obliques and hip abductor muscles",
-    "display": "Side Plank Right"
+    "calories": 12.63,
+    "display": "Neck Stretch",
+    "tts": [
+      {
+        "text": "",
+        "time": "7"
+      },
+      {
+        "text": "",
+        "time": "3"
+      }
+    ],
+    "name":"",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Exercise%2Ftorso_rotation.gif?alt=media&token=cf51d950-1a34-4496-b6b9-ea756ed37a86"
   }
 ]

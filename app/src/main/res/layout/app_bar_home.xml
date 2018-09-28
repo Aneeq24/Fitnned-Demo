@@ -14,7 +14,6 @@
         android:theme="@style/AppTheme.NoActionBar.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:background="@drawable/exercise_screen_classic_stage_bg"
@@ -108,9 +107,9 @@
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView
-                    android:contentDescription="@string/app_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/app_name"
                     android:src="@drawable/main_screen_image_workout" />
 
                 <TextView
@@ -132,7 +131,6 @@
                     android:id="@+id/tv_Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/workout"
                     android:textColor="@android:color/white"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -140,6 +138,7 @@
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
+
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_home" />
@@ -148,80 +147,92 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RadioGroup
-            android:id="@+id/bottom_navigation"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#00E9FB"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <RadioButton
-                android:id="@+id/btn0"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:button="@null"
-                android:checked="true"
-                android:background="@drawable/bg_radio2"
-                android:gravity="center"
-                android:text="@string/workout"
-                android:textColor="@color/ic_text_color"
-                android:drawableTop="@drawable/bg_radio1" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:background="#00E9FB" />
 
-            <RadioButton
-                android:id="@+id/btn1"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:button="@null"
-                android:background="@drawable/bg_radio2"
-                android:gravity="center"
-                android:text="Report"
-                android:textColor="@color/ic_text_color"
-                android:drawableTop="@drawable/bg_radio1" />
+            <RadioGroup
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffff"
+                android:orientation="horizontal">
 
+                <RadioButton
+                    android:id="@+id/btn0"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableTop="@drawable/bg_plan"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="PLAN"
+                    android:textColor="@color/main_text_color" />
 
-            <RadioButton
-                android:id="@+id/btn2"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:button="@null"
-                android:text="Exercise"
-                android:background="@drawable/bg_radio2"
-                android:gravity="center"
-                android:textColor="@color/ic_text_color"
-                android:drawableTop="@drawable/bg_radio1" />
-
-            <RadioButton
-                android:id="@+id/btn3"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:button="@null"
-                android:text="No Ads"
-                android:background="@drawable/bg_radio2"
-                android:gravity="center"
-                android:textColor="@color/ic_text_color"
-                android:drawableTop="@drawable/bg_radio1" />
-
-            <RadioButton
-                android:id="@+id/btn4"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:background="@drawable/bg_radio2"
-                android:button="@null"
-                android:text="Rate us"
-                android:textColor="@color/ic_text_color"
-                android:drawableTop="@drawable/bg_radio1" />
+                <RadioButton
+                    android:id="@+id/btn1"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableTop="@drawable/bg_workout"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="WORKOUT"
+                    android:textColor="@color/main_text_color" />
 
 
-        </RadioGroup>
+                <RadioButton
+                    android:id="@+id/btn2"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableTop="@drawable/bg_food"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="FOOD"
+                    android:textColor="@color/main_text_color" />
+
+                <RadioButton
+                    android:id="@+id/btn3"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableTop="@drawable/bg_report"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="REPORT"
+                    android:textColor="@color/main_text_color" />
+
+                <RadioButton
+                    android:id="@+id/btn4"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableTop="@drawable/bg_more"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="MORE"
+                    android:textColor="@color/main_text_color"
+                    android:visibility="gone" />
+
+            </RadioGroup>
+
+        </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
 

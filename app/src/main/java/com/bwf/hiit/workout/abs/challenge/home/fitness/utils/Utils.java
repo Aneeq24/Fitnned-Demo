@@ -1,6 +1,7 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.utils;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -12,11 +13,10 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
@@ -29,11 +29,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 import java.util.List;
-
+import java.util.Objects;
 
 public class Utils {
 
     private final static String TAG = Utils.class.getSimpleName();
+    private static Dialog dialog = null;
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -132,14 +133,32 @@ public class Utils {
         context.startActivity(i);
     }
 
+    public static void showConnectionUsDialog(Context context) {
+        if (dialog == null) {
+            dialog = new Dialog(context);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setCancelable(false);
+            dialog.setContentView(R.layout.dialog_connection);
+            Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+            dialog.show();
+        }
+        Button btnOk = dialog.findViewById(R.id.btn_rate_us);
+        btnOk.setOnClickListener(view1 -> {
+            dialog.dismiss();
+            dialog = null;
+        });
+    }
+
     public static void showRateUsDialog(Context context) {
-        MaterialDialog dialog = new MaterialDialog.Builder(context)
-                .customView(R.layout.dialog_rate_us, false)
-                .show();
-        View view = dialog.getCustomView();
-        assert view != null;
-        Button btnSubmit = view.findViewById(R.id.btn_rate_us);
-        ImageView btnClose = view.findViewById(R.id.btn_close);
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_rate_us);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+
+        dialog.show();
+        Button btnSubmit = dialog.findViewById(R.id.btn_rate_us);
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
         btnSubmit.setOnClickListener(view1 -> onRateUs(context));
         btnClose.setOnClickListener(view1 -> dialog.dismiss());
     }
@@ -153,4 +172,5 @@ public class Utils {
             context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=com.bwf.hiit.workout.abs.challenge.home.fitness")));
         }
     }
+
 }

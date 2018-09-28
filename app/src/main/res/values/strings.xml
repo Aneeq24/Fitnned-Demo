@@ -44,6 +44,27 @@
         <item>Day 30</item>
     </string-array>
 
+    <string-array name="exercise_list">
+        <item>Pre Workout Warm Up</item>
+        <item>Post Workout Stretch</item>
+        <item>5 Min Plank Challenge</item>
+        <item>2 Minute Abs</item>
+    </string-array>
+
+    <string-array name="exercise_time_list">
+        <item>4 Min</item>
+        <item>4 Min</item>
+        <item>5 Min</item>
+        <item>2 Min</item>
+    </string-array>
+
+    <string-array name="food_list">
+        <item>WEIGHT LOSS SCIENCE</item>
+        <item>PRE WORKOUT NUTRITION</item>
+        <item>POST WORKOUT NUTRITION</item>
+        <item>FAT BURNING FOODS</item>
+    </string-array>
+
     <string-array name="activity_list">
         <item>Little to no exercise</item>
         <item>Light exercise (1–3 days per week)</item>
@@ -88,6 +109,7 @@
     <string name="prefs" translatable="false">Preferences</string>
     <string name="channel_name" translatable="false">Channel</string>
     <string name="is_first_run" translatable="false">Is First Run</string>
+    <string name="is_load" translatable="false">Is load</string>
     <string name="key_not_found" translatable="false">Key not found</string>
     <string name="channel_description" translatable="false">Description</string>
     <string name="publisher_id" translatable="false">pub-6412217023250030</string>
@@ -109,6 +131,8 @@
     <string name="cancel">Cancel</string>
     <string name="choose">Choose</string>
     <string name="rate_now">Rate Now</string>
+    <string name="server_connection">Server Connection\nNeeded</string>
+    <string name="server_content">Internet needed to download content\nPlease connect to the internet</string>
     <string name="rate_us">If You Like Our App. Give us Five Star</string>
     <string name="feedback">Feedback</string>
     <string name="settings">Settings</string>
@@ -186,5 +210,36 @@
         <item>Day 29 Today We Will Focus on Core and Lower Abs exercises</item>
         <item>Day 30 Today We Will Focus on Core and Oblique Abs exercises</item>
     </string-array>
+
+    <string name="weifht_loss">
+    <![CDATA[
+    <html>
+     <head></head>
+     <body style="text-align:justify;color:gray;">
+        <img src="weight_loss_science_screen_image.png"/>
+      There is only one way to lose weight and that is by creating a
+            calorie deficit. Calorie deficit happens when you consume less calories than what is
+            required by your body. In order to fully understand calorie deficit you have to be aware
+            of your daily calorie requirement which varies based on your gender,age,weight and height.
+            BMR or Basal Metabolic Rate is widely used metric to find the number of calories required
+            to keep your body functioning at rest (Find your BMR using our BMR calculator in the Tools
+            Section). BMR plus any additional physical activity like running, strength training or
+            swimming will determine the total calories required to maintain your body weight. Any calories
+            intake below the daily calories requirement will result in weight loss. So in addition to keeping
+            an eye out for your daily calories requirement, you will also be need to be mindful of the amount
+            of calories intake during the day.
+       </body>
+    </html>
+    ]]>
+    </string>
+
+    <string name="a">
+        Tip: 1 Pound Fat = 3,500 Calories
+        One pound of fat is equivalent to 3,500 calories. If you want to
+        lose 1 pound of fat in one week, you will have to create 500
+        calorie deficit per day for a week. This can be done by eating
+        500 calories less or burning 500 calories more by exercise.
+
+    </string>
 
 </resources>

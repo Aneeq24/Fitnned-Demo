@@ -28,9 +28,10 @@ import butterknife.ButterKnife;
 
 public class ScrollingActivity extends AppCompatActivity {
 
-    private String[] title = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
+    private String[] title = {"Exercise", "BEGINNER", "INTERMEDIATE", "ADVANCED"};
     int val = 0;
     int plan = 0;
+    int size = 0;
     boolean paused;
     Context context;
     List<Float> mProgress;
@@ -45,6 +46,7 @@ public class ScrollingActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +67,11 @@ public class ScrollingActivity extends AppCompatActivity {
         if (intent != null && intent.hasExtra(getString(R.string.plan)))
             plan = intent.getIntExtra(getString(R.string.plan), 0);
 
-        tvTitle.setText(title[plan - 1]);
+        if (plan == 0)
+            size = 4;
+        else size = 30;
+
+        tvTitle.setText(title[plan]);
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -86,8 +92,7 @@ public class ScrollingActivity extends AppCompatActivity {
             protected String doInBackground(Void... voids) {
                 try {
                     AppDataBase dataBase = AppDataBase.getInstance();
-
-                    for (int i = 0; i < 30; i++) {
+                    for (int i = 0; i < size; i++) {
                         if (dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).size() > 0) {
                             int totalComplete = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getExerciseComplete();
                             int totalExercises = dataBase.exerciseDayDao().getExerciseDays(plan, i + 1).get(0).getTotalExercise();
@@ -97,14 +102,12 @@ public class ScrollingActivity extends AppCompatActivity {
                             if (v >= 1) {
                                 val++;
                             }
-                        } else {
-                            mProgress.add(200f);
-                        }
+                        }else mProgress.add(200f);
                     }
                 } catch (RuntimeException e) {
                     e.printStackTrace();
                 }
-                int dayLeft = 30 - val;
+                int dayLeft = size - val;
                 return String.valueOf(dayLeft);
             }
 
@@ -112,9 +115,9 @@ public class ScrollingActivity extends AppCompatActivity {
             protected void onPostExecute(String dayLeft) {
                 super.onPostExecute(dayLeft);
                 initView();
-                circleProgressBarLeft.setMax(30);
+                circleProgressBarLeft.setMax(size);
                 circleProgressBarLeft.setProgress(Integer.parseInt(dayLeft));
-                circleProgressBarCompleted.setMax(30);
+                circleProgressBarCompleted.setMax(size);
                 circleProgressBarCompleted.setProgress(val);
             }
 

@@ -8,11 +8,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -28,8 +32,11 @@ import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.BuildConfig;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.FoodFragment;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.HomeFragment;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.RecordFragment;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.UtilitiesFragment;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.WorkoutFragment;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.inapp.MyBilling;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
@@ -59,6 +66,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     LinearLayout rlWelcome;
     @SuppressLint("StaticFieldLeak")
     public static TextView tvTitle;
+
     private ConsentForm form;
     private boolean isAppInBackground = false;
     private boolean paused;
@@ -66,6 +74,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private final String TAG = HomeActivity.class.getSimpleName();
     private HomeFragment homeFragment = new HomeFragment();
     private RecordFragment recordFragment = new RecordFragment();
+    private WorkoutFragment workoutFragment = new WorkoutFragment();
+    private UtilitiesFragment utilitiesFragment = new UtilitiesFragment();
+    private FoodFragment foodFragment = new FoodFragment();
 
     TextView workOut;
     TextView reminder;
@@ -79,6 +90,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     TextView tvTotalTime;
     TextView tvKcal;
     RadioGroup btnGroup;
+    AppBarLayout appBarLayout;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -88,6 +100,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         ButterKnife.bind(this);
         context = this;
         paused = false;
+
+        appBarLayout = findViewById(R.id.app_bar);
 
         mBilling = new MyBilling(this);
         mBilling.onCreate();
@@ -120,32 +134,31 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         requestGoogleConsentForm(true);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         selectFragment(homeFragment);
+        setToolbar(toolbar);
 
         btnGroup = findViewById(R.id.bottom_navigation);
         btnGroup.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.btn0) {
                 selectFragment(homeFragment);
+                appBarLayout.setExpanded(true, true);
                 AdsManager.getInstance().showInterstitialAd(getString(R.string.AM_Int_Main_Menu));
             } else if (i == R.id.btn1) {
+                selectFragment(workoutFragment);
+                appBarLayout.setExpanded(false, true);
+            } else if (i == R.id.btn2) {
+                selectFragment(foodFragment);
+                appBarLayout.setExpanded(false, true);
+            } else if (i == R.id.btn3) {
                 selectFragment(recordFragment);
-            }else if (i==R.id.btn2){
-                mBilling.purchaseRemoveAds();
-            }else if (i==R.id.btn3){
-                Utils.onRateUs(context);
-            } else if (i==R.id.btn4) {
-                Utils.onRateUs(context);
+                appBarLayout.setExpanded(true, true);
+            } else if (i == R.id.btn4) {
+                selectFragment(utilitiesFragment);
+                appBarLayout.setExpanded(false, true);
             }
         });
 
@@ -155,6 +168,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 initApp(user);
             }
         });
+    }
+
+    private void setToolbar(Toolbar toolbar) {
+        setSupportActionBar(toolbar);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
     }
 
     private void selectFragment(Fragment fragment) {

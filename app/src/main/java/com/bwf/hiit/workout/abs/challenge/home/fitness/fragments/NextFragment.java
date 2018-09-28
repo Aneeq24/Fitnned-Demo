@@ -13,7 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
@@ -62,7 +65,7 @@ public class NextFragment extends Fragment {
         assert mActivity != null;
         mCustomCircleBar.setMax(mActivity.restTime);
 
-        txtExercise.setText("Exercise " + (mActivity.currentEx + 1) + " of " + mActivity.totalExercisePerRound);
+        txtExercise.setText("Exercise " + (mActivity.currentEx + 1) + " of " + mActivity.totalExercises);
         mCustomCircleBar.setProgress(mActivity.restTime);
         mCustomCircleBar.setOnClickListener(view -> pauseOrRenume());
         startRestTimer(mActivity.restTime * 1000);
@@ -97,10 +100,17 @@ public class NextFragment extends Fragment {
 
         txtExerciseName.setText(mActivity.displayName);
 
-        String str = mActivity.exerciseName;
-        int id = getResources().getIdentifier(str, "drawable", context.getPackageName());
-        String path = "android.resource://" + context.getPackageName() + "/" + id;
-        Glide.with(this).load(path).into(imgAnim);
+        int id = getResources().getIdentifier(mActivity.exerciseName, "drawable", mActivity.getPackageName());
+        if (id != 0) {
+            String path = "android.resource://" + mActivity.getPackageName() + "/" + id;
+            Glide.with(this).load(path).into(imgAnim);
+        } else if (SharedPrefHelper.readBoolean(mActivity, getString(R.string.is_load))) {
+            String temp = mActivity.getCacheDir().getAbsolutePath() + "/" + mActivity.exerciseName + ".gif";
+            Glide.with(this).load(temp).into(imgAnim);
+        } else {
+            Glide.with(this).load(mActivity.exerciseUrl).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(imgAnim);
+        }
+
         TTSManager.getInstance(mActivity.getApplication()).play("Take a Rest for " + mActivity.restTime + "seconds" + "The Next Exercise is " + mActivity.displayName);
     }
 

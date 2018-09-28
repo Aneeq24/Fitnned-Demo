@@ -33,15 +33,15 @@ import butterknife.OnClick;
 
 public class DailyExerciseInfo extends AppCompatActivity {
 
-    Context context;
-    DailyExerciseAdapter mAdapter;
-    List<Exercise> mEXList;
     int plan;
     int planDay;
     int completeRounds = 0;
     int completeExercise = 0;
-    int totaTimeSpend = 0;
-    float kcal = 0;
+    int totalTimeSpend = 0;
+    float kCal = 0;
+    Context context;
+    DailyExerciseAdapter mAdapter;
+    List<Exercise> mEXList;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.rv_scroll)
@@ -75,48 +75,51 @@ public class DailyExerciseInfo extends AppCompatActivity {
         Intent intent = getIntent();
         plan = intent.getIntExtra(getApplicationContext().getString(R.string.plan), 0);
         planDay = intent.getIntExtra(getApplicationContext().getString(R.string.day_selected), 0);
-        tvTitle.setText("DAY " + planDay);
+        if (plan == 0)
+            tvTitle.setText("Exercise");
+        else {
+            String[] dayTTS = context.getResources().getStringArray(R.array.days_tts);
+            TTSManager.getInstance(getApplication()).play(dayTTS[planDay-1]);
+            tvTitle.setText("DAY " + (planDay));
+            switch (planDay) {
+                case 1:
+                case 5:
+                case 9:
+                case 13:
+                case 17:
+                case 21:
+                case 25:
+                case 29:
+                    imgTitle.setImageResource(R.drawable.lower_abs);
+                    break;
+                case 2:
+                case 6:
+                case 10:
+                case 14:
+                case 18:
+                case 22:
+                case 26:
+                case 30:
+                    imgTitle.setImageResource(R.drawable.obliques);
+                    break;
+                case 3:
+                case 7:
+                case 11:
+                case 15:
+                case 19:
+                case 23:
+                case 28:
+                    imgTitle.setImageResource(R.drawable.upper_abs);
+                    break;
+            }
+        }
 
         AdView adView = findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
 
-        AdsManager.getInstance().showFacebookInterstitial(getString(R.string.FB_Int_Exercise_List),true);
+        AdsManager.getInstance().showFacebookInterstitial(getString(R.string.FB_Int_Exercise_List), true);
 
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "exercise_list_activity");
-        String[] dayTTS = context.getResources().getStringArray(R.array.days_tts);
-        TTSManager.getInstance(getApplication()).play(dayTTS[planDay - 1]);
-
-        switch (planDay) {
-            case 1:
-            case 5:
-            case 9:
-            case 13:
-            case 17:
-            case 21:
-            case 25:
-            case 29:
-                imgTitle.setImageResource(R.drawable.lower_abs);
-                break;
-            case 2:
-            case 6:
-            case 10:
-            case 14:
-            case 18:
-            case 22:
-            case 26:
-            case 30:
-                imgTitle.setImageResource(R.drawable.obliques);
-                break;
-            case 3:
-            case 7:
-            case 11:
-            case 15:
-            case 19:
-            case 23:
-            case 28:
-                imgTitle.setImageResource(R.drawable.upper_abs);
-                break;
-        }
 
         rvDayExercise.setLayoutManager(new LinearLayoutManager(context));
         mAdapter = new DailyExerciseAdapter(this);
@@ -144,14 +147,14 @@ public class DailyExerciseInfo extends AppCompatActivity {
                 for (ExerciseDay day : mList) {
                     if (day.isStatus())
                         day.setStatus(false);
-                    totaTimeSpend = totaTimeSpend + day.getReps();
+                    totalTimeSpend = totalTimeSpend + day.getReps();
                     Exercise exercise = AppDataBase.getInstance().exerciseDao().findByIdbg(day.getId());
                     if (exercise != null) {
-                        mEXList.add(new Exercise(day.getReps(), day.getDelay(), exercise.getName(), exercise.getDisplay_name()));
-                        kcal = kcal + exercise.getCalories();
+                        mEXList.add(new Exercise(day.getReps(), day.getDelay(), exercise.getName(), exercise.getDisplay()));
+                        kCal = kCal + exercise.getCalories();
                     }
                 }
-                totaTimeSpend = totaTimeSpend * mList.get(0).getRounds();
+                totalTimeSpend = totalTimeSpend * mList.get(0).getRounds();
             }
             return null;
         }
@@ -162,9 +165,9 @@ public class DailyExerciseInfo extends AppCompatActivity {
             super.onPostExecute(aVoid);
             int totalExercisePerRound = mEXList.size();
             tvExercise.setText(String.valueOf(totalExercisePerRound) + " Exercise");
-            int minutes = (totaTimeSpend % 3600) / 60;
+            int minutes = (totalTimeSpend % 3600) / 60;
             tvTime.setText(String.valueOf(minutes) + " Min");
-            tvKcal.setText(String.valueOf((int) kcal) + " Kcal");
+            tvKcal.setText(String.valueOf((int) kCal) + " Kcal");
             mAdapter.setList(mEXList);
             mAdapter.setData(completeRounds, completeExercise);
         }

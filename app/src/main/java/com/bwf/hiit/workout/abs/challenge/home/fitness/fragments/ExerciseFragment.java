@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
@@ -21,7 +23,6 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.dinuscxj.progressbar.CircleProgressBar;
-
 
 public class ExerciseFragment extends Fragment {
 
@@ -94,17 +95,24 @@ public class ExerciseFragment extends Fragment {
         soundValue = SharedPrefHelper.readInteger(context, "sound");
 
         assignTopUi();
-        String str = mActivity.exerciseName;
         tvExName.setText(mActivity.displayName);
 
-        int id = getResources().getIdentifier(str, "drawable", context.getPackageName());
-        String path = "android.resource://" + context.getPackageName() + "/" + id;
-        Glide.with(context).load(path).into(imgExercise);
+        int id = getResources().getIdentifier(mActivity.exerciseName, "drawable", mActivity.getPackageName());
+
+        if (id != 0) {
+            String path = "android.resource://" + mActivity.getPackageName() + "/" + id;
+            Glide.with(this).load(path).into(imgExercise);
+        } else if (SharedPrefHelper.readBoolean(mActivity, getString(R.string.is_load))) {
+            String temp = mActivity.getCacheDir().getAbsolutePath() + "/" + mActivity.exerciseName + ".gif";
+            Glide.with(this).load(temp).into(imgExercise);
+        } else {
+            Glide.with(this).load(mActivity.exerciseUrl).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(imgExercise);
+        }
 
         if (!PlayingExercise.isPaused) {
             value = mActivity.getCurrentReps();
             TTSManager.getInstance(mActivity.getApplication()).play("Do " + mActivity.displayName + " for " + value / 1000 + " seconds");
-            new Handler().postDelayed(() -> TTSManager.getInstance(mActivity.getApplication()).play(mActivity.exerciseTTS), 5000);
+            new Handler().postDelayed(() -> TTSManager.getInstance(mActivity.getApplication()).play(mActivity.ttsList.get(0).getText()), 5000);
             startPlayingExercise(value);
         } else {
             PlayingExercise.isPaused = false;
@@ -128,7 +136,7 @@ public class ExerciseFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void assignTopUi() {
-        tvExercise.setText((mActivity.currentEx + 1) + " of " + mActivity.totalExercisePerRound);
+        tvExercise.setText((mActivity.currentEx + 1) + " of " + mActivity.totalExercises);
     }
 
     private void startPlayingExercise(int totalSkipTime) {

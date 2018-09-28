@@ -1,7 +1,6 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.fragments;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
@@ -13,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
@@ -24,7 +25,7 @@ import com.dinuscxj.progressbar.CircleProgressBar;
 public class SkipFragment extends Fragment {
 
     View rootView;
-    PlayingExercise playingExercise;
+    PlayingExercise mActivity;
     CircleProgressBar progressBar;
     CountDownTimer countDownTimer;
     TextView tvExName;
@@ -34,17 +35,14 @@ public class SkipFragment extends Fragment {
     ImageView btnPause;
     int pauseTimer = 0;
     int soundValue;
-    Context context;
     public boolean pause = false;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_skip, container, false);
-        context = getContext();
         btnPause = rootView.findViewById(R.id.btn_pause_play);
         progressBar = rootView.findViewById(R.id.skipExerciseTimeCircle);
-
         com.google.android.gms.ads.AdView adView = rootView.findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
 
@@ -74,37 +72,42 @@ public class SkipFragment extends Fragment {
             soundValue = 1;
             btnSound.setImageResource(R.drawable.play_screen_sound_on_btn);
         }
-        SharedPrefHelper.writeInteger(context, "sound", soundValue);
+        SharedPrefHelper.writeInteger(rootView.getContext(), "sound", soundValue);
     }
 
     private void findReferences() {
-        playingExercise = (PlayingExercise) getActivity();
+        mActivity = (PlayingExercise) getActivity();
         btnSkip = rootView.findViewById(R.id.skipButton);
         imgAnim = rootView.findViewById(R.id.skipLayoutImag);
         tvExName = rootView.findViewById(R.id.tv_exercise_name_skipScreen);
-        tvExName.setText(playingExercise.displayName);
+        tvExName.setText(mActivity.displayName);
         btnSound = rootView.findViewById(R.id.sf_soundFragment);
 
         startSkipTimer(11000);
 
         progressBar.setProgressFormatter((progress, max) -> progress + "\"");
         progressBar.setMax(15);
-        soundValue = SharedPrefHelper.readInteger(context, "sound");
+        soundValue = SharedPrefHelper.readInteger(rootView.getContext(), "sound");
 
         if (soundValue > 0)
             btnSound.setImageResource(R.drawable.play_screen_sound_on_btn);
-         else
+        else
             btnSound.setImageResource(R.drawable.play_screen_sound_off_btn);
 
         btnSkip.setOnClickListener(view -> startPlayingButton());
         progressBar.setOnClickListener(view -> pauseOrRenume());
         btnSound.setOnClickListener(view -> soundButton());
 
-        String str = playingExercise.exerciseName;
-        int id = context.getResources().getIdentifier(str, "drawable", rootView.getContext().getPackageName());
-        String path = "android.resource://" + rootView.getContext().getPackageName() + "/" + id;
-        Glide.with(this).load(path).into(imgAnim);
-
+        int id = getResources().getIdentifier(mActivity.exerciseName, "drawable", mActivity.getPackageName());
+        if (id != 0) {
+            String path = "android.resource://" + mActivity.getPackageName() + "/" + id;
+            Glide.with(this).load(path).into(imgAnim);
+        } else if (SharedPrefHelper.readBoolean(mActivity, getString(R.string.is_load))) {
+            String temp = mActivity.getCacheDir().getAbsolutePath() + "/" + mActivity.exerciseName + ".gif";
+            Glide.with(this).load(temp).into(imgAnim);
+        } else {
+            Glide.with(this).load(mActivity.exerciseUrl).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(imgAnim);
+        }
     }
 
     private void startSkipTimer(int totalSkipTime) {
@@ -120,7 +123,7 @@ public class SkipFragment extends Fragment {
                 if (value > 3)
                     Utils.playAudio(rootView.getContext(), id);
                 else
-                    TTSManager.getInstance(playingExercise.getApplication()).play("" + value);
+                    TTSManager.getInstance(mActivity.getApplication()).play("" + value);
             }
 
             public void onFinish() {
@@ -139,8 +142,8 @@ public class SkipFragment extends Fragment {
 
     private void startPlayingButton() {
         countDownTimer.cancel();
-        playingExercise.getSupportFragmentManager().beginTransaction().remove(SkipFragment.this).commitAllowingStateLoss();
-        playingExercise.StartPlayingFragment();
+        mActivity.getSupportFragmentManager().beginTransaction().remove(SkipFragment.this).commitAllowingStateLoss();
+        mActivity.StartPlayingFragment();
     }
 
 }

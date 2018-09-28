@@ -11,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 
@@ -26,6 +29,7 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
     private int plan;
     private int completeRounds;
     private int completeExercise;
+    private int id = 0;
 
     public DailyExerciseAdapter(Activity obj) {
         info = obj;
@@ -46,12 +50,19 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
     @Override
     public void onBindViewHolder(@NonNull myHolder holder, final int position) {
 
-        holder.tvExerciseName.setText(exerciseList.get(position).getDisplay_name());
+        holder.tvExerciseName.setText(exerciseList.get(position).getDisplay());
         holder.tvMin.setText(exerciseList.get(position).getUnit() + "s");
 
-        String videoPath = exerciseList.get(position).getName();
-        int id = info.getApplication().getResources().getIdentifier(videoPath, "drawable", info.getApplication().getPackageName());
-        Glide.with(info).load(id).into(holder.imgExercise);
+        id = info.getResources().getIdentifier(exerciseList.get(position).getName(), "drawable", info.getPackageName());
+        if (id != 0) {
+            String path = "android.resource://" + info.getPackageName() + "/" + id;
+            Glide.with(info).load(path).into(holder.imgExercise);
+        } else if (SharedPrefHelper.readBoolean(info, info.getString(R.string.is_load))) {
+            String temp = info.getCacheDir().getAbsolutePath() + "/" + exerciseList.get(position).getName() + ".gif";
+            Glide.with(info).load(temp).into(holder.imgExercise);
+        } else {
+            Glide.with(info).load(exerciseList.get(position).getUrl()).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.imgExercise);
+        }
 
         holder.itemView.setOnClickListener(view -> {
             if (completeRounds > 0 || completeExercise > 0)

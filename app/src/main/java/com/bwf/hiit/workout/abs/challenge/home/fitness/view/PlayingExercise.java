@@ -25,19 +25,16 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.inapp.MyBilling;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Tts;
 import com.carlosmuvi.segmentedprogressbar.SegmentedProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class PlayingExercise extends AppCompatActivity {
 
-    @BindView(R.id.progressBar)
     public SegmentedProgressBar progressBar;
-    private String[] title = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
+    private String[] title = {"Exercise", "BEGINNER", "INTERMEDIATE", "ADVANCED"};
 
     public MyBilling mBilling;
     FragmentManager fragmentManager;
@@ -50,16 +47,17 @@ public class PlayingExercise extends AppCompatActivity {
     CompleteFragment completeFragment = new CompleteFragment();
     RestFragment restFragment = new RestFragment();
 
+    public List<Tts> ttsList;
+
     public int restTime;
     public int currentReps;
     public int currentDay = 0;
     public static int pauseTimer = 0;
-    public int totalExercisePerRound = 0;
     public int currentPlan = 0;
     public int totalExercises = 0;
     public String displayName;
     public String exerciseName;
-    public String exerciseTTS;
+    public String exerciseUrl;
     public String nextExerciseName;
     public String nextExerciseImage;
     public List<ExerciseDay> mListExDays;
@@ -75,7 +73,6 @@ public class PlayingExercise extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playing_exercise);
-        ButterKnife.bind(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         fragmentManager = getSupportFragmentManager();
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "exercise_activity_started");
@@ -88,6 +85,7 @@ public class PlayingExercise extends AppCompatActivity {
         mBilling.onCreate();
         mListExDays = new ArrayList<>();
         dataBase = AppDataBase.getInstance();
+        progressBar = findViewById(R.id.progressBar);
 
         getData();
     }
@@ -103,6 +101,7 @@ public class PlayingExercise extends AppCompatActivity {
                 if (mListExDays.size() > 0) {
 
                     for (ExerciseDay day : mListExDays) {
+
                         totalTimeSpend = totalTimeSpend + day.getReps();
                         totalKcal = totalKcal + AppDataBase.getInstance().exerciseDao().findByIdbg(day.getId()).getCalories();
                         if (day.isStatus()) {
@@ -111,25 +110,24 @@ public class PlayingExercise extends AppCompatActivity {
                     }
                     if (currentEx == mListExDays.size())
                         currentEx--;
-                    totalExercisePerRound = mListExDays.get(0).getTotalExercise();
                     totalExercises = mListExDays.get(0).getTotalExercise();
                     currentReps = mListExDays.get(currentEx).getReps();
                     restTime = mListExDays.get(currentEx).getDelay();
 
                     currentReps *= 1000;
                     if (currentEx < mListExDays.size() - 1) {
-                        nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentEx + 1).getId()).getDisplay_name();
+                        nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentEx + 1).getId()).getDisplay();
                         nextExerciseImage = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentEx + 1).getId()).getName();
                     } else {
-                        nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getDisplay_name();
+                        nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getDisplay();
                         nextExerciseImage = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getName();
                     }
 
                     int exerciseId = mListExDays.get(currentEx).getId();
                     exerciseName = dataBase.exerciseDao().findByIdbg(exerciseId).getName();
-                    exerciseTTS = dataBase.exerciseDao().findByIdbg(exerciseId).getTts();
-                    displayName = dataBase.exerciseDao().findByIdbg(exerciseId).getDisplay_name();
-
+                    displayName = dataBase.exerciseDao().findByIdbg(exerciseId).getDisplay();
+                    ttsList = dataBase.exerciseDao().findByIdbg(exerciseId).getTts();
+                    exerciseUrl = dataBase.exerciseDao().findByIdbg(exerciseId).getUrl();
                     timer = totalTimeSpend;
                 }
                 return null;
@@ -149,7 +147,7 @@ public class PlayingExercise extends AppCompatActivity {
                         fragmentManager.beginTransaction().add(R.id.fragment_container, completeFragment, null).commitAllowingStateLoss();
                         isComplete = true;
                     } else {
-                        progressBar.setSegmentCount(totalExercisePerRound);
+                        progressBar.setSegmentCount(totalExercises);
                         if (currentEx > 0) {
                             for (int i = 0; i < currentEx; i++)
                                 progressBar.incrementCompletedSegments();
@@ -159,7 +157,6 @@ public class PlayingExercise extends AppCompatActivity {
                     }
                 } else {
                     isComplete = true;
-                    progressBar.setVisibility(View.GONE);
                     fragmentManager.beginTransaction().add(R.id.fragment_container, restFragment, null).commitAllowingStateLoss();
                     TTSManager.getInstance(getApplication()).play(getString(R.string.txt_rest));
                 }
@@ -178,10 +175,11 @@ public class PlayingExercise extends AppCompatActivity {
     }
 
     public void StartPlayingFragment() {
-        if (!isComplete)
+        if (!isComplete) {
             fragmentManager.beginTransaction().replace(R.id.fragment_container, exerciseFragment, null).commitAllowingStateLoss();
-        else {
-            AnalyticsManager.getInstance().sendAnalytics("exercise_complete", "plan_" + title[currentPlan - 1] + "day_" + currentDay + "completed");
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            AnalyticsManager.getInstance().sendAnalytics("exercise_complete", "plan_" + title[currentPlan] + "day_" + currentDay + "completed");
             progressBar.setVisibility(View.GONE);
             Bundle bundle = new Bundle();
             bundle.putBoolean("repeat", false);
@@ -209,9 +207,8 @@ public class PlayingExercise extends AppCompatActivity {
     }
 
     public void onCompleteCheckingNext(boolean isNext) {
-        AnalyticsManager.getInstance().sendAnalytics("exercise_complete", "plan_" + title[currentPlan - 1] + "day_" + currentDay + "exercise_" + (currentEx + 1));
+        AnalyticsManager.getInstance().sendAnalytics("exercise_complete", "plan_" + title[currentPlan] + "day_" + currentDay + "exercise_" + (currentEx + 1));
         mListExDays.get(currentEx).setStatus(true);
-        totalExercises = mListExDays.size();
 
         if (!isNext) {
             if (currentEx > 0) {
@@ -233,7 +230,7 @@ public class PlayingExercise extends AppCompatActivity {
             mListExDays.get(0).setRoundCompleted(currentRound);
         } else {
             AnalyticsManager.getInstance().sendAnalytics("plan " + currentPlan + "days " + currentDay, "complete_all_exercises");
-            mListExDays.get(0).setExerciseComplete(mListExDays.get(0).getTotalExercise());
+            mListExDays.get(0).setExerciseComplete(totalExercises);
             mListExDays.get(0).setRoundCompleted(currentRound);
             this.isComplete = true;
         }
@@ -279,10 +276,10 @@ public class PlayingExercise extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         if (mListExDays.size() > 0) {
-            AnalyticsManager.getInstance().sendAnalytics("Exercise_Screen_End", "plan_" + title[currentPlan - 1] + "day_" +
+            AnalyticsManager.getInstance().sendAnalytics("Exercise_Screen_End", "plan_" + title[currentPlan] + "day_" +
                     currentDay + "exercises_" + mListExDays.get(0).getExerciseComplete());
         } else {
-            AnalyticsManager.getInstance().sendAnalytics("Exercise_Screen_End", "plan_" + title[currentPlan - 1] + "day_" +
+            AnalyticsManager.getInstance().sendAnalytics("Exercise_Screen_End", "plan_" + title[currentPlan] + "day_" +
                     currentDay + "rest_time");
         }
         resetStaticPauseValues();
@@ -311,16 +308,17 @@ public class PlayingExercise extends AppCompatActivity {
 
             int exerciseId = mListExDays.get(currentEx).getId();
             exerciseName = dataBase.exerciseDao().findByIdbg(exerciseId).getName();
-            exerciseTTS = dataBase.exerciseDao().findByIdbg(exerciseId).getTts();
-            displayName = dataBase.exerciseDao().findByIdbg(exerciseId).getDisplay_name();
+            ttsList = AppDataBase.getInstance().exerciseDao().findByIdbg(exerciseId).getTts();
+            displayName = dataBase.exerciseDao().findByIdbg(exerciseId).getDisplay();
+            exerciseUrl = dataBase.exerciseDao().findByIdbg(exerciseId).getUrl();
             currentReps = mListExDays.get(currentEx).getReps();
             currentReps *= 1000;
 
             if (currentEx < mListExDays.size() - 1) {
-                nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentEx + 1).getId()).getDisplay_name();
+                nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentEx + 1).getId()).getDisplay();
                 nextExerciseImage = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentEx + 1).getId()).getName();
             } else {
-                nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getDisplay_name();
+                nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getDisplay();
                 nextExerciseImage = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getName();
             }
             return null;

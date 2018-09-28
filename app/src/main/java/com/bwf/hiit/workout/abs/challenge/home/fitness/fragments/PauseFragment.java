@@ -11,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.google.android.gms.ads.AdView;
@@ -24,7 +27,7 @@ public class PauseFragment extends Fragment {
     TextView tvExercise;
     ImageView btnResume;
     ImageView imgAnimate;
-    PlayingExercise playingExercise;
+    PlayingExercise mActivity;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,29 +43,34 @@ public class PauseFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void findReferences() {
-        playingExercise = (PlayingExercise) getActivity();
+        mActivity = (PlayingExercise) getActivity();
         btnResume = rootView.findViewById(R.id.pauseResume);
         tvExName = rootView.findViewById(R.id.tv_pauseHeadline);
         imgAnimate = rootView.findViewById(R.id.pf_exerciseImage);
         tvExercise = rootView.findViewById(R.id.pf_exerciseText);
 
-        tvExName.setText(playingExercise.nextExerciseName);
+        tvExName.setText(mActivity.nextExerciseName);
 
-        String str = playingExercise.nextExerciseImage;
-        int id = getResources().getIdentifier(str, "drawable", rootView.getContext().getPackageName());
-        String path = "android.resource://" + rootView.getContext().getPackageName() + "/" + id;
-
-        Glide.with(this).load(path).into(imgAnimate);
+        int id = getResources().getIdentifier(mActivity.exerciseName, "drawable", mActivity.getPackageName());
+        if (id != 0) {
+            String path = "android.resource://" + mActivity.getPackageName() + "/" + id;
+            Glide.with(this).load(path).into(imgAnimate);
+        } else if (SharedPrefHelper.readBoolean(mActivity, getString(R.string.is_load))) {
+            String temp = mActivity.getCacheDir().getAbsolutePath() + "/" + mActivity.exerciseName + ".gif";
+            Glide.with(this).load(temp).into(imgAnimate);
+        } else {
+            Glide.with(this).load(mActivity.exerciseUrl).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(imgAnimate);
+        }
         btnResume.setOnClickListener(view -> onResumeExercise());
 
-        if (playingExercise.currentEx <= (playingExercise.totalExercises - 1))
-            tvExercise.setText("Exercise " + (playingExercise.currentEx + 1) + " of " + playingExercise.totalExercisePerRound);
+        if (mActivity.currentEx <= (mActivity.totalExercises - 1))
+            tvExercise.setText("Exercise " + (mActivity.currentEx + 1) + " of " + mActivity.totalExercises);
         else
-            tvExercise.setText("Exercise " + playingExercise.totalExercisePerRound + " of " + playingExercise.totalExercisePerRound);
+            tvExercise.setText("Exercise " + mActivity.totalExercises + " of " + mActivity.totalExercises);
     }
 
     private void onResumeExercise() {
-        playingExercise.onResumeFragment();
+        mActivity.onResumeFragment();
     }
 
 }

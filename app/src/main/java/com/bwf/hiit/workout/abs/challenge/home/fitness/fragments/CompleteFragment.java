@@ -593,10 +593,12 @@ public class CompleteFragment extends Fragment {
         int i = playingExercise.currentPlan - 1;
         switch (i) {
             case 0:
-                return "Beginner";
+                return "Workout";
             case 1:
-                return "Intermediate";
+                return "Beginner";
             case 2:
+                return "Intermediate";
+            case 3:
                 return "Advanced";
             default:
                 return "";

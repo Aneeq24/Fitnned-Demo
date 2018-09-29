@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
@@ -31,8 +30,9 @@ public class DetailFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragement_detail, container, false);
 
         WebView view = rootView.findViewById(R.id.webView);
-        view.setBackgroundResource(android.R.color.transparent);
-        view.loadUrl("file:///android_asset/abc.html");
+
+        assert getArguments() != null;
+        view.loadUrl(getArguments().getString("url"));
 
         unbinder = ButterKnife.bind(this, rootView);
         return rootView;

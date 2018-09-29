@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.BuildConfig;
@@ -20,6 +19,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Day;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Food;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.PlanDays;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Reminder;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
@@ -90,8 +90,8 @@ public class SplashScreeActivity extends AppCompatActivity {
             });
         } else
             new AppDbCheckingTask().execute();
-
-        getZipFile();
+        if (Utils.isNetworkAvailable(context) && !SharedPrefHelper.readBoolean(context, getString(R.string.is_load)))
+            Utils.getZipFile();
 //      Stetho.initializeWithDefaults(this);
     }
 
@@ -137,6 +137,17 @@ public class SplashScreeActivity extends AppCompatActivity {
                     reminder.setThursday(true);
                     appDataBase.userdao().insertAll(user);
                     appDataBase.reminderDao().insertAll(reminder);
+                    // insert food
+                    try {
+                        String json = JsonUtils.readJsonFromAssets(context, "food.json");
+                        List<Food> foods = gson.fromJson(json, new TypeToken<List<Food>>() {
+                        }.getType());
+                        if (foods != null && foods.size() > 0) {
+                            appDataBase.foodDao().insertAll(foods);
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "exercises: " + e.getLocalizedMessage());
+                    }
                     // insert exercises
                     try {
                         String json = JsonUtils.readJsonFromAssets(context, "exercises.json");
@@ -295,46 +306,4 @@ public class SplashScreeActivity extends AppCompatActivity {
         backPressed = true;
     }
 
-    private void getZipFile() {
-        StorageReference islandRef = FirebaseStorage.getInstance().getReference().child("data/data.zip");
-
-        try {
-            File localFile = File.createTempFile("images", "zip");
-            islandRef.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
-                // Local temp file has been created
-                try {
-                    unzip(localFile, context.getCacheDir().getAbsolutePath());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }).addOnFailureListener(exception -> {
-                // Handle any errors
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void unzip(File zipFile, String targetDirectory) throws IOException {
-        try (ZipInputStream zis = new ZipInputStream(
-                new BufferedInputStream(new FileInputStream(zipFile)))) {
-            ZipEntry ze;
-            int count;
-            byte[] buffer = new byte[8192];
-            while ((ze = zis.getNextEntry()) != null) {
-                File file = new File(targetDirectory, ze.getName());
-                File dir = ze.isDirectory() ? file : file.getParentFile();
-                if (!dir.isDirectory() && !dir.mkdirs())
-                    throw new FileNotFoundException("Failed to ensure directory: " +
-                            dir.getAbsolutePath());
-                if (ze.isDirectory())
-                    continue;
-                try (FileOutputStream fout = new FileOutputStream(file)) {
-                    while ((count = zis.read(buffer)) != -1)
-                        fout.write(buffer, 0, count);
-                }
-            }
-            SharedPrefHelper.writeBoolean(context, getString(R.string.is_load), true);
-        }
-    }
 }

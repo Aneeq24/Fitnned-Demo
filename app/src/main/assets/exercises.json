@@ -244,8 +244,8 @@
     "display": "Plank Arm Raises",
     "id": 17,
     "lang": 1,
-    "url": "plank_arm_raises",
-    "name": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fplank_arm_raises.gif?alt=media&token=31d77373-fe16-4ad0-9981-112c310ea56c",
+    "name": "plank_arm_raises",
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fplank_arm_raises.gif?alt=media&token=31d77373-fe16-4ad0-9981-112c310ea56c",
     "tts": [
       {
         "text": "Plank Arm Raises builds core strength in addition to working shoulder and triceps muscles",
@@ -428,7 +428,7 @@
     "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fside_plank_right.gif?alt=media&token=b3c18c24-7353-4f19-bc56-241b66c4420f",
     "tts": [
       {
-        "text": "side plank leg raise right very effectively targets obliques and hip abductor muscles",
+        "text": "Side Plank very effectively targets obliques and hip abductor muscles",
         "time": "7"
       }
     ],

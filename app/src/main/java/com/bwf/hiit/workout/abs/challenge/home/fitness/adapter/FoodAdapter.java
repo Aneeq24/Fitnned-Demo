@@ -33,7 +33,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.myHolder> {
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final myHolder holder, final int position) {
-        switch (position){
+        switch (position) {
             case 0:
                 holder.itemView.setBackgroundResource(R.drawable.ic_orange_round_bar);
                 holder.img.setImageResource(R.drawable.food_screen_weight_loss_image);
@@ -52,7 +52,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.myHolder> {
                 break;
         }
         holder.tvDayName.setText(foodName[position]);
-        holder.itemView.setOnClickListener(view -> goToNewActivity(view.getContext()));
+        holder.itemView.setOnClickListener(view -> goToNewActivity(view.getContext(), position));
     }
 
     @Override
@@ -75,8 +75,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.myHolder> {
         }
     }
 
-    private void goToNewActivity(Context context) {
-        Intent i = new Intent(context, FoodDetailActivity.class);
+    private void goToNewActivity(Context context, int pos) {
+        Intent i = new Intent(context, FoodDetailActivity.class).putExtra("pos", pos);
         AnalyticsManager.getInstance().sendAnalytics("FoodDetailActivity", "FoodDetailActivity");
         context.startActivity(i);
     }

@@ -139,7 +139,7 @@
             "id": 42,
             "reps": 20,
             "rounds": 1,
-            "delay": 4410,
+            "delay": 10,
             "status": false
           },
           {
@@ -180,71 +180,71 @@
         "exercises": [
           {
             "id": 16,
-            "reps": 20,
-            "delay": 10,
+            "reps": 30,
+            "delay": 20,
             "rounds": 1,
             "status": false
           },
           {
             "id": 5,
-            "reps": 20,
-            "delay": 10,
+            "reps": 30,
+            "delay": 20,
             "rounds": 1,
             "status": false
           },
           {
             "id": 17,
-            "reps": 20,
-            "delay": 10,
+            "reps": 30,
+            "delay": 20,
             "rounds": 1,
             "status": false
           },
           {
             "id": 28,
-            "reps": 20,
-            "delay": 10,
+            "reps": 30,
+            "delay": 20,
             "rounds": 1,
             "status": false
           },
           {
             "id": 29,
-            "reps": 20,
-            "delay": 10,
+            "reps": 30,
+            "delay": 20,
             "rounds": 1,
             "status": false
           },
           {
             "id": 20,
-            "reps": 20,
-            "delay": 10,
+            "reps": 30,
+            "delay": 20,
             "rounds": 1,
             "status": false
           },
           {
             "id": 18,
-            "reps": 20,
-            "delay": 10,
+            "reps": 30,
+            "delay": 20,
             "rounds": 1,
             "status": false
           },
           {
             "id": 13,
-            "reps": 20,
-            "delay": 10,
+            "reps": 30,
+            "delay": 20,
             "rounds": 1,
             "status": false
           },
           {
             "id": 19,
-            "reps": 20,
-            "delay": 10,
+            "reps": 30,
+            "delay": 20,
             "rounds": 1,
             "status": false
           },
           {
             "id": 5,
-            "reps": 20,
-            "delay": 10,
+            "reps": 30,
+            "delay": 20,
             "rounds": 1,
             "status": false
           }

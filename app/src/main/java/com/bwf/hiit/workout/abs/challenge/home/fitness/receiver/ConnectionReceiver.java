@@ -1,0 +1,16 @@
+package com.bwf.hiit.workout.abs.challenge.home.fitness.receiver;
+
+import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
+
+public class ConnectionReceiver extends BroadcastReceiver {
+
+    @SuppressLint("UnsafeProtectedBroadcastReceiver")
+    @Override
+    public void onReceive(Context context, Intent intent) {
+            Utils.getZipFile();
+    }
+}

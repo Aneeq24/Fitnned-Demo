@@ -112,10 +112,17 @@ public class PlayingExercise extends AppCompatActivity {
                     if (currentEx == mListExDays.size())
                         currentEx--;
                     totalExercises = mListExDays.get(0).getTotalExercise();
-                    currentReps = mListExDays.get(currentEx).getReps();
                     restTime = mListExDays.get(currentEx).getDelay();
+                    timer = totalTimeSpend;
 
+                    int exerciseId = mListExDays.get(currentEx).getId();
+                    exerciseName = dataBase.exerciseDao().findByIdbg(exerciseId).getName();
+                    ttsList = AppDataBase.getInstance().exerciseDao().findByIdbg(exerciseId).getTts();
+                    displayName = dataBase.exerciseDao().findByIdbg(exerciseId).getDisplay();
+                    exerciseUrl = dataBase.exerciseDao().findByIdbg(exerciseId).getUrl();
+                    currentReps = mListExDays.get(currentEx).getReps();
                     currentReps *= 1000;
+
                     if (currentEx < mListExDays.size() - 1) {
                         nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentEx + 1).getId()).getDisplay();
                         nextExerciseImage = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentEx + 1).getId()).getName();
@@ -125,13 +132,6 @@ public class PlayingExercise extends AppCompatActivity {
                         nextExerciseImage = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getName();
                         nextExerciseUrl = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getUrl();
                     }
-
-                    int exerciseId = mListExDays.get(currentEx).getId();
-                    exerciseName = dataBase.exerciseDao().findByIdbg(exerciseId).getName();
-                    displayName = dataBase.exerciseDao().findByIdbg(exerciseId).getDisplay();
-                    ttsList = dataBase.exerciseDao().findByIdbg(exerciseId).getTts();
-                    exerciseUrl = dataBase.exerciseDao().findByIdbg(exerciseId).getUrl();
-                    timer = totalTimeSpend;
                 }
                 return null;
             }
@@ -201,8 +201,8 @@ public class PlayingExercise extends AppCompatActivity {
     public void NextFragment(boolean isNext, int time) {
         timer = time;
         restTime = mListExDays.get(currentEx).getDelay();
-        onCompleteCheckingNext(isNext);
         fragmentManager.beginTransaction().replace(R.id.fragment_container, nextFragment, null).commitAllowingStateLoss();
+        onCompleteCheckingNext(isNext);
     }
 
     public void onResumeFragment() {
@@ -320,9 +320,11 @@ public class PlayingExercise extends AppCompatActivity {
             if (currentEx < mListExDays.size() - 1) {
                 nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentEx + 1).getId()).getDisplay();
                 nextExerciseImage = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentEx + 1).getId()).getName();
+                nextExerciseUrl = dataBase.exerciseDao().findByIdbg(mListExDays.get(currentEx + 1).getId()).getUrl();
             } else {
                 nextExerciseName = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getDisplay();
                 nextExerciseImage = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getName();
+                nextExerciseUrl = dataBase.exerciseDao().findByIdbg(mListExDays.get(0).getId()).getUrl();
             }
             return null;
         }

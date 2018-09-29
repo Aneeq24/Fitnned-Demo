@@ -80,20 +80,13 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.myHolder
     }
 
     private void goToNewActivity(Context context, int position) {
-        if (!SharedPrefHelper.readBoolean(context, "is_first_run")) {
-            if (Utils.isNetworkAvailable(context)) {
-                Intent i = new Intent(context, DailyExerciseInfo.class);
-                i.putExtra(context.getString(R.string.day_selected), position + 1);
-                i.putExtra(context.getString(R.string.plan), currentPlan);
-                context.startActivity(i);
-                SharedPrefHelper.writeBoolean(context, "is_first_run", true);
-            } else Utils.showConnectionUsDialog(context);
-        } else {
+        if (SharedPrefHelper.readBoolean(context, context.getString(R.string.is_load))) {
             Intent i = new Intent(context, DailyExerciseInfo.class);
             i.putExtra(context.getString(R.string.day_selected), position + 1);
             i.putExtra(context.getString(R.string.plan), currentPlan);
             context.startActivity(i);
-        }
+            SharedPrefHelper.writeBoolean(context, "is_first_run", true);
+        } else Utils.showConnectionUsDialog(context);
     }
 
 }

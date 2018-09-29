@@ -61,6 +61,7 @@ public class PauseFragment extends Fragment {
         } else {
             Glide.with(this).load(mActivity.nextExerciseUrl).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(imgAnimate);
         }
+
         btnResume.setOnClickListener(view -> onResumeExercise());
 
         if (mActivity.currentEx <= (mActivity.totalExercises - 1))

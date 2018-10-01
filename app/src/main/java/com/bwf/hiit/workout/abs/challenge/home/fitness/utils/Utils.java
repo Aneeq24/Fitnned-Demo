@@ -48,6 +48,7 @@ public class Utils {
 
     private final static String TAG = Utils.class.getSimpleName();
     private static Dialog dialog = null;
+    public static boolean isDownloading = false;
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -146,7 +147,7 @@ public class Utils {
         context.startActivity(i);
     }
 
-    public static void showConnectionUsDialog(Context context, LinearLayout l , TextView t, AdView adView, ProgressBar p) {
+    public static void showConnectionUsDialog(Context context, LinearLayout l, TextView t, AdView adView, ProgressBar p) {
         if (dialog == null) {
             dialog = new Dialog(context);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -159,7 +160,6 @@ public class Utils {
         btnOk.setOnClickListener(view1 -> {
             dialog.dismiss();
             dialog = null;
-            getZipFile(l,t,adView,p);
         });
     }
 
@@ -208,29 +208,30 @@ public class Utils {
     }
 
 
-    public static void getZipFile(LinearLayout l ,TextView t,AdView adView,ProgressBar p) {
+    public static void getZipFile(LinearLayout l, TextView t, AdView adView, ProgressBar p, boolean d) {
         StorageReference islandRef = FirebaseStorage.getInstance().getReference().child("data/data.zip");
-//        final Dialog dialog = new Dialog(context);
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.setCancelable(false);
-//        dialog.setContentView(R.layout.dialog_download);
-//        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
-
-//        dialog.show();
-//        TextView txtProgress = dialog.findViewById(R.id.txt);
-        l.setVisibility(View.VISIBLE);
-        adView.setVisibility(View.GONE);
+        File localFile = null;
         try {
-            File localFile = File.createTempFile("images", "zip");
+            localFile = File.createTempFile("images", "zip");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (!isDownloading) {
+            l.setVisibility(View.VISIBLE);
+            adView.setVisibility(View.GONE);
+            isDownloading = true;
+            File finalLocalFile = localFile;
             islandRef.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
                 // Local temp file has been created
                 try {
-                    unzip(localFile, Application.getContext().getCacheDir().getAbsolutePath());
+                    unzip(finalLocalFile, Application.getContext().getCacheDir().getAbsolutePath());
+                    isDownloading = false;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }).addOnFailureListener(exception -> {
                 // Handle any errors
+                isDownloading = false;
             }).addOnProgressListener(taskSnapshot -> {
                 //calculating progress percentage
                 double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
@@ -242,9 +243,22 @@ public class Utils {
                     adView.setVisibility(View.VISIBLE);
                 }
             });
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        if (d) {
+            assert localFile != null;
+            islandRef.getFile(localFile).addOnProgressListener(taskSnapshot -> {
+                //calculating progress percentage
+                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                //displaying percentage in progress dialog
+                t.setText("Downloading " + ((int) progress) + "%...");
+                p.setProgress((int) progress);
+                if ((int) progress == 100) {
+                    l.setVisibility(View.GONE);
+                    adView.setVisibility(View.VISIBLE);
+                }
+            });
+        }
+
     }
 
     private static void unzip(File zipFile, String targetDirectory) throws IOException {

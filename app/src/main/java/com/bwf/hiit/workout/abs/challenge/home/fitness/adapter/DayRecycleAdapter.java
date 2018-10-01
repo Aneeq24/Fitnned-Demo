@@ -107,7 +107,7 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.my
             if (SharedPrefHelper.readBoolean(context, context.getString(R.string.is_load))) {
                 setActivity(context, position);
             } else if (Utils.isNetworkAvailable(context)) {
-                Utils.getZipFile(lyDownload, txt, adView, progressBar);
+                Utils.getZipFile(lyDownload, txt, adView, progressBar, false);
                 Utils.showConnectionUsDialog(context);
             } else
                 Utils.showConnectionUsDialog(context, lyDownload, txt, adView, progressBar);

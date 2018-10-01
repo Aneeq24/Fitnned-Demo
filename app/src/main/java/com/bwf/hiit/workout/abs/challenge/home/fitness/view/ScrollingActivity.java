@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayRecycleAdapter
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.dinuscxj.progressbar.CircleProgressBar;
 import com.google.android.gms.ads.AdView;
 
@@ -65,7 +67,6 @@ public class ScrollingActivity extends AppCompatActivity {
         context = this;
         Toolbar toolbar = findViewById(R.id.toolbar);
         adView = findViewById(R.id.baner_Admob);
-        AdsManager.getInstance().showBanner(adView);
 
         progressLeft = findViewById(R.id.line_progress_left);
         progressCompleted = findViewById(R.id.line_progress_finished);
@@ -90,6 +91,16 @@ public class ScrollingActivity extends AppCompatActivity {
             getData();
         } catch (RuntimeException e) {
             e.printStackTrace();
+        }
+
+        if (Utils.isDownloading) {
+            adView.setVisibility(View.GONE);
+            layoutDownload.setVisibility(View.VISIBLE);
+            Utils.getZipFile(layoutDownload,txt,adView,progressBar,true);
+        } else {
+            adView.setVisibility(View.VISIBLE);
+            layoutDownload.setVisibility(View.GONE);
+            AdsManager.getInstance().showBanner(adView);
         }
     }
 

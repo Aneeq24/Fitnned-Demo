@@ -45,7 +45,7 @@ public class FoodDetailActivity extends AppCompatActivity {
                 mPager.setAdapter(myPagerAdapter);
                 mPager.setAnimationEnabled(true);
                 mPager.setFadeEnabled(true);
-                mPager.setFadeFactor(1f);
+                mPager.setFadeFactor(0.6f);
                 mPager.setPageMargin(100);
             }
         });

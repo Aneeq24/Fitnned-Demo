@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
@@ -29,14 +31,21 @@ import butterknife.ButterKnife;
 public class ScrollingActivity extends AppCompatActivity {
 
     private String[] title = {"Exercise", "BEGINNER", "INTERMEDIATE", "ADVANCED"};
+    @BindView(R.id.txt)
+    TextView txt;
+    @BindView(R.id.layout_download)
+    LinearLayout layoutDownload;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
     int val = 0;
     int plan = 0;
     int size = 0;
     boolean paused;
     Context context;
+    AdView adView;
     List<Float> mProgress;
-    CircleProgressBar circleProgressBarLeft;
-    CircleProgressBar circleProgressBarCompleted;
+    CircleProgressBar progressLeft;
+    CircleProgressBar progressCompleted;
     @BindView(R.id.tv_Title)
     TextView tvTitle;
 
@@ -55,12 +64,12 @@ public class ScrollingActivity extends AppCompatActivity {
 
         context = this;
         Toolbar toolbar = findViewById(R.id.toolbar);
-        AdView adView = findViewById(R.id.baner_Admob);
+        adView = findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
 
-        circleProgressBarLeft = findViewById(R.id.line_progress_left);
-        circleProgressBarCompleted = findViewById(R.id.line_progress_finished);
-        circleProgressBarLeft.setProgressFormatter((progress, max) -> progress + "");
+        progressLeft = findViewById(R.id.line_progress_left);
+        progressCompleted = findViewById(R.id.line_progress_finished);
+        progressLeft.setProgressFormatter((progress, max) -> progress + "");
 
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "day_selection_activity");
         Intent intent = getIntent();
@@ -102,7 +111,7 @@ public class ScrollingActivity extends AppCompatActivity {
                             if (v >= 1) {
                                 val++;
                             }
-                        }else mProgress.add(200f);
+                        } else mProgress.add(200f);
                     }
                 } catch (RuntimeException e) {
                     e.printStackTrace();
@@ -115,10 +124,10 @@ public class ScrollingActivity extends AppCompatActivity {
             protected void onPostExecute(String dayLeft) {
                 super.onPostExecute(dayLeft);
                 initView();
-                circleProgressBarLeft.setMax(size);
-                circleProgressBarLeft.setProgress(Integer.parseInt(dayLeft));
-                circleProgressBarCompleted.setMax(size);
-                circleProgressBarCompleted.setProgress(val);
+                progressLeft.setMax(size);
+                progressLeft.setProgress(Integer.parseInt(dayLeft));
+                progressCompleted.setMax(size);
+                progressCompleted.setProgress(val);
             }
 
         }.execute();
@@ -130,6 +139,7 @@ public class ScrollingActivity extends AppCompatActivity {
         rvDayTasks.setLayoutManager(new LinearLayoutManager(context));
         DayRecycleAdapter dayRecycleAdapter = new DayRecycleAdapter(context, mProgress, plan);
         rvDayTasks.setAdapter(dayRecycleAdapter);
+        dayRecycleAdapter.setContent(layoutDownload, txt, adView, progressBar);
     }
 
     @Override

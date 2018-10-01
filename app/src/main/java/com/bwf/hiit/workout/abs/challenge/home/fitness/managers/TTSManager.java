@@ -155,6 +155,12 @@ public class TTSManager implements TextToSpeech.OnInitListener {
         }
     }
 
+    public void stop() {
+        if (textToSpeech.isSpeaking())
+            textToSpeech.stop();
+        Log.d(TAG, "stop: ");
+    }
+
     private void shutdown() {
         Log.d(TAG, "shutdown: ");
         textToSpeech.shutdown();

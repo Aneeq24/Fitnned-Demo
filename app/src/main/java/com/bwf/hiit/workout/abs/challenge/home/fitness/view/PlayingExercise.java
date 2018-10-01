@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -36,38 +35,37 @@ public class PlayingExercise extends AppCompatActivity {
     public SegmentedProgressBar progressBar;
     private String[] title = {"Exercise", "BEGINNER", "INTERMEDIATE", "ADVANCED"};
 
+    AppDataBase dataBase;
     public MyBilling mBilling;
     FragmentManager fragmentManager;
-    AppDataBase dataBase;
-    PauseFragment pauseFragment = new PauseFragment();
-    ExerciseFragment exerciseFragment = new ExerciseFragment();
     SkipFragment skipFragment = new SkipFragment();
     NextFragment nextFragment = new NextFragment();
     HelpFragment helpFragment = new HelpFragment();
-    CompleteFragment completeFragment = new CompleteFragment();
     RestFragment restFragment = new RestFragment();
-
-    public List<Tts> ttsList;
+    PauseFragment pauseFragment = new PauseFragment();
+    ExerciseFragment exerciseFragment = new ExerciseFragment();
+    CompleteFragment completeFragment = new CompleteFragment();
 
     public int restTime;
-    public int currentReps;
-    public int currentDay = 0;
-    public static int pauseTimer = 0;
-    public int currentPlan = 0;
-    public int totalExercises = 0;
-    public String displayName;
-    public String exerciseName;
-    public String exerciseUrl;
-    public String nextExerciseName;
-    public String nextExerciseImage;
-    public String nextExerciseUrl;
-    public List<ExerciseDay> mListExDays;
-    public int currentEx = 0;
     public int timer = 0;
+    public int currentReps;
+    public int currentEx = 0;
+    public List<Tts> ttsList;
+    public int currentDay = 0;
+    public String displayName;
+    public String exerciseUrl;
+    public boolean isComplete;
+    public int currentPlan = 0;
+    public String exerciseImage;
+    public float totalKcal = 0;
     public int currentRound = 0;
     public int totalTimeSpend = 0;
-    public float totalKcal = 0;
-    public boolean isComplete;
+    public int totalExercises = 0;
+    public String nextExerciseUrl;
+    public String nextExerciseName;
+    public String nextExerciseImage;
+    public static int pauseTimer = 0;
+    public List<ExerciseDay> mListExDays;
     public static boolean isPaused = false;
 
     @Override
@@ -116,10 +114,10 @@ public class PlayingExercise extends AppCompatActivity {
                     timer = totalTimeSpend;
 
                     int exerciseId = mListExDays.get(currentEx).getId();
-                    exerciseName = dataBase.exerciseDao().findByIdbg(exerciseId).getName();
-                    ttsList = AppDataBase.getInstance().exerciseDao().findByIdbg(exerciseId).getTts();
                     displayName = dataBase.exerciseDao().findByIdbg(exerciseId).getDisplay();
+                    exerciseImage = dataBase.exerciseDao().findByIdbg(exerciseId).getName();
                     exerciseUrl = dataBase.exerciseDao().findByIdbg(exerciseId).getUrl();
+                    ttsList = AppDataBase.getInstance().exerciseDao().findByIdbg(exerciseId).getTts();
                     currentReps = mListExDays.get(currentEx).getReps();
                     currentReps *= 1000;
 
@@ -179,9 +177,11 @@ public class PlayingExercise extends AppCompatActivity {
 
     public void StartPlayingFragment() {
         if (!isComplete) {
+            exerciseFragment.isNext = false;
             fragmentManager.beginTransaction().replace(R.id.fragment_container, exerciseFragment, null).commitAllowingStateLoss();
             progressBar.setVisibility(View.VISIBLE);
         } else {
+            AnalyticsManager.getInstance().sendAnalytics("plan " + currentPlan + "days " + currentDay, "complete_all_exercises");
             AnalyticsManager.getInstance().sendAnalytics("exercise_complete", "plan_" + title[currentPlan] + "day_" + currentDay + "completed");
             progressBar.setVisibility(View.GONE);
             Bundle bundle = new Bundle();
@@ -199,10 +199,10 @@ public class PlayingExercise extends AppCompatActivity {
     }
 
     public void NextFragment(boolean isNext, int time) {
+        onCompleteCheckingNext(isNext);
         timer = time;
         restTime = mListExDays.get(currentEx).getDelay();
         fragmentManager.beginTransaction().replace(R.id.fragment_container, nextFragment, null).commitAllowingStateLoss();
-        onCompleteCheckingNext(isNext);
     }
 
     public void onResumeFragment() {
@@ -210,20 +210,18 @@ public class PlayingExercise extends AppCompatActivity {
     }
 
     public void onCompleteCheckingNext(boolean isNext) {
-        AnalyticsManager.getInstance().sendAnalytics("exercise_complete", "plan_" + title[currentPlan] + "day_" + currentDay + "exercise_" + (currentEx + 1));
         mListExDays.get(currentEx).setStatus(true);
-
         if (!isNext) {
             if (currentEx > 0) {
-                Log.i("1994:Current exercise", "current exercise greater than zera" + currentEx + "Total" + totalExercises);
                 currentEx--;
-            } else
+            } else {
                 Toast.makeText(this, "No more previous Exercise", Toast.LENGTH_SHORT).show();
+            }
         } else if (currentEx < totalExercises - 1) {
-            Log.i("1994:Current exercise", "current exercise less than total" + currentEx + "Total" + totalExercises);
             currentEx++;
-            if (!mListExDays.get(currentEx).isStatus())
+            if (!mListExDays.get(currentEx).isStatus()) {
                 progressBar.incrementCompletedSegments();
+            }
         } else if (currentRound < mListExDays.get(0).getRounds()) {
             currentRound++;
         }
@@ -232,13 +230,13 @@ public class PlayingExercise extends AppCompatActivity {
             mListExDays.get(0).setExerciseComplete(mListExDays.get(0).getExerciseComplete() + 1);
             mListExDays.get(0).setRoundCompleted(currentRound);
         } else {
-            AnalyticsManager.getInstance().sendAnalytics("plan " + currentPlan + "days " + currentDay, "complete_all_exercises");
             mListExDays.get(0).setExerciseComplete(totalExercises);
             mListExDays.get(0).setRoundCompleted(currentRound);
             this.isComplete = true;
         }
 
         new updateData().execute();
+        AnalyticsManager.getInstance().sendAnalytics("exercise_complete", "plan_" + title[currentPlan] + "day_" + currentDay + "exercise_" + (currentEx + 1));
     }
 
     @Override
@@ -252,7 +250,7 @@ public class PlayingExercise extends AppCompatActivity {
             exerciseFragment.pause();
         } else if (nextFragment != null && nextFragment.isVisible()) {
             if (!nextFragment.pause)
-                nextFragment.pauseOrRenume();
+                nextFragment.pauseOrResume();
         }
     }
 
@@ -293,12 +291,6 @@ public class PlayingExercise extends AppCompatActivity {
         isPaused = false;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        mBilling.onActivityResult(requestCode, resultCode, data);
-    }
-
     @SuppressLint("StaticFieldLeak")
     public class updateData extends AsyncTask<Void, Void, Void> {
 
@@ -310,10 +302,10 @@ public class PlayingExercise extends AppCompatActivity {
             currentRound = mListExDays.get(0).getRoundCompleted();
 
             int exerciseId = mListExDays.get(currentEx).getId();
-            exerciseName = dataBase.exerciseDao().findByIdbg(exerciseId).getName();
-            ttsList = AppDataBase.getInstance().exerciseDao().findByIdbg(exerciseId).getTts();
             displayName = dataBase.exerciseDao().findByIdbg(exerciseId).getDisplay();
+            exerciseImage = dataBase.exerciseDao().findByIdbg(exerciseId).getName();
             exerciseUrl = dataBase.exerciseDao().findByIdbg(exerciseId).getUrl();
+            ttsList = AppDataBase.getInstance().exerciseDao().findByIdbg(exerciseId).getTts();
             currentReps = mListExDays.get(currentEx).getReps();
             currentReps *= 1000;
 
@@ -329,4 +321,11 @@ public class PlayingExercise extends AppCompatActivity {
             return null;
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mBilling.onActivityResult(requestCode, resultCode, data);
+    }
+
 }

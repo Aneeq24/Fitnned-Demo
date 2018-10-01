@@ -98,12 +98,12 @@ public class SkipFragment extends Fragment {
         progressBar.setOnClickListener(view -> pauseOrRenume());
         btnSound.setOnClickListener(view -> soundButton());
 
-        int id = getResources().getIdentifier(mActivity.exerciseName, "drawable", mActivity.getPackageName());
+        int id = getResources().getIdentifier(mActivity.exerciseImage, "drawable", mActivity.getPackageName());
         if (id != 0) {
             String path = "android.resource://" + mActivity.getPackageName() + "/" + id;
             Glide.with(this).load(path).into(imgAnim);
         } else if (SharedPrefHelper.readBoolean(mActivity, getString(R.string.is_load))) {
-            String temp = mActivity.getCacheDir().getAbsolutePath() + "/" + mActivity.exerciseName + ".gif";
+            String temp = mActivity.getCacheDir().getAbsolutePath() + "/" + mActivity.exerciseImage + ".gif";
             Glide.with(this).load(temp).into(imgAnim);
         } else {
             Glide.with(this).load(mActivity.exerciseUrl).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(imgAnim);

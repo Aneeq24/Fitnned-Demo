@@ -46,6 +46,7 @@ public class ExerciseFragment extends Fragment {
     ImageView btnNext;
     ImageView btnNoAds;
     ImageView btnRateUs;
+    public boolean isNext = false;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,8 +79,14 @@ public class ExerciseFragment extends Fragment {
         btnHelp.setOnClickListener(view -> helpButtonClick());
         btnNoAds.setOnClickListener(view -> mActivity.mBilling.purchaseRemoveAds());
         btnRateUs.setOnClickListener(view -> Utils.onRateUs(context));
-        btnPrevious.setOnClickListener(view -> onExerciseComplete(false));
-        btnNext.setOnClickListener(view -> onExerciseComplete(true));
+        btnPrevious.setOnClickListener(view -> {
+            isNext = false;
+            onExerciseComplete();
+        });
+        btnNext.setOnClickListener(view -> {
+            isNext = true;
+            onExerciseComplete();
+        });
 
         findRefrence();
         startTimer(mActivity.timer);
@@ -97,13 +104,13 @@ public class ExerciseFragment extends Fragment {
         assignTopUi();
         tvExName.setText(mActivity.displayName);
 
-        int id = getResources().getIdentifier(mActivity.exerciseName, "drawable", mActivity.getPackageName());
+        int id = getResources().getIdentifier(mActivity.exerciseImage, "drawable", mActivity.getPackageName());
 
         if (id != 0) {
             String path = "android.resource://" + mActivity.getPackageName() + "/" + id;
             Glide.with(this).load(path).into(imgExercise);
         } else if (SharedPrefHelper.readBoolean(mActivity, getString(R.string.is_load))) {
-            String temp = mActivity.getCacheDir().getAbsolutePath() + "/" + mActivity.exerciseName + ".gif";
+            String temp = mActivity.getCacheDir().getAbsolutePath() + "/" + mActivity.exerciseImage + ".gif";
             Glide.with(this).load(temp).into(imgExercise);
         } else {
             Glide.with(this).load(mActivity.exerciseUrl).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(imgExercise);
@@ -112,7 +119,10 @@ public class ExerciseFragment extends Fragment {
         if (!PlayingExercise.isPaused) {
             value = mActivity.getCurrentReps();
             TTSManager.getInstance(mActivity.getApplication()).play("Do " + mActivity.displayName + " for " + value / 1000 + " seconds");
-            new Handler().postDelayed(() -> TTSManager.getInstance(mActivity.getApplication()).play(mActivity.ttsList.get(0).getText()), 5000);
+            new Handler().postDelayed(() -> {
+                if (!isNext)
+                    TTSManager.getInstance(mActivity.getApplication()).play(mActivity.ttsList.get(0).getText());
+            },5000);
             startPlayingExercise(value);
         } else {
             PlayingExercise.isPaused = false;
@@ -160,7 +170,8 @@ public class ExerciseFragment extends Fragment {
             public void onFinish() {
                 int id = context.getResources().getIdentifier("ding", "raw", context.getPackageName());
                 Utils.playAudio(getContext(), id);
-                onExerciseComplete(true);
+                isNext = true;
+                onExerciseComplete();
             }
         }.start();
     }
@@ -184,7 +195,7 @@ public class ExerciseFragment extends Fragment {
         }.start();
     }
 
-    private void onExerciseComplete(boolean isNext) {
+    private void onExerciseComplete() {
         int time;
         if (isNext)
             time = timer - reamingTime;

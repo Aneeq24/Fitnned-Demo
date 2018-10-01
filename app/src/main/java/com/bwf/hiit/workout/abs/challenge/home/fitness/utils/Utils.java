@@ -13,9 +13,13 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
@@ -24,6 +28,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -141,6 +146,23 @@ public class Utils {
         context.startActivity(i);
     }
 
+    public static void showConnectionUsDialog(Context context, LinearLayout l , TextView t, AdView adView, ProgressBar p) {
+        if (dialog == null) {
+            dialog = new Dialog(context);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setCancelable(false);
+            dialog.setContentView(R.layout.dialog_connection);
+            Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+            dialog.show();
+        }
+        Button btnOk = dialog.findViewById(R.id.btn_rate_us);
+        btnOk.setOnClickListener(view1 -> {
+            dialog.dismiss();
+            dialog = null;
+            getZipFile(l,t,adView,p);
+        });
+    }
+
     public static void showConnectionUsDialog(Context context) {
         if (dialog == null) {
             dialog = new Dialog(context);
@@ -151,6 +173,10 @@ public class Utils {
             dialog.show();
         }
         Button btnOk = dialog.findViewById(R.id.btn_rate_us);
+        TextView tvTitle = dialog.findViewById(R.id.tv_title);
+        TextView tvContent = dialog.findViewById(R.id.tv_content);
+        tvTitle.setText("Network Connected");
+        tvContent.setText("Try Again");
         btnOk.setOnClickListener(view1 -> {
             dialog.dismiss();
             dialog = null;
@@ -182,9 +208,18 @@ public class Utils {
     }
 
 
-    public static void getZipFile() {
+    public static void getZipFile(LinearLayout l ,TextView t,AdView adView,ProgressBar p) {
         StorageReference islandRef = FirebaseStorage.getInstance().getReference().child("data/data.zip");
+//        final Dialog dialog = new Dialog(context);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.setCancelable(false);
+//        dialog.setContentView(R.layout.dialog_download);
+//        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
 
+//        dialog.show();
+//        TextView txtProgress = dialog.findViewById(R.id.txt);
+        l.setVisibility(View.VISIBLE);
+        adView.setVisibility(View.GONE);
         try {
             File localFile = File.createTempFile("images", "zip");
             islandRef.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
@@ -196,6 +231,16 @@ public class Utils {
                 }
             }).addOnFailureListener(exception -> {
                 // Handle any errors
+            }).addOnProgressListener(taskSnapshot -> {
+                //calculating progress percentage
+                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                //displaying percentage in progress dialog
+                t.setText("Downloading " + ((int) progress) + "%...");
+                p.setProgress((int) progress);
+                if ((int) progress == 100) {
+                    l.setVisibility(View.GONE);
+                    adView.setVisibility(View.VISIBLE);
+                }
             });
         } catch (IOException e) {
             e.printStackTrace();

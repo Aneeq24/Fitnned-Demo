@@ -38,7 +38,7 @@ public class BmiActivity extends AppCompatActivity {
     }
 
     private void setNumbers() {
-        List<Integer> data = new ArrayList<>();
+        List<Integer> data;
         data = new ArrayList<>();
         for (int i = 5; i <= 10; i++)
             data.add(i);

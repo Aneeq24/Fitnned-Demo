@@ -67,7 +67,7 @@ public class NextFragment extends Fragment {
 
         txtExercise.setText("Exercise " + (mActivity.currentEx + 1) + " of " + mActivity.totalExercises);
         mCustomCircleBar.setProgress(mActivity.restTime);
-        mCustomCircleBar.setOnClickListener(view -> pauseOrRenume());
+        mCustomCircleBar.setOnClickListener(view -> pauseOrResume());
         startRestTimer(mActivity.restTime * 1000);
 
         if (mActivity.isComplete)
@@ -78,7 +78,7 @@ public class NextFragment extends Fragment {
         return rootView;
     }
 
-    public void pauseOrRenume() {
+    public void pauseOrResume() {
         pause = !pause;
 
         if (pause) {
@@ -96,16 +96,16 @@ public class NextFragment extends Fragment {
     private void initNext() {
 
         btnSkip.setOnClickListener(view13 -> mActivity.StartPlayingFragment());
-        btnTimerUp.setOnClickListener(view1 -> addrestTime());
+        btnTimerUp.setOnClickListener(view1 -> addressTime());
 
         txtExerciseName.setText(mActivity.displayName);
 
-        int id = getResources().getIdentifier(mActivity.exerciseName, "drawable", mActivity.getPackageName());
+        int id = getResources().getIdentifier(mActivity.exerciseImage, "drawable", mActivity.getPackageName());
         if (id != 0) {
             String path = "android.resource://" + mActivity.getPackageName() + "/" + id;
             Glide.with(this).load(path).into(imgAnim);
         } else if (SharedPrefHelper.readBoolean(mActivity, getString(R.string.is_load))) {
-            String temp = mActivity.getCacheDir().getAbsolutePath() + "/" + mActivity.exerciseName + ".gif";
+            String temp = mActivity.getCacheDir().getAbsolutePath() + "/" + mActivity.exerciseImage + ".gif";
             Glide.with(this).load(temp).into(imgAnim);
         } else {
             Glide.with(this).load(mActivity.exerciseUrl).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(imgAnim);
@@ -144,7 +144,7 @@ public class NextFragment extends Fragment {
         }.start();
     }
 
-    private void addrestTime() {
+    private void addressTime() {
         countDownTimer.cancel();
         if (!pause) {
             currentRestTime *= 1000;

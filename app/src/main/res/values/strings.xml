@@ -216,35 +216,4 @@
         <item>Day 30 Today We Will Focus on Core and Oblique Abs exercises</item>
     </string-array>
 
-    <string name="weifht_loss">
-    <![CDATA[
-    <html>
-     <head></head>
-     <body style="text-align:justify;color:gray;">
-        <img src="weight_loss_science_image.jpg"/>
-      There is only one way to lose weight and that is by creating a
-            calorie deficit. Calorie deficit happens when you consume less calories than what is
-            required by your body. In order to fully understand calorie deficit you have to be aware
-            of your daily calorie requirement which varies based on your gender,age,weight and height.
-            BMR or Basal Metabolic Rate is widely used metric to find the number of calories required
-            to keep your body functioning at rest (Find your BMR using our BMR calculator in the Tools
-            Section). BMR plus any additional physical activity like running, strength training or
-            swimming will determine the total calories required to maintain your body weight. Any calories
-            intake below the daily calories requirement will result in weight loss. So in addition to keeping
-            an eye out for your daily calories requirement, you will also be need to be mindful of the amount
-            of calories intake during the day.
-       </body>
-    </html>
-    ]]>
-    </string>
-
-    <string name="a">
-        Tip: 1 Pound Fat = 3,500 Calories
-        One pound of fat is equivalent to 3,500 calories. If you want to
-        lose 1 pound of fat in one week, you will have to create 500
-        calorie deficit per day for a week. This can be done by eating
-        500 calories less or burning 500 calories more by exercise.
-
-    </string>
-
 </resources>

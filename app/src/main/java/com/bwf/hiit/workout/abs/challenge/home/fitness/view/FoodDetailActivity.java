@@ -30,7 +30,6 @@ public class FoodDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         int pos = getIntent().getIntExtra("pos", 0);
-
         mPager = findViewById(R.id.pager);
         TabLayout tabLayout = findViewById(R.id.tabDots);
         tabLayout.setupWithViewPager(mPager, true);
@@ -41,11 +40,8 @@ public class FoodDetailActivity extends AppCompatActivity {
             if (foodList != null) {
 
                 PagerAdapter myPagerAdapter = new PagerAdapter(getSupportFragmentManager(),
-                        foodList.get(pos).getFoodDetail());
+                        foodList.get(pos).getFoodDetail(), foodList.get(pos).getName());
                 mPager.setAdapter(myPagerAdapter);
-                mPager.setAnimationEnabled(true);
-                mPager.setFadeEnabled(true);
-                mPager.setFadeFactor(0.6f);
                 mPager.setPageMargin(100);
             }
         });
@@ -60,16 +56,21 @@ public class FoodDetailActivity extends AppCompatActivity {
     public class PagerAdapter extends FragmentPagerAdapter {
 
         List<Url> mList;
+        String name;
 
-        PagerAdapter(FragmentManager fm, List<Url> mList) {
+        PagerAdapter(FragmentManager fm, List<Url> mList, String name) {
             super(fm);
             this.mList = mList;
+            this.name = name;
         }
 
         @Override
         public Fragment getItem(int position) {
             Bundle bundle = new Bundle();
-            bundle.putString("url", mList.get(position).getUrl());
+            bundle.putString("name", name);
+            bundle.putString("heading", mList.get(position).getTitle());
+            bundle.putString("content", mList.get(position).getUrl());
+            bundle.putString("image", mList.get(position).getImage());
             Fragment fragment = new DetailFragment();
             fragment.setArguments(bundle);
             return fragment;

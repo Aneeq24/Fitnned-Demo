@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
@@ -174,9 +175,11 @@ public class Utils {
         }
         Button btnOk = dialog.findViewById(R.id.btn_rate_us);
         TextView tvTitle = dialog.findViewById(R.id.tv_title);
+        ImageView dialogImg = dialog.findViewById(R.id.dialog_img);
+        Glide.with(context).load(R.drawable.animation).into(dialogImg);
         TextView tvContent = dialog.findViewById(R.id.tv_content);
         tvTitle.setText("Network Connected");
-        tvContent.setText("Try Again");
+        tvContent.setText("Downloading ...");
         btnOk.setOnClickListener(view1 -> {
             dialog.dismiss();
             dialog = null;
@@ -217,10 +220,13 @@ public class Utils {
             e.printStackTrace();
         }
         if (!isDownloading) {
-            l.setVisibility(View.VISIBLE);
-            adView.setVisibility(View.GONE);
+            if (l != null) {
+                l.setVisibility(View.VISIBLE);
+                adView.setVisibility(View.GONE);
+            }
             isDownloading = true;
             File finalLocalFile = localFile;
+            assert localFile != null;
             islandRef.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
                 // Local temp file has been created
                 try {
@@ -236,11 +242,13 @@ public class Utils {
                 //calculating progress percentage
                 double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
                 //displaying percentage in progress dialog
-                t.setText("Downloading " + ((int) progress) + "%...");
-                p.setProgress((int) progress);
-                if ((int) progress == 100) {
-                    l.setVisibility(View.GONE);
-                    adView.setVisibility(View.VISIBLE);
+                if (l != null) {
+                    t.setText("Downloading " + ((int) progress) + "%...");
+                    p.setProgress((int) progress);
+                    if ((int) progress == 100) {
+                        l.setVisibility(View.GONE);
+                        adView.setVisibility(View.VISIBLE);
+                    }
                 }
             });
         }
@@ -250,11 +258,13 @@ public class Utils {
                 //calculating progress percentage
                 double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
                 //displaying percentage in progress dialog
-                t.setText("Downloading " + ((int) progress) + "%...");
-                p.setProgress((int) progress);
-                if ((int) progress == 100) {
-                    l.setVisibility(View.GONE);
-                    adView.setVisibility(View.VISIBLE);
+                if (l != null) {
+                    t.setText("Downloading ...");
+                    p.setProgress((int) progress);
+                    if ((int) progress == 100) {
+                        l.setVisibility(View.GONE);
+                        adView.setVisibility(View.VISIBLE);
+                    }
                 }
             });
         }

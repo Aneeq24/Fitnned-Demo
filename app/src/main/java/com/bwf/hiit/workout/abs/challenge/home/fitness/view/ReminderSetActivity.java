@@ -76,6 +76,16 @@ public class ReminderSetActivity extends AppCompatActivity {
                 startNewActivity();
                 break;
             case R.id.btn_skip:
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.HOUR_OF_DAY, 19);
+                cal.set(Calendar.MINUTE, 0);
+                cal.set(Calendar.SECOND, 0);
+                cal.set(Calendar.MILLISECOND, 0);
+
+                SharedPrefHelper.writeInteger(getApplicationContext(), getString(R.string.hour), 7);
+                SharedPrefHelper.writeInteger(getApplicationContext(), getString(R.string.minute), 0);
+                SharedPrefHelper.writeBoolean(getApplicationContext(), "reminder", true);
+                AlarmManager.getInstance().setAlarm(this, cal);
                 AnalyticsManager.getInstance().sendAnalytics("skip_set_reminder", "skip_set_reminder");
                 startNewActivity();
                 break;

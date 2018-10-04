@@ -32,8 +32,9 @@ public class ExerciseFragment extends Fragment {
     int reamingTime;
     Context context;
     CountDownTimer countDownTimer;
-    CountDownTimer totaltimer;
+    CountDownTimer totalTimer;
     PlayingExercise mActivity;
+    Handler handler;
     CircleProgressBar progressTimer;
     TextView tvExName;
     TextView tvTimer;
@@ -53,8 +54,9 @@ public class ExerciseFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_exercise, container, false);
 
-        mActivity = (PlayingExercise) getActivity();
         context = getContext();
+        handler = new Handler();
+        mActivity = (PlayingExercise) getActivity();
 
         com.google.android.gms.ads.AdView adView = rootView.findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
@@ -119,10 +121,7 @@ public class ExerciseFragment extends Fragment {
         if (!PlayingExercise.isPaused) {
             value = mActivity.getCurrentReps();
             TTSManager.getInstance(mActivity.getApplication()).play("Do " + mActivity.displayName + " for " + value / 1000 + " seconds");
-            new Handler().postDelayed(() -> {
-                if (!isNext)
-                    TTSManager.getInstance(mActivity.getApplication()).play(mActivity.ttsList.get(0).getText());
-            },5000);
+            handler.postDelayed(() -> TTSManager.getInstance(mActivity.getApplication()).play(mActivity.ttsList.get(0).getText()),5000);
             startPlayingExercise(value);
         } else {
             PlayingExercise.isPaused = false;
@@ -178,7 +177,7 @@ public class ExerciseFragment extends Fragment {
 
     private void startTimer(int totalSkipTime) {
         totalSkipTime *= 1000;
-        totaltimer = new CountDownTimer(totalSkipTime, 1000) {
+        totalTimer = new CountDownTimer(totalSkipTime, 1000) {
 
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
@@ -196,6 +195,7 @@ public class ExerciseFragment extends Fragment {
     }
 
     private void onExerciseComplete() {
+        handler.removeCallbacksAndMessages(null);
         int time;
         if (isNext)
             time = timer - reamingTime;
@@ -220,13 +220,13 @@ public class ExerciseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         countDownTimer.cancel();
-        totaltimer.cancel();
+        totalTimer.cancel();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        totaltimer.cancel();
+        totalTimer.cancel();
     }
 
 

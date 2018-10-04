@@ -75,11 +75,26 @@ public class DailyExerciseInfo extends AppCompatActivity {
         Intent intent = getIntent();
         plan = intent.getIntExtra(getApplicationContext().getString(R.string.plan), 0);
         planDay = intent.getIntExtra(getApplicationContext().getString(R.string.day_selected), 0);
-        if (plan == 0)
+        if (plan == 0) {
             tvTitle.setText("Exercise");
-        else {
+            TTSManager.getInstance(getApplication()).play("Exercise");
+            switch (planDay-1) {
+                case 0:
+                    imgTitle.setImageResource(R.drawable.workout_screen_pre_workout_warm_up);
+                    break;
+                case 1:
+                    imgTitle.setImageResource(R.drawable.workout_screen_post_workout_cool_down);
+                    break;
+                case 2:
+                    imgTitle.setImageResource(R.drawable.workout_screen_5_min_plank_challenge_image);
+                    break;
+                case 3:
+                    imgTitle.setImageResource(R.drawable.workout_screen_two_minute_abs_image);
+                    break;
+            }
+        } else {
             String[] dayTTS = context.getResources().getStringArray(R.array.days_tts);
-            TTSManager.getInstance(getApplication()).play(dayTTS[planDay-1]);
+            TTSManager.getInstance(getApplication()).play(dayTTS[planDay - 1]);
             tvTitle.setText("DAY " + (planDay));
             switch (planDay) {
                 case 1:
@@ -117,7 +132,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
         AdView adView = findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
 
-        AdsManager.getInstance().showFacebookInterstitial(getString(R.string.FB_Int_Exercise_List), true);
+        AdsManager.getInstance().showInterstitialAd(getString(R.string.AM_Int_Main_Menu));
 
         AnalyticsManager.getInstance().sendAnalytics("activity_started", "exercise_list_activity");
 

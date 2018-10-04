@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.DailyExerciseInfo;
 
@@ -85,8 +86,12 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.myHolder
             i.putExtra(context.getString(R.string.day_selected), position + 1);
             i.putExtra(context.getString(R.string.plan), currentPlan);
             context.startActivity(i);
-            SharedPrefHelper.writeBoolean(context, "is_first_run", true);
-        } else Utils.showConnectionUsDialog(context);
+            AnalyticsManager.getInstance().sendAnalytics(dayName[position], dayName[position] + "Selected");
+        } else if (Utils.isNetworkAvailable(context)) {
+            Utils.getZipFile(null, null, null, null, false);
+            Utils.showConnectionUsDialog(context);
+        } else
+            Utils.showConnectionUsDialog(context, null, null, null, null);
     }
 
 }

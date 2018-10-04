@@ -74,12 +74,15 @@ public class PlayingExercise extends AppCompatActivity {
         setContentView(R.layout.activity_playing_exercise);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         fragmentManager = getSupportFragmentManager();
-        AnalyticsManager.getInstance().sendAnalytics("activity_started", "exercise_activity_started");
 
         Intent i = getIntent();
         currentPlan = i.getIntExtra(getApplicationContext().getString(R.string.plan), 0);
         currentDay = i.getIntExtra(getApplicationContext().getString(R.string.day_selected), 0);
-
+        if (currentPlan == 0) {
+            AnalyticsManager.getInstance().sendAnalytics("activity_started", "workout_activity_started");
+        } else {
+            AnalyticsManager.getInstance().sendAnalytics("activity_started", "exercise_activity_started");
+        }
         mBilling = new MyBilling(this);
         mBilling.onCreate();
         mListExDays = new ArrayList<>();
@@ -182,7 +185,6 @@ public class PlayingExercise extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
         } else {
             AnalyticsManager.getInstance().sendAnalytics("plan " + currentPlan + "days " + currentDay, "complete_all_exercises");
-            AnalyticsManager.getInstance().sendAnalytics("exercise_complete", "plan_" + title[currentPlan] + "day_" + currentDay + "completed");
             progressBar.setVisibility(View.GONE);
             Bundle bundle = new Bundle();
             bundle.putBoolean("repeat", false);
@@ -236,7 +238,11 @@ public class PlayingExercise extends AppCompatActivity {
         }
 
         new updateData().execute();
-        AnalyticsManager.getInstance().sendAnalytics("exercise_complete", "plan_" + title[currentPlan] + "day_" + currentDay + "exercise_" + (currentEx + 1));
+        if (currentPlan == 0) {
+            AnalyticsManager.getInstance().sendAnalytics("workout_complete", "plan_" + title[currentPlan] + "day_" + currentDay + "exercise_" + (currentEx + 1));
+        } else {
+            AnalyticsManager.getInstance().sendAnalytics("exercise_complete", "plan_" + title[currentPlan] + "day_" + currentDay + "exercise_" + (currentEx + 1));
+        }
     }
 
     @Override

@@ -17,8 +17,9 @@
         android:textSize="24sp" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/dialog_img"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="40dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/connect_error_dlg_icon" />

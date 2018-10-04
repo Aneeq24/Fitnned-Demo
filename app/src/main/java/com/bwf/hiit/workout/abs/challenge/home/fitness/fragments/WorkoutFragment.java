@@ -28,7 +28,7 @@ public class WorkoutFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragement_workout, container, false);
 
-        AnalyticsManager.getInstance().sendAnalytics("activity_started", "day_selection_activity");
+        AnalyticsManager.getInstance().sendAnalytics("Workout_Start_Pressed", "Workout_Start_Pressed");
         rvScroll = rootView.findViewById(R.id.rv_scroll);
 
         HomeActivity.tvTitle.setText("Exercise");
@@ -48,4 +48,9 @@ public class WorkoutFragment extends Fragment {
         rvScroll.setAdapter(mAdapter);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        AnalyticsManager.getInstance().sendAnalytics("Workout_Quit_Pressed", "Workout_Quit_Pressed");
+    }
 }

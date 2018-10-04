@@ -24,8 +24,8 @@ public class AnalyticsManager {
 
     public void sendAnalytics(String actionDetail, String actionName) {
         Bundle bundle = new Bundle();
-        bundle.putString(AppStateManager.ACTION_TYPE, actionName);
-        bundle.putString(FirebaseAnalytics.Param.CONTENT, (actionDetail));
+        bundle.putString(AppStateManager.ACTION_TYPE, "Bwf_Abs_" + actionName);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT, "Bwf_Abs_" + actionDetail);
         firebaseAnalytics.logEvent(actionName, bundle);
     }
 }

@@ -31,23 +31,22 @@ public class ExerciseFragment extends Fragment {
     int soundValue;
     int reamingTime;
     Context context;
-    CountDownTimer countDownTimer;
-    CountDownTimer totalTimer;
-    PlayingExercise mActivity;
     Handler handler;
-    CircleProgressBar progressTimer;
-    TextView tvExName;
     TextView tvTimer;
-    TextView tvExercise;
-    ImageView btnPause;
-    ImageView imgExercise;
     ImageView btnHelp;
-    ImageView btnSound;
-    ImageView btnPrevious;
+    TextView tvExName;
     ImageView btnNext;
+    ImageView btnPause;
+    ImageView btnSound;
     ImageView btnNoAds;
+    TextView tvExercise;
     ImageView btnRateUs;
-    public boolean isNext = false;
+    CountDownTimer mTimer;
+    ImageView imgExercise;
+    ImageView btnPrevious;
+    PlayingExercise mActivity;
+    CountDownTimer mTotalTimer;
+    CircleProgressBar mProgressBar;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,26 +68,20 @@ public class ExerciseFragment extends Fragment {
         btnPrevious = rootView.findViewById(R.id.btn_previous);
         tvExName = rootView.findViewById(R.id.tv_exerciseName_Playing);
         btnSound = rootView.findViewById(R.id.btn_sound);
-        progressTimer = rootView.findViewById(R.id.prog_timer);
+        mProgressBar = rootView.findViewById(R.id.prog_timer);
         btnNoAds = rootView.findViewById(R.id.fab_no_ads);
         btnRateUs = rootView.findViewById(R.id.fab_rate_us);
         tvTimer = rootView.findViewById(R.id.tv_timer);
 
-        progressTimer.setProgressFormatter((progress, max) -> progress + "\"");
-        progressTimer.setOnClickListener(view -> pause());
+        mProgressBar.setProgressFormatter((progress, max) -> progress + "\"");
+        mProgressBar.setOnClickListener(view -> pause());
         btnSound.setOnClickListener(view -> soundButton());
         btnPause.setOnClickListener(view -> pause());
         btnHelp.setOnClickListener(view -> helpButtonClick());
         btnNoAds.setOnClickListener(view -> mActivity.mBilling.purchaseRemoveAds());
         btnRateUs.setOnClickListener(view -> Utils.onRateUs(context));
-        btnPrevious.setOnClickListener(view -> {
-            isNext = false;
-            onExerciseComplete();
-        });
-        btnNext.setOnClickListener(view -> {
-            isNext = true;
-            onExerciseComplete();
-        });
+        btnPrevious.setOnClickListener(view -> onExerciseComplete(false));
+        btnNext.setOnClickListener(view -> onExerciseComplete(true));
 
         findRefrence();
         startTimer(mActivity.timer);
@@ -149,35 +142,34 @@ public class ExerciseFragment extends Fragment {
     }
 
     private void startPlayingExercise(int totalSkipTime) {
-        progressTimer.setMax(value / 1000);
-        countDownTimer = new CountDownTimer(totalSkipTime, 1000) {
+        mProgressBar.setMax(value / 1000);
+        mTimer = new CountDownTimer(totalSkipTime, 1000) {
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
 
                 reamingTime = (int) (millisUntilFinished / 1000);
-                int id = context.getResources().getIdentifier("clock", "raw", context.getPackageName());
 
                 if (reamingTime > 3) {
+                    int id = context.getResources().getIdentifier("clock", "raw", context.getPackageName());
                     Utils.playAudio(getContext(), id);
                 } else {
                     TTSManager.getInstance(mActivity.getApplication()).play("" + reamingTime);
                 }
-                progressTimer.setProgress(reamingTime);
+                mProgressBar.setProgress(reamingTime);
             }
 
             @SuppressLint("SetTextI18n")
             public void onFinish() {
                 int id = context.getResources().getIdentifier("ding", "raw", context.getPackageName());
                 Utils.playAudio(getContext(), id);
-                isNext = true;
-                onExerciseComplete();
+                onExerciseComplete(true);
             }
         }.start();
     }
 
     private void startTimer(int totalSkipTime) {
         totalSkipTime *= 1000;
-        totalTimer = new CountDownTimer(totalSkipTime, 1000) {
+        mTotalTimer = new CountDownTimer(totalSkipTime, 1000) {
 
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
@@ -194,7 +186,7 @@ public class ExerciseFragment extends Fragment {
         }.start();
     }
 
-    private void onExerciseComplete() {
+    private void onExerciseComplete(boolean isNext) {
         handler.removeCallbacksAndMessages(null);
         int time;
         if (isNext)
@@ -204,14 +196,13 @@ public class ExerciseFragment extends Fragment {
     }
 
     public void pause() {
-        mActivity.progressBar.pause();
-        countDownTimer.cancel();
+        mTimer.cancel();
         mActivity.PauseFragment(reamingTime);
         reamingTime = 0;
     }
 
     private void helpButtonClick() {
-        countDownTimer.cancel();
+        mTimer.cancel();
         mActivity.helpFragmentFun(reamingTime);
         reamingTime = 0;
     }
@@ -219,15 +210,14 @@ public class ExerciseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        countDownTimer.cancel();
-        totalTimer.cancel();
+        mTimer.cancel();
+        mTotalTimer.cancel();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        totalTimer.cancel();
+        mTotalTimer.cancel();
     }
-
 
 }

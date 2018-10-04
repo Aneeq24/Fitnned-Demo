@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
-        <item name="android:fontFamily">@font/roboto_bold</item>
-        <item name="android:color">@color/colorPrimary</item>
-        <item name="android:textSize">20dp</item>
-    </style>
-</resources>

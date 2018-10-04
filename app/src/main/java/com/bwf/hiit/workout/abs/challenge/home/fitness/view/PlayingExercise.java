@@ -32,7 +32,7 @@ import java.util.List;
 
 public class PlayingExercise extends AppCompatActivity {
 
-    public SegmentedProgressBar progressBar;
+    public SegmentedProgressBar mProgressBar;
     private String[] title = {"Exercise", "BEGINNER", "INTERMEDIATE", "ADVANCED"};
 
     AppDataBase dataBase;
@@ -87,7 +87,7 @@ public class PlayingExercise extends AppCompatActivity {
         mBilling.onCreate();
         mListExDays = new ArrayList<>();
         dataBase = AppDataBase.getInstance();
-        progressBar = findViewById(R.id.progressBar);
+        mProgressBar = findViewById(R.id.progressBar);
 
         getData();
     }
@@ -144,17 +144,17 @@ public class PlayingExercise extends AppCompatActivity {
                     return;
                 if (mListExDays.size() > 0) {
                     if (mListExDays.get(0).getExerciseComplete() >= mListExDays.get(0).getTotalExercise()) {
-                        progressBar.setVisibility(View.GONE);
+                        mProgressBar.setVisibility(View.GONE);
                         Bundle bundle = new Bundle();
                         bundle.putBoolean("repeat", true);
                         completeFragment.setArguments(bundle);
                         fragmentManager.beginTransaction().add(R.id.fragment_container, completeFragment, null).commitAllowingStateLoss();
                         isComplete = true;
                     } else {
-                        progressBar.setSegmentCount(totalExercises);
+                        mProgressBar.setSegmentCount(totalExercises);
                         if (currentEx > 0) {
                             for (int i = 0; i < currentEx; i++)
-                                progressBar.incrementCompletedSegments();
+                                mProgressBar.incrementCompletedSegments();
                         }
                         fragmentManager.beginTransaction().add(R.id.fragment_container, skipFragment, null).commitAllowingStateLoss();
                         TTSManager.getInstance(getApplication()).play("This is start of today workout The exercise is  " + displayName);
@@ -180,12 +180,15 @@ public class PlayingExercise extends AppCompatActivity {
 
     public void StartPlayingFragment() {
         if (!isComplete) {
-            exerciseFragment.isNext = false;
             fragmentManager.beginTransaction().replace(R.id.fragment_container, exerciseFragment, null).commitAllowingStateLoss();
-            progressBar.setVisibility(View.VISIBLE);
+            mProgressBar.setVisibility(View.VISIBLE);
         } else {
-            AnalyticsManager.getInstance().sendAnalytics("plan " + currentPlan + "days " + currentDay, "complete_all_exercises");
-            progressBar.setVisibility(View.GONE);
+            if (currentPlan == 0) {
+                AnalyticsManager.getInstance().sendAnalytics("workout " + currentPlan + "plan " + currentDay, "complete_all_workout_exercises");
+            } else {
+                AnalyticsManager.getInstance().sendAnalytics("workout " + currentPlan + "plan " + currentDay, "complete_all_exercises");
+            }
+            mProgressBar.setVisibility(View.GONE);
             Bundle bundle = new Bundle();
             bundle.putBoolean("repeat", false);
             completeFragment.setArguments(bundle);
@@ -193,10 +196,10 @@ public class PlayingExercise extends AppCompatActivity {
         }
     }
 
-    public void PauseFragment(int remaingTime) {
+    public void PauseFragment(int remainTime) {
         AnalyticsManager.getInstance().sendAnalytics("exercise_pause_complete", "exercise_pause_clicked");
         isPaused = true;
-        pauseTimer = remaingTime;
+        pauseTimer = remainTime;
         fragmentManager.beginTransaction().replace(R.id.fragment_container, pauseFragment, null).commitAllowingStateLoss();
     }
 
@@ -222,7 +225,7 @@ public class PlayingExercise extends AppCompatActivity {
         } else if (currentEx < totalExercises - 1) {
             currentEx++;
             if (!mListExDays.get(currentEx).isStatus()) {
-                progressBar.incrementCompletedSegments();
+                mProgressBar.incrementCompletedSegments();
             }
         } else if (currentRound < mListExDays.get(0).getRounds()) {
             currentRound++;

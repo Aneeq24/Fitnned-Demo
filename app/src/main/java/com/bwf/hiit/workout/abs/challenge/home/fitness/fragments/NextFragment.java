@@ -26,19 +26,19 @@ import com.google.android.gms.ads.AdView;
 
 public class NextFragment extends Fragment {
 
-    PlayingExercise mActivity;
+    Context context;
     ImageView btnSkip;
     ImageView imgAnim;
+    int pauseTimer = 0;
     ImageView btnResume;
     ImageView btnTimerUp;
     TextView txtExercise;
-    TextView txtExerciseName;
-    int pauseTimer = 0;
-    public boolean pause = false;
-    CircleProgressBar mCustomCircleBar;
-    CountDownTimer countDownTimer;
+    CountDownTimer mTimer;
     int currentRestTime = 0;
-    Context context;
+    TextView txtExerciseName;
+    PlayingExercise mActivity;
+    public boolean pause = false;
+    CircleProgressBar mCircleBar;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -50,7 +50,7 @@ public class NextFragment extends Fragment {
         AdsManager.getInstance().showBanner(adView);
 
         btnResume = rootView.findViewById(R.id.nf_pauseTimerImageView);
-        mCustomCircleBar = rootView.findViewById(R.id.restTimer);
+        mCircleBar = rootView.findViewById(R.id.restTimer);
         txtExercise = rootView.findViewById(R.id.nf_exerciseText);
         imgAnim = rootView.findViewById(R.id.nf_exerciseImage);
         btnTimerUp = rootView.findViewById(R.id.addRestTime); //addRestTime
@@ -60,14 +60,14 @@ public class NextFragment extends Fragment {
         pause = false;
         context = getContext();
         mActivity = (PlayingExercise) getActivity();
-        mCustomCircleBar.setProgressFormatter((progress, max) -> progress + "s");
+        mCircleBar.setProgressFormatter((progress, max) -> progress + "s");
 
         assert mActivity != null;
-        mCustomCircleBar.setMax(mActivity.restTime);
+        mCircleBar.setMax(mActivity.restTime);
 
         txtExercise.setText("Exercise " + (mActivity.currentEx + 1) + " of " + mActivity.totalExercises);
-        mCustomCircleBar.setProgress(mActivity.restTime);
-        mCustomCircleBar.setOnClickListener(view -> pauseOrResume());
+        mCircleBar.setProgress(mActivity.restTime);
+        mCircleBar.setOnClickListener(view -> pauseOrResume());
         startRestTimer(mActivity.restTime * 1000);
 
         if (mActivity.isComplete)
@@ -83,7 +83,7 @@ public class NextFragment extends Fragment {
 
         if (pause) {
             btnResume.setImageResource(R.drawable.play_screen_play_icon);
-            countDownTimer.cancel();
+            mTimer.cancel();
         } else {
             if (pauseTimer < 900) {
                 pauseTimer *= 1000;
@@ -116,12 +116,12 @@ public class NextFragment extends Fragment {
 
     private void startRestTimer(int totalSkipTime) {
 
-        countDownTimer = new CountDownTimer(totalSkipTime, 1000) {
+        mTimer = new CountDownTimer(totalSkipTime, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 currentRestTime = (int) (millisUntilFinished / 1000);
                 pauseTimer = currentRestTime;
-                mCustomCircleBar.setProgress(currentRestTime);
+                mCircleBar.setProgress(currentRestTime);
                 int id = getResources().getIdentifier("clock", "raw", context.getPackageName());
 
                 if (currentRestTime == (totalSkipTime / 1000) / 2)
@@ -137,7 +137,7 @@ public class NextFragment extends Fragment {
                 int id = getResources().getIdentifier("ding", "raw", context.getPackageName());
                 Utils.playAudio(context, id);
 
-                mCustomCircleBar.setProgress(0);
+                mCircleBar.setProgress(0);
 
                 mActivity.StartPlayingFragment();
             }
@@ -145,24 +145,24 @@ public class NextFragment extends Fragment {
     }
 
     private void addressTime() {
-        countDownTimer.cancel();
+        mTimer.cancel();
         if (!pause) {
             currentRestTime *= 1000;
             currentRestTime += 5000;
-            mCustomCircleBar.setMax(currentRestTime / 1000);
-            mCustomCircleBar.setProgress(currentRestTime / 1000);
+            mCircleBar.setMax(currentRestTime / 1000);
+            mCircleBar.setProgress(currentRestTime / 1000);
             startRestTimer(currentRestTime);
         } else {
             pauseTimer += 5;
-            mCustomCircleBar.setMax(pauseTimer);
-            mCustomCircleBar.setProgress(pauseTimer);
+            mCircleBar.setMax(pauseTimer);
+            mCircleBar.setProgress(pauseTimer);
         }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        countDownTimer.cancel();
+        mTimer.cancel();
     }
 
 }

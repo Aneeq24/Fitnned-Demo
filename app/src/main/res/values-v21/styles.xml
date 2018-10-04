@@ -23,5 +23,10 @@
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:color">@color/colorPrimary</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 
 </resources>

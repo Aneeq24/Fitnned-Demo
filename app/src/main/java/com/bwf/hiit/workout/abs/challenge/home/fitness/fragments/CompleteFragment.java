@@ -138,7 +138,7 @@ public class CompleteFragment extends Fragment {
         mActivity = (PlayingExercise) getActivity();
         assert mActivity != null;
 
-        TTSManager.getInstance(getActivity().getApplication()).play(" Well Done. This is end of your working");
+        TTSManager.getInstance(getActivity().getApplication()).play(" Well Done. This is end of your workout");
         AnalyticsManager.getInstance().sendAnalytics("day " + mActivity.currentDay, "workout_complete");
 
         int minutes = (mActivity.totalTimeSpend % 3600) / 60;

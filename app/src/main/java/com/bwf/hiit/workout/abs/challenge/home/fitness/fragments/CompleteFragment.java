@@ -172,11 +172,7 @@ public class CompleteFragment extends Fragment {
             }
         });
 
-        if (user != null) {
-            Weight myWeight = new Weight();
-            myWeight.setWeight((int) user.getWeight());
-            mWeightViewModel.insert(myWeight);
-        }
+
 
         assert getArguments() != null;
         if (getArguments().containsKey("repeat") && !getArguments().getBoolean("repeat")) {

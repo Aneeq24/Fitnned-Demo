@@ -213,9 +213,8 @@ public class Utils {
         }
     }
 
-
     @SuppressLint("SetTextI18n")
-    public static void getZipFile(LinearLayout l, TextView t, AdView adView, ProgressBar p, boolean d) {
+    public static void getZipFile(Context context, LinearLayout l, TextView t, AdView adView, ProgressBar p, boolean d) {
         StorageReference islandRef = FirebaseStorage.getInstance().getReference().child("data/data.zip");
         File localFile = null;
         try {
@@ -254,6 +253,9 @@ public class Utils {
                     if ((int) progress == 100) {
                         l.setVisibility(View.GONE);
                         adView.setVisibility(View.VISIBLE);
+                        showSuccessDialog(context);
+                        SharedPrefHelper.writeBoolean(Application.getContext(),
+                                Application.getContext().getString(R.string.is_load), true);
                     }
                 }
             });
@@ -316,9 +318,35 @@ public class Utils {
                         fout.write(buffer, 0, count);
                 }
             }
-            SharedPrefHelper.writeBoolean(Application.getContext(),
-                    Application.getContext().getString(R.string.is_load), true);
         }
     }
+
+    @SuppressLint("SetTextI18n")
+    private static void showSuccessDialog(Context context) {
+        if (dialog == null) {
+            dialog = new Dialog(context);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setCancelable(false);
+            dialog.setContentView(R.layout.dialog_connected);
+            Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+            dialog.show();
+        }
+        Button btnOk = dialog.findViewById(R.id.btn_rate_us);
+        TextView tvTitle = dialog.findViewById(R.id.tv_title);
+        TextView tv = dialog.findViewById(R.id.txt);
+        ImageView dialogImg = dialog.findViewById(R.id.dialog_img);
+        mProg = dialog.findViewById(R.id.progressBar);
+        mProg.setVisibility(View.GONE);
+        tv.setVisibility(View.GONE);
+        Glide.with(context).load(R.drawable.ic_checked).into(dialogImg);
+        TextView tvContent = dialog.findViewById(R.id.tv_content);
+        tvTitle.setText("Download Complete");
+        tvContent.setText("");
+        btnOk.setOnClickListener(view1 -> {
+            dialog.dismiss();
+            dialog = null;
+        });
+    }
+
 
 }

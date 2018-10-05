@@ -49,7 +49,6 @@ public class FoodDetailActivity extends AppCompatActivity {
 
         mViewModel.getAllRecords().observe(this, foodList -> {
             if (foodList != null) {
-                // Disable clip to padding
                 PagerAdapter myPagerAdapter = new PagerAdapter(getSupportFragmentManager(),
                         foodList.get(pos).getFoodDetail());
                 mPager.setAdapter(myPagerAdapter);

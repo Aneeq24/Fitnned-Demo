@@ -31,7 +31,7 @@ public class WorkoutFragment extends Fragment {
         AnalyticsManager.getInstance().sendAnalytics("Workout_Start_Pressed", "Workout_Start_Pressed");
         rvScroll = rootView.findViewById(R.id.rv_scroll);
 
-        HomeActivity.tvTitle.setText("Exercise");
+        HomeActivity.tvTitle.setText("Workout");
         context = getContext();
         Bundle intent = getArguments();
         if (intent != null && intent.containsKey(getString(R.string.plan)))

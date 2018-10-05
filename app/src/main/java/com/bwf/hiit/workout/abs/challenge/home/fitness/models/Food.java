@@ -3,13 +3,15 @@ package com.bwf.hiit.workout.abs.challenge.home.fitness.models;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 @Entity
-public class Food {
+public class Food implements Parcelable {
 
     @PrimaryKey
     private int id;
@@ -17,7 +19,7 @@ public class Food {
     @SerializedName("name")
     private String name;
 
-    @SerializedName("tts")
+    @SerializedName("type")
     @TypeConverters(ConvertersUrl.class)
     private List<Url> foodDetail;
 
@@ -26,6 +28,23 @@ public class Food {
         this.name = name;
         this.foodDetail = foodDetail;
     }
+
+    protected Food(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+    }
+
+    public static final Creator<Food> CREATOR = new Creator<Food>() {
+        @Override
+        public Food createFromParcel(Parcel in) {
+            return new Food(in);
+        }
+
+        @Override
+        public Food[] newArray(int size) {
+            return new Food[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -49,5 +68,17 @@ public class Food {
 
     public void setFoodDetail(List<Url> foodDetail) {
         this.foodDetail = foodDetail;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeList(foodDetail);
     }
 }

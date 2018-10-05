@@ -14,6 +14,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
 
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -91,6 +92,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     RadioGroup btnGroup;
     AppBarLayout appBarLayout;
     CollapsingToolbarLayout mLayout;
+    boolean isLock = false;
 
     @SuppressLint({"SetTextI18n", "RestrictedApi"})
     @Override
@@ -390,6 +392,32 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mBilling.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void lockToolbar() {
+        isLock = true;
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (mLayout.getHeight() + verticalOffset < 2 * ViewCompat.getMinimumHeight(mLayout)) {
+                    // Now fully expanded again so remove the listener
+                    appBarLayout.removeOnOffsetChangedListener(this);
+                } else {
+                    // Fully collapsed so set the flags to lock the toolbar
+                    AppBarLayout.LayoutParams lp = (AppBarLayout.LayoutParams) mLayout.getLayoutParams();
+                    lp.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED);
+                }
+            }
+        });
+        appBarLayout.setExpanded(false);
+    }
+
+    public void unLockToolbar() {
+        isLock = false;
+        AppBarLayout.LayoutParams lp = (AppBarLayout.LayoutParams) mLayout.getLayoutParams();
+        lp.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED);
+        appBarLayout.setExpanded(true);
     }
 
 }

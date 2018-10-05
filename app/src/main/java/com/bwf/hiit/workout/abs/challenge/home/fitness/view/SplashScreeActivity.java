@@ -15,7 +15,6 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.BuildConfig;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AlarmManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Day;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
@@ -33,23 +32,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -92,8 +80,8 @@ public class SplashScreeActivity extends AppCompatActivity {
             });
         } else
             new AppDbCheckingTask().execute();
-//        if (Utils.isNetworkAvailable(context) && !SharedPrefHelper.readBoolean(context, getString(R.string.is_load)))
-//            Utils.getZipFile()
+        if (Utils.isNetworkAvailable(context) && !SharedPrefHelper.readBoolean(context, getString(R.string.is_load)))
+            Utils.getZipFile(null,null,null,null,true);
 //      Stetho.initializeWithDefaults(this);
     }
 

@@ -76,19 +76,22 @@ public class DailyExerciseInfo extends AppCompatActivity {
         plan = intent.getIntExtra(getApplicationContext().getString(R.string.plan), 0);
         planDay = intent.getIntExtra(getApplicationContext().getString(R.string.day_selected), 0);
         if (plan == 0) {
-            tvTitle.setText("Exercise");
-            TTSManager.getInstance(getApplication()).play("Exercise");
+            String[] dayTTS = context.getResources().getStringArray(R.array.exercise_list);
             switch (planDay-1) {
                 case 0:
+                    tvTitle.setText(dayTTS[0]);
                     imgTitle.setImageResource(R.drawable.workout_screen_pre_workout_warm_up);
                     break;
                 case 1:
+                    tvTitle.setText(dayTTS[1]);
                     imgTitle.setImageResource(R.drawable.workout_screen_post_workout_cool_down);
                     break;
                 case 2:
+                    tvTitle.setText(dayTTS[2]);
                     imgTitle.setImageResource(R.drawable.workout_screen_5_min_plank_challenge_image);
                     break;
                 case 3:
+                    tvTitle.setText(dayTTS[3]);
                     imgTitle.setImageResource(R.drawable.workout_screen_two_minute_abs_image);
                     break;
             }

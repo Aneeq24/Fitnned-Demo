@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
@@ -20,7 +18,6 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.DailyExerciseInfo;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.dinuscxj.progressbar.CircleProgressBar;
-import com.google.android.gms.ads.AdView;
 
 import java.util.List;
 
@@ -88,18 +85,6 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.my
         }
     }
 
-    private LinearLayout lyDownload;
-    private TextView txt;
-    private AdView adView;
-    private ProgressBar progressBar;
-
-    public void setContent(LinearLayout l, TextView t, AdView a, ProgressBar p) {
-        lyDownload = l;
-        txt = t;
-        adView = a;
-        progressBar = p;
-    }
-
     private void goToNewActivity(Context context, int position) {
         if (position == 0) {
             setActivity(context, position);
@@ -107,10 +92,10 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.my
             if (SharedPrefHelper.readBoolean(context, context.getString(R.string.is_load))) {
                 setActivity(context, position);
             } else if (Utils.isNetworkAvailable(context)) {
-                Utils.getZipFile(context, lyDownload, txt, adView, progressBar, false);
+                Utils.getGifZipFile( null);
                 Utils.showConnectionUsDialog(context);
             } else
-                Utils.showConnectionUsDialog(context, lyDownload, txt, adView, progressBar);
+                Utils.showConnectionDialog(context);
         }
     }
 

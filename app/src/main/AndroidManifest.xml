@@ -85,14 +85,6 @@
             android:name=".receiver.RebootReceiver"
             android:enabled="true"
             android:exported="false" />
-        <receiver android:name=".receiver.ConnectionReceiver">
-            <intent-filter>
-                <action
-                    android:name="android.net.conn.CONNECTIVITY_CHANGE"
-                    tools:ignore="BatteryLife" />
-                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
-            </intent-filter>
-        </receiver>
 
         <activity android:name=".view.BmiActivity" />
         <activity android:name=".view.ProteinActivity" />

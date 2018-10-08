@@ -42,5 +42,6 @@ public class FoodFragment extends Fragment {
         rvScroll.setLayoutManager(new LinearLayoutManager(context));
         FoodAdapter mAdapter = new FoodAdapter(context);
         rvScroll.setAdapter(mAdapter);
+        rvScroll.setNestedScrollingEnabled(false);
     }
 }

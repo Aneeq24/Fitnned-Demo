@@ -1,5 +1,6 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,14 +8,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Weight;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.repository.WeightRepo;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.UserViewModel;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.MyWheelPicker;
 import com.google.android.gms.ads.AdView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -57,6 +64,7 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
                 user.setAge(numAge.getValue());
                 int height = ((numFeet.getValue() * 12) + numInches.getValue());
                 user.setHeight(height);
+                SharedPrefHelper.writeInteger(getApplicationContext(),"weight",numWeight.getValue());
                 user.setWeight(numWeight.getValue());
                 float bmi = (((float) numWeight.getValue()) / (height * height)) * 703;
                 user.setBmi((int) bmi);
@@ -90,8 +98,18 @@ public class AgeWeightHeightActivity extends AppCompatActivity {
 
     private void startNewActivity() {
         mViewModel.update(user);
+        Weight weight = new Weight();
+        weight.setWeight(numWeight.getValue());
+        weight.setDay(Integer.parseInt(getCurrentDay()));
+        new WeightRepo().insert(weight);
         startActivity(new Intent(getApplicationContext(), ReminderSetActivity.class));
         finish();
+    }
+
+    private String getCurrentDay() {
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("d");
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 
 }

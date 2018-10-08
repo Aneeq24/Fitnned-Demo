@@ -25,10 +25,12 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayAdapter;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Weight;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.repository.WeightRepo;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.CalenderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.HomeActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.RecordViewModel;
@@ -165,6 +167,11 @@ public class RecordFragment extends Fragment {
                         weight = weight * 2.20462f;
 
                     tvBmi.setText(math(bmi) + bmiCategory(Integer.parseInt(mathround(bmi))));
+                    SharedPrefHelper.writeInteger(context, "weight", (int) weight);
+                    Weight w = new Weight();
+                    w.setWeight((int) weight);
+                    w.setDay(getCurrentDay());
+                    new WeightRepo().insert(w);
                     user.setWeight(weight);
                     user.setHeight(height);
                     user.setBmi((int) bmi);
@@ -250,6 +257,11 @@ public class RecordFragment extends Fragment {
                         user.setBmi((int) bmi);
                     } else tvBmi.setText("Enter your height");
 
+                    SharedPrefHelper.writeInteger(context, "weight", (int) weight);
+                    Weight w = new Weight();
+                    w.setWeight((int) weight);
+                    w.setDay(getCurrentDay());
+                    new WeightRepo().insert(w);
                     user.setWeight(weight);
                     mUserViewModel.update(user);
                     dialog1.dismiss();

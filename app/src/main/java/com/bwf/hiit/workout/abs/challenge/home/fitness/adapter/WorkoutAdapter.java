@@ -88,10 +88,10 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.myHolder
             context.startActivity(i);
             AnalyticsManager.getInstance().sendAnalytics(dayName[position], dayName[position] + "Selected");
         } else if (Utils.isNetworkAvailable(context)) {
-            Utils.getZipFile(context, null, null, null, null, false);
+            Utils.getGifZipFile(null);
             Utils.showConnectionUsDialog(context);
         } else
-            Utils.showConnectionUsDialog(context, null, null, null, null);
+            Utils.showConnectionDialog(context);
     }
 
 }

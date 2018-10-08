@@ -1,22 +1,23 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.models;
 
+import android.arch.persistence.room.TypeConverters;
+
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class Url {
 
     @SerializedName("title")
     private String title;
 
-    @SerializedName("url")
-    private String url;
+    @SerializedName("content")
+    @TypeConverters(ConvertersContent.class)
+    private List<Content> content;
 
-    @SerializedName("image")
-    private String image;
-
-    public Url(String title, String url, String image) {
+    public Url(String title, List<Content> content) {
         this.title = title;
-        this.url = url;
-        this.image = image;
+        this.content = content;
     }
 
     public String getTitle() {
@@ -27,19 +28,11 @@ public class Url {
         this.title = title;
     }
 
-    public String getUrl() {
-        return url;
+    public List<Content> getContent() {
+        return content;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public void setContent(List<Content> content) {
+        this.content = content;
     }
 }

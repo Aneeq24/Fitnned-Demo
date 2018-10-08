@@ -41,6 +41,8 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.inapp.MyBilling;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Weight;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.repository.WeightRepo;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.UserViewModel;
 import com.google.ads.consent.ConsentForm;
@@ -51,6 +53,7 @@ import com.google.ads.consent.ConsentStatus;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -91,6 +94,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     RadioGroup btnGroup;
     AppBarLayout appBarLayout;
     CollapsingToolbarLayout mLayout;
+//    boolean isLock = false;
 
     @SuppressLint({"SetTextI18n", "RestrictedApi"})
     @Override
@@ -391,6 +395,32 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         super.onActivityResult(requestCode, resultCode, data);
         mBilling.onActivityResult(requestCode, resultCode, data);
     }
+
+//    public void lockToolbar() {
+//        isLock = true;
+//        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+//
+//            @Override
+//            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+//                if (mLayout.getHeight() + verticalOffset < 2 * ViewCompat.getMinimumHeight(mLayout)) {
+//                    // Now fully expanded again so remove the listener
+//                    appBarLayout.removeOnOffsetChangedListener(this);
+//                } else {
+//                    // Fully collapsed so set the flags to lock the toolbar
+//                    AppBarLayout.LayoutParams lp = (AppBarLayout.LayoutParams) mLayout.getLayoutParams();
+//                    lp.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED);
+//                }
+//            }
+//        });
+//        appBarLayout.setExpanded(false);
+//    }
+//
+//    public void unLockToolbar() {
+//        isLock = false;
+//        AppBarLayout.LayoutParams lp = (AppBarLayout.LayoutParams) mLayout.getLayoutParams();
+//        lp.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED);
+//        appBarLayout.setExpanded(true);
+//    }
 
 }
 

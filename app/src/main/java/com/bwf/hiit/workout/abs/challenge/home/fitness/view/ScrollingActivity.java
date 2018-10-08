@@ -96,7 +96,7 @@ public class ScrollingActivity extends AppCompatActivity {
         if (Utils.isDownloading) {
             adView.setVisibility(View.GONE);
             layoutDownload.setVisibility(View.VISIBLE);
-            Utils.getZipFile(layoutDownload,txt,adView,progressBar,true);
+            Utils.getZipFile(context, layoutDownload, txt, adView, progressBar, true);
         } else {
             adView.setVisibility(View.VISIBLE);
             layoutDownload.setVisibility(View.GONE);
@@ -170,8 +170,12 @@ public class ScrollingActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AdsManager.getInstance().showInterstitialAd(getString(R.string.AM_Int_Main_Menu));
-        super.onBackPressed();
+        if (Utils.isDownloading)
+            Utils.showConnectionUsDialog(context);
+        else {
+            AdsManager.getInstance().showInterstitialAd(getString(R.string.AM_Int_Main_Menu));
+            super.onBackPressed();
+        }
     }
 
 }

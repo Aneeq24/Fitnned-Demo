@@ -29,7 +29,7 @@ public class Exercise {
     private String url;
 
     @SerializedName("tts")
-    @TypeConverters(Converters.class)
+    @TypeConverters(ConvertersTts.class)
     private List<Tts> tts;
 
     @SerializedName("display")

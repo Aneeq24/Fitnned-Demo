@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         context = getContext();
 
-        HomeActivity.tvTitle.setText("Workout");
+        HomeActivity.tvTitle.setText("Plans");
 
         tvExerciseNo = rootView.findViewById(R.id.tv_exercise);
         tvTotalMin = rootView.findViewById(R.id.tv_time);

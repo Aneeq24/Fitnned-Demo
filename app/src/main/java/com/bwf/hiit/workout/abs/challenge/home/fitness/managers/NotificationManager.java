@@ -1,5 +1,6 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.managers;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -11,7 +12,14 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Weight;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.repository.WeightRepo;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.SplashScreeActivity;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class NotificationManager {
 
@@ -53,5 +61,15 @@ public class NotificationManager {
             }
             notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
         }
+        Weight weight = new Weight();
+        weight.setWeight(SharedPrefHelper.readInteger(context,"weight"));
+        weight.setDay(Integer.parseInt(getCurrentDay()));
+        new WeightRepo().insert(weight);
+    }
+
+    private String getCurrentDay() {
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("d");
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 }

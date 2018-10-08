@@ -81,9 +81,10 @@ public class SplashScreeActivity extends AppCompatActivity {
         } else
             new AppDbCheckingTask().execute();
         if (Utils.isNetworkAvailable(context) && !SharedPrefHelper.readBoolean(context, getString(R.string.is_load)))
-            Utils.getZipFile(context, null, null, null, null, true);
+            Utils.getGifZipFile(null);
 //      Stetho.initializeWithDefaults(this);
     }
+
 
     private void setDatabase() {
         if (dbVersion == 1) {

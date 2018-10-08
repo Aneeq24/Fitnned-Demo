@@ -32,6 +32,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Weight;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.repository.WeightRepo;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.CalenderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.ConfirmReminderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
@@ -173,7 +174,6 @@ public class CompleteFragment extends Fragment {
         });
 
 
-
         assert getArguments() != null;
         if (getArguments().containsKey("repeat") && !getArguments().getBoolean("repeat")) {
 //            mRecordViewModel.getRecord(getCurrentDay()).observe(this, record -> {
@@ -274,6 +274,11 @@ public class CompleteFragment extends Fragment {
                         weight = weight * 2.20462f;
 
                     tvBmi.setText(math(bmi) + bmiCategory(Integer.parseInt(mathround(bmi))));
+                    SharedPrefHelper.writeInteger(context, "weight", (int) weight);
+                    Weight w = new Weight();
+                    w.setWeight((int) weight);
+                    w.setDay(getCurrentDay());
+                    new WeightRepo().insert(w);
                     user.setWeight(weight);
                     user.setHeight(height);
                     user.setBmi((int) bmi);
@@ -359,6 +364,11 @@ public class CompleteFragment extends Fragment {
                         user.setBmi((int) bmi);
                     } else tvBmi.setText("Enter your height");
 
+                    SharedPrefHelper.writeInteger(context, "weight", (int) weight);
+                    Weight w = new Weight();
+                    w.setWeight((int) weight);
+                    w.setDay(getCurrentDay());
+                    new WeightRepo().insert(w);
                     user.setWeight(weight);
                     mUserViewModel.update(user);
                     dialog1.dismiss();

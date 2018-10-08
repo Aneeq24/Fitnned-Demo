@@ -46,6 +46,7 @@ public class WorkoutFragment extends Fragment {
         rvScroll.setLayoutManager(new LinearLayoutManager(context));
         WorkoutAdapter mAdapter = new WorkoutAdapter(context, plan);
         rvScroll.setAdapter(mAdapter);
+        rvScroll.setNestedScrollingEnabled(false);
     }
 
     @Override

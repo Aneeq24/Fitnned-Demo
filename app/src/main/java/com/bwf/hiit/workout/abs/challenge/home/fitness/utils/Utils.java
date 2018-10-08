@@ -13,13 +13,12 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
@@ -29,8 +28,9 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
-import com.google.android.gms.ads.AdView;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.BufferedInputStream;
@@ -50,7 +50,6 @@ public class Utils {
     private final static String TAG = Utils.class.getSimpleName();
     private static Dialog dialog = null;
     public static boolean isDownloading = false;
-    private static ProgressBar mProg;
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -149,7 +148,7 @@ public class Utils {
         context.startActivity(i);
     }
 
-    public static void showConnectionUsDialog(Context context, LinearLayout l, TextView t, AdView adView, ProgressBar p) {
+    public static void showConnectionDialog(Context context) {
         if (dialog == null) {
             dialog = new Dialog(context);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -178,7 +177,13 @@ public class Utils {
         Button btnOk = dialog.findViewById(R.id.btn_rate_us);
         TextView tvTitle = dialog.findViewById(R.id.tv_title);
         ImageView dialogImg = dialog.findViewById(R.id.dialog_img);
-        mProg = dialog.findViewById(R.id.progressBar);
+        ProgressBar mProg = dialog.findViewById(R.id.progressBar);
+        OnProgressListener<FileDownloadTask.TaskSnapshot> listener = taskSnapshot -> {
+            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+            mProg.setProgress((int) progress);
+        };
+
+        getGifZipFile(listener);
         Glide.with(context).load(R.drawable.animation).into(dialogImg);
         TextView tvContent = dialog.findViewById(R.id.tv_content);
         tvTitle.setText("Data Being Downloaded");
@@ -214,7 +219,7 @@ public class Utils {
     }
 
     @SuppressLint("SetTextI18n")
-    public static void getZipFile(Context context, LinearLayout l, TextView t, AdView adView, ProgressBar p, boolean d) {
+    public static void getGifZipFile(OnProgressListener<FileDownloadTask.TaskSnapshot> listener) {
         StorageReference islandRef = FirebaseStorage.getInstance().getReference().child("data/data.zip");
         File localFile = null;
         try {
@@ -223,10 +228,6 @@ public class Utils {
             e.printStackTrace();
         }
         if (!isDownloading) {
-            if (l != null) {
-                l.setVisibility(View.VISIBLE);
-                adView.setVisibility(View.GONE);
-            }
             isDownloading = true;
             File finalLocalFile = localFile;
             assert localFile != null;
@@ -235,51 +236,26 @@ public class Utils {
                 try {
                     unzip(finalLocalFile, Application.getContext().getCacheDir().getAbsolutePath());
                     isDownloading = false;
+                    Toast.makeText(Application.getContext(), "Download Complete", Toast.LENGTH_SHORT).show();
+                    SharedPrefHelper.writeBoolean(Application.getContext(),
+                            Application.getContext().getString(R.string.is_load), true);
+                    getFoodImages();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }).addOnFailureListener(exception -> {
                 // Handle any errors
                 isDownloading = false;
-            }).addOnProgressListener(taskSnapshot -> {
-                //calculating progress percentage
-                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                //displaying percentage in progress dialog
-                if (l != null) {
-                    t.setText("Downloading " + ((int) progress) + "%...");
-                    p.setProgress((int) progress);
-                    if (mProg != null)
-                        mProg.setProgress((int) progress);
-                    if ((int) progress == 100) {
-                        l.setVisibility(View.GONE);
-                        adView.setVisibility(View.VISIBLE);
-                        showSuccessDialog(context);
-                        SharedPrefHelper.writeBoolean(Application.getContext(),
-                                Application.getContext().getString(R.string.is_load), true);
-                    }
-                }
-            });
-        }
-        if (d) {
-            assert localFile != null;
-            islandRef.getFile(localFile).addOnProgressListener(taskSnapshot -> {
-                //calculating progress percentage
-                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                //displaying percentage in progress dialog
-                if (l != null) {
-                    t.setText("Downloading ...");
-                    if (mProg != null)
-                        mProg.setProgress((int) progress);
-                    t.setText("Downloading " + ((int) progress) + "%...");
-                    p.setProgress((int) progress);
-                    if ((int) progress == 100) {
-                        l.setVisibility(View.GONE);
-                        adView.setVisibility(View.VISIBLE);
-                    }
-                }
             });
         }
 
+        if (listener != null) {
+            islandRef.getActiveDownloadTasks().get((0)).addOnProgressListener(listener);
+        }
+
+    }
+
+    private static void getFoodImages() {
         StorageReference isFoodLandRef = FirebaseStorage.getInstance().getReference().child("data/food.zip");
         try {
             File local = File.createTempFile("food", "zip");
@@ -296,7 +272,6 @@ public class Utils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private static void unzip(File zipFile, String targetDirectory) throws IOException {
@@ -320,33 +295,5 @@ public class Utils {
             }
         }
     }
-
-    @SuppressLint("SetTextI18n")
-    private static void showSuccessDialog(Context context) {
-        if (dialog == null) {
-            dialog = new Dialog(context);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setCancelable(false);
-            dialog.setContentView(R.layout.dialog_connected);
-            Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
-            dialog.show();
-        }
-        Button btnOk = dialog.findViewById(R.id.btn_rate_us);
-        TextView tvTitle = dialog.findViewById(R.id.tv_title);
-        TextView tv = dialog.findViewById(R.id.txt);
-        ImageView dialogImg = dialog.findViewById(R.id.dialog_img);
-        mProg = dialog.findViewById(R.id.progressBar);
-        mProg.setVisibility(View.GONE);
-        tv.setVisibility(View.GONE);
-        Glide.with(context).load(R.drawable.ic_checked).into(dialogImg);
-        TextView tvContent = dialog.findViewById(R.id.tv_content);
-        tvTitle.setText("Download Complete");
-        tvContent.setText("");
-        btnOk.setOnClickListener(view1 -> {
-            dialog.dismiss();
-            dialog = null;
-        });
-    }
-
 
 }

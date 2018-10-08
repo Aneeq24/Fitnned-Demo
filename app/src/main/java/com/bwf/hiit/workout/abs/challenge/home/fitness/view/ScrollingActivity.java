@@ -22,6 +22,8 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.dinuscxj.progressbar.CircleProgressBar;
 import com.google.android.gms.ads.AdView;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.OnProgressListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,11 +94,20 @@ public class ScrollingActivity extends AppCompatActivity {
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
+        OnProgressListener<FileDownloadTask.TaskSnapshot> listener = taskSnapshot -> {
+            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+            txt.setText("Downloading " + (int) progress + "%...");
+            progressBar.setProgress((int) progress);
+            if (progress == 0) {
+                layoutDownload.setVisibility(View.GONE);
+                adView.setVisibility(View.VISIBLE);
+            }
+        };
 
         if (Utils.isDownloading) {
-            adView.setVisibility(View.GONE);
             layoutDownload.setVisibility(View.VISIBLE);
-            Utils.getZipFile(context, layoutDownload, txt, adView, progressBar, true);
+            adView.setVisibility(View.GONE);
+            Utils.getGifZipFile(listener);
         } else {
             adView.setVisibility(View.VISIBLE);
             layoutDownload.setVisibility(View.GONE);
@@ -150,7 +161,6 @@ public class ScrollingActivity extends AppCompatActivity {
         rvDayTasks.setLayoutManager(new LinearLayoutManager(context));
         DayRecycleAdapter dayRecycleAdapter = new DayRecycleAdapter(context, mProgress, plan);
         rvDayTasks.setAdapter(dayRecycleAdapter);
-        dayRecycleAdapter.setContent(layoutDownload, txt, adView, progressBar);
     }
 
     @Override
@@ -170,12 +180,8 @@ public class ScrollingActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (Utils.isDownloading)
-            Utils.showConnectionUsDialog(context);
-        else {
-            AdsManager.getInstance().showInterstitialAd(getString(R.string.AM_Int_Main_Menu));
-            super.onBackPressed();
-        }
+        AdsManager.getInstance().showInterstitialAd(getString(R.string.AM_Int_Main_Menu));
+        super.onBackPressed();
     }
 
 }

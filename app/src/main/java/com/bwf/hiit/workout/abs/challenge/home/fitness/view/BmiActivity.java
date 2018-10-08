@@ -17,6 +17,8 @@ import butterknife.OnClick;
 
 public class BmiActivity extends AppCompatActivity {
 
+    float[] bmiRange = {0, 18.5f, 24.9f, 29.9f, 34.9f, 35};
+
     @BindView(R.id.num_weight)
     MyWheelPicker numWeight;
     @BindView(R.id.rg_weight)
@@ -64,4 +66,9 @@ public class BmiActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    private void calculateBmi() {
+
+    }
+
 }

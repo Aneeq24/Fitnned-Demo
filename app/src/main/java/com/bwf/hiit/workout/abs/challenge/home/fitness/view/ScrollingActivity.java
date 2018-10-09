@@ -160,6 +160,7 @@ public class ScrollingActivity extends AppCompatActivity {
         rvDayTasks.setNestedScrollingEnabled(false);
         rvDayTasks.setLayoutManager(new LinearLayoutManager(context));
         DayRecycleAdapter dayRecycleAdapter = new DayRecycleAdapter(context, mProgress, plan);
+        dayRecycleAdapter.setContent(layoutDownload, adView, txt, progressBar);
         rvDayTasks.setAdapter(dayRecycleAdapter);
     }
 

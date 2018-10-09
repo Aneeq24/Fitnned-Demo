@@ -275,10 +275,6 @@ public class CompleteFragment extends Fragment {
 
                     tvBmi.setText(math(bmi) + bmiCategory(Integer.parseInt(mathround(bmi))));
                     SharedPrefHelper.writeInteger(context, "weight", (int) weight);
-                    Weight w = new Weight();
-                    w.setWeight((int) weight);
-                    w.setDay(getCurrentDay());
-                    new WeightRepo().insert(w);
                     user.setWeight(weight);
                     user.setHeight(height);
                     user.setBmi((int) bmi);
@@ -365,10 +361,6 @@ public class CompleteFragment extends Fragment {
                     } else tvBmi.setText("Enter your height");
 
                     SharedPrefHelper.writeInteger(context, "weight", (int) weight);
-                    Weight w = new Weight();
-                    w.setWeight((int) weight);
-                    w.setDay(getCurrentDay());
-                    new WeightRepo().insert(w);
                     user.setWeight(weight);
                     mUserViewModel.update(user);
                     dialog1.dismiss();

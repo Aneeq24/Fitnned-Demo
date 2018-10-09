@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
@@ -18,6 +20,8 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.DailyExerciseInfo;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.dinuscxj.progressbar.CircleProgressBar;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.OnProgressListener;
 
 import java.util.List;
 
@@ -27,11 +31,22 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.my
     private String[] dayName;
     private List<Float> mProgress;
     private int currentPlan;
+    private com.google.android.gms.ads.AdView mAd;
+    private LinearLayout mLy;
+    private TextView mtxt;
+    private ProgressBar mProg;
 
     public DayRecycleAdapter(Context context, List<Float> progress, int plan) {
         this.currentPlan = plan;
         this.dayName = context.getResources().getStringArray(R.array.days_list);
         this.mProgress = progress;
+    }
+
+    public void setContent(LinearLayout txt, com.google.android.gms.ads.AdView pro,TextView mtxt, ProgressBar mProg){
+        this.mAd = pro;
+        this.mLy = txt;
+        this.mProg = mProg;
+        this.mtxt = mtxt;
     }
 
     @NonNull
@@ -92,7 +107,18 @@ public class DayRecycleAdapter extends RecyclerView.Adapter<DayRecycleAdapter.my
             if (SharedPrefHelper.readBoolean(context, context.getString(R.string.is_load))) {
                 setActivity(context, position);
             } else if (Utils.isNetworkAvailable(context)) {
-                Utils.getGifZipFile( null);
+                OnProgressListener<FileDownloadTask.TaskSnapshot> listener = taskSnapshot -> {
+                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                    mtxt.setText("Downloading " + (int) progress + "%...");
+                    mProg.setProgress((int) progress);
+                    if (progress == 100) {
+                        mLy.setVisibility(View.GONE);
+                        mAd.setVisibility(View.VISIBLE);
+                    }
+                };
+                Utils.getGifZipFile( listener);
+                mLy.setVisibility(View.VISIBLE);
+                mAd.setVisibility(View.GONE);
                 Utils.showConnectionUsDialog(context);
             } else
                 Utils.showConnectionDialog(context);

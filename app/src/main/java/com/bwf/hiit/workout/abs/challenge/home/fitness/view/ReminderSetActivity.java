@@ -50,6 +50,7 @@ public class ReminderSetActivity extends AppCompatActivity {
         for (int i = 0; i <= 60; i++)
             data.add(i);
         numMin.setData(data);
+        numHour.setValue(20);
     }
 
     private void startNewActivity() {

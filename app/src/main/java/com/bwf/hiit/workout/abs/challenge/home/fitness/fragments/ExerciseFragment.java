@@ -14,8 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
@@ -99,22 +97,20 @@ public class ExerciseFragment extends Fragment {
         assignTopUi();
         tvExName.setText(mActivity.displayName);
 
-        int id = getResources().getIdentifier(mActivity.exerciseImage, "drawable", mActivity.getPackageName());
-
+        int id0 = getResources().getIdentifier(mActivity.exerciseImage , "drawable", mActivity.getPackageName());
+        String path0 = "android.resource://" + mActivity.getPackageName() + "/" + id0;
+        int id = getResources().getIdentifier(mActivity.exerciseImage + "_org", "drawable", mActivity.getPackageName());
         if (id != 0) {
             String path = "android.resource://" + mActivity.getPackageName() + "/" + id;
             Glide.with(this).load(path).into(imgExercise);
-        } else if (SharedPrefHelper.readBoolean(mActivity, getString(R.string.is_load))) {
-            String temp = mActivity.getCacheDir().getAbsolutePath() + "/" + mActivity.exerciseImage + ".gif";
-            Glide.with(this).load(temp).into(imgExercise);
-        } else {
-            Glide.with(this).load(mActivity.exerciseUrl).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(imgExercise);
+        }else {
+            Glide.with(this).load(mActivity.exerciseUrl).thumbnail(Glide.with(this).load(path0)).into(imgExercise);
         }
 
         if (!PlayingExercise.isPaused) {
             value = mActivity.getCurrentReps();
             TTSManager.getInstance(mActivity.getApplication()).play("Do " + mActivity.displayName + " for " + value / 1000 + " seconds");
-            handler.postDelayed(() -> TTSManager.getInstance(mActivity.getApplication()).play(mActivity.ttsList.get(0).getText()),5000);
+            handler.postDelayed(() -> TTSManager.getInstance(mActivity.getApplication()).play(mActivity.ttsList.get(0).getText()), 5000);
             startPlayingExercise(value);
         } else {
             PlayingExercise.isPaused = false;

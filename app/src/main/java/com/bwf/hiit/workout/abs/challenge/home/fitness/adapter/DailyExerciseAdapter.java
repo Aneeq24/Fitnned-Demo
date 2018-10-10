@@ -11,10 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 
@@ -25,11 +22,6 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
 
     private List<Exercise> exerciseList;
     private Activity info;
-    private int day;
-    private int plan;
-    private int completeRounds;
-    private int completeExercise;
-    private int id = 0;
 
     public DailyExerciseAdapter(Activity obj) {
         info = obj;
@@ -53,22 +45,14 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
         holder.tvExerciseName.setText(exerciseList.get(position).getDisplay());
         holder.tvMin.setText(exerciseList.get(position).getUnit() + "s");
 
-        id = info.getResources().getIdentifier(exerciseList.get(position).getName(), "drawable", info.getPackageName());
+        int id = info.getResources().getIdentifier(exerciseList.get(position).getName(), "drawable", info.getPackageName());
         if (id != 0) {
             String path = "android.resource://" + info.getPackageName() + "/" + id;
-            Glide.with(info).load(path).into(holder.imgExercise);
-        } else if (SharedPrefHelper.readBoolean(info, info.getString(R.string.is_load))) {
-            String temp = info.getCacheDir().getAbsolutePath() + "/" + exerciseList.get(position).getName() + ".gif";
-            Glide.with(info).load(temp).into(holder.imgExercise);
+            Glide.with(info).load(path).thumbnail(Glide.with(info).load(R.drawable.load)).into(holder.imgExercise);
         } else {
-            Glide.with(info).load(exerciseList.get(position).getUrl()).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.imgExercise);
+            Glide.with(info).load(exerciseList.get(position).getUrl()).thumbnail(Glide.with(info).load(R.drawable.load)).into(holder.imgExercise);
         }
-
-        holder.itemView.setOnClickListener(view -> {
-            if (completeRounds > 0 || completeExercise > 0)
-                Utils.setCheckBox(info, day, plan);
-            else Utils.setScreen(info, day, plan);
-        });
+        holder.itemView.setOnClickListener(v -> Utils.showTipDialog(info, exerciseList.get(position).getDisplay(), exerciseList.get(position).getName(),exerciseList.get(position).getUrl()));
     }
 
     @Override
@@ -82,16 +66,6 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
         if (exerciseList != null)
             return exerciseList.size();
         else return 0;
-    }
-
-    public void setDayPlan(int day, int plan) {
-        this.day = day;
-        this.plan = plan;
-    }
-
-    public void setData(int completeRounds, int completeExercise) {
-        this.completeRounds = completeRounds;
-        this.completeExercise = completeExercise;
     }
 
     class myHolder extends RecyclerView.ViewHolder {

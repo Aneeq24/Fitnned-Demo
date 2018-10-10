@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.view.DailyExerciseInfo;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.FoodDetailActivity;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.myHolder> {
@@ -73,6 +73,13 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.myHolder> {
             tvDayName = itemView.findViewById(R.id.tv_exerciseName);
             img = itemView.findViewById(R.id.img);
         }
+    }
+
+    private void setScreen(Context context, int pos){
+        if (Utils.isNetworkAvailable(context)) {
+            goToNewActivity(context,pos);
+        } else
+            Utils.showConnectionDialog(context);
     }
 
     private void goToNewActivity(Context context, int pos) {

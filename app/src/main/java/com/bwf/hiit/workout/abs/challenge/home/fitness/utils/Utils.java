@@ -12,44 +12,32 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.util.Log;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.ExerciseDay;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.List;
 import java.util.Objects;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 public class Utils {
 
     private final static String TAG = Utils.class.getSimpleName();
-    private static Dialog dialog = null;
-    public static boolean isDownloading = false;
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -148,52 +136,6 @@ public class Utils {
         context.startActivity(i);
     }
 
-    public static void showConnectionDialog(Context context) {
-        if (dialog == null) {
-            dialog = new Dialog(context);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setCancelable(false);
-            dialog.setContentView(R.layout.dialog_connection);
-            Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
-            dialog.show();
-        }
-        Button btnOk = dialog.findViewById(R.id.btn_rate_us);
-        btnOk.setOnClickListener(view1 -> {
-            dialog.dismiss();
-            dialog = null;
-        });
-    }
-
-    @SuppressLint("SetTextI18n")
-    public static void showConnectionUsDialog(Context context) {
-        if (dialog == null) {
-            dialog = new Dialog(context);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setCancelable(false);
-            dialog.setContentView(R.layout.dialog_connected);
-            Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
-            dialog.show();
-        }
-        Button btnOk = dialog.findViewById(R.id.btn_rate_us);
-        TextView tvTitle = dialog.findViewById(R.id.tv_title);
-        ImageView dialogImg = dialog.findViewById(R.id.dialog_img);
-        ProgressBar mProg = dialog.findViewById(R.id.progressBar);
-        OnProgressListener<FileDownloadTask.TaskSnapshot> listener = taskSnapshot -> {
-            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-            mProg.setProgress((int) progress);
-        };
-
-        getGifZipFile(listener);
-        Glide.with(context).load(R.drawable.animation).into(dialogImg);
-        TextView tvContent = dialog.findViewById(R.id.tv_content);
-        tvTitle.setText("Data Being Downloaded");
-        tvContent.setText("Downloading ...");
-        btnOk.setOnClickListener(view1 -> {
-            dialog.dismiss();
-            dialog = null;
-        });
-    }
-
     public static void showRateUsDialog(Context context) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -218,83 +160,57 @@ public class Utils {
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    public static void getGifZipFile(OnProgressListener<FileDownloadTask.TaskSnapshot> listener) {
-        StorageReference islandRef = FirebaseStorage.getInstance().getReference().child("data/data.zip");
-        File localFile = null;
-        try {
-            localFile = File.createTempFile("images", "zip");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (!isDownloading) {
-            isDownloading = true;
-            File finalLocalFile = localFile;
-            assert localFile != null;
-            islandRef.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
-                // Local temp file has been created
-                try {
-                    unzip(finalLocalFile, Application.getContext().getCacheDir().getAbsolutePath());
-                    isDownloading = false;
-                    Toast.makeText(Application.getContext(), "Download Complete", Toast.LENGTH_SHORT).show();
-                    SharedPrefHelper.writeBoolean(Application.getContext(),
-                            Application.getContext().getString(R.string.is_load), true);
-                    if(dialog!= null){
-                        dialog.dismiss();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }).addOnFailureListener(exception -> {
-                // Handle any errors
-                isDownloading = false;
-            });
-            getFoodImages();
-        }
+    public static void showTipDialog(Context context, String display, String name, String url) {
+        final Dialog dialog = new Dialog(context, R.style.full_screen_dialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.dialog_tip);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT);
 
-        if (listener != null) {
-            islandRef.getActiveDownloadTasks().get((0)).addOnProgressListener(listener);
-        }
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
 
-    }
+        TextView tvTypeName = dialog.findViewById(R.id.tv_type_name);
+        ImageView imgHeader = dialog.findViewById(R.id.img_header);
+        ImageView imgClose = dialog.findViewById(R.id.img_close);
+        TextView tvContent = dialog.findViewById(R.id.tv_content);
+        tvTypeName.setText(display);
 
-    private static void getFoodImages() {
-        StorageReference isFoodLandRef = FirebaseStorage.getInstance().getReference().child("data/food.zip");
-        try {
-            File local = File.createTempFile("food", "zip");
-            isFoodLandRef.getFile(local).addOnCompleteListener(taskSnapshot -> {
-                // Local temp file has been created
-                try {
-                    unzip(local, Application.getContext().getCacheDir().getAbsolutePath());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
+        imgClose.setOnClickListener(v -> dialog.dismiss());
+        tvContent.setText(Html.fromHtml(context.getString(R.string.tip)));
+        int id = context.getResources().getIdentifier(name, "drawable", context.getPackageName());
+        if (id != 0) {
+            String path = "android.resource://" + context.getPackageName() + "/" + id;
+            Glide.with(context).load(path).thumbnail(Glide.with(context).load(R.drawable.load)).into(imgHeader);
+        } else {
+            Glide.with(context).load(url).thumbnail(Glide.with(context).load(R.drawable.load)).into(imgHeader);
         }
     }
 
-    private static void unzip(File zipFile, String targetDirectory) throws IOException {
-        try (ZipInputStream zis = new ZipInputStream(
-                new BufferedInputStream(new FileInputStream(zipFile)))) {
-            ZipEntry ze;
-            int count;
-            byte[] buffer = new byte[8192];
-            while ((ze = zis.getNextEntry()) != null) {
-                File file = new File(targetDirectory, ze.getName());
-                File dir = ze.isDirectory() ? file : file.getParentFile();
-                if (!dir.isDirectory() && !dir.mkdirs())
-                    throw new FileNotFoundException("Failed to ensure directory: " +
-                            dir.getAbsolutePath());
-                if (ze.isDirectory())
-                    continue;
-                try (FileOutputStream fout = new FileOutputStream(file)) {
-                    while ((count = zis.read(buffer)) != -1)
-                        fout.write(buffer, 0, count);
-                }
-            }
-        }
+    public static void showConnectionDialog(Context context) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_connection);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+
+        dialog.show();
+        Button btnSubmit = dialog.findViewById(R.id.btn_ok);
+        btnSubmit.setOnClickListener(view -> dialog.dismiss());
+    }
+
+    public static void showPreDoneDialog(Context context) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_prev);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+
+        dialog.show();
+        Button btnSubmit = dialog.findViewById(R.id.btn_ok);
+        btnSubmit.setOnClickListener(view -> dialog.dismiss());
     }
 
 }

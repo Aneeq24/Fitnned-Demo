@@ -53,7 +53,7 @@ public class MyBilling {
             Purchase removeAdsPurchase = inventory.getPurchase(SKU_REMOVE_ADS);
             isAdsDisabled = removeAdsPurchase != null;
             removeAds();
-
+            SharedPrefHelper.writeBoolean(activity, AppStateManager.IS_ADS_DISABLED, isAdsDisabled);
             Log.d(TAG, "User has " + (isAdsDisabled ? "REMOVED ADS" : "NOT REMOVED ADS"));
             // setWaitScreen(false);
             Log.d(TAG, "Initial inventory query finished; enabling main UI.");

@@ -1,6 +1,7 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.fragments;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,7 +15,9 @@ import android.view.ViewGroup;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.FoodAdapter;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.view.FoodDetailActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.HomeActivity;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.FoodViewModel;
 
 public class FoodFragment extends Fragment {
 
@@ -34,6 +37,8 @@ public class FoodFragment extends Fragment {
         context = getContext();
 
         initView();
+
+        FoodViewModel mViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
 
         return rootView;
     }

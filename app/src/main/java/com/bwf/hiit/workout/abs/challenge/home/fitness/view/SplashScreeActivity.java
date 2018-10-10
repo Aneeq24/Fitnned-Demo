@@ -80,8 +80,6 @@ public class SplashScreeActivity extends AppCompatActivity {
             });
         } else
             new AppDbCheckingTask().execute();
-        if (Utils.isNetworkAvailable(context) && !SharedPrefHelper.readBoolean(context, getString(R.string.is_load)))
-            Utils.getGifZipFile(null);
 //      Stetho.initializeWithDefaults(this);
     }
 

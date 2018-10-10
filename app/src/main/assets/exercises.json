@@ -12,7 +12,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 12.63,
@@ -27,7 +28,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": true
   },
   {
     "calories": 13.6,
@@ -42,7 +44,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 14.12,
@@ -57,7 +60,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": true
   },
   {
     "calories": 12.045,
@@ -72,7 +76,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": true
   },
   {
     "calories": 13.04,
@@ -87,7 +92,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": true
   },
   {
     "calories": 12.05,
@@ -102,7 +108,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": true
   },
   {
     "calories": 12.02,
@@ -117,7 +124,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 13.54,
@@ -132,7 +140,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 14.588,
@@ -147,7 +156,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 12.45,
@@ -162,7 +172,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 13.04,
@@ -177,7 +188,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": true
   },
   {
     "calories": 13.045,
@@ -192,7 +204,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 12.045,
@@ -207,7 +220,8 @@
         "time": "7"
       }
     ],
-    "unit": 2
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 11.045,
@@ -222,7 +236,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 15.5745,
@@ -237,7 +252,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 12.578,
@@ -252,7 +268,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 12.4287,
@@ -267,7 +284,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 13.04,
@@ -282,7 +300,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 13.86,
@@ -297,7 +316,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 12.574,
@@ -312,7 +332,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": true
   },
   {
     "calories": 12.876,
@@ -327,7 +348,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 12.786,
@@ -342,7 +364,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 12.786,
@@ -357,7 +380,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 13.876,
@@ -372,7 +396,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 15.7456,
@@ -387,7 +412,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 12.576,
@@ -402,7 +428,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 12.576,
@@ -417,7 +444,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 12.576,
@@ -432,7 +460,8 @@
         "time": "7"
       }
     ],
-    "unit": 1
+    "unit": 1,
+    "isOnline": false
   },
   {
     "calories": 12.63,
@@ -447,7 +476,8 @@
       }
     ],
     "name": "chest_expansion",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fchest_expansion.gif?alt=media&token=39b0f8a5-30b8-4525-a533-3a3d01b10cc4"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fchest_expansion.gif?alt=media&token=39b0f8a5-30b8-4525-a533-3a3d01b10cc4",
+    "isOnline": false
   },
   {
     "id": 31,
@@ -462,7 +492,8 @@
       }
     ],
     "name": "march_jacks",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fmarch_jacks.gif?alt=media&token=068fda2f-f551-47ed-bd2a-b52f25b07491"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fmarch_jacks.gif?alt=media&token=068fda2f-f551-47ed-bd2a-b52f25b07491",
+    "isOnline": false
   },
   {
     "id": 32,
@@ -477,7 +508,8 @@
       }
     ],
     "name": "raised_arm_circles",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fraised_arm_circles.gif?alt=media&token=38029e52-a673-455a-a8f0-0c5f3b8c96f6"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fraised_arm_circles.gif?alt=media&token=38029e52-a673-455a-a8f0-0c5f3b8c96f6",
+    "isOnline": false
   },
   {
     "id": 33,
@@ -492,7 +524,8 @@
       }
     ],
     "name": "seal_jacks",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fseal_jacks.gif?alt=media&token=be032596-462b-4563-a7c6-a79cb9350060"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fseal_jacks.gif?alt=media&token=be032596-462b-4563-a7c6-a79cb9350060",
+    "isOnline": false
   },
   {
     "id": 34,
@@ -507,7 +540,8 @@
       }
     ],
     "name": "torso_rotation",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Ftorso_rotation.gif?alt=media&token=c5d647b2-f7e3-45c0-a2b6-a2cc66c48eb8"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Ftorso_rotation.gif?alt=media&token=c5d647b2-f7e3-45c0-a2b6-a2cc66c48eb8",
+    "isOnline": false
   },
   {
     "id": 35,
@@ -522,7 +556,8 @@
       }
     ],
     "name": "cobra_stretch",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fcobra_stretch.gif?alt=media&token=966c418c-d716-4dc6-8177-70244d5466d7"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fcobra_stretch.gif?alt=media&token=966c418c-d716-4dc6-8177-70244d5466d7",
+    "isOnline": false
   },
   {
     "id": 36,
@@ -537,7 +572,8 @@
       }
     ],
     "name": "shoulder_stretch",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fshoulder_stretch.gif?alt=media&token=62c36bca-0f10-468a-9cf9-74fb7ec4efc7"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fshoulder_stretch.gif?alt=media&token=62c36bca-0f10-468a-9cf9-74fb7ec4efc7",
+    "isOnline": false
   },
   {
     "id": 37,
@@ -552,7 +588,8 @@
       }
     ],
     "name": "side_bend_stretch",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fside_bend_stretch.gif?alt=media&token=205cfb07-5cfe-48b1-a18c-2faa62704861"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fside_bend_stretch.gif?alt=media&token=205cfb07-5cfe-48b1-a18c-2faa62704861",
+    "isOnline": false
   },
   {
     "id": 38,
@@ -567,7 +604,8 @@
       }
     ],
     "name": "cat_cow_stretch",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fcat_cow_stretch.gif?alt=media&token=8ba57510-d23b-42a6-bd14-34782135d9ba"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fcat_cow_stretch.gif?alt=media&token=8ba57510-d23b-42a6-bd14-34782135d9ba",
+    "isOnline": false
   },
   {
     "id": 39,
@@ -582,7 +620,8 @@
       }
     ],
     "name": "abductor_stretch_left",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fabductor_stretch_left.gif?alt=media&token=4734622f-8283-4c41-a6e0-b2b234d6ceb6"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fabductor_stretch_left.gif?alt=media&token=4734622f-8283-4c41-a6e0-b2b234d6ceb6",
+    "isOnline": false
   },
   {
     "id": 40,
@@ -597,7 +636,8 @@
       }
     ],
     "name": "abductor_stretch_right",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fabductor_stretch_right.gif?alt=media&token=7091d1ae-81a5-4861-957e-1eedd90d9350"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fabductor_stretch_right.gif?alt=media&token=7091d1ae-81a5-4861-957e-1eedd90d9350",
+    "isOnline": false
   },
   {
     "id": 41,
@@ -612,7 +652,8 @@
       }
     ],
     "name": "pelvic_stretch",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fpelvic_stretch.gif?alt=media&token=daf7bcf3-d957-4f53-9b42-ef1ae6af74e4"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fpelvic_stretch.gif?alt=media&token=daf7bcf3-d957-4f53-9b42-ef1ae6af74e4",
+    "isOnline": false
   },
   {
     "id": 42,
@@ -627,7 +668,8 @@
       }
     ],
     "name": "quad_stretch",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fquad_stretch.gif?alt=media&token=649b96c0-a5f8-41c5-ad08-4e7f007c4c4c"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fquad_stretch.gif?alt=media&token=649b96c0-a5f8-41c5-ad08-4e7f007c4c4c",
+    "isOnline": false
   },
   {
     "id": 43,
@@ -642,7 +684,8 @@
       }
     ],
     "name": "neck_stretch",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fneck_stretch.gif?alt=media&token=38f85a02-d569-4386-a2b8-cba1adca55ba"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fneck_stretch.gif?alt=media&token=38f85a02-d569-4386-a2b8-cba1adca55ba",
+    "isOnline": false
   },
   {
     "id": 44,
@@ -657,7 +700,8 @@
       }
     ],
     "name": "tricep_stretch",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Ftricep_stretch.gif?alt=media&token=f6341991-ae71-41a7-9a03-1e3dc3021786"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Ftricep_stretch.gif?alt=media&token=f6341991-ae71-41a7-9a03-1e3dc3021786",
+    "isOnline": false
   },
   {
     "id": 45,
@@ -672,7 +716,8 @@
       }
     ],
     "name": "back_shoulder_stretch",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fback_shoulder_stretch.gif?alt=media&token=b05b314a-21d6-4e5c-baea-51b0bbd4f5b0"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fback_shoulder_stretch.gif?alt=media&token=b05b314a-21d6-4e5c-baea-51b0bbd4f5b0",
+    "isOnline": false
   },
   {
     "id": 46,
@@ -687,7 +732,8 @@
       }
     ],
     "name": "hamstring_stretch",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fhamstring_stretch.gif?alt=media&token=659dca0f-161d-4623-a5e1-1b360201d1aa"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fhamstring_stretch.gif?alt=media&token=659dca0f-161d-4623-a5e1-1b360201d1aa",
+    "isOnline": false
   },
   {
     "id": 47,
@@ -702,7 +748,8 @@
       }
     ],
     "name": "downward_upward_dog",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fdownward_upward_dog.gif?alt=media&token=7d485e9f-06c2-4ed8-ac4a-3b52716221f5"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Fdownward_upward_dog.gif?alt=media&token=7d485e9f-06c2-4ed8-ac4a-3b52716221f5",
+    "isOnline": false
   },
   {
     "id": 48,
@@ -717,6 +764,7 @@
       }
     ],
     "name": "lunge_stretch",
-    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Flunge_stretch.gif?alt=media&token=cc2f1890-bb04-45c4-8512-0234ca4d4a70"
+    "url": "https://firebasestorage.googleapis.com/v0/b/workout-apps.appspot.com/o/Abs%2Flunge_stretch.gif?alt=media&token=cc2f1890-bb04-45c4-8512-0234ca4d4a70",
+    "isOnline": false
   }
 ]

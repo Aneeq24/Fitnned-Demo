@@ -139,6 +139,34 @@
         android:textColor="@color/white"
         android:textSize="18sp" />
 
+    <LinearLayout
+        android:id="@+id/ly_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Downloading ..."
+            android:textColor="@color/white" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:progress="0"
+            android:theme="@style/AppTheme.WhiteAccent"
+            tools:background="@android:color/darker_gray" />
+
+    </LinearLayout>
+
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/baner_Admob"
         android:layout_width="wrap_content"

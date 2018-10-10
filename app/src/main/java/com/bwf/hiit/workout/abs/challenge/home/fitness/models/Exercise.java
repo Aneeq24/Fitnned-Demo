@@ -35,6 +35,9 @@ public class Exercise {
     @SerializedName("display")
     private String display;
 
+    @SerializedName("isOnline")
+    private boolean isOnline;
+
     @Ignore
     Exercise(){
     }
@@ -47,7 +50,7 @@ public class Exercise {
         this.display = display_name;
     }
 
-    public Exercise(int id, int unit, int lang, float calories, String name, String url, List<Tts> tts, String display) {
+    public Exercise(int id, int unit, int lang, float calories, String name, String url, List<Tts> tts, String display, boolean isOnline) {
         this.id = id;
         this.unit = unit;
         this.lang = lang;
@@ -56,6 +59,7 @@ public class Exercise {
         this.url = url;
         this.tts = tts;
         this.display = display;
+        this.isOnline = isOnline;
     }
 
     public int getId() {
@@ -110,6 +114,14 @@ public class Exercise {
         return tts;
     }
 
+    public boolean isOnline() {
+        return isOnline;
+    }
+
+    public void setOnline(boolean online) {
+        isOnline = online;
+    }
+
     public void setTts(List<Tts> tts) {
         this.tts = tts;
     }
@@ -121,4 +133,6 @@ public class Exercise {
     public void setDisplay(String display) {
         this.display = display;
     }
+
+
 }

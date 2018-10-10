@@ -133,39 +133,6 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <LinearLayout
-        android:id="@+id/layout_download"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:padding="5dp"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="12sp" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:progress="0"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:theme="@style/AppTheme.WhiteAccent"
-            tools:background="@android:color/darker_gray" />
-
-    </LinearLayout>
-
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/baner_Admob"
         android:layout_width="wrap_content"

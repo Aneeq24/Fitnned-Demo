@@ -344,6 +344,7 @@ public class RecordFragment extends Fragment {
         else {
             for (int i = 0; i < mList.size(); i++)
                 values.add(new Entry(mList.get(i).getDay(), mList.get(i).getWeight()));
+            values.add(new Entry(getCurrentDay(), user.getWeight()));
         }
 
         YAxis leftAxis = graphWeight.getAxisLeft();

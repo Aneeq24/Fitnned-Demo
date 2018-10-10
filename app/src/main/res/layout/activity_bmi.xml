@@ -23,10 +23,11 @@
             android:src="@drawable/ic_back" />
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:text="Tools"
+            android:text="Bmi Calculate"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -59,11 +60,12 @@
 
 
             <TextView
+                android:id="@+id/tv_weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:text="lbs"
+                android:text="kg"
                 android:textColor="@android:color/background_light"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -77,6 +79,7 @@
                     android:layout_width="80dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
                     android:scaleType="fitXY"
                     android:src="@drawable/timer_bar_bg" />
 
@@ -103,14 +106,14 @@
 
                 <RadioButton
                     android:id="@+id/rb_kg"
-                    style="@style/radio_btn"
+                    style="@style/radio_tab"
                     android:layout_marginRight="2dp"
                     android:checked="true"
                     android:text="KG" />
 
                 <RadioButton
                     android:id="@+id/rb_lb"
-                    style="@style/radio_btn"
+                    style="@style/radio_tab"
                     android:text="LB" />
 
             </RadioGroup>
@@ -147,6 +150,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_height"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -185,6 +189,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ly_inches"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -237,16 +242,18 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/rb_cm"
-                    style="@style/radio_btn"
+                    android:id="@+id/rb_in"
+                    style="@style/radio_tab"
                     android:layout_marginRight="2dp"
                     android:checked="true"
-                    android:text="CM" />
+                    android:text="IN" />
+
 
                 <RadioButton
-                    android:id="@+id/rb_in"
-                    style="@style/radio_btn"
-                    android:text="IN" />
+                    android:id="@+id/rb_cm"
+                    style="@style/radio_tab"
+                    android:text="CM" />
+
 
             </RadioGroup>
 
@@ -287,6 +294,16 @@
             android:layout_centerHorizontal="true"
             android:contentDescription="@string/app_name"
             android:src="@drawable/bmi_calculator_screen_bmi_meter_bg" />
+
+        <ImageView
+            android:id="@+id/img_needle"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/bmi_calculator_screen_bmi_meter_arrow" />
 
         <ImageView
             android:layout_width="wrap_content"

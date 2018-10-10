@@ -9,9 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DailyExerciseAdapter;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
@@ -39,6 +44,8 @@ public class DailyExerciseInfo extends AppCompatActivity {
     int completeExercise = 0;
     int totalTimeSpend = 0;
     float kCal = 0;
+    boolean isStart = true;
+    boolean isMove = true;
     Context context;
     DailyExerciseAdapter mAdapter;
     List<Exercise> mEXList;
@@ -56,6 +63,13 @@ public class DailyExerciseInfo extends AppCompatActivity {
     TextView tvTitle;
     @BindView(R.id.img_title)
     ImageView imgTitle;
+    @BindView(R.id.startButton)
+    Button startButton;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+    @BindView(R.id.ly_download)
+    LinearLayout lyDownload;
+    AdView adView;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -77,7 +91,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
         planDay = intent.getIntExtra(getApplicationContext().getString(R.string.day_selected), 0);
         if (plan == 0) {
             String[] dayTTS = context.getResources().getStringArray(R.array.exercise_list);
-            switch (planDay-1) {
+            switch (planDay - 1) {
                 case 0:
                     tvTitle.setText(dayTTS[0]);
                     imgTitle.setImageResource(R.drawable.workout_screen_pre_workout_warm_up);
@@ -132,7 +146,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
             }
         }
 
-        AdView adView = findViewById(R.id.baner_Admob);
+        adView = findViewById(R.id.baner_Admob);
         AdsManager.getInstance().showBanner(adView);
 
         AdsManager.getInstance().showInterstitialAd(getString(R.string.AM_Int_Main_Menu));
@@ -143,7 +157,6 @@ public class DailyExerciseInfo extends AppCompatActivity {
         mAdapter = new DailyExerciseAdapter(this);
         rvDayExercise.setNestedScrollingEnabled(false);
         rvDayExercise.setAdapter(mAdapter);
-        mAdapter.setDayPlan(planDay, plan);
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -158,6 +171,20 @@ public class DailyExerciseInfo extends AppCompatActivity {
         @Override
         protected final Void doInBackground(Void... params) {
 
+            if (planDay > 1 && plan != 0) {
+                List<ExerciseDay> mPrev = AppDataBase.getInstance().exerciseDayDao().getExerciseDays(plan, planDay - 1);
+                if (mPrev.size() > 0) {
+                    if (mPrev.get(0).getExerciseComplete() != mPrev.get(0).getTotalExercise()) {
+                        isStart = false;
+                    }
+                } else {
+                    mPrev = AppDataBase.getInstance().exerciseDayDao().getExerciseDays(plan, planDay - 2);
+                    if (mPrev.get(0).getExerciseComplete() != mPrev.get(0).getTotalExercise()) {
+                        isStart = false;
+                    }
+                }
+
+            }
             List<ExerciseDay> mList = AppDataBase.getInstance().exerciseDayDao().getExerciseDays(plan, planDay);
             if (mList.size() > 0) {
                 completeExercise = mList.get(0).getExerciseComplete();
@@ -168,7 +195,8 @@ public class DailyExerciseInfo extends AppCompatActivity {
                     totalTimeSpend = totalTimeSpend + day.getReps();
                     Exercise exercise = AppDataBase.getInstance().exerciseDao().findByIdbg(day.getId());
                     if (exercise != null) {
-                        mEXList.add(new Exercise(day.getReps(), day.getDelay(), exercise.getName(), exercise.getDisplay()));
+                        exercise.setUnit(mList.get(0).getReps());
+                        mEXList.add(exercise);
                         kCal = kCal + exercise.getCalories();
                     }
                 }
@@ -187,14 +215,73 @@ public class DailyExerciseInfo extends AppCompatActivity {
             tvTime.setText(String.valueOf(minutes) + " Min");
             tvKcal.setText(String.valueOf((int) kCal) + " Kcal");
             mAdapter.setList(mEXList);
-            mAdapter.setData(completeRounds, completeExercise);
+            if (plan != 0) {
+                if (!isStart) {
+                    startButton.setBackgroundResource(R.drawable.ic_gray_round_bar);
+                    startButton.setText("Workout Looked");
+                }
+            }
         }
     }
 
+    @SuppressLint("CheckResult")
     @OnClick(R.id.startButton)
     public void onViewClicked() {
+        for (Exercise exercise : mEXList) {
+            if (!exercise.isOnline()) {
+                isMove = false;
+            }
+        }
+        if (isStart) {
+            if (isMove) {
+                setActivity();
+            } else if (Utils.isNetworkAvailable(context)) {
+                lyDownload.setVisibility(View.VISIBLE);
+                adView.setVisibility(View.GONE);
+                for (Exercise exercise : mEXList) {
+                    if (!exercise.isOnline()) {
+                        Glide.with(context).load(exercise.getUrl());
+                    }
+                }
+                for (int i = 0; i < 100; i++)
+                    progressBar.setProgress(i);
+                new getTask().execute();
+            } else
+                Utils.showConnectionDialog(context);
+        } else {
+            if (plan != 0)
+                Utils.showPreDoneDialog(context);
+        }
+    }
+
+    private void setActivity() {
         if (completeRounds > 0 || completeExercise > 0)
             Utils.setCheckBox(context, planDay, plan);
         else Utils.setScreen(context, planDay, plan);
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private class getTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected final Void doInBackground(Void... params) {
+            List<ExerciseDay> mList = AppDataBase.getInstance().exerciseDayDao().getExerciseDays(plan, planDay);
+            if (mList.size() > 0) {
+                for (ExerciseDay day : mList) {
+                    Exercise ex = AppDataBase.getInstance().exerciseDao().findByIdbg(day.getId());
+                    ex.setOnline(true);
+                    AppDataBase.getInstance().exerciseDao().update(ex);
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Utils.setScreen(context, planDay, plan);
+            lyDownload.setVisibility(View.GONE);
+            adView.setVisibility(View.VISIBLE);
+        }
     }
 }

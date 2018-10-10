@@ -15,10 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.ContentAdapter;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Content;
 
@@ -47,11 +45,7 @@ public class DetailFragment extends Fragment {
         tvContent = rootView.findViewById(R.id.tv_content);
         rvFoodContent = rootView.findViewById(R.id.rv_food_content);
 
-        RequestOptions requestOptions = new RequestOptions();
-        requestOptions.placeholder(R.drawable.source);
-        requestOptions.error(R.drawable.source);
-
-        context= getContext();
+        context = getContext();
 
 
         if (getArguments() != null) {
@@ -62,12 +56,7 @@ public class DetailFragment extends Fragment {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 tvContent.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
             }
-            if (SharedPrefHelper.readBoolean(context, context.getString(R.string.is_load))) {
-                String temp = context.getCacheDir().getAbsolutePath() + "/" + mList.get(0).getImage() + ".jpg";
-                Glide.with(context).load(temp).into(imgHeader);
-            } else {
-                Glide.with(context).load(mList.get(0).getUrl()).into(imgHeader);
-            }
+            Glide.with(context).load(mList.get(0).getUrl()).thumbnail(Glide.with(context).load(R.drawable.load)).into(imgHeader);
             if (mList.size() > 1) {
                 rvFoodContent.setVisibility(View.VISIBLE);
                 ContentAdapter mAdapter = new ContentAdapter(context, mList.subList(1, mList.size()));

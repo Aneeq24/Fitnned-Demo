@@ -9,9 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
@@ -19,11 +16,8 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayRecycleAdapter
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.dinuscxj.progressbar.CircleProgressBar;
 import com.google.android.gms.ads.AdView;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.OnProgressListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +29,6 @@ import butterknife.ButterKnife;
 public class ScrollingActivity extends AppCompatActivity {
 
     private String[] title = {"Exercise", "BEGINNER", "INTERMEDIATE", "ADVANCED"};
-    @BindView(R.id.txt)
-    TextView txt;
-    @BindView(R.id.layout_download)
-    LinearLayout layoutDownload;
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
     int val = 0;
     int plan = 0;
     int size = 0;
@@ -94,25 +82,8 @@ public class ScrollingActivity extends AppCompatActivity {
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
-        OnProgressListener<FileDownloadTask.TaskSnapshot> listener = taskSnapshot -> {
-            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-            txt.setText("Downloading " + (int) progress + "%...");
-            progressBar.setProgress((int) progress);
-            if (progress == 100) {
-                layoutDownload.setVisibility(View.GONE);
-                adView.setVisibility(View.VISIBLE);
-            }
-        };
 
-        if (Utils.isDownloading) {
-            layoutDownload.setVisibility(View.VISIBLE);
-            adView.setVisibility(View.GONE);
-            Utils.getGifZipFile(listener);
-        } else {
-            adView.setVisibility(View.VISIBLE);
-            layoutDownload.setVisibility(View.GONE);
-            AdsManager.getInstance().showBanner(adView);
-        }
+        AdsManager.getInstance().showBanner(adView);
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -160,7 +131,6 @@ public class ScrollingActivity extends AppCompatActivity {
         rvDayTasks.setNestedScrollingEnabled(false);
         rvDayTasks.setLayoutManager(new LinearLayoutManager(context));
         DayRecycleAdapter dayRecycleAdapter = new DayRecycleAdapter(context, mProgress, plan);
-        dayRecycleAdapter.setContent(layoutDownload, adView, txt, progressBar);
         rvDayTasks.setAdapter(dayRecycleAdapter);
     }
 

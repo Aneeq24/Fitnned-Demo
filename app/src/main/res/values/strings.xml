@@ -216,4 +216,17 @@
         <item>Day 30 Today We Will Focus on Core and Oblique Abs exercises</item>
     </string-array>
 
+    <string name="tip">
+        <![CDATA[
+        <p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial; color: #000000; background-color: transparent; font-weight: 400; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Burpees is a plyometrics full body plyometric exercise. It targets the chest, shoulders, core and legs while also improving your cardiovascular strength.</span></p>
+        <p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial; color: #000000; background-color: transparent; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">How To Do</span></strong></p>
+        <p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial; color: #000000; background-color: transparent; font-weight: 400; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Start with your feet shoulder width apart. Bend down and put your hands on the floor. Kick both of your legs backwards simultaneously to go into a push up position. Lower your chest to ground as doing a push up, then jump both your feet back in simultaneously. Stand up and do a jump with both your hands facing the ceiling. Remember to do a soft landing. </span></p>
+        <p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial; color: #000000; background-color: transparent; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Correct Form</span></strong></p>
+        <ol style="margin-top: 0pt; margin-bottom: 0pt;">
+        <li style="list-style-type: decimal; font-size: 11pt; font-family: Arial; color: #000000; background-color: transparent; font-weight: 400; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre;"><span style="font-size: 11pt; font-family: Arial; color: #000000; background-color: transparent; font-weight: 400; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Do not Arch your lower back when coming out of the push up position. Keep it straight as doing a push up</span></li>
+        <li style="list-style-type: decimal; font-size: 11pt; font-family: Arial; color: #000000; background-color: transparent; font-weight: 400; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre;"><span style="font-size: 11pt; font-family: Arial; color: #000000; background-color: transparent; font-weight: 400; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Do not skip your squat when moving from standing to burpee position. It is important to bend your knees to go down into the push up position.</span></li>
+        </ol>
+        ]]>
+       </string>
+
 </resources>

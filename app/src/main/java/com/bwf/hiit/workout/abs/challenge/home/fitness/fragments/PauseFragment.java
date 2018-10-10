@@ -11,10 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
 import com.google.android.gms.ads.AdView;
@@ -52,15 +49,10 @@ public class PauseFragment extends Fragment {
         if ((mActivity.currentEx + 1) != mActivity.totalExercises) {
             tvExName.setText(mActivity.nextExerciseName);
 
-            int id = getResources().getIdentifier(mActivity.nextExerciseImage, "drawable", mActivity.getPackageName());
+            int id = mActivity.getResources().getIdentifier(mActivity.nextExerciseImage, "drawable", mActivity.getPackageName());
             if (id != 0) {
                 String path = "android.resource://" + mActivity.getPackageName() + "/" + id;
-                Glide.with(this).load(path).into(imgAnimate);
-            } else if (SharedPrefHelper.readBoolean(mActivity, getString(R.string.is_load))) {
-                String temp = mActivity.getCacheDir().getAbsolutePath() + "/" + mActivity.nextExerciseImage + ".gif";
-                Glide.with(this).load(temp).into(imgAnimate);
-            } else {
-                Glide.with(this).load(mActivity.nextExerciseUrl).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(imgAnimate);
+                Glide.with(this).load(mActivity.nextExerciseUrl).thumbnail(Glide.with(this).load(path)).into(imgAnimate);
             }
         }
 

@@ -23,7 +23,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Weight;
 
 
-@Database(entities = {ExerciseDay.class, Exercise.class, User.class, Record.class, Reminder.class, Weight.class, Food.class}, version = 5, exportSchema = false)
+@Database(entities = {ExerciseDay.class, Exercise.class, User.class, Record.class, Reminder.class, Weight.class, Food.class}, version = 6, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
 
     private static AppDataBase appDataBase;

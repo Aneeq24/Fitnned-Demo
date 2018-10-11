@@ -52,7 +52,7 @@ public class DailyExerciseAdapter extends RecyclerView.Adapter<DailyExerciseAdap
         } else {
             Glide.with(info).load(exerciseList.get(position).getUrl()).thumbnail(Glide.with(info).load(R.drawable.load)).into(holder.imgExercise);
         }
-        holder.itemView.setOnClickListener(v -> Utils.showTipDialog(info, exerciseList.get(position).getDisplay(), exerciseList.get(position).getName(),exerciseList.get(position).getUrl()));
+//        holder.itemView.setOnClickListener(v -> Utils.showTipDialog(info, exerciseList.get(position).getDisplay(), exerciseList.get(position).getName(),exerciseList.get(position).getUrl()));
     }
 
     @Override

@@ -218,7 +218,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
             if (plan != 0) {
                 if (!isStart) {
                     startButton.setBackgroundResource(R.drawable.ic_gray_round_bar);
-                    startButton.setText("Workout Looked");
+                    startButton.setText("Workout Locked");
                 }
             }
         }

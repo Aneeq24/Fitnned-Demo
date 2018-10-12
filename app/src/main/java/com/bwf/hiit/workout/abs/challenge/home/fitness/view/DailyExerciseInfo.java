@@ -3,8 +3,10 @@ package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +19,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DailyExerciseAdapter;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
@@ -224,7 +230,6 @@ public class DailyExerciseInfo extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("CheckResult")
     @OnClick(R.id.startButton)
     public void onViewClicked() {
         for (Exercise exercise : mEXList) {
@@ -238,14 +243,9 @@ public class DailyExerciseInfo extends AppCompatActivity {
             } else if (Utils.isNetworkAvailable(context)) {
                 lyDownload.setVisibility(View.VISIBLE);
                 adView.setVisibility(View.GONE);
-                for (Exercise exercise : mEXList) {
-                    if (!exercise.isOnline()) {
-                        Glide.with(context).load(exercise.getUrl());
-                    }
-                }
-                for (int i = 0; i < 100; i++)
-                    progressBar.setProgress(i);
                 new getTask().execute();
+                for (int i = 0; i < 10000; i++)
+                    progressBar.setProgress(i);
             } else
                 Utils.showConnectionDialog(context);
         } else {
@@ -263,14 +263,26 @@ public class DailyExerciseInfo extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     private class getTask extends AsyncTask<Void, Void, Void> {
 
+        @SuppressLint("CheckResult")
         @Override
         protected final Void doInBackground(Void... params) {
-            List<ExerciseDay> mList = AppDataBase.getInstance().exerciseDayDao().getExerciseDays(plan, planDay);
-            if (mList.size() > 0) {
-                for (ExerciseDay day : mList) {
-                    Exercise ex = AppDataBase.getInstance().exerciseDao().findByIdbg(day.getId());
-                    ex.setOnline(true);
-                    AppDataBase.getInstance().exerciseDao().update(ex);
+            for (Exercise exercise : mEXList) {
+                if (!exercise.isOnline()) {
+                    Glide.with(context).load(exercise.getUrl()).addListener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            exercise.setOnline(false);
+                            AppDataBase.getInstance().exerciseDao().update(exercise);
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            exercise.setOnline(true);
+                            AppDataBase.getInstance().exerciseDao().update(exercise);
+                            return false;
+                        }
+                    });
                 }
             }
             return null;
@@ -279,6 +291,7 @@ public class DailyExerciseInfo extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
             Utils.setScreen(context, planDay, plan);
             lyDownload.setVisibility(View.GONE);
             adView.setVisibility(View.VISIBLE);

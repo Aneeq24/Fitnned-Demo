@@ -24,11 +24,13 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.URLUtil;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.BuildConfig;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.FoodFragment;
@@ -41,8 +43,6 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.inapp.MyBilling;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Weight;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.repository.WeightRepo;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.UserViewModel;
 import com.google.ads.consent.ConsentForm;
@@ -53,7 +53,6 @@ import com.google.ads.consent.ConsentStatus;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -91,6 +90,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     TextView tvTotalMin;
     TextView tvTotalTime;
     TextView tvKcal;
+    ImageView menuNoAds;
+    ImageView menuTip;
     RadioGroup btnGroup;
     AppBarLayout appBarLayout;
     CollapsingToolbarLayout mLayout;
@@ -127,6 +128,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         tvTotalTime = findViewById(R.id.tv_mins);
         tvKcal = findViewById(R.id.tv_kcal);
         tvTitle = findViewById(R.id.tv_Title);
+        menuNoAds = findViewById(R.id.menu_no_eds);
+        menuTip = findViewById(R.id.menu_tips);
+        menuTip.setVisibility(View.GONE);
 
         noAds.setOnClickListener(this);
         workOut.setOnClickListener(this);
@@ -134,6 +138,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         feedback.setOnClickListener(this);
         moreApps.setOnClickListener(this);
         privacyPolicy.setOnClickListener(this);
+        menuNoAds.setOnClickListener(this);
+        menuTip.setOnClickListener(this);
 
         consentInformation = ConsentInformation.getInstance(this);
         requestGoogleConsentForm(true);
@@ -143,26 +149,26 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        selectFragment(homeFragment);
+        selectSimpleFragment(homeFragment);
         setToolbar(toolbar);
 
         btnGroup = findViewById(R.id.bottom_navigation);
         btnGroup.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.btn0) {
-                selectFragment(homeFragment);
+                selectSimpleFragment(homeFragment);
                 appBarLayout.setExpanded(true);
                 AdsManager.getInstance().showInterstitialAd(getString(R.string.AM_Int_Main_Menu));
             } else if (i == R.id.btn1) {
-                selectFragment(workoutFragment);
+                selectSimpleFragment(workoutFragment);
                 appBarLayout.setExpanded(false);
             } else if (i == R.id.btn2) {
-                selectFragment(foodFragment);
+                selectSimpleFragment(foodFragment);
                 appBarLayout.setExpanded(false);
             } else if (i == R.id.btn3) {
-                selectFragment(recordFragment);
+                selectSimpleFragment(recordFragment);
                 appBarLayout.setExpanded(true);
             } else if (i == R.id.btn4) {
-                selectFragment(utilitiesFragment);
+                selectSimpleFragment(utilitiesFragment);
                 appBarLayout.setExpanded(false);
             }
         });
@@ -173,6 +179,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 initApp(user);
             }
         });
+
+        Glide.with(context).load(R.drawable.tips).into(menuTip);
+        Glide.with(context).load(R.drawable.no_ads).into(menuNoAds);
     }
 
     private void setToolbar(Toolbar toolbar) {
@@ -184,11 +193,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
     }
 
-    private void selectFragment(Fragment fragment) {
+    private void selectSimpleFragment(Fragment fragment) {
         FragmentTransaction ft;
         ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.main_screen, fragment).commitAllowingStateLoss();
     }
+
+//    private void selectScrollFragment(Fragment fragment) {
+//        FragmentTransaction ft;
+//        ft = getSupportFragmentManager().beginTransaction();
+//        ft.replace(R.id.nested_scroll, fragment).commitAllowingStateLoss();
+//    }
 
     @SuppressLint("SetTextI18n")
     private void initApp(User user) {
@@ -340,7 +355,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void onRecordClicked() {
-        selectFragment(recordFragment);
+        selectSimpleFragment(recordFragment);
     }
 
     private void onReminderClicked() {
@@ -386,6 +401,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.privacy_policy:
                 onPrivacyPolicyClicked();
+                break;
+            case R.id.menu_no_eds:
+                mBilling.purchaseRemoveAds();
+                break;
+            case R.id.menu_tips:
+
                 break;
         }
     }

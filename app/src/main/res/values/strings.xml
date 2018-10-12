@@ -71,6 +71,8 @@
         <item>FAT BURNING FOODS</item>
     </string-array>
 
+    <string name="spinner_title">Little to no exercise</string>
+
     <string-array name="activity_list">
         <item>Little to no exercise</item>
         <item>Light exercise (1–3 days per week)</item>
@@ -130,6 +132,7 @@
     <string name="AM_Int_Main_Menu">ca-app-pub-2972677223588085/8936419421</string>
     <string name="AM_Int_Workout_End">ca-app-pub-2972677223588085/3090397422</string>
 
+    <string name="rewarded_ad_unit"> </string>
     <string name="FB_Int_Exercise_List">511255115963411_549741028781486</string>
 
     <string name="ad">AD</string>

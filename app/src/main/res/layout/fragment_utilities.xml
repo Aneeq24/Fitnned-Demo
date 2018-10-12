@@ -5,93 +5,35 @@
     android:layout_height="match_parent"
     android:background="#00E9FB"
     android:orientation="vertical"
+    android:padding="10dp"
     tools:context=".fragments.UtilitiesFragment">
+    
+    <TextView
+        android:id="@+id/btn_bmi"
+        style="@style/tool_style"
+        android:drawableStart="@drawable/utility_screen_bmi_calculator_icon"
+        android:text="BMI Calculator" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/btn_protein"
+        style="@style/tool_style"
+        android:drawableStart="@drawable/utility_screen_protein_calculator_icon"
+        android:text="PROTEIN Calculator" />
+
+    <TextView
+        android:id="@+id/btn_fat"
+        style="@style/tool_style"
+        android:drawableStart="@drawable/utility_screen_body_fat_calculator_icon"
+        android:text="BODY FAT %" />
+
+    <TextView
+        android:id="@+id/btn_calories"
+        style="@style/tool_style"
+        android:drawableStart="@drawable/utility_screen_calories_calculator_icon"
+        android:text="CALORIES Calculator" />
+    
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/btn_bmi"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/ic_white_round_bar"
-            android:drawableTop="@drawable/utility_screen_bmi_calculator_icon"
-            android:elevation="5dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:text="BMI\nCalculator"
-            android:textColor="@color/colorAccent"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/btn_protein"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/ic_white_round_bar"
-            android:drawableTop="@drawable/utility_screen_protein_calculator_icon"
-            android:elevation="5dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:text="PROTEIN\nCalculator"
-            android:textColor="@color/colorAccent"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/btn_fat"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/ic_white_round_bar"
-            android:drawableTop="@drawable/utility_screen_body_fat_calculator_icon"
-            android:elevation="5dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:text="BODY FAT %"
-            android:textColor="@color/colorAccent"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/btn_calories"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/ic_white_round_bar"
-            android:drawableTop="@drawable/utility_screen_calories_calculator_icon"
-            android:elevation="5dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:text="CALORIES\nCalculator"
-            android:textColor="@color/colorAccent"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
+        android:layout_height="100dp" />
 
 </LinearLayout>

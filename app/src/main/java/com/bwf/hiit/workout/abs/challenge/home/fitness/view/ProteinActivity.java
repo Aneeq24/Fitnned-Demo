@@ -38,8 +38,6 @@ public class ProteinActivity extends AppCompatActivity {
     LinearLayout lyInches;
     @BindView(R.id.tv_result)
     TextView tvResult;
-    @BindView(R.id.ly_result)
-    LinearLayout lyResult;
 
     boolean isKg = true;
     List<Integer> data;
@@ -139,9 +137,8 @@ public class ProteinActivity extends AppCompatActivity {
                 mass = numWeight.getValue();
                 proteinLowerDouble = (((mass / 2.2) * 0.8));
                 proteinUpperDouble = (((mass / 2.2) * 1.7));
-                tvResult.setText("REQUIRED PROTEIN IS\n" + (int) proteinLowerDouble +
-                        " - " + (int) proteinUpperDouble + " TO GRAMS");
-                lyResult.setVisibility(View.VISIBLE);
+                tvResult.setText("Recommended Daily Protein Intake:\n" + (int) proteinLowerDouble +
+                        " - " + (int) proteinUpperDouble + " To GRAMS");
                 break;
         }
     }

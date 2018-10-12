@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Exercise;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 
 import java.util.List;
 

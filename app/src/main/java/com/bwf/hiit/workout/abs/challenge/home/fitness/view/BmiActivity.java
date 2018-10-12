@@ -1,12 +1,11 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.view;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -144,9 +143,10 @@ public class BmiActivity extends AppCompatActivity {
         }
     }
 
-    float weight, height, inches, feet, bmi;
-
+    @SuppressLint("SetTextI18n")
     private void calculateBmi() {
+        float weight, height, inches, feet, bmi;
+
         weight = numWeight.getValue();
 
         if (isCm)
@@ -157,12 +157,8 @@ public class BmiActivity extends AppCompatActivity {
             height = (feet * 12) + inches;
         }
 
-
-        boolean isCross0 = false;
-
         if (isCm && !isKg) {
             height = height * 100 * 0.393701f;
-            isCross0 = true;
         }
 
         if (isKg && !isCm) {
@@ -172,16 +168,12 @@ public class BmiActivity extends AppCompatActivity {
 
         bmi = (weight) / (height * height);
 
-        if (!isKg)
+        if (!isKg) {
             bmi *= 703;
+            isKg = true;
+        }
 
-        if (isCm && !isCross0)
-            height = height * 100 * 0.393701f;
-
-        if (isKg)
-            weight = weight * 2.20462f;
-
-        tvResult.setText(math(bmi) + bmiCategory(Integer.parseInt(mathRound(bmi))));
+        tvResult.setText("Your BMI " + math(bmi) + bmiCategory(Integer.parseInt(mathRound(bmi))));
 
         setImage(bmi);
     }
@@ -208,27 +200,26 @@ public class BmiActivity extends AppCompatActivity {
 
     private void setImage(float bmi) {
         int angle = 0;
-        if (bmi < 0 && bmi <= 18.5) {
-            angle = -80;
-        } else if (bmi < 18.5 && bmi <= 24.9) {
-            angle = -45;
-        } else if (bmi < 24.9 && bmi <= 29.9) {
-            angle = 0;
-        } else if (bmi < 29.9 && bmi <= 34.9) {
+        if (bmi > 0 && bmi <= 18.5) {
+            angle = 18;
+        } else if (bmi > 18.5 && bmi <= 24.9) {
             angle = 45;
-        } else if (bmi < 34.9) {
-            angle = 80;
+        } else if (bmi > 24.9 && bmi <= 29.9) {
+            angle = 90;
+        } else if (bmi > 29.9 && bmi <= 34.9) {
+            angle = 130;
+        } else if (bmi > 34.9) {
+            angle = 180;
         }
 
-        Bitmap myImg = BitmapFactory.decodeResource(getResources(), R.drawable.bmi_calculator_screen_bmi_meter_arrow);
+        imgNeedle.setPivotX(imgNeedle.getWidth() / 2);
 
-        Matrix matrix = new Matrix();
-        matrix.preRotate(angle);
+        RotateAnimation rotateAnimation1 = new RotateAnimation(0, angle,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation1.setDuration(4000);
 
-        Bitmap rotated = Bitmap.createBitmap(myImg, 0, 0, myImg.getWidth(), myImg.getHeight(),
-                matrix, true);
-
-        imgNeedle.setImageBitmap(rotated);
+        imgNeedle.startAnimation(rotateAnimation1);
     }
 
 }

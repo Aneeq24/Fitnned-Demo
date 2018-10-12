@@ -52,7 +52,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="WEIGHT"
+                android:text="Weight"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/background_light"
                 app:fontFamily="@font/roboto_bold" />
@@ -132,7 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="HEIGHT"
+                android:text="Height"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/background_light"
                 app:fontFamily="@font/roboto_bold" />
@@ -271,12 +271,10 @@
         android:textColor="@android:color/white" />
 
     <LinearLayout
-        android:id="@+id/ly_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="5dp"
-        android:visibility="gone"
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
@@ -287,13 +285,13 @@
             android:contentDescription="@string/app_name"
             android:src="@drawable/utility_screen_protein_calculator_icon" />
 
-
         <TextView
             android:id="@+id/tv_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_blue_light_round_bar"
             android:padding="10dp"
+            android:text="REQUIRED PROTEIN"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="16sp"

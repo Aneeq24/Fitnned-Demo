@@ -1,5 +1,6 @@
 package com.bwf.hiit.workout.abs.challenge.home.fitness.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +12,10 @@ import android.view.ViewGroup;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.BmiActivity;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.view.BodyFatActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.HomeActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.ProteinActivity;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.view.WeightLossActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,6 +26,7 @@ public class UtilitiesFragment extends Fragment {
     Context context;
     Unbinder unbinder;
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -49,9 +53,10 @@ public class UtilitiesFragment extends Fragment {
                 startActivity(new Intent(context, ProteinActivity.class));
                 break;
             case R.id.btn_fat:
-
+                startActivity(new Intent(context, BodyFatActivity.class));
                 break;
             case R.id.btn_calories:
+                startActivity(new Intent(context, WeightLossActivity.class));
                 break;
         }
     }

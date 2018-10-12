@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.bwf.hiit.workout.abs.challenge.home.fitness">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -76,6 +75,21 @@
         <activity
             android:name=".view.secondActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.BmiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.ProteinActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.FoodDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.BodyFatActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.WeightLossActivity"
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name=".receiver.AlarmReceiver"
@@ -85,10 +99,6 @@
             android:name=".receiver.RebootReceiver"
             android:enabled="true"
             android:exported="false" />
-
-        <activity android:name=".view.BmiActivity" />
-        <activity android:name=".view.ProteinActivity" />
-        <activity android:name=".view.FoodDetailActivity" />
     </application>
 
 </manifest>

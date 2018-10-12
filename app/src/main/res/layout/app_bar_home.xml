@@ -128,13 +128,37 @@
                 android:layout_height="50dp"
                 app:layout_collapseMode="pin">
 
-                <TextView
-                    android:id="@+id/tv_Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/tv_Title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textColor="@android:color/white"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/menu_no_eds"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="37dp"
+                        android:contentDescription="@string/app_name" />
+
+                    <ImageView
+                        android:id="@+id/menu_tips"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/app_name" />
+                </RelativeLayout>
 
             </android.support.v7.widget.Toolbar>
 
@@ -170,66 +194,34 @@
 
                 <RadioButton
                     android:id="@+id/btn0"
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:button="@null"
+                    style="@style/bottom_bar"
                     android:checked="true"
                     android:drawableTop="@drawable/bg_plan"
-                    android:gravity="center"
-                    android:padding="3dp"
-                    android:text="PLAN"
-                    android:textColor="@color/main_text_color" />
+                    android:text="PLAN" />
 
                 <RadioButton
                     android:id="@+id/btn1"
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:button="@null"
+                    style="@style/bottom_bar"
                     android:drawableTop="@drawable/bg_workout"
-                    android:gravity="center"
-                    android:padding="3dp"
-                    android:text="WORKOUT"
-                    android:textColor="@color/main_text_color" />
-
-
-                <RadioButton
-                    android:id="@+id/btn2"
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:drawableTop="@drawable/bg_food"
-                    android:gravity="center"
-                    android:padding="3dp"
-                    android:text="FOOD"
-                    android:textColor="@color/main_text_color" />
-
-                <RadioButton
-                    android:id="@+id/btn3"
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:drawableTop="@drawable/bg_report"
-                    android:gravity="center"
-                    android:padding="3dp"
-                    android:text="REPORT"
-                    android:textColor="@color/main_text_color" />
+                    android:text="WORKOUT" />
 
                 <RadioButton
                     android:id="@+id/btn4"
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:button="@null"
+                    style="@style/bottom_bar"
                     android:drawableTop="@drawable/bg_more"
-                    android:gravity="center"
-                    android:padding="3dp"
-                    android:text="MORE"
-                    android:textColor="@color/main_text_color"
-                    android:visibility="gone" />
+                    android:text="DISCOVER" />
+
+                <RadioButton
+                    android:id="@+id/btn2"
+                    style="@style/bottom_bar"
+                    android:drawableTop="@drawable/bg_food"
+                    android:text="FOOD" />
+
+                <RadioButton
+                    android:id="@+id/btn3"
+                    style="@style/bottom_bar"
+                    android:drawableTop="@drawable/bg_report"
+                    android:text="REPORT" />
 
             </RadioGroup>
 

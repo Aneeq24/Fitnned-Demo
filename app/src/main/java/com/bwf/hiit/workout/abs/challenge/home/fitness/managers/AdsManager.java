@@ -9,6 +9,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.AppStateManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.Application;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.interfaces.RewardedVideoListener;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.facebook.ads.AbstractAdListener;
 import com.facebook.ads.Ad;
@@ -19,6 +20,10 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +35,7 @@ public class AdsManager {
 
     private Map<String, InterstitialAd> adMobAdsList;
     private Map<String, com.facebook.ads.InterstitialAd> fbAdsList;
+    private RewardedVideoAd rewardedVideoAd;
 
     private AdsManager() {
         if (Utils.isNetworkAvailable(Application.getContext()) && !SharedPrefHelper.readBoolean(Application.getContext(), AppStateManager.IS_ADS_DISABLED)) {
@@ -55,6 +61,7 @@ public class AdsManager {
             // load the ads and cache them for later use
             loadAllAdMobInterstitialAd();
             loadAllFacebookInterstitialAds();
+
         }
     }
 
@@ -232,6 +239,64 @@ public class AdsManager {
                     }
                 });
             }
+        }
+    }
+
+    private void loadRewardedVideo(Context context, RewardedVideoListener listener) {
+        if (Utils.isNetworkAvailable(context)) {
+            rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(context);
+            rewardedVideoAd.loadAd(context.getString(R.string.rewarded_ad_unit), prepareAdRequest());
+            rewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
+                @Override
+                public void onRewardedVideoAdLoaded() {
+                    Log.d(TAG, "AdMob RewardedVideoAd -> onRewardedVideoAdLoaded");
+                    if (listener != null) {
+                        listener.onRewardedVideoLoaded();
+                    }
+                }
+
+                @Override
+                public void onRewardedVideoAdOpened() {
+                }
+
+                @Override
+                public void onRewardedVideoStarted() {
+                    Log.d(TAG, "AdMob RewardedVideoAd -> onRewardedVideoStarted");
+                    if (listener != null) {
+                        listener.onRewardedVideoStarted();
+                    }
+                }
+
+                @Override
+                public void onRewardedVideoAdClosed() {
+                    Log.d(TAG, "AdMob RewardedVideoAd -> onRewardedVideoAdClosed");
+                    loadRewardedVideo(context, listener);
+                }
+
+                @Override
+                public void onRewarded(RewardItem rewardItem) {
+                }
+
+                @Override
+                public void onRewardedVideoAdLeftApplication() {
+                }
+
+                @Override
+                public void onRewardedVideoAdFailedToLoad(int i) {
+                    Log.d(TAG, "AdMob RewardedVideoAd -> onRewardedVideoAdFailedToLoad");
+                }
+
+                @Override
+                public void onRewardedVideoCompleted() {
+                    Log.d(TAG, "AdMob RewardedVideoAd -> onRewardedVideoCompleted");
+                }
+            });
+        }
+    }
+
+    public void showRewardedVideo() {
+        if (rewardedVideoAd != null && rewardedVideoAd.isLoaded()) {
+            rewardedVideoAd.show();
         }
     }
 }

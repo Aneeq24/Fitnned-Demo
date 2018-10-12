@@ -53,11 +53,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="WEIGHT"
+                android:text="Weight"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/background_light"
                 app:fontFamily="@font/roboto_bold" />
-
 
             <TextView
                 android:id="@+id/tv_weight"
@@ -133,7 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="HEIGHT"
+                android:text="Height"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/background_light"
                 app:fontFamily="@font/roboto_bold" />
@@ -280,11 +279,12 @@
 
         <TextView
             android:id="@+id/tv_result"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Your BMI"
+            android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <ImageView
@@ -298,11 +298,11 @@
         <ImageView
             android:id="@+id/img_needle"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
             android:contentDescription="@string/app_name"
+            android:paddingRight="100dp"
             android:src="@drawable/bmi_calculator_screen_bmi_meter_arrow" />
 
         <ImageView

@@ -97,14 +97,12 @@ public class ExerciseFragment extends Fragment {
         assignTopUi();
         tvExName.setText(mActivity.displayName);
 
-        int id0 = getResources().getIdentifier(mActivity.exerciseImage , "drawable", mActivity.getPackageName());
-        String path0 = "android.resource://" + mActivity.getPackageName() + "/" + id0;
         int id = getResources().getIdentifier(mActivity.exerciseImage + "_org", "drawable", mActivity.getPackageName());
         if (id != 0) {
             String path = "android.resource://" + mActivity.getPackageName() + "/" + id;
             Glide.with(this).load(path).into(imgExercise);
         }else {
-            Glide.with(this).load(mActivity.exerciseUrl).thumbnail(Glide.with(this).load(path0)).into(imgExercise);
+            Glide.with(this).load(mActivity.exerciseUrl).into(imgExercise);
         }
 
         if (!PlayingExercise.isPaused) {

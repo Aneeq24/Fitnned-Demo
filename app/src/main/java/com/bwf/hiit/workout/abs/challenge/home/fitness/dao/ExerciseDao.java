@@ -25,7 +25,7 @@ public interface ExerciseDao {
     Exercise findByIdbg(int id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insert(Exercise exercise);
+    void insert(Exercise exercise);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Exercise> exercises);

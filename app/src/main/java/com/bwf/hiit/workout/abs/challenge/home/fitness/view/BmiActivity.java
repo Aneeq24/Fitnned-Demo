@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.MyWheelPicker;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,8 @@ public class BmiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bmi);
         ButterKnife.bind(this);
+
+        AnalyticsManager.getInstance().sendAnalytics("BmiActivity", "BmiActivity");
 
         setNumbers();
 

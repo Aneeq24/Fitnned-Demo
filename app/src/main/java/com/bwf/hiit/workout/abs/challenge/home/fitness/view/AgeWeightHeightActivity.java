@@ -11,7 +11,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.UserViewModel;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.MyWheelPicker;
 import com.google.android.gms.ads.AdView;

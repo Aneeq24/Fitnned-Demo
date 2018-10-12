@@ -19,6 +19,7 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.DayAdapter;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.adapter.HomeAdapter;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.database.AppDataBase;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.CalenderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.HomeActivity;
 
@@ -65,7 +66,9 @@ public class HomeFragment extends Fragment {
         initApp();
         setDaysData(rootView);
 
-        btnMore.setOnClickListener(view12 -> startActivity(new Intent(context, CalenderActivity.class)));
+        btnMore.setOnClickListener(view12 -> {startActivity(new Intent(context, CalenderActivity.class));
+            AnalyticsManager.getInstance().sendAnalytics("Calendar_more_pressed_plan ", "Calendar_more_pressed_plan");
+        });
 
         return rootView;
     }

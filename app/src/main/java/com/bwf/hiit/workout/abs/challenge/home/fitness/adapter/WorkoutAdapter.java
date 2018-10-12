@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.DailyExerciseInfo;
 
@@ -53,7 +55,7 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.myHolder
         }
         holder.tvDayName.setText(dayName[position]);
         holder.txtTime.setText(dayTime[position]);
-        holder.itemView.setOnClickListener(view -> goToNewActivity(view.getContext(), position));
+        holder.itemView.setOnClickListener(view -> showRewardedVideo(view.getContext()));
     }
 
     @Override
@@ -76,6 +78,21 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.myHolder
             txtTime = itemView.findViewById(R.id.tv_min);
             img = itemView.findViewById(R.id.img);
         }
+    }
+
+    private void showRewardedVideo(Context context) {
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        alertDialogBuilder.setTitle(context.getString(R.string.app_name));
+        alertDialogBuilder
+                .setMessage("Do you want to open it see video?")
+                .setCancelable(false)
+                .setPositiveButton("YES", (dialog, id) -> {
+                    dialog.cancel();
+                    AdsManager.getInstance().showRewardedVideo();
+                }).setNegativeButton("NO", (dialog, id) -> dialog.cancel());
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     private void goToNewActivity(Context context, int position) {

@@ -32,7 +32,6 @@ import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.TTSManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Record;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.User;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Weight;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.repository.WeightRepo;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.CalenderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.ConfirmReminderActivity;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.PlayingExercise;
@@ -158,7 +157,9 @@ public class CompleteFragment extends Fragment {
         btnEditWeight.setOnClickListener(view1 -> showEditWeightDialog());
         btnShare.setOnClickListener(view1 -> com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils.onRateUs(context));
         tvTime.setOnClickListener(view1 -> startActivity(new Intent(context, ConfirmReminderActivity.class).putExtra("up", true)));
-        btnMore.setOnClickListener(view1 -> startActivity(new Intent(context, CalenderActivity.class)));
+        btnMore.setOnClickListener(view1 -> {startActivity(new Intent(context, CalenderActivity.class));
+            AnalyticsManager.getInstance().sendAnalytics("Calendar_more_pressed_report ", "Calendar_more_pressed_report");
+        });
 
         setReminder(context);
         setDaysData(view);
@@ -172,7 +173,6 @@ public class CompleteFragment extends Fragment {
                 initApp(user);
             }
         });
-
 
         assert getArguments() != null;
         if (getArguments().containsKey("repeat") && !getArguments().getBoolean("repeat")) {

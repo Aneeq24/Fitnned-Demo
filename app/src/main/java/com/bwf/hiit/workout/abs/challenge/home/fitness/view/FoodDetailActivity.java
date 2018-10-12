@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.fragments.DetailFragment;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.models.Url;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.KKViewPager;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.viewModel.FoodViewModel;
@@ -37,6 +38,7 @@ public class FoodDetailActivity extends AppCompatActivity {
         int pos = getIntent().getIntExtra("pos", 0);
         mPager = findViewById(R.id.pager);
         title = findViewById(R.id.tv_title);
+        AnalyticsManager.getInstance().sendAnalytics("FoodDetailActivity", "FoodDetailActivity");
 
         AdsManager.getInstance().showInterstitialAd(getString(R.string.AM_Int_Main_Menu));
 
@@ -78,6 +80,7 @@ public class FoodDetailActivity extends AppCompatActivity {
             bundle.putParcelableArrayList("content", (ArrayList<? extends Parcelable>) mList.get(position).getContent());
             Fragment fragment = new DetailFragment();
             fragment.setArguments(bundle);
+            AnalyticsManager.getInstance().sendAnalytics(mList.get(position).getTitle(), mList.get(position).getTitle());
             return fragment;
         }
 

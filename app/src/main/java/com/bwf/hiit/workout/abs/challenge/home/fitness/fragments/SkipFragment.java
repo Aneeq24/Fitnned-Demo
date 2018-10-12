@@ -12,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.SharedPrefHelper;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AdsManager;
@@ -97,14 +95,12 @@ public class SkipFragment extends Fragment {
         btnSkip.setOnClickListener(view -> startPlayingButton());
         progressBar.setOnClickListener(view -> pauseOrRenume());
         btnSound.setOnClickListener(view -> soundButton());
-        int id0 = getResources().getIdentifier(mActivity.exerciseImage , "drawable", mActivity.getPackageName());
-        String path0 = "android.resource://" + mActivity.getPackageName() + "/" + id0;
-        int id = getResources().getIdentifier(mActivity.exerciseImage + "_org", "drawable", mActivity.getPackageName());
+       int id = getResources().getIdentifier(mActivity.exerciseImage + "_org", "drawable", mActivity.getPackageName());
         if (id != 0) {
             String path = "android.resource://" + mActivity.getPackageName() + "/" + id;
             Glide.with(this).load(path).into(imgAnim);
         }else {
-            Glide.with(this).load(mActivity.exerciseUrl).thumbnail(Glide.with(this).load(path0)).into(imgAnim);
+            Glide.with(this).load(mActivity.exerciseUrl).into(imgAnim);
         }
     }
 

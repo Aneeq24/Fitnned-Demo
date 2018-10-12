@@ -62,6 +62,18 @@ public class AdsManager {
             loadAllAdMobInterstitialAd();
             loadAllFacebookInterstitialAds();
 
+            loadRewardedVideo(Application.getContext(), new RewardedVideoListener() {
+                @Override
+                public void onRewardedVideoLoaded() {
+
+                }
+
+                @Override
+                public void onRewardedVideoStarted() {
+
+                }
+            });
+
         }
     }
 

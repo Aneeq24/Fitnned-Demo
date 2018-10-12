@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="350dp"
     android:layout_margin="20dp"
-    android:background="@drawable/exercise_screen_classic_stage_bg"
+    android:background="@drawable/connect_error_dlg_bg"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Server Connection needed"
         android:textColor="@android:color/white"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
 
     <ImageView
         android:layout_width="100dp"

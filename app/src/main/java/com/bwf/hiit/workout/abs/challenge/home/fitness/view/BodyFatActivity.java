@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.helpers.MyWheelPicker;
+import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,15 +67,20 @@ public class BodyFatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_body_fat);
         ButterKnife.bind(this);
 
+        AnalyticsManager.getInstance().sendAnalytics("BodyFatActivity", "BodyFatActivity");
+
+        setMale();
         setNumbers();
 
         rgGender.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.rb_male:
                     ifMale = true;
+                    setMale();
                     break;
-                case R.id.rb_in:
+                case R.id.rb_female:
                     ifMale = false;
+                    setFemale();
                     break;
             }
         });
@@ -182,7 +188,11 @@ public class BodyFatActivity extends AppCompatActivity {
                         bfpDouble = 1.20 * bmi + 0.23 * numAge.getValue() - 5.4;
                     }
                 }
-                setImage(bmi);
+                if (ifMale) {
+                    setIfMale(bmi);
+                } else {
+                    setIfFemale(bmi);
+                }
                 tvResult.setText("Body Fat: " + mathRound(bfpDouble) + "%");
         }
     }
@@ -227,7 +237,57 @@ public class BodyFatActivity extends AppCompatActivity {
         return String.valueOf(Math.round(f));
     }
 
-    private void setImage(float bmi) {
+    private void setMale() {
+        imgUnder.setImageResource(R.drawable.bmi_n_underweight_man);
+        imgNormal.setImageResource(R.drawable.bmi_n_normal_man);
+        imgOver.setImageResource(R.drawable.bmi_n_overwight_man);
+        imgObese.setImageResource(R.drawable.bmi_n_obese_man);
+        imgHighOver.setImageResource(R.drawable.bmi_n_extremly_obese_man);
+    }
+
+    private void setFemale() {
+        imgUnder.setImageResource(R.drawable.bmi_n_underweight);
+        imgNormal.setImageResource(R.drawable.bmi_n_normal);
+        imgOver.setImageResource(R.drawable.bmi_n_overwight);
+        imgObese.setImageResource(R.drawable.bmi_n_obese);
+        imgHighOver.setImageResource(R.drawable.bmi_n_extremly_obese);
+    }
+
+    private void setIfMale(float bmi) {
+        if (bmi > 0 && bmi <= 18.5) {
+            imgUnder.setImageResource(R.drawable.bmi_s_underweight_man);
+            imgNormal.setImageResource(R.drawable.bmi_n_normal_man);
+            imgOver.setImageResource(R.drawable.bmi_n_overwight_man);
+            imgObese.setImageResource(R.drawable.bmi_n_obese_man);
+            imgHighOver.setImageResource(R.drawable.bmi_n_extremly_obese_man);
+        } else if (bmi > 18.5 && bmi <= 24.9) {
+            imgUnder.setImageResource(R.drawable.bmi_n_underweight_man);
+            imgNormal.setImageResource(R.drawable.bmi_s_normal_man);
+            imgOver.setImageResource(R.drawable.bmi_n_overwight_man);
+            imgObese.setImageResource(R.drawable.bmi_n_obese_man);
+            imgHighOver.setImageResource(R.drawable.bmi_n_extremly_obese_man);
+        } else if (bmi > 24.9 && bmi <= 29.9) {
+            imgUnder.setImageResource(R.drawable.bmi_n_underweight_man);
+            imgNormal.setImageResource(R.drawable.bmi_n_normal_man);
+            imgOver.setImageResource(R.drawable.bmi_s_overwight_man);
+            imgObese.setImageResource(R.drawable.bmi_n_obese_man);
+            imgHighOver.setImageResource(R.drawable.bmi_n_extremly_obese_man);
+        } else if (bmi > 29.9 && bmi <= 34.9) {
+            imgUnder.setImageResource(R.drawable.bmi_n_underweight_man);
+            imgNormal.setImageResource(R.drawable.bmi_n_normal_man);
+            imgOver.setImageResource(R.drawable.bmi_n_overwight_man);
+            imgObese.setImageResource(R.drawable.bmi_s_obese_man);
+            imgHighOver.setImageResource(R.drawable.bmi_n_extremly_obese_man);
+        } else if (bmi > 34.9) {
+            imgUnder.setImageResource(R.drawable.bmi_n_underweight_man);
+            imgNormal.setImageResource(R.drawable.bmi_n_normal_man);
+            imgOver.setImageResource(R.drawable.bmi_n_overwight_man);
+            imgObese.setImageResource(R.drawable.bmi_n_obese_man);
+            imgHighOver.setImageResource(R.drawable.bmi_s_extremly_obese_man);
+        }
+    }
+
+    private void setIfFemale(float bmi) {
         if (bmi > 0 && bmi <= 18.5) {
             imgUnder.setImageResource(R.drawable.bmi_s_underweight);
             imgNormal.setImageResource(R.drawable.bmi_n_normal);

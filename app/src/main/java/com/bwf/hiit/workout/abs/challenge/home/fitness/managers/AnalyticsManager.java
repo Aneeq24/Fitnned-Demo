@@ -26,6 +26,6 @@ public class AnalyticsManager {
         Bundle bundle = new Bundle();
         bundle.putString(AppStateManager.ACTION_TYPE, "Bwf_Abs_" + actionName);
         bundle.putString(FirebaseAnalytics.Param.CONTENT, "Bwf_Abs_" + actionDetail);
-        firebaseAnalytics.logEvent(actionName, bundle);
+        firebaseAnalytics.logEvent("Bwf_Abs_" + actionName, bundle);
     }
 }

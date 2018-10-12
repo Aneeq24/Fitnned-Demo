@@ -413,7 +413,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -421,36 +421,31 @@
                 android:id="@+id/img_under"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/bmi_n_underweight" />
+                android:contentDescription="@string/app_name" />
 
             <ImageView
                 android:id="@+id/img_normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/bmi_n_normal" />
+                android:contentDescription="@string/app_name" />
 
             <ImageView
                 android:id="@+id/img_over"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/bmi_n_overwight" />
+                android:contentDescription="@string/app_name" />
 
             <ImageView
                 android:id="@+id/img_obese"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/bmi_n_obese" />
+                android:contentDescription="@string/app_name" />
 
             <ImageView
                 android:id="@+id/img_high_over"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/bmi_n_extremly_obese" />
+                android:contentDescription="@string/app_name" />
 
         </LinearLayout>
 

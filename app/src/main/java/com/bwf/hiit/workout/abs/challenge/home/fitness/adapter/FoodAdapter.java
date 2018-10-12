@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.bwf.hiit.workout.abs.challenge.home.fitness.R;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.managers.AnalyticsManager;
-import com.bwf.hiit.workout.abs.challenge.home.fitness.utils.Utils;
 import com.bwf.hiit.workout.abs.challenge.home.fitness.view.FoodDetailActivity;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.myHolder> {
@@ -75,16 +74,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.myHolder> {
         }
     }
 
-    private void setScreen(Context context, int pos){
-        if (Utils.isNetworkAvailable(context)) {
-            goToNewActivity(context,pos);
-        } else
-            Utils.showConnectionDialog(context);
-    }
 
     private void goToNewActivity(Context context, int pos) {
         Intent i = new Intent(context, FoodDetailActivity.class).putExtra("pos", pos);
-        AnalyticsManager.getInstance().sendAnalytics("FoodDetailActivity", "FoodDetailActivity");
+        AnalyticsManager.getInstance().sendAnalytics(foodName[pos] + "selected", foodName[pos] + "selected");
         context.startActivity(i);
     }
 
